@@ -279,7 +279,7 @@ def nav_html(lang, current):
     return f'''<header class="site">
   <div class="wrap bar">
     <a class="brand" href="index.html">
-      <img src="../../assets/img/favicon-32.png" alt="Grenton">
+      <img src="../assets/img/favicon-32.png" alt="Grenton">
       GRENTON <span class="by">by SmartSpace</span>
     </a>
     <nav class="main">
@@ -312,7 +312,7 @@ def footer_html(lang):
 
 def page_html(key, lang):
     p = PAGES[key][lang]
-    img = f"../../assets/img/{PAGE_IMG[key]}"
+    img = f"../assets/img/{PAGE_IMG[key]}"
     cards_html = ""
     if p["cards"]:
         items = "".join(
@@ -342,9 +342,9 @@ def page_html(key, lang):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{p["title"]}</title>
-<link rel="icon" href="../../assets/img/favicon-32.png">
+<link rel="icon" href="../assets/img/favicon-32.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap">
-<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 {nav_html(lang, key)}
