@@ -1,56 +1,86 @@
 {
   "ru": {
-    "labels": {"basic": "Basic", "comfort": "Comfort", "premium": "Premium", "price_note": "цена уточняется", "upsell_title": "Рекомендуем добавить", "upsell": "Умный замок (биометрия/NFC) — сценарий «Я дома» при входе"},
+    "labels": {
+      "basic": "Basic", "comfort": "Comfort", "premium": "Premium",
+      "recommended": "Рекомендуем",
+      "price_note": "Цена по запросу · расчёт предварительный",
+      "upsell_title": "Рекомендуем добавить",
+      "upsell": "Умный замок (биометрия/NFC) — сценарий «Я дома» при входе",
+      "footnote": "Датчики дыма — уведомление в приложение, не заменяют пожарную сигнализацию здания. «Охранная сигнализация» — интеграция с системой сигнализации, не пультовая охрана.",
+      "size_title": "Пакеты для {n}-комнатной квартиры",
+      "why_comfort": "Почему Comfort? Экономия на отоплении за счёт точных графиков + автоматическое перекрытие воды при протечке, пока никого нет дома.",
+      "why_premium": "Почему Premium? Полный климат-контроль (CO₂/влажность), мультирум-аудио и единый центр управления вместо кучи пультов."
+    },
     "2": {
-      "basic":   ["Групповое управление светом (4-6 групп)", "1 термостат на квартиру", "Защита от протечки — кухня + санузел", "Видеодомофон в приложении"],
-      "comfort": ["Свет по комнатам (8-10 групп) + шторы", "Климат по зонам (2)", "Датчики движения и дыма", "Панели во всех жилых комнатах, сценарии «Кино/Сон/Ушёл»"],
-      "premium": ["Полное освещение (14-16 групп) + декор-подсветка", "Климат по зонам + контроль CO2", "Мультирум-аудио база", "Стеклянные панели во всех зонах"]
+      "basic":   ["Свет по группам, 4–6 групп", "1 Smart Panel в гостиной", "1 термостат на квартиру", "2–4 умные розетки", "Защита от протечки — кухня + санузел", "Видеодомофон в приложении"],
+      "comfort": ["Свет по комнатам, 8–10 групп + моторизованные шторы (2)", "Климат по зонам (2 зоны)", "4–6 умных розеток", "Датчики движения и дыма", "Панели во всех комнатах, сценарии «Кино / Сон / Ушёл»"],
+      "premium": ["Полное освещение, 14–16 групп + декоративная подсветка", "Климат по зонам + контроль CO₂", "8+ умных розеток", "Мультирум-аудио (базовый)", "Стеклянные панели во всех зонах"]
     },
     "3": {
-      "basic":   ["Групповое управление светом (6-8 групп)", "1 термостат на квартиру", "Защита от протечки — кухня + санузел", "Видеодомофон в приложении"],
-      "comfort": ["Свет по комнатам (12-14 групп) + шторы (2-3)", "Климат по зонам (3)", "Датчики движения и дыма", "Панели во всех жилых комнатах, сценарии"],
-      "premium": ["Полное освещение (18-22 группы) + декор-подсветка", "Климат по зонам + CO2", "Мультирум-аудио + охрана", "Стеклянные панели во всех зонах"]
+      "basic":   ["Свет по группам, 6–8 групп", "1 Smart Panel в гостиной", "1 термостат на квартиру", "3–5 умных розеток", "Защита от протечки — кухня + санузел", "Видеодомофон в приложении"],
+      "comfort": ["Свет по комнатам, 12–14 групп + моторизованные шторы (2–3)", "Климат по зонам (3 зоны)", "6–8 умных розеток", "Датчики движения и дыма", "Панели во всех комнатах, сценарии «Кино / Сон / Ушёл»"],
+      "premium": ["Полное освещение, 18–22 группы + декоративная подсветка", "Климат по зонам + контроль CO₂", "10+ умных розеток", "Мультирум-аудио + интеграция с охранной сигнализацией", "Стеклянные панели во всех зонах"]
     },
     "4": {
-      "basic":   ["Групповое управление светом (8-10 групп)", "1-2 термостата на квартиру", "Защита от протечки", "Видеодомофон в приложении"],
-      "comfort": ["Свет по комнатам (16-20 групп) + шторы (3-4)", "Климат по зонам (3-4)", "Датчики движения и дыма", "Панели во всех жилых комнатах, сценарии"],
-      "premium": ["Полное освещение (24-30 групп) + декор-подсветка", "Климат по зонам + CO2 + влажность", "Мультирум-аудио + охрана", "Стеклянные панели во всех зонах"]
+      "basic":   ["Свет по группам, 8–10 групп", "1 Smart Panel в гостиной", "1–2 термостата на квартиру", "4–6 умных розеток", "Защита от протечки — кухня + 2 санузла", "Видеодомофон в приложении"],
+      "comfort": ["Свет по комнатам, 16–20 групп + моторизованные шторы (3–4)", "Климат по зонам (3–4 зоны)", "8–10 умных розеток", "Датчики движения и дыма", "Панели во всех комнатах, сценарии «Кино / Сон / Ушёл»"],
+      "premium": ["Полное освещение, 24–30 групп + декоративная подсветка", "Климат по зонам + CO₂ + влажность", "12+ умных розеток", "Мультирум-аудио + интеграция с охранной сигнализацией", "Стеклянные панели во всех зонах"]
     }
   },
   "ro": {
-    "labels": {"basic": "Basic", "comfort": "Comfort", "premium": "Premium", "price_note": "preț la cerere", "upsell_title": "Recomandăm suplimentar", "upsell": "Yală inteligentă (biometrie/NFC) — scenariul „Am ajuns acasă” la intrare"},
+    "labels": {
+      "basic": "Basic", "comfort": "Comfort", "premium": "Premium",
+      "recommended": "Recomandat",
+      "price_note": "Preț la cerere · calcul preliminar",
+      "upsell_title": "Îți recomandăm și",
+      "upsell": "Yală inteligentă (biometrie/NFC) — scenariul „Am ajuns acasă” la intrare",
+      "footnote": "Senzorii de fum trimit notificare în aplicație și nu înlocuiesc sistemul de detecție incendiu al clădirii. „Sistem de alarmă” înseamnă integrare cu sistemul de alarmă, nu pază cu dispecerat.",
+      "size_title": "Pachete pentru apartament cu {n} camere",
+      "why_comfort": "De ce Comfort? Economie la încălzire prin programe precise + apa se oprește automat la scurgere cât timp nu e nimeni acasă.",
+      "why_premium": "De ce Premium? Climatizare completă (CO₂/umiditate), audio multiroom și un singur centru de comandă în loc de telecomenzi."
+    },
     "2": {
-      "basic":   ["Control pe grupuri de iluminat (4-6 grupuri)", "1 termostat pentru întreg apartamentul", "Protecție la scurgeri — bucătărie + baie", "Videointerfon în aplicație"],
-      "comfort": ["Iluminat pe camere (8-10 grupuri) + jaluzele electrice", "Climatizare pe zone (2)", "Senzori de mișcare și fum", "Panouri în toate camerele, scenarii „Film/Somn/Plecare”"],
-      "premium": ["Iluminat complet (14-16 grupuri) + iluminat decorativ", "Climatizare pe zone + control CO2", "Audio multi-cameră (bază)", "Panouri din sticlă în toate zonele"]
+      "basic":   ["Iluminat pe grupuri, 4–6 grupuri", "1 Smart Panel în living", "1 termostat pentru tot apartamentul", "2–4 prize inteligente", "Protecție la scurgeri de apă — bucătărie + baie", "Videointerfon în aplicație"],
+      "comfort": ["Iluminat pe camere, 8–10 grupuri + rulouri motorizate (2)", "Climatizare pe zone (2 zone)", "4–6 prize inteligente", "Senzori de mișcare și de fum", "Panouri în toate camerele, scenarii „Film / Somn / Plecare”"],
+      "premium": ["Iluminat complet, 14–16 grupuri + iluminat decorativ", "Climatizare pe zone + control CO₂", "8+ prize inteligente", "Audio multiroom (de bază)", "Panouri din sticlă în toate zonele"]
     },
     "3": {
-      "basic":   ["Control pe grupuri de iluminat (6-8 grupuri)", "1 termostat pentru întreg apartamentul", "Protecție la scurgeri — bucătărie + baie", "Videointerfon în aplicație"],
-      "comfort": ["Iluminat pe camere (12-14 grupuri) + jaluzele (2-3)", "Climatizare pe zone (3)", "Senzori de mișcare și fum", "Panouri în toate camerele, scenarii"],
-      "premium": ["Iluminat complet (18-22 grupuri) + iluminat decorativ", "Climatizare pe zone + CO2", "Audio multi-cameră + securitate", "Panouri din sticlă în toate zonele"]
+      "basic":   ["Iluminat pe grupuri, 6–8 grupuri", "1 Smart Panel în living", "1 termostat pentru tot apartamentul", "3–5 prize inteligente", "Protecție la scurgeri de apă — bucătărie + baie", "Videointerfon în aplicație"],
+      "comfort": ["Iluminat pe camere, 12–14 grupuri + rulouri motorizate (2–3)", "Climatizare pe zone (3 zone)", "6–8 prize inteligente", "Senzori de mișcare și de fum", "Panouri în toate camerele, scenarii „Film / Somn / Plecare”"],
+      "premium": ["Iluminat complet, 18–22 grupuri + iluminat decorativ", "Climatizare pe zone + control CO₂", "10+ prize inteligente", "Audio multiroom + integrare cu sistemul de alarmă", "Panouri din sticlă în toate zonele"]
     },
     "4": {
-      "basic":   ["Control pe grupuri de iluminat (8-10 grupuri)", "1-2 termostate pentru apartament", "Protecție la scurgeri", "Videointerfon în aplicație"],
-      "comfort": ["Iluminat pe camere (16-20 grupuri) + jaluzele (3-4)", "Climatizare pe zone (3-4)", "Senzori de mișcare și fum", "Panouri în toate camerele, scenarii"],
-      "premium": ["Iluminat complet (24-30 grupuri) + iluminat decorativ", "Climatizare pe zone + CO2 + umiditate", "Audio multi-cameră + securitate", "Panouri din sticlă în toate zonele"]
+      "basic":   ["Iluminat pe grupuri, 8–10 grupuri", "1 Smart Panel în living", "1–2 termostate pentru apartament", "4–6 prize inteligente", "Protecție la scurgeri de apă — bucătărie + 2 băi", "Videointerfon în aplicație"],
+      "comfort": ["Iluminat pe camere, 16–20 grupuri + rulouri motorizate (3–4)", "Climatizare pe zone (3–4 zone)", "8–10 prize inteligente", "Senzori de mișcare și de fum", "Panouri în toate camerele, scenarii „Film / Somn / Plecare”"],
+      "premium": ["Iluminat complet, 24–30 grupuri + iluminat decorativ", "Climatizare pe zone + CO₂ + umiditate", "12+ prize inteligente", "Audio multiroom + integrare cu sistemul de alarmă", "Panouri din sticlă în toate zonele"]
     }
   },
   "en": {
-    "labels": {"basic": "Basic", "comfort": "Comfort", "premium": "Premium", "price_note": "price on request", "upsell_title": "Recommended add-on", "upsell": "Smart lock (biometric/NFC) — \"I'm home\" scene on entry"},
+    "labels": {
+      "basic": "Basic", "comfort": "Comfort", "premium": "Premium",
+      "recommended": "Recommended",
+      "price_note": "Price on request · preliminary estimate",
+      "upsell_title": "Recommended add-on",
+      "upsell": "Smart lock (biometric/NFC) — \"I'm home\" scene on entry",
+      "footnote": "Smoke sensors send an app notification and do not replace the building's fire alarm. \"Alarm system\" means integration with an alarm system, not monitored security.",
+      "size_title": "Packages for a {n}-room apartment",
+      "why_comfort": "Why Comfort? Heating savings through precise schedules + water shut off automatically on a leak while nobody is home.",
+      "why_premium": "Why Premium? Full climate control (CO₂/humidity), multi-room audio and one control centre instead of a pile of remotes."
+    },
     "2": {
-      "basic":   ["Group lighting control (4-6 groups)", "1 thermostat for the whole apartment", "Leak protection — kitchen + bathroom", "Video intercom in the app"],
-      "comfort": ["Room-by-room lighting (8-10 groups) + electric curtains", "Zoned climate (2 zones)", "Motion & smoke sensors", "Panels in every room, \"Movie/Sleep/Away\" scenes"],
-      "premium": ["Full lighting (14-16 groups) + decorative lighting", "Zoned climate + CO2 control", "Multi-room audio (base)", "Glass panels in every zone"]
+      "basic":   ["Group lighting, 4–6 groups", "1 Smart Panel in the living room", "1 thermostat for the whole apartment", "2–4 smart sockets", "Leak protection — kitchen + bathroom", "Video intercom in the app"],
+      "comfort": ["Room-by-room lighting, 8–10 groups + motorised blinds (2)", "Zoned climate (2 zones)", "4–6 smart sockets", "Motion and smoke sensors", "Panels in every room, \"Movie / Sleep / Away\" scenes"],
+      "premium": ["Full lighting, 14–16 groups + decorative lighting", "Zoned climate + CO₂ control", "8+ smart sockets", "Multi-room audio (basic)", "Glass panels in every zone"]
     },
     "3": {
-      "basic":   ["Group lighting control (6-8 groups)", "1 thermostat for the whole apartment", "Leak protection — kitchen + bathroom", "Video intercom in the app"],
-      "comfort": ["Room-by-room lighting (12-14 groups) + curtains (2-3)", "Zoned climate (3 zones)", "Motion & smoke sensors", "Panels in every room, scenes"],
-      "premium": ["Full lighting (18-22 groups) + decorative lighting", "Zoned climate + CO2", "Multi-room audio + security", "Glass panels in every zone"]
+      "basic":   ["Group lighting, 6–8 groups", "1 Smart Panel in the living room", "1 thermostat for the whole apartment", "3–5 smart sockets", "Leak protection — kitchen + bathroom", "Video intercom in the app"],
+      "comfort": ["Room-by-room lighting, 12–14 groups + motorised blinds (2–3)", "Zoned climate (3 zones)", "6–8 smart sockets", "Motion and smoke sensors", "Panels in every room, \"Movie / Sleep / Away\" scenes"],
+      "premium": ["Full lighting, 18–22 groups + decorative lighting", "Zoned climate + CO₂ control", "10+ smart sockets", "Multi-room audio + alarm-system integration", "Glass panels in every zone"]
     },
     "4": {
-      "basic":   ["Group lighting control (8-10 groups)", "1-2 thermostats per apartment", "Leak protection", "Video intercom in the app"],
-      "comfort": ["Room-by-room lighting (16-20 groups) + curtains (3-4)", "Zoned climate (3-4 zones)", "Motion & smoke sensors", "Panels in every room, scenes"],
-      "premium": ["Full lighting (24-30 groups) + decorative lighting", "Zoned climate + CO2 + humidity", "Multi-room audio + security", "Glass panels in every zone"]
+      "basic":   ["Group lighting, 8–10 groups", "1 Smart Panel in the living room", "1–2 thermostats per apartment", "4–6 smart sockets", "Leak protection — kitchen + 2 bathrooms", "Video intercom in the app"],
+      "comfort": ["Room-by-room lighting, 16–20 groups + motorised blinds (3–4)", "Zoned climate (3–4 zones)", "8–10 smart sockets", "Motion and smoke sensors", "Panels in every room, \"Movie / Sleep / Away\" scenes"],
+      "premium": ["Full lighting, 24–30 groups + decorative lighting", "Zoned climate + CO₂ + humidity", "12+ smart sockets", "Multi-room audio + alarm-system integration", "Glass panels in every zone"]
     }
   }
 }

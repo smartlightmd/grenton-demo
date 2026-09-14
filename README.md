@@ -1,7 +1,7 @@
 # Grenton demo (SmartSpace)
 
 Informational demo microsite for Grenton smart-home products, presented by
-SmartSpace — the official Grenton dealer in Moldova. RO/RU/EN.
+SmartSpace — the official Grenton representative in Moldova. RO/RU/EN.
 
 Not an independent brand site: product photos belong to Grenton sp. z o.o.,
 used here as an authorized dealer showcase.
