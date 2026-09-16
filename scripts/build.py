@@ -15,6 +15,15 @@ PHONE_TEL = "+37378202020"
 LANGS = ["ro", "ru", "en"]
 LANG_LABEL = {"ro": "RO", "ru": "RU", "en": "EN"}
 OG_LOCALE = {"ro": "ro_RO", "ru": "ru_RU", "en": "en_US"}
+# Share cards rendered by scripts/og_cards.mjs (1200x630)
+OG_IMG_ALT = {
+    "grenton": {"ro": "Grenton — SmartSpace, reprezentant oficial în Moldova",
+                "ru": "Grenton — SmartSpace, официальный представитель в Молдове",
+                "en": "Grenton — SmartSpace, official representative in Moldova"},
+    "lagmar": {"ro": "Lagmar Smart Home — configurator Grenton: pachetele Basic, Comfort, Premium",
+               "ru": "Lagmar Smart Home — конфигуратор Grenton: пакеты Basic, Comfort, Premium",
+               "en": "Lagmar Smart Home — Grenton configurator: Basic, Comfort, Premium packages"},
+}
 
 NAV_LABELS = {
     "ro": {"home": "Acasă", "lagmar": "Lagmar Smart Home", "system": "Sistem", "control": "Control", "sensors": "Senzori", "contact": "Contact"},
@@ -462,6 +471,8 @@ def head_html(lang, key, title, desc, extra_jsonld=None):
     alternates = "".join(f'<link rel="alternate" hreflang="{l}" href="{BASE_URL}/{l}/{file}">' for l in LANGS)
     jsonld = [org_jsonld(lang)] + (extra_jsonld or [])
     jsonld_html = "".join(f'<script type="application/ld+json">{json.dumps(j, ensure_ascii=False)}</script>' for j in jsonld)
+    card = "lagmar" if key == "lagmar" else "grenton"
+    og_img = f"{BASE_URL}/assets/og/og-{card}-{lang}.jpg"
     return f'''<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title>
@@ -474,13 +485,16 @@ def head_html(lang, key, title, desc, extra_jsonld=None):
 <meta property="og:url" content="{BASE_URL}/{lang}/{file}">
 <meta property="og:locale" content="{OG_LOCALE[lang]}">
 <meta property="og:site_name" content="SmartSpace — Grenton Moldova">
+<meta property="og:image" content="{og_img}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{esc(OG_IMG_ALT[card][lang])}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{og_img}">
 <link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32">
 <link rel="icon" href="../assets/img/favicon-16.png" sizes="16x16">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
 <meta name="theme-color" content="#fafafa">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap">
 <link rel="stylesheet" href="../assets/css/style.css">
 {jsonld_html}'''
 

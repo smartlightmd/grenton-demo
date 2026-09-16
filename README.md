@@ -18,6 +18,16 @@ used here as an authorized dealer showcase.
 python scripts/build.py
 ```
 
+Share cards (`assets/og/og-{grenton,lagmar}-{ro,ru,en}.jpg`, 1200×630) are rendered
+separately and referenced by `build.py`; re-run after changing card text:
+
+```
+node scripts/og_cards.mjs   # needs Playwright (PLAYWRIGHT_PATH=<global node_modules>/playwright) + ImageMagick
+```
+
+Font: Manrope is self-hosted from `assets/fonts/` (SIL OFL 1.1, see `assets/fonts/OFL.txt`) —
+no requests to Google Fonts.
+
 ## Deploy
 
 Served via GitHub Pages from the `main` branch root.
