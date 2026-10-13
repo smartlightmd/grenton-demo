@@ -5,8 +5,10 @@ import json
 import os
 import re
 
-from content_pages import (CTA_LAGMAR, FEATURES, HOME_CARDS, HOW, META_DESC_NEW, SCENARIOS,
-                           TIER_CHIP)
+from content_v3 import (APP, CMP, DAY, DAY_BLINDS, DAY_LIGHTS, DAY_STATES, FEATURE_PHOTO, GAL, HOME_V3,
+                        PHOTO_ALT, PRICES, SCENE_PHOTO, fmt_eur)
+from content_pages import (CTA_LAGMAR, FEATURES, HOME_CARDS, HOME_V2, HOW, META_DESC_NEW, SCENARIOS, SL_BRANDS,
+                           SMARTLIGHT_URL, SMARTLIGHT_UTM, TIER_CHIP)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -539,8 +541,8 @@ def page_html(key, lang):
         extra = f'''<section class="block">
   <div class="wrap">
     <div class="grid">
-      <div class="card"><div class="body"><h3>📍 {c["addr"]}</h3><p>{c["note"]}</p></div></div>
-      <div class="card"><div class="body"><h3>📞 <a href="tel:{PHONE_TEL}">{c["phone"]}</a></h3><p>SmartSpace</p></div></div>
+      <div class="card"><div class="body"><h3 class="ico-h">{ico("pin")}{c["addr"]}</h3><p>{c["note"]}</p></div></div>
+      <div class="card"><div class="body"><h3 class="ico-h">{ico("phone")}<a href="tel:{PHONE_TEL}">{c["phone"]}</a></h3><p>SmartSpace</p></div></div>
     </div>
   </div>
 </section>'''
@@ -573,6 +575,7 @@ def page_html(key, lang):
 {head_html(lang, key, p["title"], META_DESC[key][lang])}
 </head>
 <body>
+{sprite_html()}
 {nav_html(lang, key)}
 <section class="hero">
   <div class="wrap">
@@ -685,7 +688,7 @@ LAGMAR_JS = r"""
       var body = document.createElement("div"); body.className = "body";
       var h3 = document.createElement("h3"); h3.textContent = PK.labels[tier] || tier;
       if (tier === "comfort") { var b = document.createElement("span"); b.className = "badge-rec"; b.textContent = PK.labels.recommended || ""; h3.appendChild(b); }
-      var pr = document.createElement("p"); pr.className = "tariff-price"; pr.textContent = PK.labels.price_note || "";
+      var pr = document.createElement("p"); pr.className = "tariff-price"; var px = PK.price_txt && PK.price_txt[String(cls)]; pr.textContent = px ? px[tier] + " · " + PK.labels.price_vat : (PK.labels.price_note || "");
       var ul = document.createElement("ul"); ul.className = "tariff-list";
       (cat[tier] || []).forEach(function (t) { var li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
       body.appendChild(h3); body.appendChild(pr); body.appendChild(ul); card.appendChild(body);
@@ -836,8 +839,8 @@ def plan_widget_html(lang, n, pk, wid, extra_cls="", hidden=False):
     w, h = PLAN_SIZE[n]
     lab = pk["labels"]
     marks = "".join(
-        f'<span class="mk mk-{t}" data-t="{tiers}" style="left:{x}%;top:{y}%" title="{esc(v["devices"][t])}"><i>{t}</i></span>'
-        for t, x, y, tiers in PLAN_MARKERS[n])
+        f'<span class="mk mk-{t}" data-t="{tiers}" style="left:{x}%;top:{y}%;--i:{i}" title="{esc(v["devices"][t])}">{ico(t)}</span>'
+        for i, (t, x, y, tiers) in enumerate(PLAN_MARKERS[n]))
     tier_btns = "".join(
         f'<button type="button" class="planx-tier" data-set-tier="{t}" aria-pressed="{"true" if t == "comfort" else "false"}">{esc(lab[t])}</button>'
         for t in ["basic", "comfort", "premium"])
@@ -846,7 +849,7 @@ def plan_widget_html(lang, n, pk, wid, extra_cls="", hidden=False):
         cnt = {k: sum(1 for m in PLAN_MARKERS[n] if m[0] == t and k in m[3]) for k in "bcp"}
         if not any(cnt.values()):
             continue
-        legend.append(f'<li class="lg-{t}" data-has="{"".join(k for k in "bcp" if cnt[k])}"><i class="mk mk-{t}"><i>{t}</i></i>'
+        legend.append(f'<li class="lg-{t}" data-has="{"".join(k for k in "bcp" if cnt[k])}"><i class="mk mk-{t}">{ico(t)}</i>'
                       f'{esc(v["devices"][t])} <b class="c-b">{cnt["b"]}</b><b class="c-c">{cnt["c"]}</b><b class="c-p">{cnt["p"]}</b></li>')
     hid = " hidden" if hidden else ""
     return f'''<figure class="planx {extra_cls}" id="{wid}" data-tier="comfort" data-cls="{n}"{hid}>
@@ -938,6 +941,7 @@ def lagmar_page_html(lang, apartments, packages_all):
 {head_html(lang, "lagmar", u["title"], META_DESC["lagmar"][lang], [faq_jsonld(lang)])}
 </head>
 <body class="theme-lagmar">
+{sprite_html()}
 {nav_html(lang, "lagmar")}
 {lagmar_hero_html(lang, u)}
 
@@ -1007,6 +1011,7 @@ def lagmar_page_html(lang, apartments, packages_all):
 <section class="block" id="packages">
   <div class="wrap">
     <h2 class="h2">{u["packages_title"]}</h2>
+    {compare_html(lang, pk, cta=False)}
     {packages_static_html(lang, pk)}
   </div>
 </section>
@@ -1024,23 +1029,91 @@ def lagmar_page_html(lang, apartments, packages_all):
 <script id="apt-data" type="application/json">{_json_for_script(apartments)}</script>
 <script id="pk-data" type="application/json">{_json_for_script(pk)}</script>
 <script>{js}</script>
+<script>{SITE_JS}</script>
 </body>
 </html>'''
 
 
+ICON_PATHS = {
+    # devices (plan markers / legends)
+    "L": '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.1V16h5v-.1c0-.8.4-1.6 1.1-2.1A6 6 0 0 0 12 3z"/>',
+    "P": '<rect x="4" y="4" width="16" height="16" rx="3"/><rect x="8.5" y="9" width="7" height="5" rx="1"/><path d="M8 17h.01M16 17h.01M8 7h.01M16 7h.01"/>',
+    "T": '<path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/><path d="M12 10v7"/>',
+    "W": '<path d="M12 3.5s6 6.4 6 10.8a6 6 0 0 1-12 0C6 9.9 12 3.5 12 3.5z"/><path d="M9.5 15a2.5 2.5 0 0 0 2.5 2.5"/>',
+    "S": '<path d="M12 3c.9 3 4.5 4.7 4.5 9a4.5 4.5 0 0 1-9 0c0-2 .9-3.3 2-4.3.2 1.6 1 2.5 2.1 2.7C11 7.9 11 5.6 12 3z"/><path d="M8 21h8"/>',
+    "M": '<circle cx="13" cy="4.5" r="1.7"/><path d="M8 21l2.6-6.2L13.5 17v4M6.5 11.5l3.2-3.2h3.9l2.2 3.2H19M11.4 8.6l-1 5.7"/>',
+    "C": '<path d="M3.5 4h17M5 4v11M19 4v11M5 7.5h14M5 11h14M5 14.5h14M12 15v3"/><circle cx="12" cy="19.5" r="1.3"/>',
+    "A": '<path d="M9 17.5V6l10-2v11.5"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="15.5" r="2.5"/>',
+    "Q": '<path d="M3 8.5h10.5a2.8 2.8 0 1 0-2.8-2.8M3 15.5h13.5a2.8 2.8 0 1 1-2.8 2.8M3 12h7"/>',
+    "I": '<rect x="6" y="3" width="12" height="18" rx="2.5"/><circle cx="12" cy="9.5" r="2.6"/><path d="M9.5 16.5h5"/>',
+    # ui
+    "check": '<path d="M5 12.5l4.2 4.2L19 7"/>',
+    "play": '<path d="M8 5.5v13l10.5-6.5z"/>',
+    "pause": '<path d="M8.5 5v14M15.5 5v14"/>',
+    "arrow": '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    "ext": '<path d="M8 16L16 8M9.5 8H16v6.5"/>',
+    "shield": '<path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.9-7.5-9.5V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/>',
+    "wifi": '<path d="M2.5 8.8a14 14 0 0 1 19 0M5.5 12.2a9.5 9.5 0 0 1 13 0M8.6 15.5a5 5 0 0 1 6.8 0"/><circle cx="12" cy="19" r="1"/><path d="M3 3l18 18"/>',
+    "tools": '<path d="M14.5 6.5a4 4 0 0 0-5.3 5.2L4 17v3h3l5.3-5.2a4 4 0 0 0 5.2-5.3l-2.6 2.6-2.4-.6-.6-2.4z"/>',
+    "pin": '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/>',
+    "phone": '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>',
+}
+ICON_FOR_GROUP = {"light": "L", "climate": "T", "safety": "W", "blinds": "C", "media": "A", "control": "P"}
+
+
+def sprite_html():
+    syms = "".join(
+        f'<symbol id="i-{k}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" '
+        f'stroke-linecap="round" stroke-linejoin="round">{v}</symbol>' for k, v in ICON_PATHS.items())
+    return f'<svg class="sprite" width="0" height="0" aria-hidden="true" style="position:absolute">{syms}</svg>'
+
+
+def ico(name, cls="ico"):
+    return f'<svg class="{cls}" aria-hidden="true" focusable="false"><use href="#i-{name}"/></svg>'
+
+
 def mk_icons(letters, lang):
     labels = LAGMAR_VIS[lang]["devices"]
-    return "".join(f'<i class="mk mk-{t}" title="{esc(labels[t])}"><i>{t}</i></i>' for t in letters)
+    return "".join(f'<i class="mk mk-{t}" title="{esc(labels[t])}">{ico(t)}</i>' for t in letters)
 
 
 def tier_chip(lang, tier):
     return f'<span class="tier tier-{tier}">{TIER_CHIP[lang][tier]}</span>'
 
 
+# assets/grenton/* sizes (width, height); names with an -800 variant get a srcset
+G_SIZE = {"app-bedroom": (480, 709), "app-saving": (1000, 666), "bath": (1600, 880), "bedroom": (1600, 880),
+          "clu": (800, 800), "hall": (1600, 900), "hallpanels": (800, 928), "hero-poster": (1280, 720),
+          "kids": (1000, 1000), "kitchen": (1600, 880), "monolith-hero": (1600, 942), "monolith-wall": (800, 933),
+          "multi-wall": (800, 933), "multisensor-poster": (720, 720), "multisensor": (800, 800), "office": (1600, 880),
+          "oled": (800, 800), "panel-poster": (960, 540), "salon": (1600, 880), "security": (768, 512),
+          "smartpanel": (800, 800), "touch-hero": (1600, 941), "touch-wall": (800, 933)}
+G_HAS_800 = {"bath", "bedroom", "hall", "kitchen", "office", "salon"}
+
+
+def gimg(name, alt, cls="", sizes="(max-width: 700px) 92vw, 45vw", eager=False):
+    w, h = G_SIZE[name]
+    src = f"../assets/grenton/{name}.webp"
+    srcset = f' srcset="../assets/grenton/{name}-800.webp 800w, {src} {w}w" sizes="{sizes}"' if name in G_HAS_800 else ""
+    load = ' fetchpriority="high"' if eager else ' loading="lazy" decoding="async"'
+    c = f' class="{cls}"' if cls else ""
+    return f'<img{c} src="{src}"{srcset} width="{w}" height="{h}" alt="{esc(alt)}"{load}>'
+
+
+def gvideo(name, poster, label, cls=""):
+    w, h = G_SIZE[poster]
+    return (f'<video class="vid {cls}" muted loop playsinline preload="none" data-auto poster="../assets/grenton/{poster}.webp" '
+            f'width="{w}" height="{h}" aria-label="{esc(label)}"><source src="../assets/grenton/{name}.mp4" type="video/mp4"></video>')
+
+
+def palt(lang, name):
+    return PHOTO_ALT[lang].get(name, "Grenton")
+
+
 def cta_lagmar_html(lang):
     c = CTA_LAGMAR[lang]
     return f'''<section class="block cta-lagmar">
-  <div class="wrap cta-lagmar-inner">
+  <div class="wrap cta-lagmar-inner rv">
     <img src="../assets/lagmar/hero-960.jpg" alt="Lagmar Smart Home" width="960" height="540" loading="lazy">
     <div>
       <h2 class="h2">{c["title"]}</h2>
@@ -1054,7 +1127,14 @@ def cta_lagmar_html(lang):
 </section>'''
 
 
-def simple_hero(eyebrow, h1, lead):
+def simple_hero(eyebrow, h1, lead, media=""):
+    if media:
+        return f'''<section class="hero hero-media">
+  <div class="wrap hero-media-grid">
+    <div><span class="eyebrow">{eyebrow}</span><h1>{h1}</h1><p class="lead">{lead}</p></div>
+    <div class="hero-media-visual">{media}</div>
+  </div>
+</section>'''
     return f'''<section class="hero">
   <div class="wrap">
     <span class="eyebrow">{eyebrow}</span>
@@ -1064,6 +1144,120 @@ def simple_hero(eyebrow, h1, lead):
 </section>'''
 
 
+SITE_JS = r"""
+(function () {
+  var d = document, each = function (l, f) { Array.prototype.forEach.call(l, f); };
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var save = navigator.connection && navigator.connection.saveData;
+  var hasIO = "IntersectionObserver" in window;
+
+  // reveal on scroll
+  if (hasIO && !reduce) {
+    d.documentElement.classList.add("js-rv");
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.06 });
+    each(d.querySelectorAll(".rv"), function (el) { io.observe(el); });
+  }
+
+  // counters
+  if (hasIO && !reduce) {
+    var co = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        co.unobserve(e.target);
+        var el = e.target, to = +el.dataset.count, sep = el.dataset.sep || " ", t0 = null;
+        function fmt(v) { return String(v).replace(/\B(?=(\d{3})+(?!\d))/g, sep); }
+        function step(ts) { if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / 1200); el.textContent = fmt(Math.round(to * (1 - Math.pow(1 - p, 3)))); if (p < 1) requestAnimationFrame(step); }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.5 });
+    each(d.querySelectorAll("[data-count]"), function (el) { co.observe(el); });
+  }
+
+  // background videos: play only when visible, never for reduced motion / data saver
+  if (hasIO && !reduce && !save) {
+    var vo = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { v.preload = "auto"; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else if (!v.paused) v.pause();
+      });
+    }, { threshold: 0.2 });
+    each(d.querySelectorAll("video[data-auto]"), function (v) { vo.observe(v); });
+  }
+
+  // package comparison: apartment size switch
+  each(d.querySelectorAll("[data-cmp-size]"), function (b) {
+    b.addEventListener("click", function () {
+      var c = b.closest(".cmp"); c.dataset.size = b.dataset.cmpSize;
+      each(c.querySelectorAll("[data-cmp-size]"), function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    });
+  });
+
+  each(d.querySelectorAll("[data-cmp-tier]"), function (b) {
+    b.addEventListener("click", function () {
+      var c = b.closest(".cmp"); c.dataset.tier = b.dataset.cmpTier;
+      each(c.querySelectorAll("[data-cmp-tier]"), function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    });
+  });
+
+  // plan widgets outside the Lagmar configurator
+  each(d.querySelectorAll(".planx[data-standalone]"), function (f) {
+    each(f.querySelectorAll("[data-set-tier]"), function (b) {
+      b.addEventListener("click", function () {
+        f.dataset.tier = b.dataset.setTier;
+        each(f.querySelectorAll("[data-set-tier]"), function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      });
+    });
+  });
+
+  // "one day in the apartment"
+  var dw = d.getElementById("day-w");
+  if (dw) {
+    var DATA = JSON.parse(d.getElementById("day-data").textContent), L = DATA.labels, S = DATA.states;
+    var cur = 0, timer = null, playBtn = d.getElementById("day-play");
+    var $ = function (id) { return d.getElementById(id); };
+    function apply(i) {
+      cur = i; var s = S[i];
+      dw.style.setProperty("--dark", s.dark);
+      var on = 0;
+      each(dw.querySelectorAll(".dl"), function (el) { var v = s.lights[el.dataset.z] || 0; el.style.opacity = v; if (v) on++; });
+      var closed = false;
+      each(dw.querySelectorAll(".db"), function (el) { var c = !!s.blinds[el.dataset.b]; el.classList.toggle("closed", c); closed = closed || c; });
+      dw.classList.toggle("is-alert", !!s.alert); dw.classList.toggle("is-audio", !!s.audio); dw.classList.toggle("is-guard", !!s.guard);
+      $("day-time").textContent = s.time; $("day-scene").textContent = s.title; $("day-text").textContent = s.text;
+      $("day-temp").textContent = s.temp; $("day-eco").hidden = !s.eco;
+      $("day-light").textContent = on ? L.zones.replace("{n}", on) : L.off;
+      $("day-blinds").textContent = closed ? L.closed : L.open;
+      $("day-clim").textContent = s.temp + " °C" + (s.eco ? " · " + L.eco : "");
+      $("day-toast").hidden = !s.alert;
+      each(dw.querySelectorAll("[data-day]"), function (b) { b.setAttribute("aria-selected", +b.dataset.day === i ? "true" : "false"); });
+    }
+    function setPlay(p) {
+      if (p && !timer) timer = setInterval(function () { apply((cur + 1) % S.length); }, 3400);
+      if (!p && timer) { clearInterval(timer); timer = null; }
+      playBtn.setAttribute("aria-pressed", p ? "true" : "false");
+      playBtn.querySelector("use").setAttribute("href", p ? "#i-pause" : "#i-play");
+      playBtn.querySelector("span").textContent = p ? L.pause : L.play;
+    }
+    each(dw.querySelectorAll("[data-day]"), function (b) { b.addEventListener("click", function () { setPlay(false); apply(+b.dataset.day); }); });
+    playBtn.addEventListener("click", function () { setPlay(!timer); });
+    apply(0);
+    if (hasIO && !reduce) {
+      var started = false;
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (e.isIntersecting && !started) { started = true; setPlay(true); }
+          else if (!e.isIntersecting && timer) setPlay(false);
+        });
+      }, { threshold: 0.45 }).observe(dw);
+    }
+  }
+})();
+"""
+
+
 def shell(lang, key, title, body, extra_jsonld=None):
     return f'''<!doctype html>
 <html lang="{lang}">
@@ -1071,52 +1265,242 @@ def shell(lang, key, title, body, extra_jsonld=None):
 {head_html(lang, key, title, META_DESC[key][lang], extra_jsonld)}
 </head>
 <body>
+{sprite_html()}
 {nav_html(lang, key)}
 {body}
 {dealer_band_html(lang)}
 {footer_html(lang)}
+<script>{SITE_JS}</script>
 </body>
 </html>'''
 
 
-def features_page_html(lang):
+# ---------------------------------------------------------------------------
+# v3 components
+
+def day_widget_html(lang, cls=""):
+    dy = DAY[lang]
+    sc = SCENARIOS[lang]["items"]
+    w, h = PLAN_SIZE["2"]
+    lights = "".join(f'<span class="dl" data-z="{z}" style="left:{x}%;top:{y}%;--s:{s}%"></span>'
+                     for z, (x, y, s) in DAY_LIGHTS.items())
+    blinds = "".join(
+        (f'<span class="db db-h" data-b="{b}" style="left:{x}%;top:{y}%;width:{ln}%"></span>' if o == "h"
+         else f'<span class="db db-v" data-b="{b}" style="left:{x}%;top:{y}%;height:{ln}%"></span>')
+        for b, (o, x, y, ln) in DAY_BLINDS.items())
+    states = []
+    for st in DAY_STATES:
+        t, title, text, _dev, _tier = sc[st["sc"]]
+        states.append(dict(st, time=t, title=title, text=text))
+    data = {"labels": {k: dy[k] for k in ("zones", "off", "open", "closed", "eco", "play", "pause")}, "states": states}
+    tabs = "".join(
+        f'<button type="button" role="tab" data-day="{i}" aria-selected="{"true" if i == 0 else "false"}">'
+        f'<span class="t">{s["time"]}</span><span class="n">{s["title"]}</span></button>'
+        for i, s in enumerate(states))
+    s0 = states[0]
+    return f'''<div class="day rv {cls}" id="day-w" style="--dark:{s0["dark"]}">
+  <div class="day-stage">
+    <div class="day-canvas">
+      <img src="../assets/lagmar/plans/plan-2.png" width="{w}" height="{h}" alt="{esc(dy["plan_alt"])}" loading="lazy">
+      <span class="day-night"></span>{lights}{blinds}
+      <span class="day-pin day-pin-alert" style="left:90%;top:55%">{ico("W")}</span>
+      <span class="day-pin day-pin-audio" style="left:24%;top:88%">{ico("A")}</span>
+      <span class="day-guard">{ico("shield")}{dy["guard"]}</span>
+    </div>
+  </div>
+  <div class="day-side">
+    <div class="day-panel" aria-live="polite">
+      <div class="dp-row"><span class="dp-time" id="day-time">{s0["time"]}</span><span class="dp-temp"><b id="day-temp">{s0["temp"]}</b>°C <em id="day-eco" hidden>{dy["eco"]}</em></span></div>
+      <div class="dp-scene" id="day-scene">{s0["title"]}</div>
+      <div class="dp-dots"><i></i><i></i><i></i><i></i></div>
+    </div>
+    <p class="day-text" id="day-text">{s0["text"]}</p>
+    <ul class="day-chips">
+      <li>{ico("L")}<span>{dy["light"]}</span><b id="day-light"></b></li>
+      <li>{ico("C")}<span>{dy["blinds"]}</span><b id="day-blinds"></b></li>
+      <li>{ico("T")}<span>{dy["climate"]}</span><b id="day-clim"></b></li>
+    </ul>
+    <div class="day-toast" id="day-toast" hidden>{ico("W")}<div><b>{dy["alert"]}</b><span>{dy["alert_sub"]}</span></div></div>
+  </div>
+  <div class="day-scrub">
+    <div class="day-tabs" role="tablist">{tabs}</div>
+    <button type="button" class="day-play" id="day-play" aria-pressed="false">{ico("play")}<span>{dy["play"]}</span></button>
+  </div>
+  <script id="day-data" type="application/json">{_json_for_script(data)}</script>
+</div>'''
+
+
+def day_section_html(lang, alt=False, more=True):
+    dy = DAY[lang]
+    more_btn = (f'<a class="btn btn-ghost" href="scenarios.html">{dy["more"]} {ico("arrow")}</a>' if more else "")
+    return f'''<section class="block{" alt" if alt else ""} day-sec" id="day">
+  <div class="wrap">
+    <div class="section-head rv">
+      <div><span class="eyebrow">{dy["eyebrow"]}</span><h2 class="h2">{dy["title"]}</h2><p class="sub">{dy["sub"]}</p></div>
+      {more_btn}
+    </div>
+    {day_widget_html(lang)}
+  </div>
+</section>'''
+
+
+def compare_html(lang, pk, cta=True):
+    c = CMP[lang]
+    lab = pk["labels"]
+    tiers = ["basic", "comfort", "premium"]
+
+    def cell(v):
+        if v == "Y":
+            return f'<span class="yes">{ico("check")}<span class="sr">{c["yes"]}</span></span>'
+        if v == "N":
+            return f'<span class="no" aria-label="{c["no"]}">—</span>'
+        return v
+    head = "".join(
+        f'<th scope="col" class="tc-{t}">{esc(lab[t])}' + (f'<em>{esc(lab["recommended"])}</em>' if t == "comfort" else "") + "</th>"
+        for t in tiers)
+    rows = "".join(
+        f'<tr><th scope="row">{r[0]}</th>' + "".join(f'<td class="tc-{t}">{cell(v)}</td>' for t, v in zip(tiers, r[1:])) + "</tr>"
+        for r in c["rows"] if tuple(r[1:]) != ("Y", "Y", "Y"))
+    common = [r[0] for r in c["rows"] if tuple(r[1:]) == ("Y", "Y", "Y")]
+    common_html = (f'<p class="cmp-all">{ico("check")}<span><b>{c["all"]}:</b> ' + " · ".join(common) + "</span></p>") if common else ""
+    price_cells = "".join(
+        f'<td class="tc-{t} cmp-price">' + "".join(
+            f'<span class="pz pz-{n}">{c["price_from"].replace("{p}", fmt_eur(PRICES[n][t], lang))}</span>' for n in ["2", "3", "4"])
+        + "</td>" for t in tiers)
+    sizes = "".join(
+        f'<button type="button" data-cmp-size="{n}" aria-pressed="{"true" if n == "2" else "false"}">{c["sizes"][n]}</button>'
+        for n in ["2", "3", "4"])
+    cta_html = (f'<a class="btn btn-primary" href="lagmar.html#step1">{c["cta"]}</a>' if cta else "")
+    mtiers = "".join(
+        f'<button type="button" data-cmp-tier="{t}" aria-pressed="{"true" if t == "comfort" else "false"}">{esc(lab[t])}</button>'
+        for t in tiers)
+    return f'''<div class="cmp rv" data-size="2" data-tier="comfort">
+  <div class="cmp-sizes" role="group" aria-label="{c["size_label"]}"><span>{c["size_label"]}:</span>{sizes}</div>
+  <div class="cmp-tiers" role="group">{mtiers}</div>
+  <table class="cmp-table">
+    <thead><tr><th scope="col" class="cmp-feat">{c["feature"]}</th>{head}</tr></thead>
+    <tbody>{rows}</tbody>
+    <tfoot><tr><th scope="row">{c["price"]}</th>{price_cells}</tr></tfoot>
+  </table>
+  {common_html}
+  <div class="cmp-foot"><p class="cmp-note">{c["price_note"]}</p>{cta_html}</div>
+</div>'''
+
+
+def compare_section_html(lang, pk, alt=False, sid="compare"):
+    c = CMP[lang]
+    return f'''<section class="block{" alt" if alt else ""}" id="{sid}">
+  <div class="wrap">
+    <div class="rv"><span class="eyebrow">{c["eyebrow"]}</span><h2 class="h2">{c["title"]}</h2><p class="sub">{c["sub"]}</p></div>
+    {compare_html(lang, pk)}
+  </div>
+</section>'''
+
+
+def finishes_html(lang):
+    g = GAL[lang]
+    sw = "".join(f'<li><span class="sw" style="background-image:url(../assets/grenton/mono-{k}.webp)"></span>{n}</li>'
+                 for k, n in g["finishes"])
+    return f'<div class="finishes"><span>{g["finish_label"]}</span><ul>{sw}</ul></div>'
+
+
+def gallery_html(lang, alt=True):
+    g = GAL[lang]
+    it = g["items"]
+    h3 = HOME_V3[lang]
+
+    def card(key, media, cls=""):
+        t, d = it[key]
+        return f'<article class="gal-item rv {cls}"><div class="gal-media">{media}</div><div class="gal-body"><h3>{t}</h3><p>{d}</p></div></article>'
+    items = (
+        card("panel", gvideo("panel", "panel-poster", "Grenton Smart Panel"), "gal-wide")
+        + card("multi", gvideo("multisensor", "multisensor-poster", "Grenton Multisensor"), "gal-dark")
+        + card("monolith", gimg("monolith-wall", "Grenton Monolith", sizes="(max-width: 700px) 82vw, 30vw") + finishes_html(lang))
+        + card("touch", gimg("touch-wall", "Grenton Touch Panel", sizes="(max-width: 700px) 82vw, 30vw"))
+        + card("clu", gimg("clu", "Grenton CLU", sizes="(max-width: 700px) 82vw, 30vw"), "gal-paper")
+    )
+    return f'''<section class="block{" alt" if alt else ""}" id="products">
+  <div class="wrap">
+    <div class="section-head rv">
+      <div><span class="eyebrow">{g["eyebrow"]}</span><h2 class="h2">{g["title"]}</h2><p class="sub">{g["sub"]}</p></div>
+      <a class="btn btn-ghost" href="how.html">{h3["gallery_more"]} {ico("arrow")}</a>
+    </div>
+    <div class="gal rail">{items}</div>
+    <p class="credit">{g["credit"]}</p>
+  </div>
+</section>'''
+
+
+def app_html(lang, alt=False, cls=""):
+    a = APP[lang]
+    lis = "".join(f"<li>{ico('check')}<span>{b}</span></li>" for b in a["bullets"])
+    return f'''<section class="block{" alt" if alt else ""} app-sec {cls}" id="app">
+  <div class="wrap app-grid">
+    <div class="phone-wrap rv">
+      <div class="phone"><div class="phone-notch"></div>{gimg("app-bedroom", "myGrenton", sizes="(max-width: 700px) 60vw, 18rem")}</div>
+      <div class="float-card fc-app">{ico("W", "ico fc-ico")}<div><b>{DAY[lang]["alert"]}</b><span>{DAY[lang]["alert_sub"]}</span></div></div>
+    </div>
+    <div class="rv">
+      <span class="eyebrow">{a["eyebrow"]}</span>
+      <h2 class="h2">{a["title"]}</h2>
+      <p class="sub">{a["text"]}</p>
+      <ul class="checks">{lis}</ul>
+    </div>
+  </div>
+</section>'''
+
+
+# ---------------------------------------------------------------------------
+# pages
+
+def features_page_html(lang, packages_all):
     f = FEATURES[lang]
-    groups = []
+    rows = []
     for i, g in enumerate(f["groups"]):
         items = "".join(f'<li><span class="feat-text">{t}</span>{tier_chip(lang, tier)}</li>' for t, tier in g["items"])
-        groups.append(f'''<article class="feat" id="{g["id"]}">
-      <div class="feat-head">
-        <span class="feat-icon mk mk-{g["icon"]}"><i>{g["icon"]}</i></span>
+        ph = FEATURE_PHOTO[g["id"]]
+        rows.append(f'''<article class="frow rv" id="{g["id"]}">
+      <div class="frow-media">{gimg(ph, palt(lang, ph))}<span class="frow-ico mk mk-{ICON_FOR_GROUP[g["id"]]}">{ico(ICON_FOR_GROUP[g["id"]])}</span></div>
+      <div class="frow-text">
         <span class="feat-num">{i + 1:02d}</span>
+        <h2 class="feat-title">{g["title"]}</h2>
+        <p class="feat-benefit">{g["benefit"]}</p>
+        <ul class="feat-list">{items}</ul>
       </div>
-      <h2 class="feat-title">{g["title"]}</h2>
-      <p class="feat-benefit">{g["benefit"]}</p>
-      <ul class="feat-list">{items}</ul>
     </article>''')
-    body = simple_hero(f["eyebrow"], f["h1"], f["lead"]) + f'''
+    hero_media = gvideo("hero", "hero-poster", HOME_V3[lang]["video_label"], "hero-media-vid")
+    body = simple_hero(f["eyebrow"], f["h1"], f["lead"], hero_media) + f'''
 <section class="block alt">
-  <div class="wrap feat-grid">
-    {"".join(groups)}
+  <div class="wrap frows">
+    {"".join(rows)}
   </div>
 </section>
+{compare_section_html(lang, packages_all[lang])}
 {cta_lagmar_html(lang)}'''
     return shell(lang, "features", f["title"], body)
 
 
 def scenarios_page_html(lang):
     sc = SCENARIOS[lang]
-    items = "".join(f'''<li class="scene">
+    items = []
+    for i, (t, title, text, dev, tier) in enumerate(sc["items"]):
+        ph = SCENE_PHOTO[i] if i < len(SCENE_PHOTO) else "salon"
+        items.append(f'''<li class="scene rv">
       <div class="scene-time">{t}</div>
       <div class="scene-card">
-        <div class="scene-top"><h2 class="scene-title">{title}</h2>{tier_chip(lang, tier)}</div>
-        <p>{text}</p>
-        <div class="scene-devices">{mk_icons(dev, lang)}</div>
+        <div class="scene-body">
+          <div class="scene-top"><h2 class="scene-title">{title}</h2>{tier_chip(lang, tier)}</div>
+          <p>{text}</p>
+          <div class="scene-devices">{mk_icons(dev, lang)}</div>
+        </div>
+        <div class="scene-photo">{gimg(ph, palt(lang, ph), sizes="(max-width: 600px) 90vw, 16rem")}</div>
       </div>
-    </li>''' for t, title, text, dev, tier in sc["items"])
+    </li>''')
     body = simple_hero(sc["eyebrow"], sc["h1"], sc["lead"]) + f'''
-<section class="block alt">
+{day_section_html(lang, alt=True, more=False)}
+<section class="block">
   <div class="wrap">
-    <ol class="timeline">{items}</ol>
+    <ol class="timeline">{"".join(items)}</ol>
     <p class="cfg-note scene-note">{sc["note"]}</p>
   </div>
 </section>
@@ -1126,35 +1510,160 @@ def scenarios_page_html(lang):
 
 def how_page_html(lang):
     h = HOW[lang]
+    visuals = [gimg("clu", "Grenton CLU", sizes="16rem"), None,
+               gvideo("multisensor", "multisensor-poster", "Grenton Multisensor"),
+               gvideo("panel", "panel-poster", "Grenton Smart Panel")]
     layers = []
-    for img, icons, title, text in h["layers"]:
-        visual = (f'<img src="../assets/img/{img}" alt="{esc(title)}" loading="lazy">' if img
-                  else f'<div class="layer-icons">{mk_icons(icons, lang)}</div>')
-        layers.append(f'<article class="layer"><div class="layer-visual">{visual}</div><h3>{title}</h3><p>{text}</p></article>')
-    steps = "".join(f'<li class="step"><span class="step-n">{i}</span><h3>{t}</h3><p>{d}</p></li>'
+    for i, (img, icons, title, text) in enumerate(h["layers"]):
+        vis = visuals[i] if i < len(visuals) and visuals[i] else f'<div class="layer-icons">{mk_icons(icons, lang)}</div>'
+        layers.append(f'<article class="layer rv" style="--d:{i}"><div class="layer-visual">{vis}</div><h3>{title}</h3><p>{text}</p></article>')
+    steps = "".join(f'<li class="step rv" style="--d:{i}"><span class="step-n">{i}</span><h3>{t}</h3><p>{d}</p></li>'
                     for i, (t, d) in enumerate(h["steps"], 1))
-    why = "".join(f'<div class="why"><h3>{t}</h3><p>{d}</p></div>' for t, d in h["why"])
+    why_ic = ["wifi", "shield", "tools", "check"]
+    why = "".join(f'<div class="why rv" style="--d:{i}">{ico(why_ic[i % 4], "ico why-ico")}<h3>{t}</h3><p>{d}</p></div>'
+                  for i, (t, d) in enumerate(h["why"]))
+    g = GAL[lang]
+    t_mono, d_mono = g["items"]["monolith"]
     body = simple_hero(h["eyebrow"], h["h1"], h["lead"]) + f'''
 <section class="block alt" id="interfaces">
   <div class="wrap">
-    <h2 class="h2">{h["layers_title"]}</h2>
+    <h2 class="h2 rv">{h["layers_title"]}</h2>
     <div class="layers">{"".join(layers)}</div>
+  </div>
+</section>
+<section class="mono-band" aria-label="Monolith">
+  {gimg("monolith-hero", "Grenton Monolith", "mono-bg", sizes="100vw")}
+  <div class="wrap mono-inner rv">
+    <span class="eyebrow">{g["eyebrow"]}</span>
+    <h2 class="h2">{t_mono}</h2>
+    <p class="sub">{d_mono}</p>
+    {finishes_html(lang)}
+  </div>
+</section>
+{app_html(lang)}
+<section class="block alt">
+  <div class="wrap">
+    <h2 class="h2 rv">{h["process_title"]}</h2>
+    <ol class="steps rail">{steps}</ol>
   </div>
 </section>
 <section class="block">
   <div class="wrap">
-    <h2 class="h2">{h["process_title"]}</h2>
-    <ol class="steps">{steps}</ol>
-  </div>
-</section>
-<section class="block alt">
-  <div class="wrap">
-    <h2 class="h2">{h["why_title"]}</h2>
+    <h2 class="h2 rv">{h["why_title"]}</h2>
     <div class="why-grid">{why}</div>
   </div>
 </section>
 {cta_lagmar_html(lang)}'''
     return shell(lang, "how", h["title"], body)
+
+
+def home_page_html(lang, packages_all):
+    h = HOME_V2[lang]
+    h3 = HOME_V3[lang]
+    pk = packages_all[lang]
+    hl = HOME_LAGMAR[lang]
+    v = LAGMAR_VIS[lang]
+    trust_ic = ["shield", "wifi", "tools"]
+    trust = "".join(f'<li>{ico(trust_ic[i])}{t}</li>' for i, t in enumerate(h["trust"]))
+
+    def floatcard(cls, dd):
+        icon, title, sub = dd
+        return (f'<div class="float-card {cls}"><span class="mk mk-{icon}">{ico(icon)}</span>'
+                f'<div><b>{title}</b><span>{sub}</span></div></div>')
+
+    groups = {g["id"]: g for g in FEATURES[lang]["groups"]}
+    outcomes = "".join(
+        f'<a class="outcome rv" style="--d:{i}" href="features.html#{gid}">'
+        f'<div class="outcome-media">{gimg(FEATURE_PHOTO[gid], palt(lang, FEATURE_PHOTO[gid]), sizes="(max-width: 700px) 80vw, 24vw")}'
+        f'<span class="mk mk-{ICON_FOR_GROUP[gid]} outcome-icon">{ico(ICON_FOR_GROUP[gid])}</span></div>'
+        f'<div class="outcome-body"><h3>{groups[gid]["title"]}</h3><p>{groups[gid]["benefit"]}</p>'
+        f'<span class="more">{h["out_more"]} {ico("arrow")}</span></div></a>'
+        for i, gid in enumerate(["light", "climate", "safety", "control"]))
+    steps = "".join(f'<li class="step rv" style="--d:{i}"><span class="step-n">{i}</span><h3>{t}</h3><p>{d}</p></li>'
+                    for i, (t, d) in enumerate(HOW[lang]["steps"], 1))
+    sl_href = SMARTLIGHT_URL[lang] + SMARTLIGHT_UTM
+    sl_brands = "".join(f"<li>{b}</li>" for b in SL_BRANDS)
+    sep = "," if lang == "en" else " "
+
+    def stat(a, b):
+        digits = a.replace(" ", "").replace(",", "").replace(" ", "")
+        cnt = f' data-count="{digits}" data-sep="{sep}"' if digits.isdigit() else ""
+        return f'<li><b{cnt}>{esc(a)}</b><span>{esc(b)}</span></li>'
+    stats = "".join(stat(a, b) for a, b in v["stats"])
+
+    body = f'''<section class="vhero">
+  {gvideo("hero", "hero-poster", h3["video_label"], "vhero-video")}
+  <div class="wrap vhero-inner">
+    <div class="vhero-copy">
+      <span class="eyebrow">{h["eyebrow"]}</span>
+      <h1>{h["h1"]}</h1>
+      <p class="lead">{h["lead"]}</p>
+      <div class="cta-row cta-left">
+        <a class="btn btn-primary" href="lagmar.html">{h["cta1"]}</a>
+        <a class="btn btn-light" href="#day">{DAY[lang]["play"]} {ico("play")}</a>
+      </div>
+      <ul class="trust">{trust}</ul>
+    </div>
+    <div class="vhero-cards">
+      {floatcard("fc-1", h["float1"])}
+      {floatcard("fc-2", h["float2"])}
+    </div>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="rv"><span class="eyebrow">{h["out_eyebrow"]}</span><h2 class="h2">{h3["out_title"]}</h2></div>
+    <div class="outcomes rail">{outcomes}</div>
+  </div>
+</section>
+
+{day_section_html(lang)}
+
+{compare_section_html(lang, pk, alt=True)}
+
+<section class="block lagmar-block" id="lagmar">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eyebrow">{h3["lagmar_ref"]} · {hl["eyebrow"]}</span>
+      <h2 class="h2">{hl["h2"]}</h2>
+      <p class="sub">{hl["p"]}</p>
+      <ul class="mini-stats">{stats}</ul>
+      <a class="btn btn-primary" href="lagmar.html">{hl["cta"]}</a>
+    </div>
+    <a href="lagmar.html" class="lagmar-teaser rv"><img class="rounded" src="../assets/lagmar/aerial.jpg" alt="Lagmar Smart Home" width="1600" height="828" loading="lazy"><img class="lagmar-teaser-logo" src="../assets/lagmar/logo-lagmar.png" alt="" width="140" height="42"></a>
+  </div>
+</section>
+
+{gallery_html(lang)}
+
+{app_html(lang, cls="app-home")}
+
+<section class="sl-banner" aria-label="SmartLight">
+  <div class="wrap sl-inner">
+    <div class="sl-copy rv">
+      <span class="sl-wordmark">SMART<b>LIGHT</b></span>
+      <span class="sl-eyebrow">{h["sl_eyebrow"]}</span>
+      <h2>{h["sl_title"]}</h2>
+      <p>{h["sl_text"]}</p>
+      <ul class="sl-brands">{sl_brands}</ul>
+      <a class="btn sl-btn" href="{sl_href}" rel="noopener">{h["sl_cta"]} {ico("ext")}</a>
+    </div>
+    <div class="sl-photo rv">
+      <img src="../assets/smartlight/banner-960.jpg" srcset="../assets/smartlight/banner-960.jpg 960w, ../assets/smartlight/banner.jpg 1440w" sizes="(max-width: 860px) 100vw, 40vw" width="960" height="1200" alt="Vibia Array — SmartLight" loading="lazy">
+      <img class="sl-product" src="../assets/smartlight/taccia.jpg" width="600" height="840" alt="Flos Taccia — SmartLight" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="rv"><span class="eyebrow">{h["steps_eyebrow"]}</span><h2 class="h2">{h["steps_title"]}</h2></div>
+    <ol class="steps rail">{steps}</ol>
+  </div>
+</section>'''
+    return shell(lang, "home", h["title"], body)
+
 
 
 def legacy_redirect_html(target):
@@ -1271,16 +1780,24 @@ def _write(rel, text):
 def main():
     apartments = _load_json("assets/data/apartments.json")
     packages_all = _load_json("assets/data/packages.json")
+    vat = {"ru": "без НДС, ориентировочно", "ro": "fără TVA, orientativ", "en": "excl. VAT, indicative"}
+    for lang in LANGS:
+        pk = packages_all[lang]
+        pk["labels"]["price_vat"] = vat[lang]
+        pk["price_txt"] = {n: {t: CMP[lang]["price_from"].replace("{p}", fmt_eur(v, lang)) for t, v in tiers.items()}
+                           for n, tiers in PRICES.items()}
     for lang in LANGS:
         for key in PAGE_ORDER:
             if key == "lagmar":
                 html = lagmar_page_html(lang, apartments, packages_all)
             elif key == "features":
-                html = features_page_html(lang)
+                html = features_page_html(lang, packages_all)
             elif key == "scenarios":
                 html = scenarios_page_html(lang)
             elif key == "how":
                 html = how_page_html(lang)
+            elif key == "home":
+                html = home_page_html(lang, packages_all)
             else:
                 html = page_html(key, lang)
             html = typo(html, lang)
