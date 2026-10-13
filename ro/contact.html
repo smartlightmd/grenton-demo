@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Contact — SmartSpace, reprezentant oficial Grenton în Moldova</title>
+<title>Contact — SmartSpace, reprezentant oficial Grenton în Moldova</title>
 <meta name="description" content="Consultație gratuită SmartSpace, reprezentant oficial Grenton în Moldova: Strada Pajurii 11, Chișinău, +373 78 202 020. Proiectare, montaj și service.">
 <link rel="canonical" href="https://smartlightmd.github.io/grenton-demo/ro/contact.html">
 <link rel="alternate" hreflang="ro" href="https://smartlightmd.github.io/grenton-demo/ro/contact.html"><link rel="alternate" hreflang="ru" href="https://smartlightmd.github.io/grenton-demo/ru/contact.html"><link rel="alternate" hreflang="en" href="https://smartlightmd.github.io/grenton-demo/en/contact.html"><link rel="alternate" hreflang="x-default" href="https://smartlightmd.github.io/grenton-demo/ro/contact.html">
@@ -22,7 +22,10 @@
 <link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32">
 <link rel="icon" href="../assets/img/favicon-16.png" sizes="16x16">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-<meta name="theme-color" content="#fafafa">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
+<script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
 <link rel="stylesheet" href="../assets/css/style.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://smartspace.md/#org", "name": "SmartSpace", "url": "https://smartspace.md/", "telephone": "+37378202020", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "sameAs": ["https://smartspace.md/", "https://smartlight.md/"]}</script>
 </head>
@@ -34,19 +37,26 @@
       GRENTON <span class="by">by SmartSpace</span>
     </a>
     <nav class="main" aria-label="Main">
-      <a href="index.html">Acasă</a><a href="lagmar.html">Lagmar Smart Home</a><a href="system.html">Sistem</a><a href="control.html">Control</a><a href="sensors.html">Senzori</a><a class="active" href="contact.html">Contact</a>
-      <div class="langs"><a class="active" href="../ro/contact.html" hreflang="ro">RO</a><a href="../ru/contact.html" hreflang="ru">RU</a><a href="../en/contact.html" hreflang="en">EN</a></div>
+      <a href="index.html">Acasă</a><a href="lagmar.html">Lagmar Smart Home</a><a href="features.html">Funcții</a><a href="scenarios.html">Scenarii</a><a href="how.html">Cum funcționează</a><a class="active" href="contact.html">Contact</a>
     </nav>
+    <div class="controls">
+      <div class="langs"><a class="active" href="../ro/contact.html" hreflang="ro">RO</a><a href="../ru/contact.html" hreflang="ru">RU</a><a href="../en/contact.html" hreflang="en">EN</a></div>
+      <button type="button" class="theme-toggle" aria-label="Schimbă tema" title="Schimbă tema">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+      </button>
+    </div>
   </div>
 </header>
+<script>(function(){var b=document.querySelector(".theme-toggle");if(!b)return;var m=window.matchMedia("(prefers-color-scheme: dark)");b.addEventListener("click",function(){var r=document.documentElement,cur=r.dataset.theme||(m.matches?"dark":"light"),n=cur==="dark"?"light":"dark";r.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}});})();</script>
 <section class="hero">
   <div class="wrap">
-    <span class="eyebrow">Hai să vorbim</span>
-    <h1>Programează o consultație gratuită</h1>
-    <p class="lead">Echipa SmartSpace te ajută să alegi configurația Grenton potrivită pentru proiectul tău — apartament, casă sau clădire.</p>
+    <span class="eyebrow">Hai să vorbim</span>
+    <h1>Programează o consultație gratuită</h1>
+    <p class="lead">Echipa SmartSpace te ajută să alegi configurația Grenton potrivită pentru proiectul tău — apartament, casă sau clădire.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="tel:+37378202020">Sună acum</a>
-      <a class="btn btn-ghost" href="system.html">Vezi sistemul</a>
+      <a class="btn btn-ghost" href="how.html">Cum funcționează</a>
     </div>
   </div>
 </section>
@@ -64,22 +74,23 @@
 <section class="block">
   <div class="wrap">
     <div class="grid">
-      <div class="card"><div class="body"><h3>📍 Strada Pajurii 11, MD-2059 Chișinău</h3><p>Programare vizită / consultație gratuită</p></div></div>
-      <div class="card"><div class="body"><h3>📞 <a href="tel:+37378202020">+373 78 202 020</a></h3><p>SmartSpace</p></div></div>
+      <div class="card"><div class="body"><h3>📍 Strada Pajurii 11, MD-2059 Chișinău</h3><p>Programare vizită / consultație gratuită</p></div></div>
+      <div class="card"><div class="body"><h3>📞 <a href="tel:+37378202020">+373 78 202 020</a></h3><p>SmartSpace</p></div></div>
     </div>
   </div>
 </section>
+
 <section class="dealer-band">
   <div class="wrap">
-    <h2>SmartSpace — reprezentant oficial Grenton în Moldova</h2>
-    <p>Consultanță, proiectare, montaj și service pentru sistemul Grenton — de la un singur apartament până la clădiri întregi.</p>
-    <a class="btn btn-accent" href="contact.html">Solicită o ofertă</a>
+    <h2>SmartSpace — reprezentant oficial Grenton în Moldova</h2>
+    <p>Consultanță, proiectare, montaj și service pentru sistemul Grenton — de la un singur apartament până la clădiri întregi.</p>
+    <a class="btn btn-accent" href="contact.html">Solicită o ofertă</a>
   </div>
 </section>
 <footer class="site">
   <div class="wrap">
-    <div>SmartSpace · Strada Pajurii 11, MD-2059 Chișinău · <a href="tel:+37378202020">+373 78 202 020</a></div>
-    <div class="disclaimer">Site informativ realizat de SmartSpace, reprezentant oficial Grenton în Moldova. Fotografiile produselor aparțin Grenton sp. z o.o. · <a href="https://smartspace.md/privacy" rel="noopener">Politica de confidențialitate</a></div>
+    <div>SmartSpace · Strada Pajurii 11, MD-2059 Chișinău · <a href="tel:+37378202020">+373 78 202 020</a></div>
+    <div class="disclaimer">Site informativ realizat de SmartSpace, reprezentant oficial Grenton în Moldova. Fotografiile produselor aparțin Grenton sp. z o.o. · <a href="https://smartspace.md/privacy" rel="noopener">Politica de confidențialitate</a></div>
   </div>
 </footer>
 </body>

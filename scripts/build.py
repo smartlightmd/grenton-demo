@@ -3,6 +3,10 @@
 import html as _html
 import json
 import os
+import re
+
+from content_pages import (CTA_LAGMAR, FEATURES, HOME_CARDS, HOW, META_DESC_NEW, SCENARIOS,
+                           TIER_CHIP)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,10 +30,11 @@ OG_IMG_ALT = {
 }
 
 NAV_LABELS = {
-    "ro": {"home": "Acasă", "lagmar": "Lagmar Smart Home", "system": "Sistem", "control": "Control", "sensors": "Senzori", "contact": "Contact"},
-    "ru": {"home": "Главная", "lagmar": "Lagmar Smart Home", "system": "Система", "control": "Управление", "sensors": "Датчики", "contact": "Контакты"},
-    "en": {"home": "Home", "lagmar": "Lagmar Smart Home", "system": "System", "control": "Control", "sensors": "Sensors", "contact": "Contact"},
+    "ro": {"home": "Acasă", "lagmar": "Lagmar Smart Home", "features": "Funcții", "scenarios": "Scenarii", "how": "Cum funcționează", "contact": "Contact"},
+    "ru": {"home": "Главная", "lagmar": "Lagmar Smart Home", "features": "Возможности", "scenarios": "Сценарии", "how": "Как это работает", "contact": "Контакты"},
+    "en": {"home": "Home", "lagmar": "Lagmar Smart Home", "features": "Features", "scenarios": "Scenes", "how": "How it works", "contact": "Contact"},
 }
+THEME_LABEL = {"ro": "Schimbă tema", "ru": "Переключить тему", "en": "Toggle theme"}
 
 BUILDINGS = list("ABCDEFGHIJK")
 
@@ -78,21 +83,6 @@ META_DESC = {
         "ru": "Grenton — система умного дома из Польши: свет, климат, шторы, аудио и безопасность в одной экосистеме. SmartSpace — официальный представитель Grenton в Молдове.",
         "en": "Grenton — a Polish smart-home system: lighting, climate, blinds, audio and security in one ecosystem. SmartSpace, official Grenton representative in Moldova.",
     },
-    "system": {
-        "ro": "CLU (Common Logic Unit) — unitatea centrală Grenton: rulează scenariile local, fără internet obligatoriu, și crește de la un apartament la o clădire întreagă.",
-        "ru": "CLU (Common Logic Unit) — центральный модуль Grenton: выполняет сценарии локально, без обязательного интернета, масштабируется от квартиры до здания.",
-        "en": "CLU (Common Logic Unit) — Grenton's central unit: runs scenes locally with no internet required and scales from one apartment to a whole building.",
-    },
-    "control": {
-        "ro": "Smart Panel, Touch Panel, panourile premium Monolith și aplicația myGrenton — modurile de control al casei inteligente Grenton, la perete sau în buzunar.",
-        "ru": "Smart Panel, Touch Panel, премиальные панели Monolith и приложение myGrenton — способы управления умным домом Grenton, на стене или в кармане.",
-        "en": "Smart Panel, Touch Panel, the premium Monolith panels and the myGrenton app — ways to control a Grenton smart home, on the wall or in your pocket.",
-    },
-    "sensors": {
-        "ro": "Grenton Multisensor: temperatură, umiditate, luminozitate și mișcare într-un singur senzor — baza scenariilor automate de climă, iluminat și securitate.",
-        "ru": "Grenton Multisensor: температура, влажность, освещённость и движение в одном датчике — основа автоматических сценариев климата, света и безопасности.",
-        "en": "Grenton Multisensor: temperature, humidity, light and motion in one sensor — the base for automated climate, lighting and security scenes.",
-    },
     "contact": {
         "ro": "Consultație gratuită SmartSpace, reprezentant oficial Grenton în Moldova: Strada Pajurii 11, Chișinău, +373 78 202 020. Proiectare, montaj și service.",
         "ru": "Бесплатная консультация SmartSpace, официального представителя Grenton в Молдове: Strada Pajurii 11, Кишинёв, +373 78 202 020. Проект, монтаж, сервис.",
@@ -105,6 +95,8 @@ META_DESC = {
     },
 }
 
+META_DESC.update(META_DESC_NEW)
+
 PAGES = {}
 
 PAGES["home"] = {
@@ -113,171 +105,27 @@ PAGES["home"] = {
         "eyebrow": "Ecosistem smart home",
         "h1": "Casa ta, controlată dintr-un singur loc",
         "lead": "Grenton este un sistem de automatizare a locuinței produs în Polonia: iluminat, climă, rulouri, muzică și securitate — toate conectate într-un singur ecosistem. SmartSpace instalează și configurează sistemul Grenton în Moldova.",
-        "cta_primary": ("Vezi sistemul", "system.html"),
-        "cta_secondary": ("Contactează-ne", "contact.html"),
-        "cards": [
-            ("Un singur creier — CLU", "Unitatea centrală CLU gestionează întreaga locuință — lumini, climă, rulouri, senzori — local, fără cloud obligatoriu."),
-            ("Panouri tactile elegante", "Smart Panel, Touch Panel și linia premium Monolith înlocuiesc întrerupătoarele clasice cu un ecran de control intuitiv."),
-            ("Aplicație mobilă", "myGrenton îți pune casa în buzunar — control de oriunde, scenarii, notificări."),
-        ],
+        "cta_primary": ("Configuratorul Lagmar", "lagmar.html"),
+        "cta_secondary": ("Ce știe sistemul", "features.html"),
+        "cards": HOME_CARDS["ro"],
     },
     "ru": {
         "title": "Умный дом Grenton в Молдове — SmartSpace, официальный представитель",
         "eyebrow": "Экосистема умного дома",
         "h1": "Ваш дом — под управлением из одной точки",
         "lead": "Grenton — система домашней автоматизации из Польши: свет, климат, шторы, музыка и безопасность объединены в одну экосистему. SmartSpace устанавливает и настраивает Grenton в Молдове.",
-        "cta_primary": ("Смотреть систему", "system.html"),
-        "cta_secondary": ("Связаться с нами", "contact.html"),
-        "cards": [
-            ("Один центральный блок — CLU", "Центральный модуль CLU управляет всем домом — светом, климатом, шторами, датчиками — локально, без обязательного облака."),
-            ("Элегантные панели", "Smart Panel, Touch Panel и премиальная линейка Monolith заменяют обычные выключатели интуитивным сенсорным экраном."),
-            ("Мобильное приложение", "myGrenton — дом в кармане: управление откуда угодно, сценарии, уведомления."),
-        ],
+        "cta_primary": ("Конфигуратор Lagmar", "lagmar.html"),
+        "cta_secondary": ("Что умеет система", "features.html"),
+        "cards": HOME_CARDS["ru"],
     },
     "en": {
         "title": "Grenton smart home in Moldova — SmartSpace, official representative",
         "eyebrow": "Smart home ecosystem",
         "h1": "Your home, controlled from one place",
         "lead": "Grenton is a Polish-made home automation system: lighting, climate, blinds, audio and security — all connected in one ecosystem. SmartSpace installs and configures Grenton in Moldova.",
-        "cta_primary": ("See the system", "system.html"),
-        "cta_secondary": ("Contact us", "contact.html"),
-        "cards": [
-            ("One central unit — CLU", "The CLU central unit runs the whole home — lights, climate, blinds, sensors — locally, no cloud required."),
-            ("Elegant touch panels", "Smart Panel, Touch Panel and the premium Monolith line replace classic light switches with an intuitive control screen."),
-            ("Mobile app", "myGrenton puts your home in your pocket — control from anywhere, scenes, notifications."),
-        ],
-    },
-}
-
-PAGES["system"] = {
-    "ro": {
-        "title": "Sistemul Grenton — CLU, unitatea centrală | SmartSpace",
-        "eyebrow": "Nucleul sistemului",
-        "h1": "CLU — unitatea centrală care leagă totul",
-        "lead": "CLU (Common Logic Unit) este creierul instalației Grenton: rulează scenariile, comunică cu modulele de iluminat, climă și cu senzorii și funcționează local, fără conexiune obligatorie la internet.",
-        "cta_primary": ("Vezi opțiunile de control", "control.html"),
-        "cta_secondary": ("Cere o consultație", "contact.html"),
-        "cards": [
-            ("Funcționare locală", "Scenariile rulează direct pe CLU — casa continuă să funcționeze chiar dacă internetul cade."),
-            ("Scalabil", "De la un apartament la o clădire întreagă — arhitectura modulară Grenton crește odată cu proiectul."),
-            ("Integrări", "Compatibil cu module Z-Wave, senzori, sisteme audio și alte protocoale smart home."),
-        ],
-    },
-    "ru": {
-        "title": "Система Grenton — центральный модуль CLU | SmartSpace",
-        "eyebrow": "Ядро системы",
-        "h1": "CLU — центральный блок, который связывает всё",
-        "lead": "CLU (Common Logic Unit) — мозг инсталляции Grenton: выполняет сценарии, связывает модули света, климата и датчики и работает локально, без обязательного подключения к интернету.",
-        "cta_primary": ("Варианты управления", "control.html"),
-        "cta_secondary": ("Заказать консультацию", "contact.html"),
-        "cards": [
-            ("Локальная работа", "Сценарии выполняются прямо на CLU — дом продолжает работать даже при отключении интернета."),
-            ("Масштабируемость", "От квартиры до целого здания — модульная архитектура Grenton растёт вместе с проектом."),
-            ("Интеграции", "Совместим с модулями Z-Wave, датчиками, аудиосистемами и другими протоколами умного дома."),
-        ],
-    },
-    "en": {
-        "title": "The Grenton system — CLU central unit | SmartSpace",
-        "eyebrow": "The core of the system",
-        "h1": "CLU — the central unit that ties it all together",
-        "lead": "The CLU (Common Logic Unit) is the brain of a Grenton installation: it runs scenes, talks to lighting and climate modules and sensors, and works locally with no internet required.",
-        "cta_primary": ("See control options", "control.html"),
-        "cta_secondary": ("Request a consultation", "contact.html"),
-        "cards": [
-            ("Local operation", "Scenes run directly on the CLU — the home keeps working even if the internet goes down."),
-            ("Scalable", "From a single apartment to an entire building — Grenton's modular architecture grows with the project."),
-            ("Integrations", "Compatible with Z-Wave modules, sensors, audio systems and other smart-home protocols."),
-        ],
-    },
-}
-
-PAGES["control"] = {
-    "ro": {
-        "title": "Control Grenton — Smart Panel, Touch Panel, Monolith, myGrenton | SmartSpace",
-        "eyebrow": "Interfețe de control",
-        "h1": "Control intuitiv, la perete sau în buzunar",
-        "lead": "Grenton oferă mai multe moduri de a comanda locuința: panouri tactile montate pe perete, întrerupătoare inteligente și o aplicație mobilă — toate sincronizate cu unitatea centrală CLU.",
-        "cta_primary": ("Vezi senzorii", "sensors.html"),
-        "cta_secondary": ("Cere o ofertă", "contact.html"),
-        "cards": [
-            ("Smart Panel", "Panou tactil de perete pentru lumină, climă și scenarii — cu finisaje premium (lemn, sticlă)."),
-            ("Touch Panel", "Ecran de control compact pentru cameră — acces rapid la funcțiile esențiale."),
-            ("Monolith", "Linia premium de panouri tactile Grenton: patru finisaje din metal masiv (Silver, Brass, Titan, Black) într-o formă monolitică."),
-            ("myGrenton App", "Control complet al casei de pe telefon — scenarii, notificări, acces de la distanță."),
-            ("Întrerupătoare inteligente", "Înlocuiesc întrerupătoarele clasice, integrate direct în ecosistemul Grenton."),
-        ],
-    },
-    "ru": {
-        "title": "Управление Grenton — Smart Panel, Touch Panel, Monolith, myGrenton | SmartSpace",
-        "eyebrow": "Интерфейсы управления",
-        "h1": "Интуитивное управление — на стене или в кармане",
-        "lead": "Grenton предлагает несколько способов управлять домом: настенные сенсорные панели, умные выключатели и мобильное приложение — всё синхронизировано с центральным модулем CLU.",
-        "cta_primary": ("Смотреть датчики", "sensors.html"),
-        "cta_secondary": ("Запросить предложение", "contact.html"),
-        "cards": [
-            ("Smart Panel", "Настенная сенсорная панель для света, климата и сценариев — с премиальной отделкой (дерево, стекло)."),
-            ("Touch Panel", "Компактный экран управления для комнаты — быстрый доступ к основным функциям."),
-            ("Monolith", "Премиальная линейка сенсорных панелей Grenton: четыре отделки из цельного металла (Silver, Brass, Titan, Black) в монолитной форме."),
-            ("Приложение myGrenton", "Полное управление домом с телефона — сценарии, уведомления, удалённый доступ."),
-            ("Умные выключатели", "Заменяют обычные выключатели, интегрированы напрямую в экосистему Grenton."),
-        ],
-    },
-    "en": {
-        "title": "Grenton control — Smart Panel, Touch Panel, Monolith, myGrenton | SmartSpace",
-        "eyebrow": "Control interfaces",
-        "h1": "Intuitive control, on the wall or in your pocket",
-        "lead": "Grenton offers several ways to run your home: wall-mounted touch panels, smart switches and a mobile app — all synced with the CLU central unit.",
-        "cta_primary": ("See sensors", "sensors.html"),
-        "cta_secondary": ("Request a quote", "contact.html"),
-        "cards": [
-            ("Smart Panel", "A wall-mounted touch panel for lighting, climate and scenes — with premium finishes (wood, glass)."),
-            ("Touch Panel", "A compact control screen for a room — fast access to the essential functions."),
-            ("Monolith", "Grenton's premium touch-panel line: four solid-metal finishes (Silver, Brass, Titan, Black) in one monolithic form."),
-            ("myGrenton App", "Full home control from your phone — scenes, notifications, remote access."),
-            ("Smart switches", "Replace classic light switches, integrated directly into the Grenton ecosystem."),
-        ],
-    },
-}
-
-PAGES["sensors"] = {
-    "ro": {
-        "title": "Senzori Grenton — Multisensor | SmartSpace",
-        "eyebrow": "Senzori inteligenți",
-        "h1": "Un senzor, mai multe măsurători",
-        "lead": "Multisensor Grenton combină în același dispozitiv măsurarea temperaturii, umidității, luminozității și mișcării — datele stau la baza scenariilor automate din CLU.",
-        "cta_primary": ("Vezi controlul", "control.html"),
-        "cta_secondary": ("Cere o consultație", "contact.html"),
-        "cards": [
-            ("Temperatură & umiditate", "Bază pentru automatizarea climei — încălzire, ventilație, climatizare adaptate în timp real."),
-            ("Luminozitate", "Iluminatul se ajustează automat în funcție de lumina naturală din încăpere."),
-            ("Detectarea mișcării", "Declanșează scenarii de securitate sau confort la intrarea într-o cameră."),
-        ],
-    },
-    "ru": {
-        "title": "Датчики Grenton — Multisensor | SmartSpace",
-        "eyebrow": "Умные датчики",
-        "h1": "Один датчик — несколько измерений",
-        "lead": "Multisensor Grenton объединяет в одном устройстве измерение температуры, влажности, освещённости и движения — данные используются в автоматических сценариях CLU.",
-        "cta_primary": ("Смотреть управление", "control.html"),
-        "cta_secondary": ("Заказать консультацию", "contact.html"),
-        "cards": [
-            ("Температура и влажность", "Основа для автоматизации климата — отопление, вентиляция, кондиционирование в реальном времени."),
-            ("Освещённость", "Освещение автоматически подстраивается под уровень естественного света в комнате."),
-            ("Датчик движения", "Запускает сценарии безопасности или комфорта при входе в комнату."),
-        ],
-    },
-    "en": {
-        "title": "Grenton sensors — Multisensor | SmartSpace",
-        "eyebrow": "Smart sensors",
-        "h1": "One sensor, several measurements",
-        "lead": "The Grenton Multisensor combines temperature, humidity, light level and motion detection in a single device — the data drives the CLU's automated scenes.",
-        "cta_primary": ("See control options", "control.html"),
-        "cta_secondary": ("Request a consultation", "contact.html"),
-        "cards": [
-            ("Temperature & humidity", "The base for climate automation — heating, ventilation and cooling adjusted in real time."),
-            ("Light level", "Lighting adapts automatically to the natural light available in the room."),
-            ("Motion detection", "Triggers security or comfort scenes whenever someone enters a room."),
-        ],
+        "cta_primary": ("Lagmar configurator", "lagmar.html"),
+        "cta_secondary": ("What it can do", "features.html"),
+        "cards": HOME_CARDS["en"],
     },
 }
 
@@ -288,7 +136,7 @@ PAGES["contact"] = {
         "h1": "Programează o consultație gratuită",
         "lead": "Echipa SmartSpace te ajută să alegi configurația Grenton potrivită pentru proiectul tău — apartament, casă sau clădire.",
         "cta_primary": ("Sună acum", f"tel:{PHONE_TEL}"),
-        "cta_secondary": ("Vezi sistemul", "system.html"),
+        "cta_secondary": ("Cum funcționează", "how.html"),
         "cards": [],
     },
     "ru": {
@@ -297,7 +145,7 @@ PAGES["contact"] = {
         "h1": "Запишитесь на бесплатную консультацию",
         "lead": "Команда SmartSpace поможет подобрать конфигурацию Grenton под ваш проект — квартиру, дом или здание.",
         "cta_primary": ("Позвонить", f"tel:{PHONE_TEL}"),
-        "cta_secondary": ("Смотреть систему", "system.html"),
+        "cta_secondary": ("Как это работает", "how.html"),
         "cards": [],
     },
     "en": {
@@ -306,7 +154,7 @@ PAGES["contact"] = {
         "h1": "Book a free consultation",
         "lead": "The SmartSpace team helps you choose the right Grenton setup for your project — apartment, house or building.",
         "cta_primary": ("Call now", f"tel:{PHONE_TEL}"),
-        "cta_secondary": ("See the system", "system.html"),
+        "cta_secondary": ("How it works", "how.html"),
         "cards": [],
     },
 }
@@ -549,16 +397,17 @@ PLAN_MARKERS = {
 }
 PLAN_SIZE = {"2": (424, 589), "3": (767, 615), "4": (558, 1064)}
 
-PAGE_IMG = {"home": "monolith.png", "system": "clu.jpg", "control": "smart-panel.jpg", "sensors": "audio-integration.png", "contact": "project-1.png", "lagmar": "project-2.png"}
+PAGE_IMG = {"home": "monolith.png", "contact": "project-1.png"}
 IMG_ALT = {
     "monolith.png": "Grenton Monolith — сенсорная панель / touch panel", "clu.jpg": "Grenton CLU — central unit",
     "smart-panel.jpg": "Grenton Smart Panel", "audio-integration.png": "Grenton — audio integration",
     "project-1.png": "Smart home project", "project-2.png": "Smart home project",
 }
 
-PAGE_ORDER = ["home", "lagmar", "system", "control", "sensors", "contact"]
-PAGE_FILE = {"home": "index.html", "lagmar": "lagmar.html", "system": "system.html", "control": "control.html",
-             "sensors": "sensors.html", "contact": "contact.html"}
+PAGE_ORDER = ["home", "lagmar", "features", "scenarios", "how", "contact"]
+PAGE_FILE = {"home": "index.html", "lagmar": "lagmar.html", "features": "features.html", "scenarios": "scenarios.html",
+             "how": "how.html", "contact": "contact.html"}
+LEGACY_REDIRECTS = {"system.html": "how.html", "control.html": "how.html#interfaces", "sensors.html": "features.html#safety"}
 
 
 def esc(s):
@@ -603,7 +452,10 @@ def head_html(lang, key, title, desc, extra_jsonld=None):
 <link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32">
 <link rel="icon" href="../assets/img/favicon-16.png" sizes="16x16">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-<meta name="theme-color" content="#fafafa">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
+<script>try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}}catch(e){{}}</script>
 <link rel="stylesheet" href="../assets/css/style.css">
 {jsonld_html}'''
 
@@ -626,10 +478,17 @@ def nav_html(lang, current):
     </a>
     <nav class="main" aria-label="Main">
       {''.join(links)}
-      <div class="langs">{''.join(lang_links)}</div>
     </nav>
+    <div class="controls">
+      <div class="langs">{''.join(lang_links)}</div>
+      <button type="button" class="theme-toggle" aria-label="{THEME_LABEL[lang]}" title="{THEME_LABEL[lang]}">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+      </button>
+    </div>
   </div>
-</header>'''
+</header>
+<script>(function(){{var b=document.querySelector(".theme-toggle");if(!b)return;var m=window.matchMedia("(prefers-color-scheme: dark)");b.addEventListener("click",function(){{var r=document.documentElement,cur=r.dataset.theme||(m.matches?"dark":"light"),n=cur==="dark"?"light":"dark";r.dataset.theme=n;try{{localStorage.setItem("theme",n)}}catch(e){{}}}});}})();</script>'''
 
 
 def dealer_band_html(lang):
@@ -665,7 +524,13 @@ def page_html(key, lang):
     img = PAGE_IMG[key]
     cards_html = ""
     if p["cards"]:
-        items = "".join(f'<div class="card"><div class="body"><h3>{h}</h3><p>{b}</p></div></div>' for h, b in p["cards"])
+        def _card(c):
+            h, b = c[0], c[1]
+            if len(c) > 2:
+                return (f'<a class="card card-link" href="{c[2]}"><div class="body"><h3>{h}</h3><p>{b}</p>'
+                        f'<span class="more">{c[3]} <span aria-hidden="true">→</span></span></div></a>')
+            return f'<div class="card"><div class="body"><h3>{h}</h3><p>{b}</p></div></div>'
+        items = "".join(_card(c) for c in p["cards"])
         cards_html = f'<section class="block"><div class="wrap"><div class="grid">{items}</div></div></section>'
 
     extra = ""
@@ -681,7 +546,7 @@ def page_html(key, lang):
 </section>'''
     if key == "home":
         hl = HOME_LAGMAR[lang]
-        extra = f'''<section class="block lagmar-block" id="lagmar">
+        extra = f'''<section class="block alt lagmar-block" id="lagmar">
   <div class="wrap split">
     <div>
       <span class="eyebrow">{hl["eyebrow"]}</span>
@@ -695,6 +560,12 @@ def page_html(key, lang):
 
     primary_label, primary_href = p["cta_primary"]
     secondary_label, secondary_href = p["cta_secondary"]
+    media_block = "" if key == "home" else f'''<section class="block alt">
+  <div class="wrap split">
+    <img src="../assets/img/{img}" alt="{IMG_ALT.get(img, 'Grenton')}" loading="lazy">
+    {badges_html(lang)}
+  </div>
+</section>'''
 
     return f'''<!doctype html>
 <html lang="{lang}">
@@ -714,14 +585,10 @@ def page_html(key, lang):
     </div>
   </div>
 </section>
-<section class="block alt">
-  <div class="wrap split">
-    <img src="../assets/img/{img}" alt="{IMG_ALT.get(img, 'Grenton')}" loading="lazy">
-    {badges_html(lang)}
-  </div>
-</section>
-{cards_html}
+{media_block}
+{cards_html if key != "home" else ""}
 {extra}
+{cards_html if key == "home" else ""}
 {dealer_band_html(lang)}
 {footer_html(lang)}
 </body>
@@ -1161,6 +1028,177 @@ def lagmar_page_html(lang, apartments, packages_all):
 </html>'''
 
 
+def mk_icons(letters, lang):
+    labels = LAGMAR_VIS[lang]["devices"]
+    return "".join(f'<i class="mk mk-{t}" title="{esc(labels[t])}"><i>{t}</i></i>' for t in letters)
+
+
+def tier_chip(lang, tier):
+    return f'<span class="tier tier-{tier}">{TIER_CHIP[lang][tier]}</span>'
+
+
+def cta_lagmar_html(lang):
+    c = CTA_LAGMAR[lang]
+    return f'''<section class="block cta-lagmar">
+  <div class="wrap cta-lagmar-inner">
+    <img src="../assets/lagmar/hero-960.jpg" alt="Lagmar Smart Home" width="960" height="540" loading="lazy">
+    <div>
+      <h2 class="h2">{c["title"]}</h2>
+      <p class="sub">{c["text"]}</p>
+      <div class="cta-row cta-left">
+        <a class="btn btn-primary" href="lagmar.html">{c["btn"]}</a>
+        <a class="btn btn-ghost" href="tel:{PHONE_TEL}">{c["alt"]} · {PHONE_DISPLAY}</a>
+      </div>
+    </div>
+  </div>
+</section>'''
+
+
+def simple_hero(eyebrow, h1, lead):
+    return f'''<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">{eyebrow}</span>
+    <h1>{h1}</h1>
+    <p class="lead">{lead}</p>
+  </div>
+</section>'''
+
+
+def shell(lang, key, title, body, extra_jsonld=None):
+    return f'''<!doctype html>
+<html lang="{lang}">
+<head>
+{head_html(lang, key, title, META_DESC[key][lang], extra_jsonld)}
+</head>
+<body>
+{nav_html(lang, key)}
+{body}
+{dealer_band_html(lang)}
+{footer_html(lang)}
+</body>
+</html>'''
+
+
+def features_page_html(lang):
+    f = FEATURES[lang]
+    groups = []
+    for i, g in enumerate(f["groups"]):
+        items = "".join(f'<li><span class="feat-text">{t}</span>{tier_chip(lang, tier)}</li>' for t, tier in g["items"])
+        groups.append(f'''<article class="feat" id="{g["id"]}">
+      <div class="feat-head">
+        <span class="feat-icon mk mk-{g["icon"]}"><i>{g["icon"]}</i></span>
+        <span class="feat-num">{i + 1:02d}</span>
+      </div>
+      <h2 class="feat-title">{g["title"]}</h2>
+      <p class="feat-benefit">{g["benefit"]}</p>
+      <ul class="feat-list">{items}</ul>
+    </article>''')
+    body = simple_hero(f["eyebrow"], f["h1"], f["lead"]) + f'''
+<section class="block alt">
+  <div class="wrap feat-grid">
+    {"".join(groups)}
+  </div>
+</section>
+{cta_lagmar_html(lang)}'''
+    return shell(lang, "features", f["title"], body)
+
+
+def scenarios_page_html(lang):
+    sc = SCENARIOS[lang]
+    items = "".join(f'''<li class="scene">
+      <div class="scene-time">{t}</div>
+      <div class="scene-card">
+        <div class="scene-top"><h2 class="scene-title">{title}</h2>{tier_chip(lang, tier)}</div>
+        <p>{text}</p>
+        <div class="scene-devices">{mk_icons(dev, lang)}</div>
+      </div>
+    </li>''' for t, title, text, dev, tier in sc["items"])
+    body = simple_hero(sc["eyebrow"], sc["h1"], sc["lead"]) + f'''
+<section class="block alt">
+  <div class="wrap">
+    <ol class="timeline">{items}</ol>
+    <p class="cfg-note scene-note">{sc["note"]}</p>
+  </div>
+</section>
+{cta_lagmar_html(lang)}'''
+    return shell(lang, "scenarios", sc["title"], body)
+
+
+def how_page_html(lang):
+    h = HOW[lang]
+    layers = []
+    for img, icons, title, text in h["layers"]:
+        visual = (f'<img src="../assets/img/{img}" alt="{esc(title)}" loading="lazy">' if img
+                  else f'<div class="layer-icons">{mk_icons(icons, lang)}</div>')
+        layers.append(f'<article class="layer"><div class="layer-visual">{visual}</div><h3>{title}</h3><p>{text}</p></article>')
+    steps = "".join(f'<li class="step"><span class="step-n">{i}</span><h3>{t}</h3><p>{d}</p></li>'
+                    for i, (t, d) in enumerate(h["steps"], 1))
+    why = "".join(f'<div class="why"><h3>{t}</h3><p>{d}</p></div>' for t, d in h["why"])
+    body = simple_hero(h["eyebrow"], h["h1"], h["lead"]) + f'''
+<section class="block alt" id="interfaces">
+  <div class="wrap">
+    <h2 class="h2">{h["layers_title"]}</h2>
+    <div class="layers">{"".join(layers)}</div>
+  </div>
+</section>
+<section class="block">
+  <div class="wrap">
+    <h2 class="h2">{h["process_title"]}</h2>
+    <ol class="steps">{steps}</ol>
+  </div>
+</section>
+<section class="block alt">
+  <div class="wrap">
+    <h2 class="h2">{h["why_title"]}</h2>
+    <div class="why-grid">{why}</div>
+  </div>
+</section>
+{cta_lagmar_html(lang)}'''
+    return shell(lang, "how", h["title"], body)
+
+
+def legacy_redirect_html(target):
+    return f'''<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url={target}">
+<link rel="canonical" href="{target}">
+<title>→ {target}</title>
+</head>
+<body><p><a href="{target}">{target}</a></p></body>
+</html>'''
+
+
+# --- typography: glue short words, numbers+units, dashes, phone numbers with no-break spaces ---
+NBSP = " "
+_SHORT = {
+    "ru": r"в|во|и|с|со|к|ко|о|об|у|а|я|на|по|до|за|от|из|не|ни|но|же",
+    "ro": r"și|în|la|de|pe|cu|o|un|a|al|nu|e|să|se|ce",
+    "en": r"a|an|the|of|in|to|on|at|by|or|no|I",
+}
+_SPLIT = re.compile(r"(<script\b.*?</script>|<style\b.*?</style>|<[^>]+>)", re.S | re.I)
+
+
+def _typo_text(t, lang):
+    t = re.sub(r"(?<![\w-])(" + _SHORT[lang] + r") +(?=\S)", lambda m: m.group(1) + NBSP, t, flags=re.I)
+    t = re.sub(r" +([—–])", NBSP + r"\1", t)
+    t = re.sub(r"(\d) (\d{3})(?!\d)", r"\1" + NBSP + r"\2", t)
+    t = re.sub(r"(\d) +(?=[^\s\d])", r"\1" + NBSP, t)
+    t = re.sub(r"(\+373)[  ](\d{2})[  ](\d{3})[  ](\d{3})", lambda m: NBSP.join(m.groups()), t)
+    return t
+
+
+def typo(html, lang):
+    parts = _SPLIT.split(html)
+    for i, part in enumerate(parts):
+        if i % 2 == 1:
+            continue
+        parts[i] = _typo_text(part, lang)
+    return "".join(parts)
+
+
 def root_redirect():
     alternates = "".join(f'<link rel="alternate" hreflang="{l}" href="{BASE_URL}/{l}/index.html">' for l in LANGS)
     return f'''<!doctype html>
@@ -1235,9 +1273,21 @@ def main():
     packages_all = _load_json("assets/data/packages.json")
     for lang in LANGS:
         for key in PAGE_ORDER:
-            html = lagmar_page_html(lang, apartments, packages_all) if key == "lagmar" else page_html(key, lang)
+            if key == "lagmar":
+                html = lagmar_page_html(lang, apartments, packages_all)
+            elif key == "features":
+                html = features_page_html(lang)
+            elif key == "scenarios":
+                html = scenarios_page_html(lang)
+            elif key == "how":
+                html = how_page_html(lang)
+            else:
+                html = page_html(key, lang)
+            html = typo(html, lang)
             assert not any(ch in html for ch in "şţŞŢ"), f"cedilla diacritics in {lang}/{key}"
             _write(f"{lang}/{PAGE_FILE[key]}", html)
+        for old, target in LEGACY_REDIRECTS.items():
+            _write(f"{lang}/{old}", legacy_redirect_html(target))
     _write("index.html", root_redirect())
     _write("404.html", not_found_html())
     _write("sitemap.xml", sitemap_xml())

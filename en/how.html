@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How the Grenton smart home works: system, installation, service | SmartSpace</title>
+<meta name="description" content="How a Grenton smart home is built: the CLU central unit, modules in the board, sensors, panels and the app. How SmartSpace designs, installs and services it.">
+<link rel="canonical" href="https://smartlightmd.github.io/grenton-demo/en/how.html">
+<link rel="alternate" hreflang="ro" href="https://smartlightmd.github.io/grenton-demo/ro/how.html"><link rel="alternate" hreflang="ru" href="https://smartlightmd.github.io/grenton-demo/ru/how.html"><link rel="alternate" hreflang="en" href="https://smartlightmd.github.io/grenton-demo/en/how.html"><link rel="alternate" hreflang="x-default" href="https://smartlightmd.github.io/grenton-demo/ro/how.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="How the Grenton smart home works: system, installation, service | SmartSpace">
+<meta property="og:description" content="How a Grenton smart home is built: the CLU central unit, modules in the board, sensors, panels and the app. How SmartSpace designs, installs and services it.">
+<meta property="og:url" content="https://smartlightmd.github.io/grenton-demo/en/how.html">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="SmartSpace — Grenton Moldova">
+<meta property="og:image" content="https://smartlightmd.github.io/grenton-demo/assets/og/og-grenton-en.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Grenton — SmartSpace, official representative in Moldova">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://smartlightmd.github.io/grenton-demo/assets/og/og-grenton-en.jpg">
+<link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
+<script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://smartspace.md/#org", "name": "SmartSpace", "url": "https://smartspace.md/", "telephone": "+37378202020", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "sameAs": ["https://smartspace.md/", "https://smartlight.md/"]}</script>
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="index.html">
+      <img src="../assets/img/favicon-32.png" alt="" width="28" height="28">
+      GRENTON <span class="by">by SmartSpace</span>
+    </a>
+    <nav class="main" aria-label="Main">
+      <a href="index.html">Home</a><a href="lagmar.html">Lagmar Smart Home</a><a href="features.html">Features</a><a href="scenarios.html">Scenes</a><a class="active" href="how.html">How it works</a><a href="contact.html">Contact</a>
+    </nav>
+    <div class="controls">
+      <div class="langs"><a href="../ro/how.html" hreflang="ro">RO</a><a href="../ru/how.html" hreflang="ru">RU</a><a class="active" href="../en/how.html" hreflang="en">EN</a></div>
+      <button type="button" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<script>(function(){var b=document.querySelector(".theme-toggle");if(!b)return;var m=window.matchMedia("(prefers-color-scheme: dark)");b.addEventListener("click",function(){var r=document.documentElement,cur=r.dataset.theme||(m.matches?"dark":"light"),n=cur==="dark"?"light":"dark";r.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}});})();</script>
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">How it works</span>
+    <h1>Reliable inside — simple to use outside</h1>
+    <p class="lead">Grenton is a professional wired system made in Poland. Everything that matters happens in your apartment's distribution board; you only see neat panels and the app.</p>
+  </div>
+</section>
+<section class="block alt" id="interfaces">
+  <div class="wrap">
+    <h2 class="h2">What the system is made of</h2>
+    <div class="layers"><article class="layer"><div class="layer-visual"><img src="../assets/img/clu.jpg" alt="The brain — the CLU central unit" loading="lazy"></div><h3>The brain — the CLU central unit</h3><p>Stores and runs every scene right in the apartment. Internet is only needed for remote access — without it the home keeps working.</p></article><article class="layer"><div class="layer-visual"><div class="layer-icons"><i class="mk mk-L" title="Lighting group"><i>L</i></i><i class="mk mk-T" title="Climate zone"><i>T</i></i><i class="mk mk-C" title="Blind motor"><i>C</i></i></div></div><h3>The hands — modules in the board</h3><p>Control lighting, heating, blinds and sockets. They sit in the distribution board, not in the walls, so they're easy to service and extend.</p></article><article class="layer"><div class="layer-visual"><div class="layer-icons"><i class="mk mk-W" title="Leak sensor"><i>W</i></i><i class="mk mk-S" title="Smoke sensor"><i>S</i></i><i class="mk mk-M" title="Motion sensor"><i>M</i></i><i class="mk mk-Q" title="CO₂ sensor"><i>Q</i></i></div></div><h3>The eyes — sensors</h3><p>The Multisensor measures temperature, humidity, light and motion; separate sensors watch for leaks and smoke.</p></article><article class="layer"><div class="layer-visual"><img src="../assets/img/smart-panel-crop.jpg" alt="The interfaces — panels and the app" loading="lazy"></div><h3>The interfaces — panels and the app</h3><p>Smart Panel and Touch Panel on the wall, the premium Monolith line, the myGrenton app and classic push switches — use whatever suits you.</p></article></div>
+  </div>
+</section>
+<section class="block">
+  <div class="wrap">
+    <h2 class="h2">How we work</h2>
+    <ol class="steps"><li class="step"><span class="step-n">1</span><h3>Configurator or a call</h3><p>Pick your apartment and package on the site or call us — we prepare a preliminary quote.</p></li><li class="step"><span class="step-n">2</span><h3>Visit and design</h3><p>We come over, learn your habits and draw up the design: what works where and how.</p></li><li class="step"><span class="step-n">3</span><h3>Installation</h3><p>Best before finishing works; for a renovated apartment we use wireless modules, no chasing walls.</p></li><li class="step"><span class="step-n">4</span><h3>Setting up scenes</h3><p>We set lighting, climate and scenes around your routine and show you how to use everything.</p></li><li class="step"><span class="step-n">5</span><h3>Service and expansion</h3><p>We stay in touch: change scenes, add sensors and rooms — without replacing what's installed.</p></li></ol>
+  </div>
+</section>
+<section class="block alt">
+  <div class="wrap">
+    <h2 class="h2">Why Grenton</h2>
+    <div class="why-grid"><div class="why"><h3>Works without internet</h3><p>Scenes run locally — internet is only needed for remote access.</p></div><div class="why"><h3>Wired reliability</h3><p>A professional bus instead of a dozen battery-powered wireless gadgets.</p></div><div class="why"><h3>Grows with you</h3><p>Start with Basic — modules, panels and sensors can be added later.</p></div><div class="why"><h3>Official representative</h3><p>SmartSpace designs, installs and services Grenton in Moldova.</p></div></div>
+  </div>
+</section>
+<section class="block cta-lagmar">
+  <div class="wrap cta-lagmar-inner">
+    <img src="../assets/lagmar/hero-960.jpg" alt="Lagmar Smart Home" width="960" height="540" loading="lazy">
+    <div>
+      <h2 class="h2">See what goes into your apartment</h2>
+      <p class="sub">Find your apartment in Lagmar — we'll show the packages right on your floor plan.</p>
+      <div class="cta-row cta-left">
+        <a class="btn btn-primary" href="lagmar.html">Open the configurator</a>
+        <a class="btn btn-ghost" href="tel:+37378202020">Call us · +373 78 202 020</a>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="dealer-band">
+  <div class="wrap">
+    <h2>SmartSpace — official Grenton representative in Moldova</h2>
+    <p>Consulting, design, installation and service for the Grenton system — from a single apartment to entire buildings.</p>
+    <a class="btn btn-accent" href="contact.html">Request a quote</a>
+  </div>
+</section>
+<footer class="site">
+  <div class="wrap">
+    <div>SmartSpace · Strada Pajurii 11, MD-2059 Chișinău · <a href="tel:+37378202020">+373 78 202 020</a></div>
+    <div class="disclaimer">Informational site by SmartSpace, the official Grenton representative in Moldova. Product photos belong to Grenton sp. z o.o. · <a href="https://smartspace.md/privacy" rel="noopener">Privacy policy</a></div>
+  </div>
+</footer>
+</body>
+</html>

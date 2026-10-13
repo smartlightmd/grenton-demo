@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Как работает умный дом Grenton: система, монтаж, сервис | SmartSpace</title>
+<meta name="description" content="Как устроен умный дом Grenton: центральный модуль CLU, модули в щите, датчики, панели и приложение. Как SmartSpace проектирует, монтирует и обслуживает систему.">
+<link rel="canonical" href="https://smartlightmd.github.io/grenton-demo/ru/how.html">
+<link rel="alternate" hreflang="ro" href="https://smartlightmd.github.io/grenton-demo/ro/how.html"><link rel="alternate" hreflang="ru" href="https://smartlightmd.github.io/grenton-demo/ru/how.html"><link rel="alternate" hreflang="en" href="https://smartlightmd.github.io/grenton-demo/en/how.html"><link rel="alternate" hreflang="x-default" href="https://smartlightmd.github.io/grenton-demo/ro/how.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Как работает умный дом Grenton: система, монтаж, сервис | SmartSpace">
+<meta property="og:description" content="Как устроен умный дом Grenton: центральный модуль CLU, модули в щите, датчики, панели и приложение. Как SmartSpace проектирует, монтирует и обслуживает систему.">
+<meta property="og:url" content="https://smartlightmd.github.io/grenton-demo/ru/how.html">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="SmartSpace — Grenton Moldova">
+<meta property="og:image" content="https://smartlightmd.github.io/grenton-demo/assets/og/og-grenton-ru.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Grenton — SmartSpace, официальный представитель в Молдове">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://smartlightmd.github.io/grenton-demo/assets/og/og-grenton-ru.jpg">
+<link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-16.png" sizes="16x16">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
+<script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://smartspace.md/#org", "name": "SmartSpace", "url": "https://smartspace.md/", "telephone": "+37378202020", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "sameAs": ["https://smartspace.md/", "https://smartlight.md/"]}</script>
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="index.html">
+      <img src="../assets/img/favicon-32.png" alt="" width="28" height="28">
+      GRENTON <span class="by">by SmartSpace</span>
+    </a>
+    <nav class="main" aria-label="Main">
+      <a href="index.html">Главная</a><a href="lagmar.html">Lagmar Smart Home</a><a href="features.html">Возможности</a><a href="scenarios.html">Сценарии</a><a class="active" href="how.html">Как это работает</a><a href="contact.html">Контакты</a>
+    </nav>
+    <div class="controls">
+      <div class="langs"><a href="../ro/how.html" hreflang="ro">RO</a><a class="active" href="../ru/how.html" hreflang="ru">RU</a><a href="../en/how.html" hreflang="en">EN</a></div>
+      <button type="button" class="theme-toggle" aria-label="Переключить тему" title="Переключить тему">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<script>(function(){var b=document.querySelector(".theme-toggle");if(!b)return;var m=window.matchMedia("(prefers-color-scheme: dark)");b.addEventListener("click",function(){var r=document.documentElement,cur=r.dataset.theme||(m.matches?"dark":"light"),n=cur==="dark"?"light":"dark";r.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}});})();</script>
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Как это работает</span>
+    <h1>Надёжная система внутри — простое управление снаружи</h1>
+    <p class="lead">Grenton — профессиональная проводная система из Польши. Всё важное происходит в электрощите вашей квартиры, а вы видите только аккуратные панели и приложение.</p>
+  </div>
+</section>
+<section class="block alt" id="interfaces">
+  <div class="wrap">
+    <h2 class="h2">Из чего состоит система</h2>
+    <div class="layers"><article class="layer"><div class="layer-visual"><img src="../assets/img/clu.jpg" alt="Мозг — центральный модуль CLU" loading="lazy"></div><h3>Мозг — центральный модуль CLU</h3><p>Хранит и выполняет все сценарии прямо в квартире. Интернет нужен только для удалённого доступа — без него дом продолжает работать.</p></article><article class="layer"><div class="layer-visual"><div class="layer-icons"><i class="mk mk-L" title="Группа света"><i>L</i></i><i class="mk mk-T" title="Зона климата"><i>T</i></i><i class="mk mk-C" title="Привод штор"><i>C</i></i></div></div><h3>Руки — модули в электрощите</h3><p>Управляют светом, отоплением, шторами и розетками. Стоят в щите, а не в стенах, — поэтому их легко обслуживать и расширять.</p></article><article class="layer"><div class="layer-visual"><div class="layer-icons"><i class="mk mk-W" title="Датчик протечки"><i>W</i></i><i class="mk mk-S" title="Датчик дыма"><i>S</i></i><i class="mk mk-M" title="Датчик движения"><i>M</i></i><i class="mk mk-Q" title="Датчик CO₂"><i>Q</i></i></div></div><h3>Глаза — датчики</h3><p>Multisensor измеряет температуру, влажность, освещённость и движение; отдельные датчики следят за протечкой и дымом.</p></article><article class="layer"><div class="layer-visual"><img src="../assets/img/smart-panel-crop.jpg" alt="Интерфейсы — панели и приложение" loading="lazy"></div><h3>Интерфейсы — панели и приложение</h3><p>Smart Panel и Touch Panel на стене, премиальная линейка Monolith, приложение myGrenton и обычные клавишные выключатели — выбирайте, как удобнее.</p></article></div>
+  </div>
+</section>
+<section class="block">
+  <div class="wrap">
+    <h2 class="h2">Как мы работаем</h2>
+    <ol class="steps"><li class="step"><span class="step-n">1</span><h3>Конфигуратор или звонок</h3><p>Выберите квартиру и пакет на сайте или позвоните — подготовим предварительное предложение.</p></li><li class="step"><span class="step-n">2</span><h3>Осмотр и проект</h3><p>Приезжаем, узнаём ваши привычки и готовим проект: что, где и как будет работать.</p></li><li class="step"><span class="step-n">3</span><h3>Монтаж</h3><p>Лучше всего до чистовой отделки; для готового ремонта используем беспроводные модули без штробления.</p></li><li class="step"><span class="step-n">4</span><h3>Настройка сценариев</h3><p>Настраиваем свет, климат и сценарии под ваш распорядок и показываем, как всем пользоваться.</p></li><li class="step"><span class="step-n">5</span><h3>Сервис и расширение</h3><p>Остаёмся на связи: меняем сценарии, добавляем датчики и комнаты — без замены уже установленного.</p></li></ol>
+  </div>
+</section>
+<section class="block alt">
+  <div class="wrap">
+    <h2 class="h2">Почему Grenton</h2>
+    <div class="why-grid"><div class="why"><h3>Работает без интернета</h3><p>Сценарии выполняются локально — интернет нужен только для удалённого доступа.</p></div><div class="why"><h3>Проводная надёжность</h3><p>Профессиональная шина вместо десятка беспроводных гаджетов с батарейками.</p></div><div class="why"><h3>Растёт вместе с вами</h3><p>Начните с Basic — модули, панели и датчики добавляются позже.</p></div><div class="why"><h3>Официальный представитель</h3><p>SmartSpace проектирует, монтирует и обслуживает Grenton в Молдове.</p></div></div>
+  </div>
+</section>
+<section class="block cta-lagmar">
+  <div class="wrap cta-lagmar-inner">
+    <img src="../assets/lagmar/hero-960.jpg" alt="Lagmar Smart Home" width="960" height="540" loading="lazy">
+    <div>
+      <h2 class="h2">Посмотрите, что из этого войдёт в вашу квартиру</h2>
+      <p class="sub">Найдите свою квартиру в Lagmar — покажем пакеты прямо на вашей планировке.</p>
+      <div class="cta-row cta-left">
+        <a class="btn btn-primary" href="lagmar.html">Открыть конфигуратор</a>
+        <a class="btn btn-ghost" href="tel:+37378202020">Позвонить · +373 78 202 020</a>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="dealer-band">
+  <div class="wrap">
+    <h2>SmartSpace — официальный представитель Grenton в Молдове</h2>
+    <p>Консультация, проектирование, монтаж и сервис системы Grenton — от одной квартиры до целых зданий.</p>
+    <a class="btn btn-accent" href="contact.html">Запросить предложение</a>
+  </div>
+</section>
+<footer class="site">
+  <div class="wrap">
+    <div>SmartSpace · Strada Pajurii 11, MD-2059 Chișinău · <a href="tel:+37378202020">+373 78 202 020</a></div>
+    <div class="disclaimer">Информационный сайт SmartSpace, официального представителя Grenton в Молдове. Фотографии продуктов принадлежат Grenton sp. z o.o. · <a href="https://smartspace.md/privacy" rel="noopener">Политика конфиденциальности</a></div>
+  </div>
+</footer>
+</body>
+</html>

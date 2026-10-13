@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Grenton smart home in Moldova — SmartSpace, official representative</title>
+<title>Grenton smart home in Moldova — SmartSpace, official representative</title>
 <meta name="description" content="Grenton — a Polish smart-home system: lighting, climate, blinds, audio and security in one ecosystem. SmartSpace, official Grenton representative in Moldova.">
 <link rel="canonical" href="https://smartlightmd.github.io/grenton-demo/en/index.html">
 <link rel="alternate" hreflang="ro" href="https://smartlightmd.github.io/grenton-demo/ro/index.html"><link rel="alternate" hreflang="ru" href="https://smartlightmd.github.io/grenton-demo/ru/index.html"><link rel="alternate" hreflang="en" href="https://smartlightmd.github.io/grenton-demo/en/index.html"><link rel="alternate" hreflang="x-default" href="https://smartlightmd.github.io/grenton-demo/ro/index.html">
@@ -22,7 +22,10 @@
 <link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32">
 <link rel="icon" href="../assets/img/favicon-16.png" sizes="16x16">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-<meta name="theme-color" content="#fafafa">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
+<script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
 <link rel="stylesheet" href="../assets/css/style.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://smartspace.md/#org", "name": "SmartSpace", "url": "https://smartspace.md/", "telephone": "+37378202020", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "sameAs": ["https://smartspace.md/", "https://smartlight.md/"]}</script>
 </head>
@@ -31,58 +34,57 @@
   <div class="wrap bar">
     <a class="brand" href="index.html">
       <img src="../assets/img/favicon-32.png" alt="" width="28" height="28">
-      GRENTON <span class="by">by SmartSpace</span>
+      GRENTON <span class="by">by SmartSpace</span>
     </a>
     <nav class="main" aria-label="Main">
-      <a class="active" href="index.html">Home</a><a href="lagmar.html">Lagmar Smart Home</a><a href="system.html">System</a><a href="control.html">Control</a><a href="sensors.html">Sensors</a><a href="contact.html">Contact</a>
-      <div class="langs"><a href="../ro/index.html" hreflang="ro">RO</a><a href="../ru/index.html" hreflang="ru">RU</a><a class="active" href="../en/index.html" hreflang="en">EN</a></div>
+      <a class="active" href="index.html">Home</a><a href="lagmar.html">Lagmar Smart Home</a><a href="features.html">Features</a><a href="scenarios.html">Scenes</a><a href="how.html">How it works</a><a href="contact.html">Contact</a>
     </nav>
+    <div class="controls">
+      <div class="langs"><a href="../ro/index.html" hreflang="ro">RO</a><a href="../ru/index.html" hreflang="ru">RU</a><a class="active" href="../en/index.html" hreflang="en">EN</a></div>
+      <button type="button" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+      </button>
+    </div>
   </div>
 </header>
+<script>(function(){var b=document.querySelector(".theme-toggle");if(!b)return;var m=window.matchMedia("(prefers-color-scheme: dark)");b.addEventListener("click",function(){var r=document.documentElement,cur=r.dataset.theme||(m.matches?"dark":"light"),n=cur==="dark"?"light":"dark";r.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}});})();</script>
 <section class="hero">
   <div class="wrap">
     <span class="eyebrow">Smart home ecosystem</span>
     <h1>Your home, controlled from one place</h1>
-    <p class="lead">Grenton is a Polish-made home automation system: lighting, climate, blinds, audio and security — all connected in one ecosystem. SmartSpace installs and configures Grenton in Moldova.</p>
+    <p class="lead">Grenton is a Polish-made home automation system: lighting, climate, blinds, audio and security — all connected in one ecosystem. SmartSpace installs and configures Grenton in Moldova.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="system.html">See the system</a>
-      <a class="btn btn-ghost" href="contact.html">Contact us</a>
+      <a class="btn btn-primary" href="lagmar.html">Lagmar configurator</a>
+      <a class="btn btn-ghost" href="features.html">What it can do</a>
     </div>
   </div>
 </section>
-<section class="block alt">
-  <div class="wrap split">
-    <img src="../assets/img/monolith.png" alt="Grenton Monolith — сенсорная панель / touch panel" loading="lazy">
-    <div class="badge-row">
-      <span class="badge">Grenton</span>
-      <span class="badge">SmartSpace · Moldova</span>
-      <span class="badge">Official representative</span>
-    </div>
-  </div>
-</section>
-<section class="block"><div class="wrap"><div class="grid"><div class="card"><div class="body"><h3>One central unit — CLU</h3><p>The CLU central unit runs the whole home — lights, climate, blinds, sensors — locally, no cloud required.</p></div></div><div class="card"><div class="body"><h3>Elegant touch panels</h3><p>Smart Panel, Touch Panel and the premium Monolith line replace classic light switches with an intuitive control screen.</p></div></div><div class="card"><div class="body"><h3>Mobile app</h3><p>myGrenton puts your home in your pocket — control from anywhere, scenes, notifications.</p></div></div></div></div></section>
-<section class="block lagmar-block" id="lagmar">
+
+
+<section class="block alt lagmar-block" id="lagmar">
   <div class="wrap split">
     <div>
       <span class="eyebrow">Our project</span>
-      <h2 class="h2">Lagmar Smart Home: 1,065 apartments on Grenton</h2>
-      <p class="sub">Lagmar Smart Home is a residential complex in Chișinău (11 blocks) where the smart home runs on Grenton — designed, installed and supported by SmartSpace. Own an apartment in Lagmar? Find it in the configurator, pick Basic, Comfort or Premium and get a preliminary quote in minutes.</p>
+      <h2 class="h2">Lagmar Smart Home: 1,065 apartments on Grenton</h2>
+      <p class="sub">Lagmar Smart Home is a residential complex in Chișinău (11 blocks) where the smart home runs on Grenton — designed, installed and supported by SmartSpace. Own an apartment in Lagmar? Find it in the configurator, pick Basic, Comfort or Premium and get a preliminary quote in minutes.</p>
       <a class="btn btn-primary" href="lagmar.html">Configure your apartment</a>
     </div>
     <a href="lagmar.html" class="lagmar-teaser"><img class="rounded" src="../assets/lagmar/hero-960.jpg" alt="Lagmar Smart Home" width="960" height="540" loading="lazy"><img class="lagmar-teaser-logo" src="../assets/lagmar/logo-lagmar.png" alt="" width="140" height="42"></a>
   </div>
 </section>
+<section class="block"><div class="wrap"><div class="grid"><a class="card card-link" href="features.html"><div class="body"><h3>Light, climate, safety</h3><p>Ready-made comfort in every room — and which package it's in.</p><span class="more">Features <span aria-hidden="true">→</span></span></div></a><a class="card card-link" href="scenarios.html"><div class="body"><h3>A day with Grenton</h3><p>Mornings without an alarm, “Leaving” in one tap, “Movie”, “Night”, “Holiday”.</p><span class="more">Scenes <span aria-hidden="true">→</span></span></div></a><a class="card card-link" href="how.html"><div class="body"><h3>Reliable inside</h3><p>The central unit, sensors, panels — and how we install it all.</p><span class="more">How it works <span aria-hidden="true">→</span></span></div></a></div></div></section>
 <section class="dealer-band">
   <div class="wrap">
-    <h2>SmartSpace — official Grenton representative in Moldova</h2>
-    <p>Consulting, design, installation and service for the Grenton system — from a single apartment to entire buildings.</p>
-    <a class="btn btn-accent" href="contact.html">Request a quote</a>
+    <h2>SmartSpace — official Grenton representative in Moldova</h2>
+    <p>Consulting, design, installation and service for the Grenton system — from a single apartment to entire buildings.</p>
+    <a class="btn btn-accent" href="contact.html">Request a quote</a>
   </div>
 </section>
 <footer class="site">
   <div class="wrap">
-    <div>SmartSpace · Strada Pajurii 11, MD-2059 Chișinău · <a href="tel:+37378202020">+373 78 202 020</a></div>
-    <div class="disclaimer">Informational site by SmartSpace, the official Grenton representative in Moldova. Product photos belong to Grenton sp. z o.o. · <a href="https://smartspace.md/privacy" rel="noopener">Privacy policy</a></div>
+    <div>SmartSpace · Strada Pajurii 11, MD-2059 Chișinău · <a href="tel:+37378202020">+373 78 202 020</a></div>
+    <div class="disclaimer">Informational site by SmartSpace, the official Grenton representative in Moldova. Product photos belong to Grenton sp. z o.o. · <a href="https://smartspace.md/privacy" rel="noopener">Privacy policy</a></div>
   </div>
 </footer>
 </body>
