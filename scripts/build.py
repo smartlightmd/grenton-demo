@@ -440,6 +440,115 @@ FAQ = {
     ],
 }
 
+PLAN_IMG_BASE = "https://api.lagmarsmarthome.md/images/apartments/"
+
+LAGMAR_VIS = {
+    "ru": {
+        "kicker": "Lagmar Smart Home × Grenton",
+        "stats": [("11", "блоков"), ("1 065", "квартир"), ("Grenton", "умный дом в каждой")],
+        "cta_find": "Найти мою квартиру", "cta_examples": "Пакеты на планировке",
+        "complex_eyebrow": "Жилой комплекс", "complex_title": "Lagmar Smart Home — 11 блоков в Кишинёве",
+        "complex_text": "Современные дома вокруг зелёных внутренних дворов с зонами отдыха и подземным паркингом. Умный дом здесь — часть проекта: квартиры рассчитаны на систему Grenton, а SmartSpace проектирует, монтирует и обслуживает её.",
+        "siteplan_caption": "Генплан комплекса: 11 блоков вокруг зелёных дворов",
+        "blocks_title": "Выберите свой блок", "blocks_sub": "Нажмите на блок — номер квартиры введёте ниже.",
+        "block_word": "Блок",
+        "examples_eyebrow": "Наглядно", "examples_title": "Пакеты на реальных планировках Lagmar",
+        "examples_sub": "Типовые квартиры комплекса — переключайте Basic / Comfort / Premium и смотрите, что и где появляется.",
+        "tabs": {"2": "2 комнаты · 46 м²", "3": "3 комнаты · 82 м²", "4": "4 комнаты · 99 м²"},
+        "plan_alt": "Планировка типовой {n}-комнатной квартиры Lagmar",
+        "example_note": "Иллюстрация: примерная расстановка на типовой планировке Lagmar. Точный проект — после осмотра вашей квартиры.",
+        "your_plan": "Планировка вашей квартиры", "your_block": "Ваш блок",
+        "s2_plan_title": "Как это выглядит на похожей планировке",
+        "devices": {"L": "Группа света", "P": "Панель управления", "T": "Зона климата", "W": "Датчик протечки",
+                    "S": "Датчик дыма", "M": "Датчик движения", "C": "Привод штор", "A": "Аудио-зона",
+                    "Q": "Датчик CO₂", "I": "Видеодомофон"},
+    },
+    "ro": {
+        "kicker": "Lagmar Smart Home × Grenton",
+        "stats": [("11", "blocuri"), ("1 065", "apartamente"), ("Grenton", "casă inteligentă în fiecare")],
+        "cta_find": "Găsește-mi apartamentul", "cta_examples": "Pachetele pe plan",
+        "complex_eyebrow": "Complex rezidențial", "complex_title": "Lagmar Smart Home — 11 blocuri în Chișinău",
+        "complex_text": "Clădiri moderne în jurul curților interioare verzi, cu zone de odihnă și parcare subterană. Casa inteligentă face parte din proiect: apartamentele sunt gândite pentru sistemul Grenton, iar SmartSpace îl proiectează, îl montează și îl întreține.",
+        "siteplan_caption": "Planul general: 11 blocuri în jurul curților verzi",
+        "blocks_title": "Alege-ți blocul", "blocks_sub": "Apasă pe bloc — numărul apartamentului îl introduci mai jos.",
+        "block_word": "Blocul",
+        "examples_eyebrow": "Concret", "examples_title": "Pachetele pe planuri reale Lagmar",
+        "examples_sub": "Apartamente tipice din complex — comută Basic / Comfort / Premium și vezi ce apare și unde.",
+        "tabs": {"2": "2 camere · 46 m²", "3": "3 camere · 82 m²", "4": "4 camere · 99 m²"},
+        "plan_alt": "Planul unui apartament tipic Lagmar cu {n} camere",
+        "example_note": "Ilustrație: amplasare orientativă pe un plan tipic Lagmar. Proiectul exact — după vizita la apartamentul tău.",
+        "your_plan": "Planul apartamentului tău", "your_block": "Blocul tău",
+        "s2_plan_title": "Cum arată pe un plan asemănător",
+        "devices": {"L": "Grup de iluminat", "P": "Panou de comandă", "T": "Zonă de climă", "W": "Senzor de scurgere",
+                    "S": "Senzor de fum", "M": "Senzor de mișcare", "C": "Motor rulou", "A": "Zonă audio",
+                    "Q": "Senzor CO₂", "I": "Videointerfon"},
+    },
+    "en": {
+        "kicker": "Lagmar Smart Home × Grenton",
+        "stats": [("11", "blocks"), ("1,065", "apartments"), ("Grenton", "smart home in every one")],
+        "cta_find": "Find my apartment", "cta_examples": "Packages on a floor plan",
+        "complex_eyebrow": "Residential complex", "complex_title": "Lagmar Smart Home — 11 blocks in Chișinău",
+        "complex_text": "Modern buildings around green inner courtyards with leisure areas and underground parking. The smart home is part of the project: apartments are planned for the Grenton system, which SmartSpace designs, installs and services.",
+        "siteplan_caption": "Site plan: 11 blocks around green courtyards",
+        "blocks_title": "Choose your block", "blocks_sub": "Tap a block — you'll enter the apartment number below.",
+        "block_word": "Block",
+        "examples_eyebrow": "See it", "examples_title": "Packages on real Lagmar floor plans",
+        "examples_sub": "Typical apartments in the complex — switch Basic / Comfort / Premium and see what appears and where.",
+        "tabs": {"2": "2 rooms · 46 m²", "3": "3 rooms · 82 m²", "4": "4 rooms · 99 m²"},
+        "plan_alt": "Floor plan of a typical {n}-room Lagmar apartment",
+        "example_note": "Illustration: indicative layout on a typical Lagmar floor plan. The exact design follows a visit to your apartment.",
+        "your_plan": "Your apartment's floor plan", "your_block": "Your block",
+        "s2_plan_title": "How it looks on a similar floor plan",
+        "devices": {"L": "Lighting group", "P": "Control panel", "T": "Climate zone", "W": "Leak sensor",
+                    "S": "Smoke sensor", "M": "Motion sensor", "C": "Blind motor", "A": "Audio zone",
+                    "Q": "CO₂ sensor", "I": "Video intercom"},
+    },
+}
+
+DEVICE_ORDER = ["L", "P", "T", "W", "C", "M", "S", "Q", "A", "I"]
+
+# Illustrative device placement on three typical Lagmar plans (F-27 46 m², B-57 82 m², C-32 99 m²).
+# (type, x%, y%, tiers) — tiers: b=Basic, c=Comfort, p=Premium (cumulative upward).
+PLAN_MARKERS = {
+    "2": [
+        ("L", 24, 40, "bcp"), ("L", 72, 42, "bcp"), ("L", 30, 84, "bcp"), ("L", 62, 68, "bcp"), ("L", 86, 90, "bcp"),
+        ("P", 12, 70, "bcp"), ("T", 58, 62, "bcp"), ("W", 89, 57, "bcp"), ("W", 79, 95, "bcp"), ("I", 66, 92, "bcp"),
+        ("L", 12, 22, "cp"), ("L", 70, 15, "cp"), ("L", 45, 93, "cp"),
+        ("C", 28, 7, "cp"), ("C", 4, 86, "cp"), ("T", 40, 28, "cp"), ("M", 66, 63, "cp"), ("S", 52, 70, "cp"),
+        ("P", 40, 50, "cp"), ("P", 58, 45, "cp"),
+        ("L", 15, 62, "p"), ("L", 84, 30, "p"), ("L", 40, 72, "p"), ("L", 35, 30, "p"), ("L", 88, 15, "p"), ("L", 18, 93, "p"),
+        ("Q", 22, 90, "p"), ("A", 20, 78, "p"), ("A", 34, 42, "p"), ("C", 66, 7, "p"),
+    ],
+    "3": [
+        ("L", 17, 40, "bcp"), ("L", 45, 35, "bcp"), ("L", 75, 25, "bcp"), ("L", 25, 80, "bcp"), ("L", 70, 82, "bcp"),
+        ("L", 50, 92, "bcp"), ("L", 90, 90, "bcp"),
+        ("P", 55, 55, "bcp"), ("T", 62, 78, "bcp"), ("W", 14, 62, "bcp"), ("W", 48, 94, "bcp"), ("W", 88, 78, "bcp"),
+        ("I", 79, 96, "bcp"),
+        ("L", 12, 12, "cp"), ("L", 35, 20, "cp"), ("L", 64, 12, "cp"), ("L", 12, 90, "cp"), ("L", 30, 55, "cp"),
+        ("T", 75, 42, "cp"), ("T", 30, 74, "cp"),
+        ("C", 40, 3, "cp"), ("C", 70, 3, "cp"), ("C", 2, 82, "cp"),
+        ("M", 60, 60, "cp"), ("S", 60, 66, "cp"), ("P", 72, 48, "cp"), ("P", 38, 72, "cp"), ("P", 25, 30, "cp"),
+        ("L", 50, 15, "p"), ("L", 60, 30, "p"), ("L", 82, 12, "p"), ("L", 20, 93, "p"), ("L", 88, 70, "p"), ("L", 5, 30, "p"),
+        ("Q", 45, 50, "p"), ("A", 40, 38, "p"), ("A", 80, 30, "p"), ("A", 18, 84, "p"), ("C", 18, 3, "p"),
+    ],
+    "4": [
+        ("L", 22, 15, "bcp"), ("L", 62, 18, "bcp"), ("L", 58, 37, "bcp"), ("L", 52, 52, "bcp"), ("L", 20, 86, "bcp"),
+        ("L", 66, 86, "bcp"), ("L", 88, 57, "bcp"), ("L", 14, 42, "bcp"), ("L", 14, 60, "bcp"),
+        ("P", 70, 50, "bcp"), ("T", 80, 56, "bcp"), ("W", 72, 21, "bcp"), ("W", 9, 45, "bcp"), ("W", 9, 63, "bcp"),
+        ("I", 90, 68, "bcp"),
+        ("L", 30, 25, "cp"), ("L", 40, 62, "cp"), ("L", 30, 92, "cp"), ("L", 60, 4, "cp"), ("L", 75, 92, "cp"),
+        ("L", 45, 44, "cp"), ("L", 65, 64, "cp"),
+        ("T", 25, 22, "cp"), ("T", 25, 80, "cp"), ("T", 60, 80, "cp"),
+        ("C", 20, 1.5, "cp"), ("C", 22, 98.5, "cp"), ("C", 65, 98.5, "cp"),
+        ("M", 85, 50, "cp"), ("M", 50, 71, "cp"), ("S", 80, 67, "cp"),
+        ("P", 31, 12, "cp"), ("P", 31, 79, "cp"), ("P", 50, 79, "cp"), ("P", 55, 25, "cp"),
+        ("L", 10, 15, "p"), ("L", 70, 40, "p"), ("L", 35, 50, "p"), ("L", 60, 70, "p"), ("L", 10, 80, "p"),
+        ("L", 45, 92, "p"), ("L", 90, 50, "p"), ("L", 50, 30, "p"),
+        ("Q", 50, 58, "p"), ("A", 44, 49, "p"), ("A", 15, 22, "p"), ("A", 15, 89, "p"), ("A", 70, 90, "p"),
+    ],
+}
+PLAN_SIZE = {"2": (424, 589), "3": (767, 615), "4": (558, 1064)}
+
 PAGE_IMG = {"home": "monolith.png", "system": "clu.jpg", "control": "smart-panel.jpg", "sensors": "audio-integration.png", "contact": "project-1.png", "lagmar": "project-2.png"}
 IMG_ALT = {
     "monolith.png": "Grenton Monolith — сенсорная панель / touch panel", "clu.jpg": "Grenton CLU — central unit",
@@ -580,7 +689,7 @@ def page_html(key, lang):
       <p class="sub">{hl["p"]}</p>
       <a class="btn btn-primary" href="lagmar.html">{hl["cta"]}</a>
     </div>
-    <img src="../assets/img/project-2.png" alt="{IMG_ALT['project-2.png']}" width="400" height="600" loading="lazy">
+    <a href="lagmar.html" class="lagmar-teaser"><img class="rounded" src="../assets/lagmar/hero-960.jpg" alt="Lagmar Smart Home" width="960" height="540" loading="lazy"><img class="lagmar-teaser-logo" src="../assets/lagmar/logo-lagmar.png" alt="" width="140" height="42"></a>
   </div>
 </section>'''
 
@@ -626,6 +735,7 @@ LAGMAR_JS = r"""
   var API_URL = "__API__";
   var PHONE_DISPLAY = "__PHONE_DISPLAY__";
   var PHONE_TEL = "__PHONE_TEL__";
+  var PLAN_BASE = "__PLAN_BASE__";
   var APTS = JSON.parse(document.getElementById("apt-data").textContent);
   var PK = JSON.parse(document.getElementById("pk-data").textContent);
   var LOCALE = LANG === "en" ? "en-GB" : (LANG === "ru" ? "ru-RU" : "ro-RO");
@@ -656,7 +766,44 @@ LAGMAR_JS = r"""
   function resetBelow() {
     state.tariff = null; state.rooms = null; state.roomsActual = null; state.area = null; state.floor = null;
     show($("step2"), false); show($("step3"), false); show($("cfg-result"), false); show($("cfg-form"), true);
+    show($("cfg-aptcard"), false);
     $("cfg-tariffs").innerHTML = "";
+  }
+  function setTier(fig, tier) {
+    if (!fig) return;
+    fig.dataset.tier = tier;
+    Array.prototype.forEach.call(fig.querySelectorAll("[data-set-tier]"), function (b) { b.setAttribute("aria-pressed", b.dataset.setTier === tier ? "true" : "false"); });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-set-tier]"), function (b) {
+    b.addEventListener("click", function () { setTier(b.closest(".planx"), b.dataset.setTier); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-show-plan]"), function (t) {
+    t.addEventListener("click", function () {
+      Array.prototype.forEach.call(document.querySelectorAll("[data-show-plan]"), function (x) {
+        x.setAttribute("aria-pressed", x === t ? "true" : "false");
+        show($(x.dataset.showPlan), x === t);
+      });
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll(".blk"), function (tile) {
+    tile.addEventListener("click", function () {
+      $("cfg-building").value = tile.dataset.block;
+      Array.prototype.forEach.call(document.querySelectorAll(".blk"), function (x) { x.setAttribute("aria-pressed", x === tile ? "true" : "false"); });
+      show($("cfg-found"), false); show($("cfg-manual"), false); resetBelow();
+      $("cfg-apt").focus();
+    });
+  });
+  function markBlock(b) {
+    Array.prototype.forEach.call(document.querySelectorAll(".blk"), function (x) { x.setAttribute("aria-pressed", x.dataset.block === b ? "true" : "false"); });
+  }
+  function showAptCard(found) {
+    var plan = $("cfg-plan-img"), blk = $("cfg-block-img");
+    var pfig = plan.closest("figure");
+    if (found.p) { plan.src = PLAN_BASE + found.p; plan.alt = UI.your_plan + " — " + found.b + "/" + found.n; show(pfig, true); }
+    else { plan.removeAttribute("src"); show(pfig, false); }
+    blk.src = "../assets/lagmar/blocks/" + found.b + ".jpg"; blk.alt = UI.block_word + " " + found.b;
+    $("cfg-block-cap").textContent = UI.your_block + ": " + found.b;
+    show($("cfg-aptcard"), true);
   }
 
   function renderTariffs(cls) {
@@ -679,6 +826,7 @@ LAGMAR_JS = r"""
         Array.prototype.forEach.call(wrap.querySelectorAll(".tariff-card"), function (c) { c.setAttribute("aria-checked", "false"); });
         card.setAttribute("aria-checked", "true");
         state.tariff = tier;
+        setTier($("s2-" + state.rooms), tier);
         show($("step3"), true);
         scrollTo($("step3"));
       });
@@ -691,6 +839,8 @@ LAGMAR_JS = r"""
     state.roomsActual = roomsActual; state.rooms = clipRooms(roomsActual); state.area = area || null; state.floor = floor;
     show($("cfg-edge"), roomsActual < 2 || roomsActual > 4);
     renderTariffs(state.rooms);
+    ["2", "3", "4"].forEach(function (k) { show($("s2-" + k), String(state.rooms) === k); });
+    setTier($("s2-" + state.rooms), "comfort");
     show($("step2"), true);
     scrollTo($("step2"));
   }
@@ -709,6 +859,8 @@ LAGMAR_JS = r"""
       var fl = String(found.f) === "0" ? UI.floor_ground : (UI.floor_word + " " + found.f);
       $("cfg-found").textContent = UI.found_prefix + " " + UI.building_label + " " + b + " · " + fl + " · " + found.r + " " + UI.rooms_word + " · " + fmtArea(found.a) + " " + UI.area_word;
       show($("cfg-found"), true);
+      markBlock(b);
+      showAptCard(found);
       showStep2(found.r, found.a, String(found.f));
     } else {
       show($("cfg-manual"), true);
@@ -716,7 +868,7 @@ LAGMAR_JS = r"""
   }
 
   $("cfg-search").addEventListener("submit", function (ev) { ev.preventDefault(); doFind(); });
-  $("cfg-building").addEventListener("change", function () { show($("cfg-found"), false); show($("cfg-manual"), false); resetBelow(); });
+  $("cfg-building").addEventListener("change", function () { markBlock($("cfg-building").value); show($("cfg-found"), false); show($("cfg-manual"), false); resetBelow(); });
   $("cfg-apt").addEventListener("input", function () { show($("cfg-found"), false); show($("cfg-manual"), false); resetBelow(); });
   Array.prototype.forEach.call(document.querySelectorAll(".cfg-room-btn"), function (btn) {
     btn.addEventListener("click", function () {
@@ -812,31 +964,120 @@ def faq_jsonld(lang):
             "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ[lang]]}
 
 
+def plan_widget_html(lang, n, pk, wid, extra_cls="", hidden=False):
+    v = LAGMAR_VIS[lang]
+    w, h = PLAN_SIZE[n]
+    lab = pk["labels"]
+    marks = "".join(
+        f'<span class="mk mk-{t}" data-t="{tiers}" style="left:{x}%;top:{y}%" title="{esc(v["devices"][t])}"><i>{t}</i></span>'
+        for t, x, y, tiers in PLAN_MARKERS[n])
+    tier_btns = "".join(
+        f'<button type="button" class="planx-tier" data-set-tier="{t}" aria-pressed="{"true" if t == "comfort" else "false"}">{esc(lab[t])}</button>'
+        for t in ["basic", "comfort", "premium"])
+    legend = []
+    for t in DEVICE_ORDER:
+        cnt = {k: sum(1 for m in PLAN_MARKERS[n] if m[0] == t and k in m[3]) for k in "bcp"}
+        if not any(cnt.values()):
+            continue
+        legend.append(f'<li class="lg-{t}" data-has="{"".join(k for k in "bcp" if cnt[k])}"><i class="mk mk-{t}"><i>{t}</i></i>'
+                      f'{esc(v["devices"][t])} <b class="c-b">{cnt["b"]}</b><b class="c-c">{cnt["c"]}</b><b class="c-p">{cnt["p"]}</b></li>')
+    hid = " hidden" if hidden else ""
+    return f'''<figure class="planx {extra_cls}" id="{wid}" data-tier="comfort" data-cls="{n}"{hid}>
+  <div class="planx-tiers" role="group">{tier_btns}</div>
+  <div class="planx-body">
+    <div class="planx-stage"><div class="planx-canvas"><img src="../assets/lagmar/plans/plan-{n}.png" width="{w}" height="{h}" alt="{esc(v["plan_alt"].replace("{n}", n))}" loading="lazy">{marks}</div></div>
+    <figcaption><ul class="planx-legend">{"".join(legend)}</ul><p class="planx-note">{esc(v["example_note"])}</p></figcaption>
+  </div>
+</figure>'''
+
+
+def lagmar_hero_html(lang, u):
+    v = LAGMAR_VIS[lang]
+    stats = "".join(f'<li><b>{esc(a)}</b><span>{esc(b)}</span></li>' for a, b in v["stats"])
+    return f'''<section class="lg-hero">
+  <img class="lg-hero-bg" src="../assets/lagmar/hero.jpg" srcset="../assets/lagmar/hero-960.jpg 960w, ../assets/lagmar/hero.jpg 1920w" sizes="100vw" alt="Lagmar Smart Home" fetchpriority="high">
+  <div class="wrap lg-hero-inner">
+    <div class="lg-logos"><img src="../assets/lagmar/logo-lagmar.png" alt="Lagmar Smart Home" width="160" height="48"><span class="x">×</span><span class="gr">GRENTON <small>by SmartSpace</small></span></div>
+    <h1>{u["h1"]}</h1>
+    <p class="lead">{u["lead"]}</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#step1">{v["cta_find"]}</a>
+      <a class="btn btn-light" href="#examples">{v["cta_examples"]}</a>
+    </div>
+    <ul class="lg-stats">{stats}</ul>
+    <noscript><p class="lead"><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p></noscript>
+  </div>
+</section>'''
+
+
+def lagmar_complex_html(lang):
+    v = LAGMAR_VIS[lang]
+    return f'''<section class="block lg-complex" id="complex">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <span class="eyebrow">{v["complex_eyebrow"]}</span>
+        <h2 class="h2">{v["complex_title"]}</h2>
+        <p class="sub">{v["complex_text"]}</p>
+      </div>
+      <img class="rounded" src="../assets/lagmar/aerial.jpg" width="1600" height="828" alt="Lagmar Smart Home" loading="lazy">
+    </div>
+    <div class="lg-gallery">
+      <img src="../assets/lagmar/collage.jpg" width="888" height="843" alt="Lagmar Smart Home" loading="lazy">
+      <figure><img src="../assets/lagmar/siteplan.jpg" width="1600" height="898" alt="{esc(v["siteplan_caption"])}" loading="lazy"><figcaption>{v["siteplan_caption"]}</figcaption></figure>
+    </div>
+  </div>
+</section>'''
+
+
+def lagmar_blocks_html(lang):
+    v = LAGMAR_VIS[lang]
+    tiles = "".join(
+        f'<button type="button" class="blk" data-block="{b}" aria-pressed="false"><img src="../assets/lagmar/blocks/{b}.jpg" width="330" height="508" alt="{esc(v["block_word"])} {b}" loading="lazy"><span>{b}</span></button>'
+        for b in BUILDINGS)
+    return f'<p class="cfg-note"><b>{v["blocks_title"]}.</b> {v["blocks_sub"]}</p><div class="blk-row">{tiles}</div>'
+
+
+def lagmar_examples_html(lang, pk):
+    v = LAGMAR_VIS[lang]
+    tabs = "".join(
+        f'<button type="button" class="ex-tab" data-show-plan="ex-{n}" aria-pressed="{"true" if n == "2" else "false"}">{esc(v["tabs"][n])}</button>'
+        for n in ["2", "3", "4"])
+    widgets = "".join(plan_widget_html(lang, n, pk, f"ex-{n}", "ex-plan", hidden=(n != "2")) for n in ["2", "3", "4"])
+    return f'''<section class="block alt" id="examples">
+  <div class="wrap">
+    <span class="eyebrow">{v["examples_eyebrow"]}</span>
+    <h2 class="h2">{v["examples_title"]}</h2>
+    <p class="sub">{v["examples_sub"]}</p>
+    <div class="ex-tabs" role="group">{tabs}</div>
+    {widgets}
+  </div>
+</section>'''
+
+
 def lagmar_page_html(lang, apartments, packages_all):
     u = LAGMAR_UI[lang]
+    v = LAGMAR_VIS[lang]
     pk = packages_all[lang]
+    ui_js = dict(u, block_word=v["block_word"], your_plan=v["your_plan"], your_block=v["your_block"])
     building_options = "".join(f'<option value="{b}">{b}</option>' for b in BUILDINGS)
-    js = (LAGMAR_JS.replace("__LANG__", lang).replace("__UI__", _json_for_script(u)).replace("__API__", API_URL)
-          .replace("__PHONE_DISPLAY__", PHONE_DISPLAY).replace("__PHONE_TEL__", PHONE_TEL))
+    js = (LAGMAR_JS.replace("__LANG__", lang).replace("__UI__", _json_for_script(ui_js)).replace("__API__", API_URL)
+          .replace("__PHONE_DISPLAY__", PHONE_DISPLAY).replace("__PHONE_TEL__", PHONE_TEL)
+          .replace("__PLAN_BASE__", PLAN_IMG_BASE))
+    s2_widgets = "".join(plan_widget_html(lang, n, pk, f"s2-{n}", "s2-plan", hidden=True) for n in ["2", "3", "4"])
     return f'''<!doctype html>
 <html lang="{lang}">
 <head>
 {head_html(lang, "lagmar", u["title"], META_DESC["lagmar"][lang], [faq_jsonld(lang)])}
 </head>
-<body>
+<body class="theme-lagmar">
 {nav_html(lang, "lagmar")}
-<section class="hero">
-  <div class="wrap">
-    <span class="eyebrow">{u["eyebrow"]}</span>
-    <h1>{u["h1"]}</h1>
-    <p class="lead">{u["lead"]}</p>
-    <noscript><p class="lead"><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p></noscript>
-  </div>
-</section>
+{lagmar_hero_html(lang, u)}
 
 <section class="block alt cfg-step" id="step1">
   <div class="wrap">
     <h2 class="h2">{u["step1_title"]}</h2>
+    {lagmar_blocks_html(lang)}
     <form id="cfg-search" class="cfg-row" autocomplete="off">
       <label>{u["building_label"]}
         <select id="cfg-building" name="building"><option value="">{u["building_placeholder"]}</option>{building_options}</select>
@@ -848,6 +1089,10 @@ def lagmar_page_html(lang, apartments, packages_all):
     </form>
     <p id="cfg-apt-hint" class="cfg-hint">{u["apt_hint"]}</p>
     <div id="cfg-found" class="cfg-note cfg-status" role="status" aria-live="polite" hidden></div>
+    <div id="cfg-aptcard" class="aptcard" hidden>
+      <figure class="aptcard-plan"><img id="cfg-plan-img" alt="" loading="lazy"><figcaption>{v["your_plan"]}</figcaption></figure>
+      <figure class="aptcard-block"><img id="cfg-block-img" alt="" loading="lazy"><figcaption id="cfg-block-cap"></figcaption></figure>
+    </div>
     <div id="cfg-manual" class="cfg-manual" role="status" aria-live="polite" hidden>
       <p class="cfg-note">{u["not_found_text"]}</p>
       <div class="cfg-row">
@@ -866,6 +1111,8 @@ def lagmar_page_html(lang, apartments, packages_all):
     <p class="cfg-note" id="cfg-edge" hidden>{u["edge_hint"]}</p>
     <div class="grid" id="cfg-tariffs" role="radiogroup" aria-label="{esc(u["step2_title"])}"></div>
     <p class="cfg-note" id="cfg-upsell"></p>
+    <h3 class="s2-plan-title">{v["s2_plan_title"]}</h3>
+    {s2_widgets}
   </div>
 </section>
 
@@ -885,6 +1132,10 @@ def lagmar_page_html(lang, apartments, packages_all):
     <div id="cfg-result" class="cfg-note cfg-status" role="status" aria-live="polite" hidden></div>
   </div>
 </section>
+
+{lagmar_examples_html(lang, pk)}
+
+{lagmar_complex_html(lang)}
 
 <section class="block" id="packages">
   <div class="wrap">
