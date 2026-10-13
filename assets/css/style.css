@@ -1152,3 +1152,84 @@ section.block.alt .opt { background: var(--bg); }
 .tariff-price b { display: block; font-size: var(--fs-2xl); font-weight: 800; letter-spacing: -.03em; color: var(--ink); line-height: 1.1; }
 .tariff-price small { display: block; font-size: var(--fs-xs); color: var(--muted); margin-top: .15rem; }
 .tariff-card[aria-checked="true"] .tariff-price b { color: var(--brand); }
+
+/* =========================================================================
+   Polish (13.10.2026): accordions, FAQ layout, why-cards, stepper, mobile
+   ========================================================================= */
+/* accordions: custom marker, calmer look */
+details summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: var(--sp-s); }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: ""; flex: none; width: 1.6rem; height: 1.6rem; border-radius: 50%;
+  background: var(--surface-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2366738c' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center / 1rem no-repeat;
+  transition: transform .25s var(--ease), background-color .25s; }
+details[open] > summary::after { transform: rotate(45deg); background-color: var(--tint); }
+details.pk, details.faq { padding: var(--sp-s) var(--sp-m); border-radius: var(--r-l); transition: border-color var(--dur), box-shadow var(--dur); }
+details.faq[open], details.pk[open] { border-color: color-mix(in srgb, var(--brand) 30%, var(--line)); box-shadow: var(--shadow-1); }
+details.faq summary { font-size: var(--fs-base); line-height: 1.35; }
+details.faq p { padding-right: 2rem; }
+
+.faq-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: var(--sp-xl); align-items: start; }
+.faq-aside { position: sticky; top: calc(var(--hdr) + 1.5rem); }
+.faq-aside .sub { margin-bottom: var(--sp-m); }
+.faq-list details.faq { background: var(--bg); }
+@media (max-width: 860px) { .faq-grid { grid-template-columns: 1fr; gap: var(--sp-m); } .faq-aside { position: static; } }
+
+/* why Comfort / Premium */
+.why-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-s); margin: var(--sp-m) 0; }
+.why-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-l); padding: var(--sp-m); display: grid; gap: .4rem; align-content: start; }
+.why-card .tier { justify-self: start; }
+.why-card b { font-size: var(--fs-lg); line-height: 1.3; }
+.why-card p { margin: 0; color: var(--ink-soft); font-size: var(--fs-sm); }
+.why-comfort { border-color: color-mix(in srgb, var(--brand) 35%, var(--line)); }
+@media (max-width: 700px) { .why-cards { grid-template-columns: 1fr; } }
+.pk-all summary { font-size: var(--fs-base); }
+.pk-size + .pk-size { margin-top: var(--sp-m); padding-top: var(--sp-m); border-top: 1px solid var(--line); }
+.pk-size h3 { font-size: var(--fs-base); margin: var(--sp-xs) 0 .4rem; }
+.pk-tier h4 { margin: 0 0 .35rem; font-size: var(--fs-sm); }
+
+/* stepper over the configurator */
+.cfg-flow { position: relative; }
+.stepper-bar { position: sticky; top: var(--hdr); z-index: 15; background: color-mix(in srgb, var(--surface) 92%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.stepper { list-style: none; margin-block: 0; padding: .55rem 0; display: flex; gap: .4rem; counter-reset: none; }
+.stepper li { flex: 1; }
+.stepper a { display: flex; align-items: center; gap: .5rem; text-decoration: none; color: var(--muted); font-weight: 700; font-size: var(--fs-sm);
+  padding: .35rem .6rem; border-radius: var(--r-pill); }
+.stepper a span { display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%; border: 2px solid var(--line); font-size: .8rem; flex: none; background: var(--surface); }
+.stepper li.on a { color: var(--ink); background: var(--surface-2); }
+.stepper li.on a span { border-color: var(--brand); background: var(--brand); color: var(--brand-ink); }
+.stepper li.done a { color: var(--ink-soft); }
+.stepper li.done a span { border-color: #16a34a; background: #16a34a; color: #fff; }
+.stepper li + li a::before { content: ""; width: clamp(.6rem, 3vw, 2.5rem); height: 2px; background: var(--line); margin-right: .3rem; flex: none; }
+@media (max-width: 1080px) { .stepper-bar { position: static; } }
+@media (max-width: 520px) { .stepper a { font-size: var(--fs-xs); padding: .3rem .2rem; gap: .35rem; } .stepper li + li a::before { display: none; } }
+
+/* mobile tidy-ups */
+@media (max-width: 600px) {
+  .planx-legend { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .45rem .9rem; }
+  .planx-legend li { font-size: var(--fs-xs); gap: .45rem; }
+  .planx-legend b { font-size: var(--fs-sm); }
+  .lg-gallery > img { display: none; }
+}
+@media (max-width: 700px) {
+  .opts.rail { margin-inline: calc(-1 * var(--gutter)); grid-auto-columns: 84%; }
+  .opts.rail .opt { height: 100%; }
+}
+
+/* step 3: form + recap */
+.s3-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 22rem); gap: var(--sp-xl); align-items: start; }
+.recap { position: sticky; top: calc(var(--hdr) + 4rem); background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--r-l) * 1.2); padding: var(--sp-m); box-shadow: var(--shadow-2); }
+section.block.alt .recap { background: var(--bg); }
+.recap h3 { margin: 0 0 var(--sp-s); font-size: var(--fs-lg); }
+.recap dl { margin: 0; display: grid; gap: .6rem; }
+.recap dl > div { display: grid; gap: .1rem; }
+.recap dt { font-size: var(--fs-xs); color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; }
+.recap dd { margin: 0; font-size: var(--fs-sm); color: var(--ink); font-weight: 600; }
+.recap .rc-total { border-top: 1px solid var(--line); padding-top: .6rem; }
+.recap .rc-total dd { font-size: var(--fs-2xl); font-weight: 800; letter-spacing: -.02em; }
+.recap .rc-promo dd { color: var(--brand); font-size: var(--fs-lg); font-weight: 800; }
+.rc-edit { display: inline-block; margin-top: var(--sp-s); font-size: var(--fs-sm); font-weight: 700; color: var(--brand); }
+@media (max-width: 900px) { .s3-grid { grid-template-columns: 1fr; } .recap { position: static; order: -1; } }
+
+@media (min-width: 1081px) { .cfg-step, #cfg-opts-title { scroll-margin-top: calc(var(--hdr) + 4.25rem); } }
+#cfg-opts-title { scroll-margin-top: calc(var(--hdr) + 3.5rem); }

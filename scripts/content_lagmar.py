@@ -29,6 +29,10 @@ PROMO_PCT = 10  # % off Grenton equipment
 
 LAGMAR_MKT = {
     "ru": {
+        "recap_title": "Ваш выбор", "recap_apt": "Квартира", "recap_none": "без опций", "recap_edit": "Изменить пакет или опции",
+        "details_label": "Подробный состав пакетов для 2, 3 и 4 комнат", "pk_eyebrow": "Пакеты и цены",
+        "faq_sub": "Не нашли ответ? Позвоните или напишите — подскажем пакет под вашу квартиру.",
+        "stepper": ["Квартира", "Комплектация", "Заявка"],
         "apts": "кв.", "range_hint": "Блок {b}: {c} кв., номера {from}–{to}",
         "promo_kicker": "Акция для жильцов Lagmar",
         "promo_title": "−10% на оборудование Grenton",
@@ -52,6 +56,10 @@ LAGMAR_MKT = {
         "pick_pkg_first": "Выберите пакет выше — и итог посчитается здесь.",
     },
     "ro": {
+        "recap_title": "Alegerea ta", "recap_apt": "Apartament", "recap_none": "fără opțiuni", "recap_edit": "Schimbă pachetul sau opțiunile",
+        "details_label": "Componența detaliată a pachetelor pentru 2, 3 și 4 camere", "pk_eyebrow": "Pachete și prețuri",
+        "faq_sub": "N-ai găsit răspunsul? Sună-ne sau scrie-ne — îți recomandăm pachetul potrivit.",
+        "stepper": ["Apartament", "Pachet", "Cerere"],
         "apts": "ap.", "range_hint": "Blocul {b}: {c} ap., numere {from}–{to}",
         "promo_kicker": "Ofertă pentru locatarii Lagmar",
         "promo_title": "−10% la echipamentele Grenton",
@@ -75,6 +83,10 @@ LAGMAR_MKT = {
         "pick_pkg_first": "Alege un pachet mai sus — totalul se calculează aici.",
     },
     "en": {
+        "recap_title": "Your choice", "recap_apt": "Apartment", "recap_none": "no options", "recap_edit": "Change package or options",
+        "details_label": "Detailed package contents for 2, 3 and 4 rooms", "pk_eyebrow": "Packages and prices",
+        "faq_sub": "Did not find the answer? Call or message us and we will suggest the right package.",
+        "stepper": ["Apartment", "Package", "Request"],
         "apts": "apts", "range_hint": "Block {b}: {c} apts, numbers {from}–{to}",
         "promo_kicker": "Offer for Lagmar residents",
         "promo_title": "−10% on Grenton equipment",

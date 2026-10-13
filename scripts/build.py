@@ -681,6 +681,12 @@ LAGMAR_JS = r"""
     $("sum-pkg-l").textContent = M.sum_pkg + " " + (PK.labels[state.tariff] || "");
     $("sum-pkg").textContent = eur(pkg); $("sum-opts").textContent = opts ? "+" + eur(opts) : "—";
     $("sum-total").textContent = eur(total); $("sum-promo").textContent = eur(promo);
+    var apt = state.building ? UI.block_word + " " + state.building + (state.apt ? " · № " + state.apt : "") : "";
+    if (state.area) apt += (apt ? " · " : "") + fmtArea(state.area) + " " + UI.area_unit;
+    $("rc-apt").textContent = apt || "—";
+    $("rc-pkg").textContent = (PK.labels[state.tariff] || "") + " · " + eur(pkg);
+    $("rc-opts").textContent = keys.length ? keys.map(function (k) { return UI.opt_names[k]; }).join(", ") + " · +" + eur(opts) : M.recap_none;
+    $("rc-total").textContent = eur(total); $("rc-promo").textContent = eur(promo);
     return total;
   }
   Array.prototype.forEach.call(document.querySelectorAll("[data-opt]"), function (b) {
@@ -690,6 +696,22 @@ LAGMAR_JS = r"""
       recalc();
     });
   });
+  (function () {
+    var bar = $("stepper"); if (!bar) return;
+    function upd() {
+      var cur = !$("cfg-result").hidden ? 4 : !$("step3").hidden ? 3 : !$("step2").hidden ? 2 : 1;
+      Array.prototype.forEach.call(bar.children, function (li) {
+        var k = +li.dataset.step; li.className = k < cur ? "done" : k === cur ? "on" : "";
+        li.querySelector("a").setAttribute("aria-current", k === cur ? "step" : "false");
+      });
+    }
+    var mo = new MutationObserver(upd);
+    ["step2", "step3", "cfg-result"].forEach(function (id) { mo.observe($(id), { attributes: true, attributeFilter: ["hidden"] }); });
+    Array.prototype.forEach.call(bar.querySelectorAll("a"), function (a) {
+      a.addEventListener("click", function (e) { var t = $(a.getAttribute("href").slice(1)); if (!t || t.hidden) { e.preventDefault(); } });
+    });
+    upd();
+  })();
   function markBlock(b) {
     rangeHint(b);
     Array.prototype.forEach.call(document.querySelectorAll(".blk"), function (x) { x.setAttribute("aria-pressed", x.dataset.block === b ? "true" : "false"); });
@@ -726,7 +748,7 @@ LAGMAR_JS = r"""
         state.tariff = tier; recalc();
         setTier($("s2-" + state.rooms), tier);
         show($("step3"), true);
-        scrollTo($("step3"));
+        scrollTo($("cfg-opts-title"));
       });
       wrap.appendChild(card);
     });
@@ -845,13 +867,22 @@ def _json_for_script(obj):
 
 def packages_static_html(lang, pk):
     lab = pk["labels"]
-    out = []
-    for i, n in enumerate(["2", "3", "4"]):
+    m = LAGMAR_MKT[lang]
+
+    def why(key, tier):
+        txt = lab[key]
+        q, _, rest = txt.partition("?")
+        return (f'<div class="why-card why-{tier}"><span class="tier tier-{tier}">{esc(lab[tier])}</span>'
+                f'<b>{esc(q.strip())}?</b><p>{esc(rest.strip())}</p></div>')
+    blocks = []
+    for n in ["2", "3", "4"]:
         tiers = "".join(
-            f'<div class="pk-tier"><h3>{esc(lab[t])}</h3><ul>' + "".join(f"<li>{esc(x)}</li>" for x in pk[n][t]) + "</ul></div>"
+            f'<div class="pk-tier"><h4>{esc(lab[t])}</h4><ul>' + "".join(f"<li>{esc(x)}</li>" for x in pk[n][t]) + "</ul></div>"
             for t in ["basic", "comfort", "premium"])
-        out.append(f'<details class="pk"{" open" if i == 0 else ""}><summary>{esc(lab["size_title"].replace("{n}", n))}</summary><div class="pk-grid">{tiers}</div></details>')
-    return "".join(out) + f'<p class="cfg-note">{esc(lab["why_comfort"])}</p><p class="cfg-note">{esc(lab["why_premium"])}</p><p class="cfg-footnote">{esc(lab["footnote"])}</p>'
+        blocks.append(f'<div class="pk-size"><h3>{esc(lab["size_title"].replace("{n}", n))}</h3><div class="pk-grid">{tiers}</div></div>')
+    return (f'<div class="why-cards">{why("why_comfort", "comfort")}{why("why_premium", "premium")}</div>'
+            f'<details class="pk pk-all"><summary>{m["details_label"]}</summary>{"".join(blocks)}</details>'
+            f'<p class="cfg-footnote">{esc(lab["footnote"])}</p>')
 
 
 def faq_html(lang):
@@ -972,7 +1003,7 @@ def options_html(lang, interactive):
             items.append(f'<button type="button" class="opt" data-opt="{k}" aria-pressed="false">{inner}<span class="opt-check">{ico("check")}</span></button>')
         else:
             items.append(f'<div class="opt">{inner}</div>')
-    return f'<div class="opts{" opts-pick" if interactive else ""}">{"".join(items)}</div>'
+    return f'<div class="opts{" opts-pick" if interactive else " rail"}">{"".join(items)}</div>'
 
 def lagmar_examples_html(lang, pk):
     v = LAGMAR_VIS[lang]
@@ -997,7 +1028,8 @@ def lagmar_page_html(lang, apartments, packages_all):
     pk = packages_all[lang]
     ui_js = dict(u, block_word=v["block_word"], your_plan=v["your_plan"], your_block=v["your_block"],
                  bstats={b: list(x) for b, x in block_stats(apartments).items()}, range_hint=LAGMAR_MKT[lang]["range_hint"],
-                 mkt={k: LAGMAR_MKT[lang][k] for k in ("sum_pkg", "sum_opts", "sum_total", "sum_promo", "pick_pkg_first", "opt_add", "opt_added")},
+                 mkt={k: LAGMAR_MKT[lang][k] for k in ("sum_pkg", "sum_opts", "sum_total", "sum_promo", "pick_pkg_first", "opt_add", "opt_added", "recap_none")},
+                 opt_names={k: t for k, (t, _d) in LAGMAR_MKT[lang]["options"].items()}, area_unit="m²",
                  opt_prices=OPTION_PRICES, promo_pct=PROMO_PCT, prog_share=PROGRAMMING_SHARE, price_num=PRICES)
     bst = block_stats(apartments)
     m = LAGMAR_MKT[lang]
@@ -1019,6 +1051,10 @@ def lagmar_page_html(lang, apartments, packages_all):
 {lagmar_hero_html(lang, u)}
 {promo_html(lang)}
 
+<div class="cfg-flow">
+<nav class="stepper-bar" aria-label="{esc(m["stepper"][0])} → {esc(m["stepper"][2])}">
+  <ol class="stepper wrap" id="stepper">{"".join(f'<li data-step="{i + 1}"{" class=\"on\"" if i == 0 else ""}><a href="#step{i + 1}"><span>{i + 1}</span>{esc(t)}</a></li>' for i, t in enumerate(m["stepper"]))}</ol>
+</nav>
 <section class="block alt cfg-step" id="step1">
   <div class="wrap">
     <h2 class="h2">{u["step1_title"]}</h2>
@@ -1056,7 +1092,7 @@ def lagmar_page_html(lang, apartments, packages_all):
     <p class="cfg-note" id="cfg-edge" hidden>{u["edge_hint"]}</p>
     <div class="grid" id="cfg-tariffs" role="radiogroup" aria-label="{esc(u["step2_title"])}"></div>
     <p class="cfg-note" id="cfg-upsell"></p>
-    <h3 class="s2-plan-title">{m["opt_s2"]}</h3>
+    <h3 class="s2-plan-title" id="cfg-opts-title">{m["opt_s2"]}</h3>
     {options_html(lang, interactive=True)}
     <div class="sum" id="cfg-sum" aria-live="polite">
       <p class="sum-empty" id="sum-empty">{m["pick_pkg_first"]}</p>
@@ -1076,6 +1112,8 @@ def lagmar_page_html(lang, apartments, packages_all):
 <section class="block alt cfg-step" id="step3" hidden>
   <div class="wrap">
     <h2 class="h2">{u["step3_title"]}</h2>
+    <div class="s3-grid">
+    <div class="s3-main">
     <form id="cfg-form" class="cfg-form" novalidate>
       <input type="text" id="cfg-hp" name="fax_ref" class="cfg-hp" tabindex="-1" aria-hidden="true" autocomplete="new-password">
       <label>{u["name_label"]}<input type="text" id="cfg-name" name="name" required minlength="2" maxlength="80" autocomplete="name"></label>
@@ -1087,8 +1125,22 @@ def lagmar_page_html(lang, apartments, packages_all):
       <button class="btn btn-primary" type="submit" id="cfg-submit">{u["submit_btn"]}</button>
     </form>
     <div id="cfg-result" class="cfg-note cfg-status" role="status" aria-live="polite" hidden></div>
+    </div>
+    <aside class="recap" aria-live="polite">
+      <h3>{m["recap_title"]}</h3>
+      <dl>
+        <div><dt>{m["recap_apt"]}</dt><dd id="rc-apt">—</dd></div>
+        <div><dt>{m["sum_pkg"]}</dt><dd id="rc-pkg">—</dd></div>
+        <div><dt>{m["sum_opts"]}</dt><dd id="rc-opts">{m["recap_none"]}</dd></div>
+        <div class="rc-total"><dt>{m["sum_total"]}</dt><dd id="rc-total">—</dd></div>
+        <div class="rc-promo"><dt>{m["sum_promo"]}</dt><dd id="rc-promo">—</dd></div>
+      </dl>
+      <a class="rc-edit" href="#step2">{m["recap_edit"]}</a>
+    </aside>
+    </div>
   </div>
 </section>
+</div>
 
 {lagmar_examples_html(lang, pk)}
 
@@ -1096,6 +1148,7 @@ def lagmar_page_html(lang, apartments, packages_all):
 
 <section class="block" id="packages">
   <div class="wrap">
+    <span class="eyebrow">{m["pk_eyebrow"]}</span>
     <h2 class="h2">{u["packages_title"]}</h2>
     {compare_html(lang, pk, cta=False)}
     <div class="opt-show">
@@ -1109,9 +1162,17 @@ def lagmar_page_html(lang, apartments, packages_all):
 </section>
 
 <section class="block alt" id="faq">
-  <div class="wrap">
-    <h2 class="h2">{u["faq_title"]}</h2>
-    {faq_html(lang)}
+  <div class="wrap faq-grid">
+    <div class="faq-aside">
+      <span class="eyebrow">FAQ</span>
+      <h2 class="h2">{u["faq_title"]}</h2>
+      <p class="sub">{m["faq_sub"]}</p>
+      <div class="cta-row cta-left">
+        <a class="btn btn-primary" href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a>
+        <a class="btn btn-wa" href="https://wa.me/{WA_NUMBER}" target="_blank" rel="noopener">{ico("chat")}WhatsApp</a>
+      </div>
+    </div>
+    <div class="faq-list">{faq_html(lang)}</div>
   </div>
 </section>
 
