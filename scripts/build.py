@@ -5,8 +5,10 @@ import json
 import os
 import re
 
+from content_lagmar import LAGMAR_MKT, OPTION_ICON, OPTION_PRICES, PROMO_PCT
+from content_contact import CONTACT_V3, EMAIL, GEO, HOURS, PAGE_HERO_MEDIA, SOCIAL, WA_NUMBER
 from content_v3 import (APP, CMP, DAY, DAY_BLINDS, DAY_LIGHTS, DAY_STATES, FEATURE_PHOTO, GAL, HOME_V3,
-                        PHOTO_ALT, PRICES, SCENE_PHOTO, fmt_eur)
+                        PHOTO_ALT, PRICES, PROGRAMMING_SHARE, SCENE_PHOTO, fmt_eur)
 from content_pages import (CTA_LAGMAR, FEATURES, HOME_CARDS, HOME_V2, HOW, META_DESC_NEW, SCENARIOS, SL_BRANDS,
                            SMARTLIGHT_URL, SMARTLIGHT_UTM, TIER_CHIP)
 
@@ -475,8 +477,8 @@ def nav_html(lang, current):
     return f'''<header class="site">
   <div class="wrap bar">
     <a class="brand" href="index.html">
-      <img src="../assets/img/favicon-32.png" alt="" width="28" height="28">
-      GRENTON <span class="by">by SmartSpace</span>
+      <span class="brand-name">SmartSpace</span>
+      <span class="by">by <img src="../assets/img/favicon-32.png" alt="" width="14" height="14"> GRENTON</span>
     </a>
     <nav class="main" aria-label="Main">
       {''.join(links)}
@@ -609,7 +611,7 @@ LAGMAR_JS = r"""
   var APTS = JSON.parse(document.getElementById("apt-data").textContent);
   var PK = JSON.parse(document.getElementById("pk-data").textContent);
   var LOCALE = LANG === "en" ? "en-GB" : (LANG === "ru" ? "ru-RU" : "ro-RO");
-  var state = { building: "", apt: "", floor: null, rooms: null, roomsActual: null, area: null, tariff: null };
+  var state = { building: "", apt: "", floor: null, rooms: null, roomsActual: null, area: null, tariff: null, opts: {} };
 
   function $(id) { return document.getElementById(id); }
   function show(el, on) { el.hidden = !on; }
@@ -657,13 +659,39 @@ LAGMAR_JS = r"""
   });
   Array.prototype.forEach.call(document.querySelectorAll(".blk"), function (tile) {
     tile.addEventListener("click", function () {
-      $("cfg-building").value = tile.dataset.block;
+      $("cfg-building").value = tile.dataset.block; rangeHint(tile.dataset.block);
       Array.prototype.forEach.call(document.querySelectorAll(".blk"), function (x) { x.setAttribute("aria-pressed", x === tile ? "true" : "false"); });
       show($("cfg-found"), false); show($("cfg-manual"), false); resetBelow();
       $("cfg-apt").focus();
     });
   });
+  function eur(v) { return String(v).replace(/\B(?=(\d{3})+(?!\d))/g, LANG === "en" ? "," : "\u00a0") + "\u00a0€"; }
+  function rangeHint(b) {
+    var st = UI.bstats[b], hint = $("cfg-apt-hint"), inp = $("cfg-apt");
+    if (st) { hint.textContent = UI.range_hint.replace("{b}", b).replace("{c}", st[0]).replace("{from}", st[1]).replace("{to}", st[2]); inp.placeholder = st[1] + "–" + st[2]; }
+    else { hint.textContent = UI.apt_hint; inp.placeholder = UI.apt_placeholder; }
+  }
+  function recalc() {
+    var M = UI.mkt, opts = 0, keys = Object.keys(state.opts).filter(function (k) { return state.opts[k]; });
+    keys.forEach(function (k) { opts += UI.opt_prices[k] || 0; });
+    var pkg = state.tariff && state.rooms && UI.price_num[String(state.rooms)] ? UI.price_num[String(state.rooms)][state.tariff] : null;
+    show($("sum-empty"), !pkg); show($("sum-rows"), !!pkg);
+    if (!pkg) return null;
+    var total = pkg + opts, promo = Math.round((total - total / (1 + UI.prog_share) * UI.promo_pct / 100) / 10) * 10;
+    $("sum-pkg-l").textContent = M.sum_pkg + " " + (PK.labels[state.tariff] || "");
+    $("sum-pkg").textContent = eur(pkg); $("sum-opts").textContent = opts ? "+" + eur(opts) : "—";
+    $("sum-total").textContent = eur(total); $("sum-promo").textContent = eur(promo);
+    return total;
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-opt]"), function (b) {
+    b.addEventListener("click", function () {
+      var k = b.dataset.opt; state.opts[k] = !state.opts[k];
+      b.setAttribute("aria-pressed", state.opts[k] ? "true" : "false");
+      recalc();
+    });
+  });
   function markBlock(b) {
+    rangeHint(b);
     Array.prototype.forEach.call(document.querySelectorAll(".blk"), function (x) { x.setAttribute("aria-pressed", x.dataset.block === b ? "true" : "false"); });
   }
   function showAptCard(found) {
@@ -688,14 +716,14 @@ LAGMAR_JS = r"""
       var body = document.createElement("div"); body.className = "body";
       var h3 = document.createElement("h3"); h3.textContent = PK.labels[tier] || tier;
       if (tier === "comfort") { var b = document.createElement("span"); b.className = "badge-rec"; b.textContent = PK.labels.recommended || ""; h3.appendChild(b); }
-      var pr = document.createElement("p"); pr.className = "tariff-price"; var px = PK.price_txt && PK.price_txt[String(cls)]; pr.textContent = px ? px[tier] + " · " + PK.labels.price_vat : (PK.labels.price_note || "");
+      var pr = document.createElement("p"); pr.className = "tariff-price"; var px = PK.price_txt && PK.price_txt[String(cls)]; if (px) { var pb = document.createElement("b"); pb.textContent = px[tier]; var ps = document.createElement("small"); ps.textContent = PK.labels.price_vat; pr.appendChild(pb); pr.appendChild(ps); } else { pr.textContent = PK.labels.price_note || ""; }
       var ul = document.createElement("ul"); ul.className = "tariff-list";
       (cat[tier] || []).forEach(function (t) { var li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
       body.appendChild(h3); body.appendChild(pr); body.appendChild(ul); card.appendChild(body);
       card.addEventListener("click", function () {
         Array.prototype.forEach.call(wrap.querySelectorAll(".tariff-card"), function (c) { c.setAttribute("aria-checked", "false"); });
         card.setAttribute("aria-checked", "true");
-        state.tariff = tier;
+        state.tariff = tier; recalc();
         setTier($("s2-" + state.rooms), tier);
         show($("step3"), true);
         scrollTo($("step3"));
@@ -708,7 +736,7 @@ LAGMAR_JS = r"""
   function showStep2(roomsActual, area, floor) {
     state.roomsActual = roomsActual; state.rooms = clipRooms(roomsActual); state.area = area || null; state.floor = floor;
     show($("cfg-edge"), roomsActual < 2 || roomsActual > 4);
-    renderTariffs(state.rooms);
+    renderTariffs(state.rooms); recalc();
     ["2", "3", "4"].forEach(function (k) { show($("s2-" + k), String(state.rooms) === k); });
     setTier($("s2-" + state.rooms), "comfort");
     show($("step2"), true);
@@ -781,6 +809,7 @@ LAGMAR_JS = r"""
       name: $("cfg-name").value.trim(), phone: phone, email: $("cfg-email").value.trim() || null,
       building: state.building || null, floor: state.floor, apartment_number: state.apt || null,
       rooms: state.rooms, rooms_actual: state.roomsActual, area_m2: state.area, tariff: state.tariff,
+      options: Object.keys(state.opts).filter(function (k) { return state.opts[k]; }), estimate_eur: recalc(),
       lang: LANG, source: "grenton-demo", page_url: location.href, consent: true
     };
     var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
@@ -842,7 +871,8 @@ def plan_widget_html(lang, n, pk, wid, extra_cls="", hidden=False):
         f'<span class="mk mk-{t}" data-t="{tiers}" style="left:{x}%;top:{y}%;--i:{i}" title="{esc(v["devices"][t])}">{ico(t)}</span>'
         for i, (t, x, y, tiers) in enumerate(PLAN_MARKERS[n]))
     tier_btns = "".join(
-        f'<button type="button" class="planx-tier" data-set-tier="{t}" aria-pressed="{"true" if t == "comfort" else "false"}">{esc(lab[t])}</button>'
+        f'<button type="button" class="planx-tier" data-set-tier="{t}" aria-pressed="{"true" if t == "comfort" else "false"}">{esc(lab[t])}'
+        f'<small>{LAGMAR_MKT[lang]["tier_from"].replace("{p}", fmt_eur(PRICES[n][t], lang))}</small></button>'
         for t in ["basic", "comfort", "premium"])
     legend = []
     for t in DEVICE_ORDER:
@@ -867,7 +897,7 @@ def lagmar_hero_html(lang, u):
     return f'''<section class="lg-hero">
   <img class="lg-hero-bg" src="../assets/lagmar/hero.jpg" srcset="../assets/lagmar/hero-960.jpg 960w, ../assets/lagmar/hero.jpg 1920w" sizes="100vw" alt="Lagmar Smart Home" fetchpriority="high">
   <div class="wrap lg-hero-inner">
-    <div class="lg-logos"><img src="../assets/lagmar/logo-lagmar.png" alt="Lagmar Smart Home" width="160" height="48"><span class="x">×</span><span class="gr">GRENTON <small>by SmartSpace</small></span></div>
+    <div class="lg-logos"><img src="../assets/lagmar/logo-lagmar.png" alt="Lagmar Smart Home" width="160" height="48"><span class="x">×</span><span class="gr">SmartSpace <small>by Grenton</small></span></div>
     <h1>{u["h1"]}</h1>
     <p class="lead">{u["lead"]}</p>
     <div class="cta-row">
@@ -900,13 +930,49 @@ def lagmar_complex_html(lang):
 </section>'''
 
 
-def lagmar_blocks_html(lang):
+def block_stats(apartments):
+    st = {}
+    for x in apartments:
+        n = int(re.sub(r"\D", "", str(x["n"])) or 0)
+        c, lo, hi = st.get(x["b"], (0, 10 ** 6, 0))
+        st[x["b"]] = (c + 1, min(lo, n), max(hi, n))
+    return st
+
+
+def lagmar_blocks_html(lang, stats):
     v = LAGMAR_VIS[lang]
+    m = LAGMAR_MKT[lang]
     tiles = "".join(
-        f'<button type="button" class="blk" data-block="{b}" aria-pressed="false"><img src="../assets/lagmar/blocks/{b}.jpg" width="330" height="508" alt="{esc(v["block_word"])} {b}" loading="lazy"><span>{b}</span></button>'
+        f'<button type="button" class="blk" data-block="{b}" aria-pressed="false"><img src="../assets/lagmar/blocks/{b}.jpg" width="330" height="508" alt="{esc(v["block_word"])} {b}" loading="lazy"><span>{b}</span>'
+        + (f'<small class="blk-meta"><b>{stats[b][0]}</b> {m["apts"]}<br>№ {stats[b][1]}–{stats[b][2]}</small>' if b in stats else "")
+        + '</button>'
         for b in BUILDINGS)
     return f'<p class="cfg-note"><b>{v["blocks_title"]}.</b> {v["blocks_sub"]}</p><div class="blk-row">{tiles}</div>'
 
+
+def promo_html(lang):
+    m = LAGMAR_MKT[lang]
+    return f'''<section class="promo" aria-label="{esc(m["promo_kicker"])}">
+  <div class="wrap promo-inner">
+    <div class="promo-badge"><b>−{PROMO_PCT}%</b></div>
+    <div class="promo-copy"><span class="promo-kicker">{m["promo_kicker"]} · {m["promo_until"]}</span><b>{m["promo_title"]}</b><span>{m["promo_text"]}</span></div>
+    <a class="btn promo-btn" href="#step1">{m["promo_cta"]} {ico("arrow")}</a>
+  </div>
+</section>'''
+
+
+def options_html(lang, interactive):
+    m = LAGMAR_MKT[lang]
+    items = []
+    for k, (t, d) in m["options"].items():
+        price = "+" + fmt_eur(OPTION_PRICES[k], lang)
+        inner = (f'<span class="mk mk-{OPTION_ICON[k]}">{ico(OPTION_ICON[k])}</span>'
+                 f'<span class="opt-t"><b>{t}</b><small>{d}</small></span><span class="opt-p">{price}</span>')
+        if interactive:
+            items.append(f'<button type="button" class="opt" data-opt="{k}" aria-pressed="false">{inner}<span class="opt-check">{ico("check")}</span></button>')
+        else:
+            items.append(f'<div class="opt">{inner}</div>')
+    return f'<div class="opts{" opts-pick" if interactive else ""}">{"".join(items)}</div>'
 
 def lagmar_examples_html(lang, pk):
     v = LAGMAR_VIS[lang]
@@ -929,8 +995,15 @@ def lagmar_page_html(lang, apartments, packages_all):
     u = LAGMAR_UI[lang]
     v = LAGMAR_VIS[lang]
     pk = packages_all[lang]
-    ui_js = dict(u, block_word=v["block_word"], your_plan=v["your_plan"], your_block=v["your_block"])
-    building_options = "".join(f'<option value="{b}">{b}</option>' for b in BUILDINGS)
+    ui_js = dict(u, block_word=v["block_word"], your_plan=v["your_plan"], your_block=v["your_block"],
+                 bstats={b: list(x) for b, x in block_stats(apartments).items()}, range_hint=LAGMAR_MKT[lang]["range_hint"],
+                 mkt={k: LAGMAR_MKT[lang][k] for k in ("sum_pkg", "sum_opts", "sum_total", "sum_promo", "pick_pkg_first", "opt_add", "opt_added")},
+                 opt_prices=OPTION_PRICES, promo_pct=PROMO_PCT, prog_share=PROGRAMMING_SHARE, price_num=PRICES)
+    bst = block_stats(apartments)
+    m = LAGMAR_MKT[lang]
+    building_options = "".join(
+        f'<option value="{b}">{b}' + (f' · {bst[b][0]} {m["apts"]} · {bst[b][1]}–{bst[b][2]}' if b in bst else "") + '</option>'
+        for b in BUILDINGS)
     js = (LAGMAR_JS.replace("__LANG__", lang).replace("__UI__", _json_for_script(ui_js)).replace("__API__", API_URL)
           .replace("__PHONE_DISPLAY__", PHONE_DISPLAY).replace("__PHONE_TEL__", PHONE_TEL)
           .replace("__PLAN_BASE__", PLAN_IMG_BASE))
@@ -944,11 +1017,12 @@ def lagmar_page_html(lang, apartments, packages_all):
 {sprite_html()}
 {nav_html(lang, "lagmar")}
 {lagmar_hero_html(lang, u)}
+{promo_html(lang)}
 
 <section class="block alt cfg-step" id="step1">
   <div class="wrap">
     <h2 class="h2">{u["step1_title"]}</h2>
-    {lagmar_blocks_html(lang)}
+    {lagmar_blocks_html(lang, bst)}
     <form id="cfg-search" class="cfg-row" autocomplete="off">
       <label>{u["building_label"]}
         <select id="cfg-building" name="building"><option value="">{u["building_placeholder"]}</option>{building_options}</select>
@@ -982,6 +1056,18 @@ def lagmar_page_html(lang, apartments, packages_all):
     <p class="cfg-note" id="cfg-edge" hidden>{u["edge_hint"]}</p>
     <div class="grid" id="cfg-tariffs" role="radiogroup" aria-label="{esc(u["step2_title"])}"></div>
     <p class="cfg-note" id="cfg-upsell"></p>
+    <h3 class="s2-plan-title">{m["opt_s2"]}</h3>
+    {options_html(lang, interactive=True)}
+    <div class="sum" id="cfg-sum" aria-live="polite">
+      <p class="sum-empty" id="sum-empty">{m["pick_pkg_first"]}</p>
+      <dl id="sum-rows" hidden>
+        <div><dt id="sum-pkg-l">{m["sum_pkg"]}</dt><dd id="sum-pkg"></dd></div>
+        <div><dt>{m["sum_opts"]}</dt><dd id="sum-opts"></dd></div>
+        <div class="sum-total"><dt>{m["sum_total"]}</dt><dd id="sum-total"></dd></div>
+        <div class="sum-promo"><dt>{m["sum_promo"]}</dt><dd id="sum-promo"></dd></div>
+      </dl>
+      <p class="sum-note">{m["sum_note"]}</p>
+    </div>
     <h3 class="s2-plan-title">{v["s2_plan_title"]}</h3>
     {s2_widgets}
   </div>
@@ -1012,6 +1098,12 @@ def lagmar_page_html(lang, apartments, packages_all):
   <div class="wrap">
     <h2 class="h2">{u["packages_title"]}</h2>
     {compare_html(lang, pk, cta=False)}
+    <div class="opt-show">
+      <span class="eyebrow">{m["opt_eyebrow"]}</span>
+      <h3 class="h3">{m["opt_title"]}</h3>
+      <p class="sub">{m["opt_sub"]}</p>
+      {options_html(lang, interactive=False)}
+    </div>
     {packages_static_html(lang, pk)}
   </div>
 </section>
@@ -1056,6 +1148,8 @@ ICON_PATHS = {
     "wifi": '<path d="M2.5 8.8a14 14 0 0 1 19 0M5.5 12.2a9.5 9.5 0 0 1 13 0M8.6 15.5a5 5 0 0 1 6.8 0"/><circle cx="12" cy="19" r="1"/><path d="M3 3l18 18"/>',
     "tools": '<path d="M14.5 6.5a4 4 0 0 0-5.3 5.2L4 17v3h3l5.3-5.2a4 4 0 0 0 5.2-5.3l-2.6 2.6-2.4-.6-.6-2.4z"/>',
     "pin": '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/>',
+    "chat": '<path d="M4 19.5l1.3-3.9A8 8 0 1 1 8.6 19z"/><path d="M9 10.5h.01M12 10.5h.01M15 10.5h.01"/>',
+    "mail": '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/>',
     "phone": '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>',
 }
 ICON_FOR_GROUP = {"light": "L", "climate": "T", "safety": "W", "blinds": "C", "media": "A", "control": "P"}
@@ -1127,11 +1221,11 @@ def cta_lagmar_html(lang):
 </section>'''
 
 
-def simple_hero(eyebrow, h1, lead, media=""):
+def simple_hero(eyebrow, h1, lead, media="", extra=""):
     if media:
         return f'''<section class="hero hero-media">
   <div class="wrap hero-media-grid">
-    <div><span class="eyebrow">{eyebrow}</span><h1>{h1}</h1><p class="lead">{lead}</p></div>
+    <div><span class="eyebrow">{eyebrow}</span><h1>{h1}</h1><p class="lead">{lead}</p>{extra}</div>
     <div class="hero-media-visual">{media}</div>
   </div>
 </section>'''
@@ -1186,6 +1280,20 @@ SITE_JS = r"""
     }, { threshold: 0.2 });
     each(d.querySelectorAll("video[data-auto]"), function (v) { vo.observe(v); });
   }
+
+  // swipe rails: dots show position and that there is more to the right
+  each(d.querySelectorAll(".rail"), function (r) {
+    var items = r.children, n = items.length; if (n < 2) return;
+    var dots = d.createElement("div"); dots.className = "rail-dots"; dots.setAttribute("aria-hidden", "true");
+    for (var i = 0; i < n; i++) dots.appendChild(d.createElement("i"));
+    r.parentNode.insertBefore(dots, r.nextSibling);
+    function upd() {
+      var w = items[0].getBoundingClientRect().width || 1, gap = 12;
+      var k = Math.round(r.scrollLeft / (w + gap)); if (r.scrollLeft + r.clientWidth >= r.scrollWidth - 4) k = n - 1;
+      each(dots.children, function (x, j) { x.classList.toggle("on", j === k); });
+    }
+    r.addEventListener("scroll", upd, { passive: true }); upd();
+  });
 
   // package comparison: apartment size switch
   each(d.querySelectorAll("[data-cmp-size]"), function (b) {
@@ -1243,7 +1351,15 @@ SITE_JS = r"""
     }
     each(dw.querySelectorAll("[data-day]"), function (b) { b.addEventListener("click", function () { setPlay(false); apply(+b.dataset.day); }); });
     playBtn.addEventListener("click", function () { setPlay(!timer); });
-    apply(0);
+    var side = dw.querySelector(".day-side");
+    function lock() {
+      side.style.minHeight = "";
+      var mx = 0, keep = cur;
+      for (var i = 0; i < S.length; i++) { apply(i); mx = Math.max(mx, side.offsetHeight); }
+      side.style.minHeight = mx + "px"; apply(keep);
+    }
+    apply(0); lock();
+    var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(lock, 200); });
     if (hasIO && !reduce) {
       var started = false;
       new IntersectionObserver(function (es) {
@@ -1496,7 +1612,8 @@ def scenarios_page_html(lang):
         <div class="scene-photo">{gimg(ph, palt(lang, ph), sizes="(max-width: 600px) 90vw, 16rem")}</div>
       </div>
     </li>''')
-    body = simple_hero(sc["eyebrow"], sc["h1"], sc["lead"]) + f'''
+    hm = PAGE_HERO_MEDIA["scenarios"]
+    body = simple_hero(sc["eyebrow"], sc["h1"], sc["lead"], gimg(hm, palt(lang, hm), sizes="(max-width: 860px) 92vw, 45vw", eager=True)) + f'''
 {day_section_html(lang, alt=True, more=False)}
 <section class="block">
   <div class="wrap">
@@ -1524,7 +1641,8 @@ def how_page_html(lang):
                   for i, (t, d) in enumerate(h["why"]))
     g = GAL[lang]
     t_mono, d_mono = g["items"]["monolith"]
-    body = simple_hero(h["eyebrow"], h["h1"], h["lead"]) + f'''
+    hm = PAGE_HERO_MEDIA["how"]
+    body = simple_hero(h["eyebrow"], h["h1"], h["lead"], gimg(hm, palt(lang, hm), sizes="(max-width: 860px) 92vw, 45vw", eager=True)) + f'''
 <section class="block alt" id="interfaces">
   <div class="wrap">
     <h2 class="h2 rv">{h["layers_title"]}</h2>
@@ -1666,6 +1784,185 @@ def home_page_html(lang, packages_all):
 
 
 
+CONTACT_JS = r"""
+(function () {
+  var d = document, each = function (l, f) { Array.prototype.forEach.call(l, f); };
+  var C = JSON.parse(d.getElementById("contact-data").textContent);
+
+  // live open / closed status in Chisinau time
+  function nowMD() {
+    try {
+      var parts = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Chisinau", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(new Date());
+      var o = {}; parts.forEach(function (p) { o[p.type] = p.value; });
+      return { d: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].indexOf(o.weekday), m: (+o.hour % 24) * 60 + (+o.minute) };
+    } catch (e) { var n = new Date(); return { d: (n.getDay() + 6) % 7, m: n.getHours() * 60 + n.getMinutes() }; }
+  }
+  function mins(t) { var p = t.split(":"); return +p[0] * 60 + +p[1]; }
+  var now = nowMD(), H = C.hours, txt = "", open = false;
+  if (now.d >= 0) {
+    var h = H[now.d];
+    if (h[0] && now.m >= mins(h[0]) && now.m < mins(h[1])) { open = true; txt = C.open_now.replace("{t}", h[1]); }
+    else {
+      for (var k = 0; k < 8; k++) {
+        var day = (now.d + k) % 7, hh = H[day];
+        if (hh[0] && (k > 0 || now.m < mins(hh[0]))) {
+          txt = C.closed_now.replace("{d}", k === 0 ? C.today : k === 1 ? C.tomorrow : C.days_full[day]).replace("{t}", hh[0]); break;
+        }
+      }
+    }
+    each(d.querySelectorAll(".open-status"), function (el) { el.classList.toggle("is-open", open); el.querySelector("span").textContent = txt; el.hidden = false; });
+    each(d.querySelectorAll('.hours [data-dow="' + now.d + '"]'), function (li) { li.classList.add("today"); });
+  }
+
+  // request builder -> WhatsApp / e-mail
+  var st = { topic: null, stage: null };
+  var nameEl = d.getElementById("b-name"), textEl = d.getElementById("b-text"), out = d.getElementById("b-msg");
+  var wa = d.getElementById("b-wa"), mail = d.getElementById("b-mail"), cfg = d.getElementById("b-cfg");
+  function compose() {
+    var lines = [C.msg_hello];
+    if (st.topic) lines.push(C.msg_topic + ": " + C.topics[st.topic]);
+    if (st.stage) lines.push(C.msg_stage + ": " + C.stages[st.stage]);
+    var t = textEl.value.trim(); if (t) lines.push(t);
+    var n = nameEl.value.trim(); if (n) lines.push(C.msg_name + ": " + n);
+    var msg = lines.join("\n");
+    out.textContent = msg;
+    wa.href = "https://wa.me/" + C.wa + "?text=" + encodeURIComponent(msg);
+    mail.href = "mailto:" + C.email + "?subject=" + encodeURIComponent(C.mail_subject) + "&body=" + encodeURIComponent(msg);
+    cfg.hidden = st.topic !== "lagmar";
+  }
+  function pick(attr, key) {
+    each(d.querySelectorAll("[" + attr + "]"), function (b) {
+      b.addEventListener("click", function () {
+        var v = b.getAttribute(attr); st[key] = st[key] === v ? null : v;
+        each(d.querySelectorAll("[" + attr + "]"), function (x) { x.setAttribute("aria-pressed", x.getAttribute(attr) === st[key] ? "true" : "false"); });
+        compose();
+      });
+    });
+  }
+  pick("data-topic", "topic"); pick("data-stage", "stage");
+  nameEl.addEventListener("input", compose); textEl.addEventListener("input", compose);
+  compose();
+
+  // interactive map only on demand (no third-party request before the click)
+  var live = d.getElementById("map-live");
+  if (live) live.addEventListener("click", function () {
+    var card = d.getElementById("mapcard"), f = d.createElement("iframe");
+    f.src = C.map_embed; f.title = C.m_live; f.loading = "lazy"; f.referrerPolicy = "no-referrer-when-downgrade"; f.allowFullscreen = true;
+    card.appendChild(f); card.classList.add("is-live");
+  });
+})();
+"""
+
+
+def contact_page_html(lang):
+    c = CONTACT_V3[lang]
+    lat, lon = GEO
+    wa = f"https://wa.me/{WA_NUMBER}"
+    gdir = f"https://www.google.com/maps/dir/?api=1&destination={lat},{lon}"
+    waze = f"https://waze.com/ul?ll={lat},{lon}&navigate=yes"
+    hours = "".join(
+        f'<li data-dow="{i}"><span>{c["days"][i]}</span><b>{(o + "–" + cl) if o else c["closed"]}</b></li>'
+        for i, (o, cl) in enumerate(HOURS))
+    status = '<span class="open-status" hidden><i></i><span></span></span>'
+    actions = (f'<div class="cta-row cta-left quick">'
+               f'<a class="btn btn-primary" href="tel:{PHONE_TEL}">{ico("phone")}{c["call"]} · {PHONE_DISPLAY}</a>'
+               f'<a class="btn btn-wa" href="{wa}" target="_blank" rel="noopener">{ico("chat")}{c["wa"]}</a>'
+               f'<a class="btn btn-ghost" href="mailto:{EMAIL}">{ico("mail")}{c["mail"]}</a></div>')
+    media = (gimg("hallpanels", c["showroom"], sizes="(max-width: 860px) 92vw, 40vw", eager=True)
+             + f'<div class="float-card hero-fc"><span class="mk mk-I">{ico("pin")}</span><div><b>{c["showroom"]}</b><span>Strada Pajurii 11</span></div></div>')
+    topics = "".join(
+        f'<button type="button" class="topic" data-topic="{k}" aria-pressed="false"><span class="mk mk-{icon}">{ico(icon)}</span>'
+        f'<span><b>{t}</b><small>{s}</small></span></button>' for k, icon, t, s in c["topics"])
+    stages = "".join(f'<button type="button" class="chip" data-stage="{k}" aria-pressed="false">{t}</button>' for k, t in c["stages"])
+    social = "".join(f'<a href="{u}" target="_blank" rel="noopener">{n}</a>' for n, u in SOCIAL)
+    steps = "".join(f'<li class="step rv" style="--d:{i}"><span class="step-n">{i}</span><h3>{t}</h3><p>{dd}</p></li>'
+                    for i, (t, dd) in enumerate(HOW[lang]["steps"][:3], 1))
+    data = {k: c[k] for k in ("open_now", "closed_now", "today", "tomorrow", "days_full", "msg_hello", "msg_topic",
+                              "msg_stage", "msg_name", "mail_subject", "m_live")}
+    data.update(hours=[list(h) for h in HOURS], topics={k: t for k, _i, t, _s in c["topics"]},
+                stages={k: t for k, t in c["stages"]}, wa=WA_NUMBER, email=EMAIL,
+                map_embed=f"https://maps.google.com/maps?q={lat},{lon}&z=16&output=embed")
+    day_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    ld = {"@context": "https://schema.org", "@type": "LocalBusiness", "name": "SmartSpace", "telephone": PHONE_TEL, "email": EMAIL,
+          "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059",
+                      "addressLocality": "Chișinău", "addressCountry": "MD"},
+          "geo": {"@type": "GeoCoordinates", "latitude": lat, "longitude": lon},
+          "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": day_names[i], "opens": o, "closes": cl}
+                                        for i, (o, cl) in enumerate(HOURS) if o],
+          "sameAs": [u for _n, u in SOCIAL]}
+
+    body = simple_hero(c["eyebrow"], c["h1"], c["lead"], media, extra=status + actions) + f'''
+<section class="block alt" id="write">
+  <div class="wrap">
+    <div class="rv"><span class="eyebrow">{c["b_eyebrow"]}</span><h2 class="h2">{c["b_title"]}</h2><p class="sub">{c["b_sub"]}</p></div>
+    <div class="builder rv">
+      <div class="bq">
+        <h3>{c["q1"]}</h3>
+        <div class="topics">{topics}</div>
+        <h3>{c["q2"]}</h3>
+        <div class="chips">{stages}</div>
+        <p class="hint">{c["stage_hint"]}</p>
+        <h3>{c["q3"]}</h3>
+        <input id="b-name" type="text" maxlength="80" autocomplete="name" placeholder="{esc(c["name_ph"])}" aria-label="{esc(c["name_ph"])}">
+        <textarea id="b-text" rows="3" maxlength="600" placeholder="{esc(c["text_ph"])}" aria-label="{esc(c["q3"])}"></textarea>
+      </div>
+      <div class="bprev">
+        <div class="phone-msg">
+          <div class="pm-head"><span class="pm-ava">S</span><div><b>SmartSpace</b><small>{PHONE_DISPLAY}</small></div></div>
+          <div class="pm-body"><span class="pm-label">{c["preview"]}</span><div class="bubble" id="b-msg" aria-live="polite"></div></div>
+        </div>
+        <div class="bactions">
+          <a class="btn btn-wa" id="b-wa" href="{wa}" target="_blank" rel="noopener">{ico("chat")}{c["send_wa"]}</a>
+          <a class="btn btn-ghost" id="b-mail" href="mailto:{EMAIL}">{ico("mail")}{c["send_mail"]}</a>
+          <a class="btn btn-ghost" id="b-cfg" href="lagmar.html#step1" hidden>{c["to_cfg"]} {ico("arrow")}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="map">
+  <div class="wrap map-grid">
+    <div class="mapcard rv" id="mapcard">
+      <img class="map-img map-l" src="../assets/img/map-light.webp" width="1110" height="640" alt="{esc(c["m_title"])}" loading="lazy">
+      <img class="map-img map-d" src="../assets/img/map-dark.webp" width="1110" height="640" alt="" loading="lazy">
+      <span class="map-pin" style="left:50.4%;top:50%"><span class="pin-dot">{ico("pin")}</span></span>
+      <div class="map-label"><b>{c["showroom"]}</b><span>Strada Pajurii 11</span></div>
+      <button type="button" class="btn btn-light map-live" id="map-live">{ico("pin")}{c["m_live"]}</button>
+      <span class="map-attr">© OpenStreetMap</span>
+    </div>
+    <aside class="map-info rv">
+      <span class="eyebrow">{c["m_eyebrow"]}</span>
+      <h2 class="h2">{c["m_title"]}</h2>
+      <p class="sub">{c["m_sub"]}</p>
+      <div class="route"><a class="btn btn-primary" href="{gdir}" target="_blank" rel="noopener">{ico("arrow")}{c["m_route"]}</a><a class="btn btn-ghost" href="{waze}" target="_blank" rel="noopener">{c["m_waze"]}</a></div>
+      <div class="info-cols">
+        <div><h3>{c["hours"]}</h3>{status}<ul class="hours">{hours}</ul></div>
+        <div><h3>{c["write"]}</h3>
+          <ul class="links">
+            <li>{ico("phone")}<a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></li>
+            <li>{ico("chat")}<a href="{wa}" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li>{ico("mail")}<a href="mailto:{EMAIL}">{EMAIL}</a></li>
+          </ul>
+          <h3>{c["social"]}</h3><p class="social">{social}</p>
+        </div>
+      </div>
+      <p class="m-note">{c["m_note"]}</p>
+    </aside>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="rv"><span class="eyebrow">{c["after_eyebrow"]}</span><h2 class="h2">{c["after_title"]}</h2></div>
+    <ol class="steps steps-3 rail">{steps}</ol>
+  </div>
+</section>
+<script id="contact-data" type="application/json">{_json_for_script(data)}</script>
+<script>{CONTACT_JS}</script>'''
+    return shell(lang, "contact", c["title"], body, [ld])
+
+
 def legacy_redirect_html(target):
     return f'''<!doctype html>
 <html>
@@ -1798,6 +2095,8 @@ def main():
                 html = how_page_html(lang)
             elif key == "home":
                 html = home_page_html(lang, packages_all)
+            elif key == "contact":
+                html = contact_page_html(lang)
             else:
                 html = page_html(key, lang)
             html = typo(html, lang)
