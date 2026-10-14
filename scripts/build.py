@@ -5,10 +5,12 @@ import json
 import os
 import re
 
+from content_offer_txt import OFFER_TXT
 from content_lagmar import LAGMAR_MKT, OPTION_ICON, OPTION_PRICES, PROMO_PCT
 from content_contact import CONTACT_V3, EMAIL, GEO, HOURS, PAGE_HERO_MEDIA, SOCIAL, WA_NUMBER
 from content_v3 import (APP, CMP, DAY, DAY_BLINDS, DAY_LIGHTS, DAY_STATES, FEATURE_PHOTO, GAL, HOME_V3,
                         PHOTO_ALT, PRICES, PROGRAMMING_SHARE, SCENE_PHOTO, fmt_eur)
+from content_offer import OFFER, PACKAGE_SPEC, PRICES  # noqa: E402  (overrides content_v3.PRICES)
 from content_pages import (CTA_LAGMAR, FEATURES, HOME_CARDS, HOME_V2, HOW, META_DESC_NEW, SCENARIOS, SL_BRANDS,
                            SMARTLIGHT_URL, SMARTLIGHT_UTM, TIER_CHIP)
 
@@ -399,6 +401,8 @@ PLAN_MARKERS = {
         ("Q", 50, 58, "p"), ("A", 44, 49, "p"), ("A", 15, 22, "p"), ("A", 15, 89, "p"), ("A", 70, 90, "p"),
     ],
 }
+# packages no longer include intercom/audio (they are options) -> no such markers on plans
+PLAN_MARKERS = {n: [m for m in ms if m[0] not in "IA"] for n, ms in PLAN_MARKERS.items()}
 PLAN_SIZE = {"2": (424, 589), "3": (767, 615), "4": (558, 1064)}
 
 PAGE_IMG = {"home": "monolith.png", "contact": "project-1.png"}
@@ -712,6 +716,19 @@ LAGMAR_JS = r"""
     });
     upd();
   })();
+  (function () {
+    var of = document.querySelector(".offer"); if (!of) return;
+    function sync() {
+      Array.prototype.forEach.call(of.querySelectorAll(".oc"), function (c) { c.hidden = c.dataset.oc !== of.dataset.size + "-" + of.dataset.tier; });
+      Array.prototype.forEach.call(of.querySelectorAll("[data-of-size]"), function (b) { b.setAttribute("aria-pressed", b.dataset.ofSize === of.dataset.size ? "true" : "false"); });
+      Array.prototype.forEach.call(of.querySelectorAll("[data-of-tier]"), function (b) { b.setAttribute("aria-pressed", b.dataset.ofTier === of.dataset.tier ? "true" : "false"); });
+    }
+    if (window.matchMedia && matchMedia("(max-width: 700px)").matches) {
+      Array.prototype.forEach.call(of.querySelectorAll(".oc-det"), function (d) { d.open = false; });
+    }
+    Array.prototype.forEach.call(of.querySelectorAll("[data-of-size]"), function (b) { b.addEventListener("click", function () { of.dataset.size = b.dataset.ofSize; sync(); }); });
+    Array.prototype.forEach.call(of.querySelectorAll("[data-of-tier]"), function (b) { b.addEventListener("click", function () { of.dataset.tier = b.dataset.ofTier; sync(); }); });
+  })();
   function markBlock(b) {
     rangeHint(b);
     Array.prototype.forEach.call(document.querySelectorAll(".blk"), function (x) { x.setAttribute("aria-pressed", x.dataset.block === b ? "true" : "false"); });
@@ -881,7 +898,7 @@ def packages_static_html(lang, pk):
             for t in ["basic", "comfort", "premium"])
         blocks.append(f'<div class="pk-size"><h3>{esc(lab["size_title"].replace("{n}", n))}</h3><div class="pk-grid">{tiers}</div></div>')
     return (f'<div class="why-cards">{why("why_comfort", "comfort")}{why("why_premium", "premium")}</div>'
-            f'<details class="pk pk-all"><summary>{m["details_label"]}</summary>{"".join(blocks)}</details>'
+
             f'<p class="cfg-footnote">{esc(lab["footnote"])}</p>')
 
 
@@ -979,6 +996,105 @@ def lagmar_blocks_html(lang, stats):
         + '</button>'
         for b in BUILDINGS)
     return f'<p class="cfg-note"><b>{v["blocks_title"]}.</b> {v["blocks_sub"]}</p><div class="blk-row">{tiles}</div>'
+
+
+def spec_lines(spec, lang):
+    t = OFFER_TXT[lang]["spec"]
+    rows = []
+    light = spec["l"] + spec["d"]
+    rows.append((t["light"], f'{light}' + (f' · {t["light_dim"].replace("{d}", str(spec["d"]))}' if spec["d"] else "")))
+    if spec["led"]:
+        rows.append((t["led"], str(spec["led"])))
+    rows.append((t["s"], str(spec["s"])))
+    if spec["b"]:
+        rows.append((t["b"], str(spec["b"])))
+    rows.append((t["h"], str(spec["h"])))
+    pan = [f"Smart Panel × {spec['sp']}"] if spec["sp"] else []
+    if spec["tp4"] + spec["tp8"]:
+        pan.append(f"Touch Panel × {spec['tp4'] + spec['tp8']}")
+    rows.append((t["panels"], ", ".join(pan)))
+    rows.append((t["leak"], str(spec["leak"]) + (f' {t["valve"]}' if spec["valve"] else "")))
+    if spec["smoke"]:
+        rows.append((t["smoke"], str(spec["smoke"])))
+    if spec["motion"]:
+        rows.append((t["motion"], str(spec["motion"])))
+    if spec["multi"]:
+        rows.append((t["multi"], str(spec["multi"])))
+    rows.append((t["app"], t["yes"]))
+    return rows
+
+
+def offer_card_html(lang, n, tier):
+    o = OFFER_TXT[lang]
+    off = OFFER[n][tier]
+    spec = PACKAGE_SPEC[n][tier]
+    get = "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in spec_lines(spec, lang))
+    rows = []
+    group_of = {"SP": "wall", "TP4": "wall", "TP8": "wall", "LEAK": "sens", "VALVE": "sens", "SMOKE": "sens", "MOTION": "sens", "MULTI": "sens"}
+    last = None
+    for code, qty, unit in off["bom"]:
+        g = group_of.get(code, "cab")
+        if g != last:
+            rows.append(f'<tr class="oc-group"><th colspan="4" scope="rowgroup">{o["groups"][g]}</th></tr>')
+            last = g
+        name, what = o["bom"][code]
+        if unit is None:
+            price, total = f'<span class="oc-na">{o["in_offer"]}</span>', "—"
+        else:
+            price, total = fmt_eur(unit, lang), fmt_eur(unit * qty, lang)
+        rows.append(f'<tr><th scope="row"><b>{name}</b><small>{what}</small></th><td class="num">{qty}</td><td class="num">{price}</td><td class="num">{total}</td></tr>')
+    sensors = f'<p class="oc-note">{o["sensors_note"]}</p>' if off["unpriced"] else ""
+    return f'''<div class="oc" data-oc="{n}-{tier}"{"" if (n, tier) == ("2", "comfort") else " hidden"}>
+  <div class="oc-get">
+    <h3>{o["get"]}</h3>
+    <dl class="oc-spec">{get}</dl>
+  </div>
+  <div class="oc-built">
+    <details class="oc-det" open>
+    <summary><h3>{o["built"]}</h3><span class="oc-sum">{o["items"].replace("{n}", str(len(off["bom"])))} · <b>{fmt_eur(off["total"], lang)}</b></span></summary>
+    <div class="oc-scroll"><table class="oc-bom">
+      <thead><tr><th scope="col">{o["col_item"]}</th><th scope="col" class="num">{o["col_qty"]}</th><th scope="col" class="num">{o["col_unit"]}</th><th scope="col" class="num">{o["col_sum"]}</th></tr></thead>
+      <tbody>{"".join(rows)}</tbody>
+      <tfoot>
+        <tr><th scope="row" colspan="3">{o["equipment"]}</th><td class="num">{fmt_eur(off["equipment"], lang)}</td></tr>
+        <tr><th scope="row" colspan="3">{o["programming"]}<small>{o["programming_note"]}</small></th><td class="num">{fmt_eur(off["programming"], lang)}</td></tr>
+        <tr class="oc-total"><th scope="row" colspan="3">{o["total"]}</th><td class="num">{fmt_eur(off["total"], lang)}</td></tr>
+      </tfoot>
+    </table></div>
+    </details>
+    {sensors}
+  </div>
+</div>'''
+
+
+def offer_html(lang, pk):
+    o = OFFER_TXT[lang]
+    lab = pk["labels"]
+    sizes = "".join(f'<button type="button" data-of-size="{n}" aria-pressed="{"true" if n == "2" else "false"}">{CMP[lang]["sizes"][n]}</button>' for n in ["2", "3", "4"])
+    tiers = "".join(
+        f'<button type="button" data-of-tier="{t}" aria-pressed="{"true" if t == "comfort" else "false"}">{esc(lab[t])}'
+        + "".join(f'<small class="ofp ofp-{n}">{fmt_eur(PRICES[n][t], lang)}</small>' for n in ["2", "3", "4"]) + "</button>"
+        for t in ["basic", "comfort", "premium"])
+    cards = "".join(offer_card_html(lang, n, t) for n in ["2", "3", "4"] for t in ["basic", "comfort", "premium"])
+    steps = "".join(f'<li><span>{i}</span><b>{a}</b><p>{b}</p></li>' for i, (a, b) in enumerate(o["steps"], 1))
+    incl = "".join(f"<li>{ico('check')}{x}</li>" for x in o["incl"])
+    notincl = "".join(f'<li><span class="x" aria-hidden="true">×</span>{x}</li>' for x in o["not_incl"])
+    return f'''<div class="offer" data-size="2" data-tier="comfort">
+  <div class="offer-ctl">
+    <div class="of-row"><span>{o["size"]}</span><div class="of-sizes" role="group">{sizes}</div></div>
+    <div class="of-row"><span>{o["tier"]}</span><div class="of-tiers" role="group">{tiers}</div></div>
+  </div>
+  {cards}
+  <div class="offer-how">
+    <h3>{o["how"]}</h3>
+    <ol class="how-steps">{steps}</ol>
+    <div class="how-lists">
+      <div><h4>{o["incl_title"]}</h4><ul class="incl">{incl}</ul></div>
+      <div><h4>{o["not_incl_title"]}</h4><ul class="notincl">{notincl}</ul></div>
+    </div>
+    <p class="oc-note">{o["base_note"]} {o["sources"]}</p>
+  </div>
+</div>'''
 
 
 def promo_html(lang):
@@ -1148,8 +1264,11 @@ def lagmar_page_html(lang, apartments, packages_all):
 
 <section class="block" id="packages">
   <div class="wrap">
-    <span class="eyebrow">{m["pk_eyebrow"]}</span>
-    <h2 class="h2">{u["packages_title"]}</h2>
+    <span class="eyebrow">{OFFER_TXT[lang]["eyebrow"]}</span>
+    <h2 class="h2">{OFFER_TXT[lang]["title"]}</h2>
+    <p class="sub">{OFFER_TXT[lang]["sub"]}</p>
+    {offer_html(lang, pk)}
+    <h3 class="h3 cmp-h">{CMP[lang]["title"]}</h3>
     {compare_html(lang, pk, cta=False)}
     <div class="opt-show">
       <span class="eyebrow">{m["opt_eyebrow"]}</span>
@@ -2138,6 +2257,10 @@ def _write(rel, text):
 def main():
     apartments = _load_json("assets/data/apartments.json")
     packages_all = _load_json("assets/data/packages.json")
+    for lang in LANGS:
+        for n, tiers in PACKAGE_SPEC.items():
+            for t, spec in tiers.items():
+                packages_all[lang][n][t] = [f"{k}: {v}" for k, v in spec_lines(spec, lang)[:-1]]
     vat = {"ru": "без НДС, ориентировочно", "ro": "fără TVA, orientativ", "en": "excl. VAT, indicative"}
     for lang in LANGS:
         pk = packages_all[lang]
