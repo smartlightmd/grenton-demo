@@ -315,7 +315,7 @@ LAGMAR_VIS = {
         "s2_plan_title": "Как это выглядит на похожей планировке",
         "devices": {"L": "Группа света", "P": "Панель управления", "T": "Зона климата", "W": "Датчик протечки",
                     "S": "Датчик дыма", "M": "Датчик движения", "C": "Привод штор", "A": "Аудио-зона",
-                    "Q": "Датчик CO₂", "I": "Видеодомофон"},
+                    "Q": "Multisensor (CO₂)", "I": "Видеодомофон"},
     },
     "ro": {
         "kicker": "Lagmar Smart Home × Grenton",
@@ -335,7 +335,7 @@ LAGMAR_VIS = {
         "s2_plan_title": "Cum arată pe un plan asemănător",
         "devices": {"L": "Grup de iluminat", "P": "Panou de comandă", "T": "Zonă de climă", "W": "Senzor de scurgere",
                     "S": "Senzor de fum", "M": "Senzor de mișcare", "C": "Motor rulou", "A": "Zonă audio",
-                    "Q": "Senzor CO₂", "I": "Videointerfon"},
+                    "Q": "Multisensor (CO₂)", "I": "Videointerfon"},
     },
     "en": {
         "kicker": "Lagmar Smart Home × Grenton",
@@ -355,7 +355,7 @@ LAGMAR_VIS = {
         "s2_plan_title": "How it looks on a similar floor plan",
         "devices": {"L": "Lighting group", "P": "Control panel", "T": "Climate zone", "W": "Leak sensor",
                     "S": "Smoke sensor", "M": "Motion sensor", "C": "Blind motor", "A": "Audio zone",
-                    "Q": "CO₂ sensor", "I": "Video intercom"},
+                    "Q": "Multisensor (CO₂)", "I": "Video intercom"},
     },
 }
 
@@ -403,6 +403,33 @@ PLAN_MARKERS = {
 }
 # packages no longer include intercom/audio (they are options) -> no such markers on plans
 PLAN_MARKERS = {n: [m for m in ms if m[0] not in "IA"] for n, ms in PLAN_MARKERS.items()}
+# Extra positions (by room) used when a package needs more devices than the drawing had.
+PLAN_EXTRA = {
+    "2": [("P", 88, 68), ("P", 60, 82), ("M", 20, 50)],
+    "3": [("P", 66, 72), ("P", 40, 22), ("S", 18, 72), ("M", 48, 62)],
+    "4": [("P", 90, 57), ("P", 40, 33), ("P", 60, 64), ("C", 58, 1.5), ("C", 76, 44), ("S", 40, 69), ("M", 28, 52), ("Q", 20, 85)],
+}
+
+
+def _sync_markers(n):
+    from content_offer import PACKAGE_SPEC
+    need = {"L": lambda x: x["l"] + x["d"], "P": lambda x: x["sp"] + x["tp4"] + x["tp8"], "T": lambda x: x["h"],
+            "W": lambda x: x["leak"], "C": lambda x: x["b"], "S": lambda x: x["smoke"], "M": lambda x: x["motion"],
+            "Q": lambda x: x["multi"]}
+    sp = PACKAGE_SPEC[n]
+    order = {"bcp": 0, "cp": 1, "p": 2}
+    out = []
+    for t, f in need.items():
+        cand = sorted([m for m in PLAN_MARKERS[n] if m[0] == t], key=lambda m: order[m[3]])
+        cand = [(m[1], m[2]) for m in cand] + [(x, y) for tt, x, y in PLAN_EXTRA[n] if tt == t]
+        nb, nc, np_ = f(sp["basic"]), f(sp["comfort"]), f(sp["premium"])
+        assert len(cand) >= np_, (n, t, len(cand), np_)
+        for i, (x, y) in enumerate(cand[:np_]):
+            out.append((t, x, y, "bcp" if i < nb else "cp" if i < nc else "p"))
+    return out
+
+
+PLAN_MARKERS = {n: _sync_markers(n) for n in PLAN_MARKERS}
 PLAN_SIZE = {"2": (424, 589), "3": (767, 615), "4": (558, 1064)}
 
 PAGE_IMG = {"home": "monolith.png", "contact": "project-1.png"}
@@ -1258,27 +1285,37 @@ def lagmar_page_html(lang, apartments, packages_all):
 </section>
 </div>
 
-{lagmar_examples_html(lang, pk)}
-
-{lagmar_complex_html(lang)}
-
 <section class="block" id="packages">
   <div class="wrap">
     <span class="eyebrow">{OFFER_TXT[lang]["eyebrow"]}</span>
     <h2 class="h2">{OFFER_TXT[lang]["title"]}</h2>
     <p class="sub">{OFFER_TXT[lang]["sub"]}</p>
     {offer_html(lang, pk)}
-    <h3 class="h3 cmp-h">{CMP[lang]["title"]}</h3>
-    {compare_html(lang, pk, cta=False)}
-    <div class="opt-show">
-      <span class="eyebrow">{m["opt_eyebrow"]}</span>
-      <h3 class="h3">{m["opt_title"]}</h3>
-      <p class="sub">{m["opt_sub"]}</p>
-      {options_html(lang, interactive=False)}
-    </div>
+  </div>
+</section>
+
+{lagmar_examples_html(lang, pk)}
+
+<section class="block" id="options">
+  <div class="wrap">
+    <span class="eyebrow">{m["opt_eyebrow"]}</span>
+    <h2 class="h2">{m["opt_title"]}</h2>
+    <p class="sub">{m["opt_sub"]}</p>
+    {options_html(lang, interactive=False)}
     {packages_static_html(lang, pk)}
   </div>
 </section>
+
+<section class="block alt" id="compare-lg">
+  <div class="wrap">
+    <span class="eyebrow">{CMP[lang]["eyebrow"]}</span>
+    <h2 class="h2">{CMP[lang]["title"]}</h2>
+    <p class="sub">{CMP[lang]["sub"]}</p>
+    {compare_html(lang, pk)}
+  </div>
+</section>
+
+{lagmar_complex_html(lang)}
 
 <section class="block alt" id="faq">
   <div class="wrap faq-grid">
