@@ -1313,3 +1313,8 @@ section.block.alt .recap { background: var(--bg); }
 .oc-sum b { color: var(--brand); font-size: var(--fs-base); }
 .oc-det[open] .oc-sum { display: none; }
 @media (min-width: 701px) { .oc-det > summary { pointer-events: none; } .oc-det > summary::after { display: none; } }
+
+/* inline form errors (configurator step 3) */
+.field-error { margin: .35rem 0 .2rem; font-size: var(--fs-sm); font-weight: 600; color: var(--danger); }
+#cfg-form [aria-invalid="true"] { border-color: var(--danger); box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 22%, transparent); }
+#cfg-form input[type="checkbox"][aria-invalid="true"] { outline: 2px solid var(--danger); outline-offset: 2px; }

@@ -196,6 +196,8 @@ LAGMAR_UI = {
         "again": "Отправить для другой квартиры",
         "error_text": "Не удалось отправить автоматически. Свяжитесь с нами напрямую:",
         "error_phone": "Проверьте номер телефона — похоже, он введён с ошибкой.",
+        "error_name": "Как к вам обращаться? Введите имя — хотя бы 2 буквы.",
+        "error_consent": "Отметьте согласие на обработку данных — без него мы не можем подготовить предложение.",
         "error_rate": "Слишком много запросов — попробуйте через несколько минут.",
         "packages_title": "Что входит в пакеты",
         "faq_title": "Вопросы и ответы",
@@ -230,6 +232,8 @@ LAGMAR_UI = {
         "again": "Trimite pentru alt apartament",
         "error_text": "Nu am putut trimite automat. Contactează-ne direct:",
         "error_phone": "Verifică numărul de telefon — pare introdus greșit.",
+        "error_name": "Cum să ne adresăm? Introdu numele — cel puțin 2 litere.",
+        "error_consent": "Bifează acordul pentru prelucrarea datelor — fără el nu putem pregăti oferta.",
         "error_rate": "Prea multe cereri — încearcă din nou peste câteva minute.",
         "packages_title": "Ce include fiecare pachet",
         "faq_title": "Întrebări frecvente",
@@ -264,6 +268,8 @@ LAGMAR_UI = {
         "again": "Submit for another apartment",
         "error_text": "We couldn't send your request automatically. Please contact us directly:",
         "error_phone": "Please check the phone number — it looks mistyped.",
+        "error_name": "How should we address you? Enter a name — at least 2 letters.",
+        "error_consent": "Please tick the consent to data processing — we cannot prepare a quote without it.",
         "error_rate": "Too many requests — please try again in a few minutes.",
         "packages_title": "What each package includes",
         "faq_title": "Questions & answers",
@@ -730,14 +736,15 @@ LAGMAR_JS = r"""
   (function () {
     var bar = $("stepper"); if (!bar) return;
     function upd() {
-      var cur = !$("cfg-result").hidden ? 4 : !$("step3").hidden ? 3 : !$("step2").hidden ? 2 : 1;
+      var done = !$("cfg-result").hidden && !$("cfg-result").querySelector(".cfg-error");
+      var cur = done ? 4 : !$("step3").hidden ? 3 : !$("step2").hidden ? 2 : 1;
       Array.prototype.forEach.call(bar.children, function (li) {
         var k = +li.dataset.step; li.className = k < cur ? "done" : k === cur ? "on" : "";
         li.querySelector("a").setAttribute("aria-current", k === cur ? "step" : "false");
       });
     }
     var mo = new MutationObserver(upd);
-    ["step2", "step3", "cfg-result"].forEach(function (id) { mo.observe($(id), { attributes: true, attributeFilter: ["hidden"] }); });
+    ["step2", "step3", "cfg-result"].forEach(function (id) { mo.observe($(id), { attributes: true, attributeFilter: ["hidden"], childList: id === "cfg-result" }); });
     Array.prototype.forEach.call(bar.querySelectorAll("a"), function (a) {
       a.addEventListener("click", function (e) { var t = $(a.getAttribute("href").slice(1)); if (!t || t.hidden) { e.preventDefault(); } });
     });
@@ -861,6 +868,23 @@ LAGMAR_JS = r"""
     if (withPhone) d.appendChild(phoneLink());
     return d;
   }
+  function fieldError(id, text) {
+    var el = $(id), host = el.closest("label") || el, msg = document.createElement("p");
+    msg.className = "field-error"; msg.id = id + "-err"; msg.setAttribute("role", "alert"); msg.textContent = text;
+    host.insertAdjacentElement("afterend", msg);
+    el.setAttribute("aria-invalid", "true"); el.setAttribute("aria-describedby", msg.id);
+    host.scrollIntoView({ block: "center", behavior: "smooth" }); el.focus({ preventScroll: true });
+  }
+  function clearFieldErrors() {
+    Array.prototype.forEach.call(document.querySelectorAll("#cfg-form .field-error"), function (m) { m.remove(); });
+    ["cfg-name", "cfg-phone", "cfg-consent"].forEach(function (id) { var el = $(id); el.removeAttribute("aria-invalid"); });
+    $("cfg-phone").setAttribute("aria-describedby", "cfg-phone-hint"); $("cfg-name").removeAttribute("aria-describedby"); $("cfg-consent").removeAttribute("aria-describedby");
+  }
+  ["cfg-name", "cfg-phone", "cfg-consent"].forEach(function (id) {
+    $(id).addEventListener(id === "cfg-consent" ? "change" : "input", function () {
+      var m = $(id + "-err"); if (m) { m.remove(); $(id).removeAttribute("aria-invalid"); }
+    });
+  });
   function validQuoteUrl(u) { return typeof u === "string" && /^https:\/\/app\.smartspace\.md\/q\/[A-Za-z0-9_-]{10,}$/.test(u); }
 
   $("cfg-form").addEventListener("submit", function (ev) {
@@ -868,15 +892,20 @@ LAGMAR_JS = r"""
     var btn = $("cfg-submit");
     if ($("cfg-hp").value) { showResult(successNode(null)); show($("cfg-form"), false); return; }
     if (!state.tariff || !state.rooms) { showResult(errorNode(UI.tariff_required, false)); scrollTo($("step2")); return; }
+    clearFieldErrors();
+    var name = $("cfg-name").value.trim();
+    if (name.length < 2) { fieldError("cfg-name", UI.error_name); return; }
     var phone = normPhone($("cfg-phone").value);
-    if (!phone) { showResult(errorNode(UI.error_phone, false)); $("cfg-phone").focus(); return; }
+    if (!phone) { fieldError("cfg-phone", UI.error_phone); return; }
+    if (!$("cfg-consent").checked) { fieldError("cfg-consent", UI.error_consent); return; }
+    show($("cfg-result"), false);
     btn.disabled = true; btn.textContent = UI.sending;
     var payload = {
-      name: $("cfg-name").value.trim(), phone: phone, email: $("cfg-email").value.trim() || null,
+      name: name, phone: phone, email: $("cfg-email").value.trim() || null,
       building: state.building || null, floor: state.floor, apartment_number: state.apt || null,
       rooms: state.rooms, rooms_actual: state.roomsActual, area_m2: state.area, tariff: state.tariff,
       options: Object.keys(state.opts).filter(function (k) { return state.opts[k]; }), estimate_eur: recalc(),
-      lang: LANG, source: "grenton-demo", page_url: location.href, consent: true
+      lang: LANG, source: "grenton-demo", page_url: location.href, consent: $("cfg-consent").checked
     };
     var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
     var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 15000) : null;
