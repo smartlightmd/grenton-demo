@@ -1491,3 +1491,15 @@ details[open]::details-content { block-size: auto; }
 
 #cfg-found, #cfg-manual { scroll-margin-top: calc(var(--hdr) + 1rem); }
 @media (min-width: 1081px) { #cfg-found, #cfg-manual { scroll-margin-top: calc(var(--hdr) + 4.75rem); } }
+
+/* =========================================================================
+   Cross-page consistency 19.10.2026: one closing block, Lagmar palette site-wide
+   ========================================================================= */
+.dealer-band, .cta-lagmar { display: none; }
+.closing { background: var(--band); color: var(--band-ink); padding-block: var(--section); }
+.closing-inner { max-width: 46rem; }
+.closing h2 { font-size: var(--fs-2xl); line-height: var(--lh-tight); letter-spacing: -.02em; margin: 0 0 var(--sp-s); color: #fff; text-wrap: balance; }
+.closing p { color: var(--band-soft); max-width: 56ch; margin: 0 0 var(--sp-m); }
+.closing .btn .ico { margin-right: .15rem; }
+.closing .closing-rep { margin: var(--sp-l) 0 0; font-size: var(--fs-xs); font-weight: 700; letter-spacing: .02em; color: var(--band-soft); }
+.home-lg-bg { object-position: 50% 40%; }

@@ -536,13 +536,26 @@ def nav_html(lang, current):
 <script>(function(){{var b=document.querySelector(".theme-toggle");if(!b)return;var m=window.matchMedia("(prefers-color-scheme: dark)");b.addEventListener("click",function(){{var r=document.documentElement,cur=r.dataset.theme||(m.matches?"dark":"light"),n=cur==="dark"?"light":"dark";r.dataset.theme=n;try{{localStorage.setItem("theme",n)}}catch(e){{}}}});}})();</script>'''
 
 
-def dealer_band_html(lang):
+CLOSING_Q = {"ru": "Остались вопросы?", "ro": "Ai întrebări?", "en": "Still have questions?"}
+
+
+def dealer_band_html(lang, key=""):
+    """The one closing block every page ends with (before the footer)."""
     d = DEALER_BAND[lang]
-    return f'''<section class="dealer-band">
-  <div class="wrap">
-    <h2>{d["h"]}</h2>
-    <p>{d["p"]}</p>
-    <a class="btn btn-accent" href="contact.html">{d["cta"]}</a>
+    c = CTA_LAGMAR[lang]
+    tel = f'<a class="btn btn-light" href="tel:{PHONE_TEL}">{ico("phone")}{c["alt"]} · {PHONE_DISPLAY}</a>'
+    if key == "lagmar":
+        title, text = CLOSING_Q[lang], d["p"]
+        btns = tel + f'<a class="btn btn-wa" href="https://wa.me/{WA_NUMBER}" target="_blank" rel="noopener">{ico("chat")}WhatsApp</a>'
+    else:
+        title, text = c["title"], c["text"]
+        btns = f'<a class="btn btn-primary" href="lagmar.html#step1">{c["btn"]} {ico("arrow")}</a>' + ("" if key == "contact" else tel)
+    return f'''<section class="closing">
+  <div class="wrap closing-inner">
+    <h2>{title}</h2>
+    <p>{text}</p>
+    <div class="cta-row cta-left">{btns}</div>
+    <p class="closing-rep">{d["h"]}</p>
   </div>
 </section>'''
 
@@ -1355,7 +1368,7 @@ def lagmar_page_html(lang, apartments, packages_all):
   </div>
 </section>
 
-{dealer_band_html(lang)}
+{dealer_band_html(lang, "lagmar")}
 {footer_html(lang)}
 
 <script id="apt-data" type="application/json">{_json_for_script(apartments)}</script>
@@ -1446,20 +1459,7 @@ def palt(lang, name):
 
 
 def cta_lagmar_html(lang):
-    c = CTA_LAGMAR[lang]
-    return f'''<section class="block cta-lagmar">
-  <div class="wrap cta-lagmar-inner rv">
-    <img src="../assets/lagmar/hero-960.jpg" alt="Lagmar Smart Home" width="960" height="540" loading="lazy">
-    <div>
-      <h2 class="h2">{c["title"]}</h2>
-      <p class="sub">{c["text"]}</p>
-      <div class="cta-row cta-left">
-        <a class="btn btn-primary" href="lagmar.html">{c["btn"]}</a>
-        <a class="btn btn-ghost" href="tel:{PHONE_TEL}">{c["alt"]} · {PHONE_DISPLAY}</a>
-      </div>
-    </div>
-  </div>
-</section>'''
+    return ""  # merged into the site-wide closing (dealer_band_html)
 
 
 def simple_hero(eyebrow, h1, lead, media="", extra=""):
@@ -1642,11 +1642,11 @@ def shell(lang, key, title, body, extra_jsonld=None):
 <head>
 {head_html(lang, key, title, META_DESC[key][lang], extra_jsonld)}
 </head>
-<body>
+<body class="theme-lagmar">
 {sprite_html()}
 {nav_html(lang, key)}
 {body}
-{dealer_band_html(lang)}
+{dealer_band_html(lang, key)}
 {footer_html(lang)}
 <script>{SITE_JS}</script>
 </body>
@@ -1840,7 +1840,7 @@ def features_page_html(lang, packages_all):
         rows.append(f'''<article class="frow rv" id="{g["id"]}">
       <div class="frow-media">{gimg(ph, palt(lang, ph))}<span class="frow-ico mk mk-{ICON_FOR_GROUP[g["id"]]}">{ico(ICON_FOR_GROUP[g["id"]])}</span></div>
       <div class="frow-text">
-        <h2 class="feat-title">{g["title"]}</h2>
+        <h3 class="feat-title">{g["title"]}</h3>
         <p class="feat-benefit">{g["benefit"]}</p>
         <ul class="feat-list">{items}</ul>
       </div>
@@ -1866,7 +1866,7 @@ def scenarios_page_html(lang):
       <div class="scene-time">{t}</div>
       <div class="scene-card">
         <div class="scene-body">
-          <div class="scene-top"><h2 class="scene-title">{title}</h2>{tier_chip(lang, tier)}</div>
+          <div class="scene-top"><h3 class="scene-title">{title}</h3>{tier_chip(lang, tier)}</div>
           <p>{text}</p>
           <div class="scene-devices">{mk_icons(dev, lang)}</div>
         </div>
@@ -1976,7 +1976,7 @@ def home_page_html(lang, packages_all):
         f'<a class="hb" href="lagmar.html?b={b}#step1"><img src="../assets/lagmar/blocks/{b}.jpg" width="330" height="508" alt="" loading="lazy"><b>{b}</b>'
         + (f'<small>{bst[b][0]} {LAGMAR_MKT[lang]["apts"]}</small>' if b in bst else "") + "</a>" for b in BUILDINGS)
     body = f'''<section class="home-lg">
-  <img class="home-lg-bg" src="../assets/lagmar/hero-960.jpg" srcset="../assets/lagmar/hero-960.jpg 960w, ../assets/lagmar/hero.jpg 1920w" sizes="100vw" alt="" fetchpriority="high">
+  <img class="home-lg-bg" src="../assets/lagmar/aerial-800.jpg" srcset="../assets/lagmar/aerial-800.jpg 800w, ../assets/lagmar/aerial.jpg 1600w" sizes="100vw" alt="" fetchpriority="high">
   <div class="wrap home-lg-inner">
     <div class="lg-logos"><img src="../assets/lagmar/logo-lagmar.png" alt="Lagmar Smart Home" width="160" height="48"><span class="x">×</span><span class="gr">SmartSpace <small>by Grenton</small></span></div>
     <h1>{lg["h1"]}</h1>
@@ -2012,7 +2012,6 @@ def home_page_html(lang, packages_all):
 
 {day_section_html(lang)}
 
-{compare_section_html(lang, pk, alt=True)}
 
 <section class="block lagmar-block" id="lagmar">
   <div class="wrap split">
@@ -2045,13 +2044,6 @@ def home_page_html(lang, packages_all):
       <img src="../assets/smartlight/banner-960.jpg" srcset="../assets/smartlight/banner-960.jpg 960w, ../assets/smartlight/banner.jpg 1440w" sizes="(max-width: 860px) 100vw, 40vw" width="960" height="1200" alt="Vibia Array — SmartLight" loading="lazy">
       <img class="sl-product" src="../assets/smartlight/taccia.jpg" width="600" height="840" alt="Flos Taccia — SmartLight" loading="lazy">
     </div>
-  </div>
-</section>
-
-<section class="block alt">
-  <div class="wrap">
-    <div class="rv"><span class="eyebrow">{h["steps_eyebrow"]}</span><h2 class="h2">{h["steps_title"]}</h2></div>
-    <ol class="steps rail">{steps}</ol>
   </div>
 </section>'''
     return shell(lang, "home", h["title"], body)
@@ -2351,7 +2343,7 @@ def finalize_html(html, lang):
             i = html.index("</script>", i) + len("</script>")
         html = html[:i] + '\n<main id="main" tabindex="-1">' + html[i:]
         j = html.index("<footer")
-        k = html.rfind('<section class="dealer-band"', 0, j)
+        k = html.rfind('<section class="closing"', 0, j)
         cut = k if k != -1 else j
         html = html[:cut] + "</main>\n" + html[cut:]
         html = re.sub(r"(<body[^>]*>)", r'\1\n<a class="skip-link" href="#main">' + SKIP_TXT[lang] + "</a>", html, count=1)
