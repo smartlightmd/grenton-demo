@@ -6,7 +6,7 @@ import os
 import re
 
 from content_offer_txt import OFFER_TXT
-from content_lagmar import LAGMAR_MKT, OPTION_ICON, OPTION_PRICES, PROMO_PCT
+from content_lagmar import HOME_LG, LAGMAR_MKT, OPTION_ICON, OPTION_PRICES, PROMO_PCT
 from content_contact import CONTACT_V3, EMAIL, GEO, HOURS, PAGE_HERO_MEDIA, SOCIAL, WA_NUMBER
 from content_v3 import (APP, CMP, DAY, DAY_BLINDS, DAY_LIGHTS, DAY_STATES, FEATURE_PHOTO, GAL, HOME_V3,
                         PHOTO_ALT, PRICES, PROGRAMMING_SHARE, SCENE_PHOTO, fmt_eur)
@@ -501,6 +501,10 @@ def head_html(lang, key, title, desc, extra_jsonld=None):
 {jsonld_html}'''
 
 
+NAV_ARIA = {"ru": "Основное меню", "ro": "Meniu principal", "en": "Main menu"}
+SKIP_TXT = {"ru": "К содержимому", "ro": "Salt la conținut", "en": "Skip to content"}
+
+
 def nav_html(lang, current):
     labels = NAV_LABELS[lang]
     links = []
@@ -517,7 +521,7 @@ def nav_html(lang, current):
       <span class="brand-name">SmartSpace</span>
       <span class="by">by <img src="../assets/img/favicon-32.png" alt="" width="14" height="14"> GRENTON</span>
     </a>
-    <nav class="main" aria-label="Main">
+    <nav class="main" aria-label="{NAV_ARIA[lang]}">
       {''.join(links)}
     </nav>
     <div class="controls">
@@ -708,6 +712,11 @@ LAGMAR_JS = r"""
     if (st) { hint.textContent = UI.range_hint.replace("{b}", b).replace("{c}", st[0]).replace("{from}", st[1]).replace("{to}", st[2]); inp.placeholder = st[1] + "–" + st[2]; }
     else { hint.textContent = UI.apt_hint; inp.placeholder = UI.apt_placeholder; }
   }
+  var REDUCE = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function pulse(el) {
+    if (!el || REDUCE || !el.animate) return;
+    el.animate([{ opacity: 0.35, transform: "translateY(4px)" }, { opacity: 1, transform: "none" }], { duration: 200, easing: "cubic-bezier(0.23, 1, 0.32, 1)" });
+  }
   function recalc() {
     var M = UI.mkt, opts = 0, keys = Object.keys(state.opts).filter(function (k) { return state.opts[k]; });
     keys.forEach(function (k) { opts += UI.opt_prices[k] || 0; });
@@ -717,13 +726,15 @@ LAGMAR_JS = r"""
     var total = pkg + opts, promo = Math.round((total - total / (1 + UI.prog_share) * UI.promo_pct / 100) / 10) * 10;
     $("sum-pkg-l").textContent = M.sum_pkg + " " + (PK.labels[state.tariff] || "");
     $("sum-pkg").textContent = eur(pkg); $("sum-opts").textContent = opts ? "+" + eur(opts) : "—";
-    $("sum-total").textContent = eur(total); $("sum-promo").textContent = eur(promo);
+    $("sum-old").textContent = eur(total); $("sum-total").textContent = eur(promo);
+    Array.prototype.forEach.call(document.querySelectorAll(".offer-inline .oc"), function (c) { c.hidden = c.dataset.oc !== String(state.rooms) + "-" + state.tariff; });
+    pulse($("sum-total")); pulse($("rc-total"));
     var apt = state.building ? UI.block_word + " " + state.building + (state.apt ? " · № " + state.apt : "") : "";
     if (state.area) apt += (apt ? " · " : "") + fmtArea(state.area) + " " + UI.area_unit;
     $("rc-apt").textContent = apt || "—";
     $("rc-pkg").textContent = (PK.labels[state.tariff] || "") + " · " + eur(pkg);
     $("rc-opts").textContent = keys.length ? keys.map(function (k) { return UI.opt_names[k]; }).join(", ") + " · +" + eur(opts) : M.recap_none;
-    $("rc-total").textContent = eur(total); $("rc-promo").textContent = eur(promo);
+    $("rc-old").textContent = eur(total); $("rc-total").textContent = eur(promo);
     return total;
   }
   Array.prototype.forEach.call(document.querySelectorAll("[data-opt]"), function (b) {
@@ -762,6 +773,15 @@ LAGMAR_JS = r"""
     }
     Array.prototype.forEach.call(of.querySelectorAll("[data-of-size]"), function (b) { b.addEventListener("click", function () { of.dataset.size = b.dataset.ofSize; sync(); }); });
     Array.prototype.forEach.call(of.querySelectorAll("[data-of-tier]"), function (b) { b.addEventListener("click", function () { of.dataset.tier = b.dataset.ofTier; sync(); }); });
+  })();
+  $("cfg-to-step2").addEventListener("click", function () { scrollTo($("step2")); });
+  $("cfg-no-number").addEventListener("click", function () {
+    show($("cfg-notfound-text"), false); show($("cfg-manual"), true); scrollTo($("cfg-manual"));
+  });
+  (function () {
+    var pb = (new URLSearchParams(location.search).get("b") || "").toUpperCase();
+    var tile = pb && document.querySelector('.blk[data-block="' + pb + '"]');
+    if (tile) { tile.click(); setTimeout(function () { scrollTo($("step1")); }, 50); }
   })();
   function markBlock(b) {
     rangeHint(b);
@@ -803,7 +823,7 @@ LAGMAR_JS = r"""
       });
       wrap.appendChild(card);
     });
-    $("cfg-upsell").textContent = "✨ " + PK.labels.upsell_title + ": " + PK.labels.upsell;
+    $("cfg-upsell").textContent = "";
   }
 
   function showStep2(roomsActual, area, floor) {
@@ -813,14 +833,14 @@ LAGMAR_JS = r"""
     ["2", "3", "4"].forEach(function (k) { show($("s2-" + k), String(state.rooms) === k); });
     setTier($("s2-" + state.rooms), "comfort");
     show($("step2"), true);
-    scrollTo($("step2"));
+    if (state.found) { scrollTo($("cfg-found")); } else { scrollTo($("step2")); }
   }
 
   function doFind() {
     var b = $("cfg-building").value;
     var n = normNum($("cfg-apt").value);
     resetBelow();
-    show($("cfg-manual"), false); show($("cfg-found"), false);
+    show($("cfg-manual"), false); show($("cfg-found"), false); show($("cfg-notfound-text"), true);
     state.building = b; state.apt = n;
     if (!b) { $("cfg-found").textContent = UI.choose_building; show($("cfg-found"), true); $("cfg-building").focus(); return; }
     if (!n) { show($("cfg-manual"), true); return; }
@@ -832,6 +852,7 @@ LAGMAR_JS = r"""
       show($("cfg-found"), true);
       markBlock(b);
       showAptCard(found);
+      state.found = true;
       showStep2(found.r, found.a, String(found.f));
     } else {
       show($("cfg-manual"), true);
@@ -845,6 +866,7 @@ LAGMAR_JS = r"""
     btn.addEventListener("click", function () {
       Array.prototype.forEach.call(document.querySelectorAll(".cfg-room-btn"), function (x) { x.setAttribute("aria-pressed", "false"); });
       btn.setAttribute("aria-pressed", "true");
+      state.found = false;
       showStep2(parseInt(btn.dataset.rooms, 10), null, null);
     });
   });
@@ -919,6 +941,7 @@ LAGMAR_JS = r"""
       .then(function (data) {
         var url = data && validQuoteUrl(data.quote_url) ? data.quote_url : null;
         showResult(successNode(url));
+        $("step3").classList.add("is-done");
         show($("cfg-form"), false);
       })
       .catch(function (e) {
@@ -1006,7 +1029,6 @@ def lagmar_hero_html(lang, u):
     <p class="lead">{u["lead"]}</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="#step1">{v["cta_find"]}</a>
-      <a class="btn btn-light" href="#examples">{v["cta_examples"]}</a>
     </div>
     <ul class="lg-stats">{stats}</ul>
     <noscript><p class="lead"><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p></noscript>
@@ -1024,10 +1046,10 @@ def lagmar_complex_html(lang):
         <h2 class="h2">{v["complex_title"]}</h2>
         <p class="sub">{v["complex_text"]}</p>
       </div>
-      <img class="rounded" src="../assets/lagmar/aerial.jpg" width="1600" height="828" alt="Lagmar Smart Home" loading="lazy">
+      <img class="rounded" src="../assets/lagmar/aerial.jpg" srcset="../assets/lagmar/aerial-800.jpg 800w, ../assets/lagmar/aerial.jpg 1600w" sizes="(max-width: 860px) 92vw, 45vw" width="1600" height="828" alt="Lagmar Smart Home" loading="lazy">
     </div>
     <div class="lg-gallery">
-      <img src="../assets/lagmar/collage.jpg" width="888" height="843" alt="Lagmar Smart Home" loading="lazy">
+      <div class="blk-collage"><img src="../assets/lagmar/blocks/A.jpg" width="330" height="508" alt="Lagmar Smart Home — A" loading="lazy"><img src="../assets/lagmar/blocks/D.jpg" width="330" height="508" alt="Lagmar Smart Home — D" loading="lazy"><img src="../assets/lagmar/blocks/F.jpg" width="330" height="508" alt="Lagmar Smart Home — F" loading="lazy"><img src="../assets/lagmar/blocks/J.jpg" width="330" height="508" alt="Lagmar Smart Home — J" loading="lazy"></div>
       <figure><img src="../assets/lagmar/siteplan.jpg" width="1600" height="898" alt="{esc(v["siteplan_caption"])}" loading="lazy"><figcaption>{v["siteplan_caption"]}</figcaption></figure>
     </div>
   </div>
@@ -1155,14 +1177,9 @@ def offer_html(lang, pk):
 
 def promo_html(lang):
     m = LAGMAR_MKT[lang]
-    return f'''<section class="promo" aria-label="{esc(m["promo_kicker"])}">
-  <div class="wrap promo-inner">
-    <div class="promo-badge"><b>−{PROMO_PCT}%</b></div>
-    <div class="promo-copy"><span class="promo-kicker">{m["promo_kicker"]} · {m["promo_until"]}</span><b>{m["promo_title"]}</b><span>{m["promo_text"]}</span></div>
-    <a class="btn promo-btn" href="#step1">{m["promo_cta"]} {ico("arrow")}</a>
-  </div>
-</section>'''
-
+    return f'''<div class="promo-strip" role="note"><div class="wrap promo-strip-inner">
+  <b class="promo-strip-badge">−{PROMO_PCT}%</b><span>{m["strip"]}</span><a href="#step1">{m["strip_cta"]} {ico("arrow")}</a>
+</div></div>'''
 
 def options_html(lang, interactive):
     m = LAGMAR_MKT[lang]
@@ -1201,7 +1218,7 @@ def lagmar_page_html(lang, apartments, packages_all):
     ui_js = dict(u, block_word=v["block_word"], your_plan=v["your_plan"], your_block=v["your_block"],
                  bstats={b: list(x) for b, x in block_stats(apartments).items()}, range_hint=LAGMAR_MKT[lang]["range_hint"],
                  mkt={k: LAGMAR_MKT[lang][k] for k in ("sum_pkg", "sum_opts", "sum_total", "sum_promo", "pick_pkg_first", "opt_add", "opt_added", "recap_none")},
-                 opt_names={k: t for k, (t, _d) in LAGMAR_MKT[lang]["options"].items()}, area_unit="m²",
+                 opt_names={k: t for k, (t, _d) in LAGMAR_MKT[lang]["options"].items()}, area_unit={"ru": "м²"}.get(lang, "m²"),
                  opt_prices=OPTION_PRICES, promo_pct=PROMO_PCT, prog_share=PROGRAMMING_SHARE, price_num=PRICES)
     bst = block_stats(apartments)
     m = LAGMAR_MKT[lang]
@@ -1236,18 +1253,20 @@ def lagmar_page_html(lang, apartments, packages_all):
         <select id="cfg-building" name="building"><option value="">{u["building_placeholder"]}</option>{building_options}</select>
       </label>
       <label>{u["apt_label"]}
-        <input id="cfg-apt" name="apt" type="text" inputmode="numeric" enterkeyhint="search" placeholder="{u["apt_placeholder"]}" aria-describedby="cfg-apt-hint">
+        <input id="cfg-apt" name="apt" type="text" inputmode="numeric" maxlength="4" pattern="[0-9]*" enterkeyhint="search" placeholder="{u["apt_placeholder"]}" aria-describedby="cfg-apt-hint">
       </label>
       <button class="btn btn-primary" type="submit" id="cfg-find">{u["find_btn"]}</button>
     </form>
     <p id="cfg-apt-hint" class="cfg-hint">{u["apt_hint"]}</p>
-    <div id="cfg-found" class="cfg-note cfg-status" role="status" aria-live="polite" hidden></div>
+    <button type="button" class="link-btn" id="cfg-no-number">{m["no_number"]}</button>
+    <div id="cfg-found" class="cfg-found" role="status" aria-live="polite" hidden></div>
     <div id="cfg-aptcard" class="aptcard" hidden>
       <figure class="aptcard-plan"><img id="cfg-plan-img" alt="" loading="lazy"><figcaption>{v["your_plan"]}</figcaption></figure>
       <figure class="aptcard-block"><img id="cfg-block-img" alt="" loading="lazy"><figcaption id="cfg-block-cap"></figcaption></figure>
+      <div class="aptcard-cta"><button type="button" class="btn btn-primary" id="cfg-to-step2">{m["to_step2"]} {ico("arrow")}</button></div>
     </div>
     <div id="cfg-manual" class="cfg-manual" role="status" aria-live="polite" hidden>
-      <p class="cfg-note">{u["not_found_text"]}</p>
+      <p class="cfg-note" id="cfg-notfound-text">{u["not_found_text"]}</p>
       <div class="cfg-row">
         <span>{u["manual_label"]}:</span>
         <button type="button" class="btn btn-ghost cfg-room-btn" data-rooms="2" aria-pressed="false">2</button>
@@ -1263,21 +1282,21 @@ def lagmar_page_html(lang, apartments, packages_all):
     <h2 class="h2">{u["step2_title"]}</h2>
     <p class="cfg-note" id="cfg-edge" hidden>{u["edge_hint"]}</p>
     <div class="grid" id="cfg-tariffs" role="radiogroup" aria-label="{esc(u["step2_title"])}"></div>
-    <p class="cfg-note" id="cfg-upsell"></p>
+    <p class="cfg-note" id="cfg-upsell" hidden></p>
     <h3 class="s2-plan-title" id="cfg-opts-title">{m["opt_s2"]}</h3>
     {options_html(lang, interactive=True)}
-    <div class="sum" id="cfg-sum" aria-live="polite">
+    <div class="sum" id="cfg-sum">
       <p class="sum-empty" id="sum-empty">{m["pick_pkg_first"]}</p>
       <dl id="sum-rows" hidden>
         <div><dt id="sum-pkg-l">{m["sum_pkg"]}</dt><dd id="sum-pkg"></dd></div>
         <div><dt>{m["sum_opts"]}</dt><dd id="sum-opts"></dd></div>
-        <div class="sum-total"><dt>{m["sum_total"]}</dt><dd id="sum-total"></dd></div>
-        <div class="sum-promo"><dt>{m["sum_promo"]}</dt><dd id="sum-promo"></dd></div>
+        <div class="sum-total"><dt>{m["sum_total"]}</dt><dd><s id="sum-old"></s> <b id="sum-total" aria-live="polite"></b></dd></div>
       </dl>
+      <p class="sum-caption">{m["promo_caption"]}</p>
       <p class="sum-note">{m["sum_note"]}</p>
     </div>
-    <h3 class="s2-plan-title">{v["s2_plan_title"]}</h3>
-    {s2_widgets}
+    <details class="fold price-why"><summary>{m["price_breakdown"]}</summary>{offer_html(lang, pk).replace('class="offer"', 'class="offer offer-inline"', 1)}</details>
+    <details class="fold s2-plan"><summary>{m["show_on_plan"]}</summary>{s2_widgets}</details>
   </div>
 </section>
 
@@ -1293,56 +1312,31 @@ def lagmar_page_html(lang, apartments, packages_all):
       <p id="cfg-phone-hint" class="cfg-hint">{u["phone_hint"]}</p>
       <label>{u["email_label"]}<input type="email" id="cfg-email" name="email" autocomplete="email" maxlength="120"></label>
       <label class="cfg-consent"><input type="checkbox" id="cfg-consent" required> <span>{u["consent_text"]} <a href="{PRIVACY_URL}" target="_blank" rel="noopener noreferrer">{u["consent_link"]}</a></span></label>
-      <p class="cfg-disclaimer">{u["disclaimer"]}</p>
       <button class="btn btn-primary" type="submit" id="cfg-submit">{u["submit_btn"]}</button>
+      <p class="cfg-disclaimer">{u["disclaimer"]}</p>
     </form>
+    <div class="s3-next">
+      <h3>{m["next_title"]}</h3>
+      <ul class="checks"><li>{ico("check")}<span>{m["next1"]}</span></li><li>{ico("check")}<span>{m["next2"]}</span></li><li>{ico("check")}<span>{m["next3"]}</span></li></ul>
+      <p class="s3-call">{m["call_instead"]} <a href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a> · <a href="https://wa.me/{WA_NUMBER}" target="_blank" rel="noopener">{ico("chat")}WhatsApp</a></p>
+    </div>
     <div id="cfg-result" class="cfg-note cfg-status" role="status" aria-live="polite" hidden></div>
     </div>
-    <aside class="recap" aria-live="polite">
+    <aside class="recap">
       <h3>{m["recap_title"]}</h3>
       <dl>
         <div><dt>{m["recap_apt"]}</dt><dd id="rc-apt">—</dd></div>
         <div><dt>{m["sum_pkg"]}</dt><dd id="rc-pkg">—</dd></div>
         <div><dt>{m["sum_opts"]}</dt><dd id="rc-opts">{m["recap_none"]}</dd></div>
-        <div class="rc-total"><dt>{m["sum_total"]}</dt><dd id="rc-total">—</dd></div>
-        <div class="rc-promo"><dt>{m["sum_promo"]}</dt><dd id="rc-promo">—</dd></div>
+        <div class="rc-total"><dt>{m["sum_total"]}</dt><dd><s id="rc-old"></s> <b id="rc-total">—</b></dd></div>
       </dl>
+      <p class="rc-caption">{m["promo_caption"]}</p>
       <a class="rc-edit" href="#step2">{m["recap_edit"]}</a>
     </aside>
     </div>
   </div>
 </section>
 </div>
-
-<section class="block" id="packages">
-  <div class="wrap">
-    <span class="eyebrow">{OFFER_TXT[lang]["eyebrow"]}</span>
-    <h2 class="h2">{OFFER_TXT[lang]["title"]}</h2>
-    <p class="sub">{OFFER_TXT[lang]["sub"]}</p>
-    {offer_html(lang, pk)}
-  </div>
-</section>
-
-{lagmar_examples_html(lang, pk)}
-
-<section class="block" id="options">
-  <div class="wrap">
-    <span class="eyebrow">{m["opt_eyebrow"]}</span>
-    <h2 class="h2">{m["opt_title"]}</h2>
-    <p class="sub">{m["opt_sub"]}</p>
-    {options_html(lang, interactive=False)}
-    {packages_static_html(lang, pk)}
-  </div>
-</section>
-
-<section class="block alt" id="compare-lg">
-  <div class="wrap">
-    <span class="eyebrow">{CMP[lang]["eyebrow"]}</span>
-    <h2 class="h2">{CMP[lang]["title"]}</h2>
-    <p class="sub">{CMP[lang]["sub"]}</p>
-    {compare_html(lang, pk)}
-  </div>
-</section>
 
 {lagmar_complex_html(lang)}
 
@@ -1428,7 +1422,7 @@ G_SIZE = {"app-bedroom": (480, 709), "app-saving": (1000, 666), "bath": (1600, 8
           "multi-wall": (800, 933), "multisensor-poster": (720, 720), "multisensor": (800, 800), "office": (1600, 880),
           "oled": (800, 800), "panel-poster": (960, 540), "salon": (1600, 880), "security": (768, 512),
           "smartpanel": (800, 800), "touch-hero": (1600, 941), "touch-wall": (800, 933)}
-G_HAS_800 = {"bath", "bedroom", "hall", "kitchen", "office", "salon"}
+G_HAS_800 = {"bath", "bedroom", "hall", "kitchen", "office", "salon", "touch-hero", "monolith-hero"}
 
 
 def gimg(name, alt, cls="", sizes="(max-width: 700px) 92vw, 45vw", eager=False):
@@ -1442,8 +1436,9 @@ def gimg(name, alt, cls="", sizes="(max-width: 700px) 92vw, 45vw", eager=False):
 
 def gvideo(name, poster, label, cls=""):
     w, h = G_SIZE[poster]
+    mob = f' data-src-mobile="../assets/grenton/{name}-mobile.mp4"' if name == "hero" else ""
     return (f'<video class="vid {cls}" muted loop playsinline preload="none" data-auto poster="../assets/grenton/{poster}.webp" '
-            f'width="{w}" height="{h}" aria-label="{esc(label)}"><source src="../assets/grenton/{name}.mp4" type="video/mp4"></video>')
+            f'width="{w}" height="{h}" aria-label="{esc(label)}"{mob}><source src="../assets/grenton/{name}.mp4" type="video/mp4"></video>')
 
 
 def palt(lang, name):
@@ -1495,7 +1490,12 @@ SITE_JS = r"""
   if (hasIO && !reduce) {
     d.documentElement.classList.add("js-rv");
     var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target; el.classList.add("in"); io.unobserve(el);
+        var done = function () { el.classList.remove("rv", "in"); };
+        el.addEventListener("transitionend", done, { once: true }); setTimeout(done, 900);
+      });
     }, { rootMargin: "0px 0px -6% 0px", threshold: 0.06 });
     each(d.querySelectorAll(".rv"), function (el) { io.observe(el); });
   }
@@ -1508,11 +1508,14 @@ SITE_JS = r"""
         co.unobserve(e.target);
         var el = e.target, to = +el.dataset.count, sep = el.dataset.sep || " ", t0 = null;
         function fmt(v) { return String(v).replace(/\B(?=(\d{3})+(?!\d))/g, sep); }
-        function step(ts) { if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / 1200); el.textContent = fmt(Math.round(to * (1 - Math.pow(1 - p, 3)))); if (p < 1) requestAnimationFrame(step); }
+        function step(ts) { if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / 800); el.textContent = fmt(Math.round(to * (1 - Math.pow(1 - p, 3)))); if (p < 1) requestAnimationFrame(step); }
         requestAnimationFrame(step);
       });
     }, { threshold: 0.5 });
-    each(d.querySelectorAll("[data-count]"), function (el) { co.observe(el); });
+    each(d.querySelectorAll("[data-count]"), function (el) {
+      if (el.getBoundingClientRect().top > window.innerHeight) el.textContent = "0";
+      co.observe(el);
+    });
   }
 
   // background videos: play only when visible, never for reduced motion / data saver
@@ -1520,7 +1523,9 @@ SITE_JS = r"""
     var vo = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         var v = e.target;
-        if (e.isIntersecting) { v.preload = "auto"; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        if (e.isIntersecting) { if (v.dataset.userPaused) return;
+          if (v.dataset.srcMobile && window.innerWidth < 700 && !v.dataset.swapped) { var so = v.querySelector("source"); if (so) { so.src = v.dataset.srcMobile; v.dataset.swapped = "1"; v.load(); } }
+          v.preload = "auto"; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
         else if (!v.paused) v.pause();
       });
     }, { threshold: 0.2 });
@@ -1539,6 +1544,17 @@ SITE_JS = r"""
       each(dots.children, function (x, j) { x.classList.toggle("on", j === k); });
     }
     r.addEventListener("scroll", upd, { passive: true }); upd();
+  });
+
+  // looping background videos get a visible pause / play control
+  var VT = { ru: ["Пауза", "Воспроизвести"], ro: ["Pauză", "Redă"], en: ["Pause", "Play"] }[d.documentElement.lang] || ["Pause", "Play"];
+  each(d.querySelectorAll("video.vhero-video, video.hero-media-vid"), function (v) {
+    var b = d.createElement("button"); b.type = "button"; b.className = "vid-toggle";
+    function sync() { var playing = !v.paused; b.setAttribute("aria-label", playing ? VT[0] : VT[1]); b.setAttribute("aria-pressed", playing ? "false" : "true");
+      b.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#i-' + (playing ? "pause" : "play") + '"/></svg>'; }
+    b.addEventListener("click", function () { if (v.paused) { v.dataset.userPaused = ""; var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } else { v.dataset.userPaused = "1"; v.pause(); } });
+    v.addEventListener("play", sync); v.addEventListener("pause", sync); sync();
+    v.parentNode.appendChild(b);
   });
 
   // package comparison: apartment size switch
@@ -1736,7 +1752,7 @@ def compare_html(lang, pk, cta=True):
     mtiers = "".join(
         f'<button type="button" data-cmp-tier="{t}" aria-pressed="{"true" if t == "comfort" else "false"}">{esc(lab[t])}</button>'
         for t in tiers)
-    return f'''<div class="cmp rv" data-size="2" data-tier="comfort">
+    return f'''<div class="cmp" data-size="2" data-tier="comfort">
   <div class="cmp-sizes" role="group" aria-label="{c["size_label"]}"><span>{c["size_label"]}:</span>{sizes}</div>
   <div class="cmp-tiers" role="group">{mtiers}</div>
   <table class="cmp-table">
@@ -1824,7 +1840,6 @@ def features_page_html(lang, packages_all):
         rows.append(f'''<article class="frow rv" id="{g["id"]}">
       <div class="frow-media">{gimg(ph, palt(lang, ph))}<span class="frow-ico mk mk-{ICON_FOR_GROUP[g["id"]]}">{ico(ICON_FOR_GROUP[g["id"]])}</span></div>
       <div class="frow-text">
-        <span class="feat-num">{i + 1:02d}</span>
         <h2 class="feat-title">{g["title"]}</h2>
         <p class="feat-benefit">{g["benefit"]}</p>
         <ul class="feat-list">{items}</ul>
@@ -1955,22 +1970,35 @@ def home_page_html(lang, packages_all):
         return f'<li><b{cnt}>{esc(a)}</b><span>{esc(b)}</span></li>'
     stats = "".join(stat(a, b) for a, b in v["stats"])
 
-    body = f'''<section class="vhero">
+    lg = HOME_LG[lang]
+    bst = BLOCK_STATS
+    tiles = "".join(
+        f'<a class="hb" href="lagmar.html?b={b}#step1"><img src="../assets/lagmar/blocks/{b}.jpg" width="330" height="508" alt="" loading="lazy"><b>{b}</b>'
+        + (f'<small>{bst[b][0]} {LAGMAR_MKT[lang]["apts"]}</small>' if b in bst else "") + "</a>" for b in BUILDINGS)
+    body = f'''<section class="home-lg">
+  <img class="home-lg-bg" src="../assets/lagmar/hero-960.jpg" srcset="../assets/lagmar/hero-960.jpg 960w, ../assets/lagmar/hero.jpg 1920w" sizes="100vw" alt="" fetchpriority="high">
+  <div class="wrap home-lg-inner">
+    <div class="lg-logos"><img src="../assets/lagmar/logo-lagmar.png" alt="Lagmar Smart Home" width="160" height="48"><span class="x">×</span><span class="gr">SmartSpace <small>by Grenton</small></span></div>
+    <h1>{lg["h1"]}</h1>
+    <p class="lead">{lg["lead"]}</p>
+    <p class="hb-label">{lg["pick"]}</p>
+    <nav class="hb-row" aria-label="{lg["pick"]}">{tiles}</nav>
+    <p class="home-lg-alt"><a href="#film">{lg["film"]}</a><a href="lagmar.html">{lg["all"]}</a></p>
+  </div>
+</section>
+
+<section class="vhero" id="film">
   {gvideo("hero", "hero-poster", h3["video_label"], "vhero-video")}
   <div class="wrap vhero-inner">
     <div class="vhero-copy">
       <span class="eyebrow">{h["eyebrow"]}</span>
-      <h1>{h["h1"]}</h1>
+      <h2 class="vhero-title">{h["h1"]}</h2>
       <p class="lead">{h["lead"]}</p>
       <div class="cta-row cta-left">
-        <a class="btn btn-primary" href="lagmar.html">{h["cta1"]}</a>
+        <a class="btn btn-primary" href="features.html">{h["cta2"]}</a>
         <a class="btn btn-light" href="#day">{DAY[lang]["play"]} {ico("play")}</a>
       </div>
       <ul class="trust">{trust}</ul>
-    </div>
-    <div class="vhero-cards">
-      {floatcard("fc-1", h["float1"])}
-      {floatcard("fc-2", h["float2"])}
     </div>
   </div>
 </section>
@@ -1995,7 +2023,7 @@ def home_page_html(lang, packages_all):
       <ul class="mini-stats">{stats}</ul>
       <a class="btn btn-primary" href="lagmar.html">{hl["cta"]}</a>
     </div>
-    <a href="lagmar.html" class="lagmar-teaser rv"><img class="rounded" src="../assets/lagmar/aerial.jpg" alt="Lagmar Smart Home" width="1600" height="828" loading="lazy"><img class="lagmar-teaser-logo" src="../assets/lagmar/logo-lagmar.png" alt="" width="140" height="42"></a>
+    <a href="lagmar.html" class="lagmar-teaser rv"><img class="rounded" src="../assets/lagmar/aerial.jpg" srcset="../assets/lagmar/aerial-800.jpg 800w, ../assets/lagmar/aerial.jpg 1600w" sizes="(max-width: 860px) 92vw, 45vw" alt="Lagmar Smart Home" width="1600" height="828" loading="lazy"><img class="lagmar-teaser-logo" src="../assets/lagmar/logo-lagmar.png" alt="" width="140" height="42"></a>
   </div>
 </section>
 
@@ -2114,7 +2142,7 @@ def contact_page_html(lang):
                f'<a class="btn btn-primary" href="tel:{PHONE_TEL}">{ico("phone")}{c["call"]} · {PHONE_DISPLAY}</a>'
                f'<a class="btn btn-wa" href="{wa}" target="_blank" rel="noopener">{ico("chat")}{c["wa"]}</a>'
                f'<a class="btn btn-ghost" href="mailto:{EMAIL}">{ico("mail")}{c["mail"]}</a></div>')
-    media = (gimg("hallpanels", c["showroom"], sizes="(max-width: 860px) 92vw, 40vw", eager=True)
+    media = (gimg(PAGE_HERO_MEDIA["contact"], c["showroom"], sizes="(max-width: 860px) 92vw, 40vw", eager=True)
              + f'<div class="float-card hero-fc"><span class="mk mk-I">{ico("pin")}</span><div><b>{c["showroom"]}</b><span>Strada Pajurii 11</span></div></div>')
     topics = "".join(
         f'<button type="button" class="topic" data-topic="{k}" aria-pressed="false"><span class="mk mk-{icon}">{ico(icon)}</span>'
@@ -2141,7 +2169,7 @@ def contact_page_html(lang):
 <section class="block alt" id="write">
   <div class="wrap">
     <div class="rv"><span class="eyebrow">{c["b_eyebrow"]}</span><h2 class="h2">{c["b_title"]}</h2><p class="sub">{c["b_sub"]}</p></div>
-    <div class="builder rv">
+    <div class="builder">
       <div class="bq">
         <h3>{c["q1"]}</h3>
         <div class="topics">{topics}</div>
@@ -2155,7 +2183,7 @@ def contact_page_html(lang):
       <div class="bprev">
         <div class="phone-msg">
           <div class="pm-head"><span class="pm-ava">S</span><div><b>SmartSpace</b><small>{PHONE_DISPLAY}</small></div></div>
-          <div class="pm-body"><span class="pm-label">{c["preview"]}</span><div class="bubble" id="b-msg" aria-live="polite"></div></div>
+          <div class="pm-body"><span class="pm-label">{c["preview"]}</span><div class="bubble" id="b-msg"></div></div>
         </div>
         <div class="bactions">
           <a class="btn btn-wa" id="b-wa" href="{wa}" target="_blank" rel="noopener">{ico("chat")}{c["send_wa"]}</a>
@@ -2169,7 +2197,7 @@ def contact_page_html(lang):
 
 <section class="block" id="map">
   <div class="wrap map-grid">
-    <div class="mapcard rv" id="mapcard">
+    <div class="mapcard" id="mapcard">
       <img class="map-img map-l" src="../assets/img/map-light.webp" width="1110" height="640" alt="{esc(c["m_title"])}" loading="lazy">
       <img class="map-img map-d" src="../assets/img/map-dark.webp" width="1110" height="640" alt="" loading="lazy">
       <span class="map-pin" style="left:50.4%;top:50%"><span class="pin-dot">{ico("pin")}</span></span>
@@ -2308,6 +2336,28 @@ def robots_txt():
     return f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}/sitemap.xml\n"
 
 
+_EYEBROW = re.compile(r'<span class="eyebrow">.*?</span>\s*', re.S)
+
+
+BLOCK_STATS = {}
+
+
+def finalize_html(html, lang):
+    """Site-wide markup rules applied to every generated page."""
+    html = _EYEBROW.sub("", html)
+    if 'id="main"' not in html and "</header>" in html and "<footer" in html:
+        i = html.index("</header>") + len("</header>")
+        if html[i:].lstrip().startswith("<script>"):
+            i = html.index("</script>", i) + len("</script>")
+        html = html[:i] + '\n<main id="main" tabindex="-1">' + html[i:]
+        j = html.index("<footer")
+        k = html.rfind('<section class="dealer-band"', 0, j)
+        cut = k if k != -1 else j
+        html = html[:cut] + "</main>\n" + html[cut:]
+        html = re.sub(r"(<body[^>]*>)", r'\1\n<a class="skip-link" href="#main">' + SKIP_TXT[lang] + "</a>", html, count=1)
+    return html
+
+
 def _load_json(rel):
     with open(os.path.join(ROOT, rel), encoding="utf-8") as f:
         return json.load(f)
@@ -2322,6 +2372,7 @@ def _write(rel, text):
 
 def main():
     apartments = _load_json("assets/data/apartments.json")
+    BLOCK_STATS.update(block_stats(apartments))
     packages_all = _load_json("assets/data/packages.json")
     for lang in LANGS:
         for n, tiers in PACKAGE_SPEC.items():
@@ -2350,6 +2401,7 @@ def main():
             else:
                 html = page_html(key, lang)
             html = typo(html, lang)
+            html = finalize_html(html, lang)
             assert not any(ch in html for ch in "şţŞŢ"), f"cedilla diacritics in {lang}/{key}"
             _write(f"{lang}/{PAGE_FILE[key]}", html)
         for old, target in LEGACY_REDIRECTS.items():

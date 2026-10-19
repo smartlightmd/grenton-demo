@@ -194,8 +194,8 @@ APP = {
 
 # Photos for benefit groups / scenes (assets/grenton/*)
 FEATURE_PHOTO = {"light": "salon", "climate": "bedroom", "safety": "bath", "blinds": "office",
-                 "media": "touch-hero", "control": "hallpanels"}
-SCENE_PHOTO = ["bedroom", "hall", "security", "hallpanels", "touch-hero", "kids", "kitchen"]
+                 "media": "touch-hero", "control": "touch-wall"}
+SCENE_PHOTO = ["bedroom", "hall", "security", "kitchen", "touch-hero", "kids", "app-saving"]
 
 PHOTO_ALT = {
     "ru": {"salon": "Гостиная со сценой света", "bedroom": "Спальня с панелью Grenton", "bath": "Ванная с панелью управления климатом",

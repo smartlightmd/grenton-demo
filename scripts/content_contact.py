@@ -95,4 +95,4 @@ CONTACT_V3 = {
 }
 
 # unified inner-page heroes: media on the right
-PAGE_HERO_MEDIA = {"scenarios": "bedroom", "how": "touch-hero", "contact": "hallpanels"}
+PAGE_HERO_MEDIA = {"scenarios": "bedroom", "how": "touch-hero", "contact": "monolith-hero"}
