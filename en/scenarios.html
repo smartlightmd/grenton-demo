@@ -26,7 +26,7 @@
 <meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
-<link rel="stylesheet" href="../assets/css/style.min.css?v=a55be673">
+<link rel="preload" href="../assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=a55be673">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://smartspace.md/#org", "name": "SmartSpace", "url": "https://smartspace.md/", "telephone": "+37378202020", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "sameAs": ["https://smartspace.md/", "https://smartlight.md/"]}</script>
 </head>
 <body class="theme-lagmar">
@@ -238,7 +238,9 @@
         else if (!v.paused) v.pause();
       });
     }, { threshold: 0.2 });
-    each(d.querySelectorAll("video[data-auto]"), function (v) { vo.observe(v); });
+    var startVideos = function () { each(d.querySelectorAll("video[data-auto]"), function (v) { vo.observe(v); }); };
+    // background videos start after the page has loaded, so they never take bandwidth from the hero image (LCP)
+    if (d.readyState === "complete") setTimeout(startVideos, 200); else window.addEventListener("load", function () { setTimeout(startVideos, 200); });
   }
 
   // swipe rails: dots show position and that there is more to the right

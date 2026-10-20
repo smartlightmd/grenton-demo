@@ -491,7 +491,7 @@ def head_html(lang, key, title, desc, extra_jsonld=None):
 <meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
 <script>try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}}catch(e){{}}</script>
-<link rel="stylesheet" href="../assets/css/style.min.css?v={CSS_VER}">
+{FONT_PRELOAD[lang]}<link rel="stylesheet" href="../assets/css/style.min.css?v={CSS_VER}">
 {jsonld_html}'''
 
 
@@ -1519,7 +1519,9 @@ SITE_JS = r"""
         else if (!v.paused) v.pause();
       });
     }, { threshold: 0.2 });
-    each(d.querySelectorAll("video[data-auto]"), function (v) { vo.observe(v); });
+    var startVideos = function () { each(d.querySelectorAll("video[data-auto]"), function (v) { vo.observe(v); }); };
+    // background videos start after the page has loaded, so they never take bandwidth from the hero image (LCP)
+    if (d.readyState === "complete") setTimeout(startVideos, 200); else window.addEventListener("load", function () { setTimeout(startVideos, 200); });
   }
 
   // swipe rails: dots show position and that there is more to the right
@@ -2402,6 +2404,9 @@ def build_css():
 
 
 CSS_VER = None
+_FP = '<link rel="preload" href="../assets/fonts/manrope-{}.woff2" as="font" type="font/woff2" crossorigin>'
+# fonts arrive with the first request: the hero text no longer reflows when Manrope swaps in (CLS)
+FONT_PRELOAD = {"ru": _FP.format("cyrillic") + _FP.format("latin"), "ro": _FP.format("latin") + _FP.format("latin-ext"), "en": _FP.format("latin")}
 
 
 
