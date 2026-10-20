@@ -1036,6 +1036,7 @@ def lagmar_hero_html(lang, u):
     stats = "".join(f'<li><b>{esc(a)}</b><span>{esc(b)}</span></li>' for a, b in v["stats"])
     return f'''<section class="lg-hero">
   <img class="lg-hero-bg" src="../assets/lagmar/hero.jpg" srcset="../assets/lagmar/hero-960.jpg 960w, ../assets/lagmar/hero.jpg 1920w" sizes="100vw" alt="Lagmar Smart Home" fetchpriority="high">
+  <video class="lg-hero-bg lg-hero-vid" muted loop playsinline preload="none" data-auto aria-hidden="true" data-src-mobile="../assets/lagmar/hero-loop-mobile.mp4"><source src="../assets/lagmar/hero-loop-{lang}.mp4" type="video/mp4"></video>
   <div class="wrap lg-hero-inner">
     <div class="lg-logos"><img src="../assets/lagmar/logo-lagmar.png" alt="Lagmar Smart Home" width="160" height="48"><span class="x">×</span><span class="gr">SmartSpace <small>by Grenton</small></span></div>
     <h1>{u["h1"]}</h1>
@@ -1548,7 +1549,9 @@ SITE_JS = r"""
 
   // looping background videos get a visible pause / play control
   var VT = { ru: ["Пауза", "Воспроизвести"], ro: ["Pauză", "Redă"], en: ["Pause", "Play"] }[d.documentElement.lang] || ["Pause", "Play"];
-  each(d.querySelectorAll("video.vhero-video, video.hero-media-vid"), function (v) {
+  // the Lagmar hero loop shows only once it really plays; the photo underneath stays the fallback
+  each(d.querySelectorAll("video.lg-hero-vid"), function (v) { v.addEventListener("playing", function () { v.classList.add("is-on"); }); });
+  each(d.querySelectorAll("video.vhero-video, video.hero-media-vid, video.lg-hero-vid"), function (v) {
     var b = d.createElement("button"); b.type = "button"; b.className = "vid-toggle";
     function sync() { var playing = !v.paused; b.setAttribute("aria-label", playing ? VT[0] : VT[1]); b.setAttribute("aria-pressed", playing ? "false" : "true");
       b.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#i-' + (playing ? "pause" : "play") + '"/></svg>'; }

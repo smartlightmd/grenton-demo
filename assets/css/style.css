@@ -1503,3 +1503,15 @@ details[open]::details-content { block-size: auto; }
 .closing .btn .ico { margin-right: .15rem; }
 .closing .closing-rep { margin: var(--sp-l) 0 0; font-size: var(--fs-xs); font-weight: 700; letter-spacing: .02em; color: var(--band-soft); }
 .home-lg-bg { object-position: 50% 40%; }
+
+/* Lagmar hero loop (HyperFrames, 20s, silent): fades in over the complex photo once it plays */
+.lg-hero-vid { opacity: 0; transition: opacity .9s ease; object-position: center; }
+.lg-hero-vid.is-on { opacity: 1; }
+.lg-hero:has(.lg-hero-vid.is-on)::after {
+  background:
+    linear-gradient(90deg, rgba(12, 24, 44, .62) 0%, rgba(12, 24, 44, .28) 48%, rgba(12, 24, 44, 0) 66%),
+    linear-gradient(180deg, rgba(12, 24, 44, .08) 0%, rgba(12, 24, 44, .38) 42%, rgba(9, 18, 34, .9) 100%);
+}
+@media (max-width: 700px) { .lg-hero-vid { object-position: 74% center; } }
+@media (prefers-reduced-motion: reduce) { .lg-hero-vid { display: none; } }
+.lg-hero:has(.lg-hero-vid.is-on) .lg-stats { width: fit-content; padding-right: var(--sp-l); }

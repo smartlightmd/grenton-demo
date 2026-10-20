@@ -257,7 +257,9 @@
 
   // looping background videos get a visible pause / play control
   var VT = { ru: ["Пауза", "Воспроизвести"], ro: ["Pauză", "Redă"], en: ["Pause", "Play"] }[d.documentElement.lang] || ["Pause", "Play"];
-  each(d.querySelectorAll("video.vhero-video, video.hero-media-vid"), function (v) {
+  // the Lagmar hero loop shows only once it really plays; the photo underneath stays the fallback
+  each(d.querySelectorAll("video.lg-hero-vid"), function (v) { v.addEventListener("playing", function () { v.classList.add("is-on"); }); });
+  each(d.querySelectorAll("video.vhero-video, video.hero-media-vid, video.lg-hero-vid"), function (v) {
     var b = d.createElement("button"); b.type = "button"; b.className = "vid-toggle";
     function sync() { var playing = !v.paused; b.setAttribute("aria-label", playing ? VT[0] : VT[1]); b.setAttribute("aria-pressed", playing ? "false" : "true");
       b.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#i-' + (playing ? "pause" : "play") + '"/></svg>'; }
