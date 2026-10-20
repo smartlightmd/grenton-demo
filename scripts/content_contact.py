@@ -38,7 +38,7 @@ CONTACT_V3 = {
            "m_note": "Интерактивная карта Google загружается только по нажатию.",
            "hours": "Часы работы", "write": "Пишите", "social": "Мы в соцсетях",
            "after_eyebrow": "Что дальше", "after_title": "Что будет после обращения"},
-    "ro": {"title": "Contacte SmartSpace — showroom smart home pentru locatarii Lagmar Smart Home",
+    "ro": {"title": "Contacte SmartSpace — showroom pentru locatarii Lagmar",
            "eyebrow": "Contacte", "h1": "Vino în showroom sau scrie-ne — cum îți e comod",
            "lead": "Îți arătăm panourile și scenariile pe viu, analizăm planul tău și pregătim o ofertă. Consultația e gratuită.",
            "call": "Sună", "wa": "WhatsApp", "mail": "Email",

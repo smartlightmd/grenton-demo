@@ -74,7 +74,7 @@
   --band-soft: #cbd2de;
   --danger: #b91c1c;
   --paper: #ffffff;
-  --header-bg: rgba(248, 249, 251, .86);
+  --header-bg: rgba(248, 249, 251, .94);
   --shadow-1: 0 1px 2px rgba(16, 24, 40, .05), 0 1px 3px rgba(16, 24, 40, .06);
   --shadow-2: 0 10px 30px -12px rgba(16, 24, 40, .22);
   --shadow-brand: 0 8px 22px -8px color-mix(in srgb, var(--brand) 55%, transparent);
@@ -1560,3 +1560,6 @@ td.num, .oc-total td, .oc-total th { line-height: 1.25; }
 .lg-hero h1 { max-width: 20ch; }
 .oc > * { min-width: 0; }  /* grid items may shrink below their longest glued phrase */
 @media (max-width: 380px) { .oc-bom th, .oc-bom td { padding: .4rem .18rem; } .oc-bom small { font-size: .74rem; } }
+/* sticky header text stays AA over dark sections scrolling underneath (axe 20.10) */
+header.site .brand .by, header.site .langs a { color: var(--ink-soft); }
+header.site .langs a.active { color: var(--bg); }

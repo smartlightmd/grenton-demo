@@ -202,7 +202,7 @@ SCENARIOS = {
 
 HOW = {
     "ru": {
-        "title": "Как устроен умный дом в Lagmar Smart Home: система, монтаж, сервис | SmartSpace",
+        "title": "Как устроен умный дом в Lagmar Smart Home | SmartSpace",
         "eyebrow": "Как это работает",
         "h1": "Надёжная система внутри — простое управление снаружи",
         "lead": "Grenton — профессиональная проводная система из Польши. Всё важное происходит в электрощите вашей квартиры, а вы видите только аккуратные панели и приложение.",
@@ -230,7 +230,7 @@ HOW = {
         ],
     },
     "ro": {
-        "title": "Cum funcționează casa inteligentă din Lagmar Smart Home: sistem, montaj, service | SmartSpace",
+        "title": "Cum funcționează casa inteligentă în Lagmar Smart Home | SmartSpace",
         "eyebrow": "Cum funcționează",
         "h1": "Sistem fiabil în interior — control simplu în exterior",
         "lead": "Grenton este un sistem profesional cablat, produs în Polonia. Tot ce contează se întâmplă în tabloul electric al apartamentului, iar tu vezi doar panouri elegante și aplicația.",
@@ -258,7 +258,7 @@ HOW = {
         ],
     },
     "en": {
-        "title": "How the smart home in Lagmar Smart Home works: system, installation, service | SmartSpace",
+        "title": "How the smart home in Lagmar Smart Home works | SmartSpace",
         "eyebrow": "How it works",
         "h1": "Reliable inside — simple to use outside",
         "lead": "Grenton is a professional wired system made in Poland. Everything that matters happens in your apartment's distribution board; you only see neat panels and the app.",

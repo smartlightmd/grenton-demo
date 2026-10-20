@@ -26,7 +26,7 @@
 <meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
-<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/style.min.css?v=a55be673">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://smartspace.md/#org", "name": "SmartSpace", "url": "https://smartspace.md/", "telephone": "+37378202020", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "sameAs": ["https://smartspace.md/", "https://smartlight.md/"]}</script>
 </head>
 <body class="theme-lagmar">
@@ -192,6 +192,11 @@
 
   // swipe rails: dots show position and that there is more to the right
   each(d.querySelectorAll(".rail"), function (r) {
+    // a swipe rail with nothing focusable inside must itself be reachable from the keyboard (axe: scrollable-region-focusable)
+    if (!r.querySelector("a[href], button, input, select, textarea, [tabindex]")) {
+      r.tabIndex = 0; if (!/^(OL|UL)$/.test(r.tagName)) r.setAttribute("role", "region");
+      var sec = r.closest("section"), h = sec && sec.querySelector("h2, h3"); if (h) r.setAttribute("aria-label", h.textContent.trim());
+    }
     var items = r.children, n = items.length; if (n < 2) return;
     var dots = d.createElement("div"); dots.className = "rail-dots"; dots.setAttribute("aria-hidden", "true");
     for (var i = 0; i < n; i++) dots.appendChild(d.createElement("i"));

@@ -85,7 +85,7 @@ HOME_LAGMAR = {
 
 META_DESC = {
     "home": {
-        "ro": "Fiecare apartament din Lagmar Smart Home are deja unitatea casei inteligente. SmartSpace alege ce va face — lumină, căldură, rulouri, protecție la scurgeri — și calculează prețul pentru apartamentul tău.",
+        "ro": "Fiecare apartament din Lagmar Smart Home are deja unitatea casei inteligente. SmartSpace alege ce va face — lumină, căldură, rulouri, protecție la scurgeri — și calculează prețul.",
         "ru": "В каждой квартире Lagmar Smart Home уже стоит контроллер умного дома. SmartSpace подберёт, что он будет делать — свет, тепло, шторы, защита от протечки, — и посчитает цену для вашей квартиры.",
         "en": "Every Lagmar Smart Home apartment already has a smart-home controller. SmartSpace picks what it will do — light, heat, blinds, leak protection — and prices it for your apartment.",
     },
@@ -203,7 +203,7 @@ LAGMAR_UI = {
         "faq_title": "Вопросы и ответы",
     },
     "ro": {
-        "title": "Alege și calculează casa inteligentă pentru apartamentul tău din Lagmar Smart Home | SmartSpace",
+        "title": "Calculează casa inteligentă în Lagmar Smart Home | SmartSpace",
         "eyebrow": "Apartamentul tău din Lagmar Smart Home",
         "h1": "Calculează casa inteligentă pentru apartamentul tău din Lagmar",
         "lead": "Găsește-ți apartamentul — îți arătăm pachetele pe planul lui și calculăm prețul pe loc. Unitatea casei inteligente e deja montată — plătești doar ce adăugăm.",
@@ -239,7 +239,7 @@ LAGMAR_UI = {
         "faq_title": "Întrebări frecvente",
     },
     "en": {
-        "title": "Smart home for your Lagmar Smart Home apartment — choose and price it | SmartSpace",
+        "title": "Price a smart home for your Lagmar apartment | SmartSpace",
         "eyebrow": "Your home in Lagmar Smart Home",
         "h1": "Price a smart home for your Lagmar apartment",
         "lead": "Find your apartment — we show the packages on its floor plan and price them right away. The smart-home controller is already installed — you pay only for what we add.",
@@ -491,7 +491,7 @@ def head_html(lang, key, title, desc, extra_jsonld=None):
 <meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
 <script>try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}}catch(e){{}}</script>
-<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/style.min.css?v={CSS_VER}">
 {jsonld_html}'''
 
 
@@ -606,7 +606,7 @@ def page_html(key, lang):
       <p class="sub">{hl["p"]}</p>
       <a class="btn btn-primary" href="lagmar.html">{hl["cta"]}</a>
     </div>
-    <a href="lagmar.html" class="lagmar-teaser"><img class="rounded" src="../assets/lagmar/hero-960.jpg" alt="Lagmar Smart Home" width="960" height="540" loading="lazy"><img class="lagmar-teaser-logo" src="../assets/lagmar/logo-lagmar.png" alt="" width="140" height="42"></a>
+    <a href="lagmar.html" class="lagmar-teaser"><img class="rounded" src="../assets/lagmar/hero-960.webp" alt="Lagmar Smart Home" width="960" height="540" loading="lazy"><img class="lagmar-teaser-logo" src="../assets/lagmar/logo-lagmar.webp" alt="" width="140" height="42"></a>
   </div>
 </section>'''
 
@@ -800,7 +800,7 @@ LAGMAR_JS = r"""
     var pfig = plan.closest("figure");
     if (found.p) { plan.src = PLAN_BASE + found.p; plan.alt = UI.your_plan + " — " + found.b + "/" + found.n; show(pfig, true); }
     else { plan.removeAttribute("src"); show(pfig, false); }
-    blk.src = "../assets/lagmar/blocks/" + found.b + ".jpg"; blk.alt = UI.block_word + " " + found.b;
+    blk.src = "../assets/lagmar/blocks/" + found.b + ".webp"; blk.alt = UI.block_word + " " + found.b;
     $("cfg-block-cap").textContent = UI.your_block + ": " + found.b;
     show($("cfg-aptcard"), true);
   }
@@ -1033,10 +1033,10 @@ def lagmar_hero_html(lang, u):
     v = LAGMAR_VIS[lang]
     stats = "".join(f'<li><b>{esc(a)}</b><span>{esc(b)}</span></li>' for a, b in v["hero_stats"])
     return f'''<section class="lg-hero">
-  <img class="lg-hero-bg" src="../assets/lagmar/hero.jpg" srcset="../assets/lagmar/hero-960.jpg 960w, ../assets/lagmar/hero.jpg 1920w" sizes="100vw" alt="Lagmar Smart Home" fetchpriority="high">
+  <img class="lg-hero-bg" src="../assets/lagmar/hero.webp" srcset="../assets/lagmar/hero-960.webp 960w, ../assets/lagmar/hero.webp 1920w" sizes="100vw" alt="Lagmar Smart Home" fetchpriority="high">
   <video class="lg-hero-bg lg-hero-vid" muted loop playsinline preload="none" data-auto aria-hidden="true" data-src-mobile="../assets/lagmar/hero-loop-mobile.mp4"><source src="../assets/lagmar/hero-loop-{lang}.mp4" type="video/mp4"></video>
   <div class="wrap lg-hero-inner">
-    <div class="lg-logos"><img src="../assets/lagmar/logo-lagmar.png" alt="Lagmar Smart Home" width="160" height="48"><span class="x">×</span><span class="gr">SmartSpace <small>by Grenton</small></span></div>
+    <div class="lg-logos"><img src="../assets/lagmar/logo-lagmar.webp" alt="Lagmar Smart Home" width="160" height="48"><span class="x">×</span><span class="gr">SmartSpace <small>by Grenton</small></span></div>
     <h1>{u["h1"]}</h1>
     <p class="lead">{u["lead"]}</p>
     <div class="cta-row">
@@ -1061,7 +1061,7 @@ def lagmar_blocks_html(lang, stats):
     v = LAGMAR_VIS[lang]
     m = LAGMAR_MKT[lang]
     tiles = "".join(
-        f'<button type="button" class="blk" data-block="{b}" aria-pressed="false"><img src="../assets/lagmar/blocks/{b}.jpg" width="330" height="508" alt="{esc(v["block_word"])} {b}" loading="lazy"><span>{b}</span>'
+        f'<button type="button" class="blk" data-block="{b}" aria-pressed="false"><img src="../assets/lagmar/blocks/{b}.webp" width="330" height="508" alt="{esc(v["block_word"])} {b}" loading="lazy"><span>{b}</span>'
         + (f'<small class="blk-meta"><b>{stats[b][0]}</b> {m["apts"]}<br>№ {stats[b][1]}–{stats[b][2]}</small>' if b in stats else "")
         + '</button>'
         for b in BUILDINGS)
@@ -1524,6 +1524,11 @@ SITE_JS = r"""
 
   // swipe rails: dots show position and that there is more to the right
   each(d.querySelectorAll(".rail"), function (r) {
+    // a swipe rail with nothing focusable inside must itself be reachable from the keyboard (axe: scrollable-region-focusable)
+    if (!r.querySelector("a[href], button, input, select, textarea, [tabindex]")) {
+      r.tabIndex = 0; if (!/^(OL|UL)$/.test(r.tagName)) r.setAttribute("role", "region");
+      var sec = r.closest("section"), h = sec && sec.querySelector("h2, h3"); if (h) r.setAttribute("aria-label", h.textContent.trim());
+    }
     var items = r.children, n = items.length; if (n < 2) return;
     var dots = d.createElement("div"); dots.className = "rail-dots"; dots.setAttribute("aria-hidden", "true");
     for (var i = 0; i < n; i++) dots.appendChild(d.createElement("i"));
@@ -1964,9 +1969,9 @@ def home_page_html(lang, packages_all):
 
     lg = HOME_LG[lang]
     body = f'''<section class="home-lg">
-  <img class="home-lg-bg" src="../assets/lagmar/aerial-800.jpg" srcset="../assets/lagmar/aerial-800.jpg 800w, ../assets/lagmar/aerial.jpg 1600w" sizes="100vw" alt="" fetchpriority="high">
+  <img class="home-lg-bg" src="../assets/lagmar/aerial-800.webp" srcset="../assets/lagmar/aerial-800.webp 800w, ../assets/lagmar/aerial.webp 1600w" sizes="100vw" alt="" fetchpriority="high">
   <div class="wrap home-lg-inner">
-    <div class="lg-logos"><img src="../assets/lagmar/logo-lagmar.png" alt="Lagmar Smart Home" width="160" height="48"><span class="x">×</span><span class="gr">SmartSpace <small>by Grenton</small></span></div>
+    <div class="lg-logos"><img src="../assets/lagmar/logo-lagmar.webp" alt="Lagmar Smart Home" width="160" height="48"><span class="x">×</span><span class="gr">SmartSpace <small>by Grenton</small></span></div>
     <h1>{lg["h1"]}</h1>
     <p class="lead">{lg["lead"]}</p>
     <div class="cta-row cta-left">
@@ -2011,7 +2016,7 @@ def home_page_html(lang, packages_all):
       <ul class="mini-stats">{stats}</ul>
       <a class="btn btn-primary" href="lagmar.html">{hl["cta"]}</a>
     </div>
-    <a href="lagmar.html" class="lagmar-teaser rv"><img class="rounded" src="../assets/lagmar/aerial.jpg" srcset="../assets/lagmar/aerial-800.jpg 800w, ../assets/lagmar/aerial.jpg 1600w" sizes="(max-width: 860px) 92vw, 45vw" alt="Lagmar Smart Home" width="1600" height="828" loading="lazy"><img class="lagmar-teaser-logo" src="../assets/lagmar/logo-lagmar.png" alt="" width="140" height="42"></a>
+    <a href="lagmar.html" class="lagmar-teaser rv"><img class="rounded" src="../assets/lagmar/aerial.webp" srcset="../assets/lagmar/aerial-800.webp 800w, ../assets/lagmar/aerial.webp 1600w" sizes="(max-width: 860px) 92vw, 45vw" alt="Lagmar Smart Home" width="1600" height="828" loading="lazy"><img class="lagmar-teaser-logo" src="../assets/lagmar/logo-lagmar.webp" alt="" width="140" height="42"></a>
   </div>
 </section>
 
@@ -2320,7 +2325,7 @@ def not_found_html():
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>404 — SmartSpace · Lagmar Smart Home</title>
-<link rel="stylesheet" href="{BASE_URL}/assets/css/style.css">
+<link rel="stylesheet" href="{BASE_URL}/assets/css/style.min.css?v={CSS_VER}">
 </head>
 <body>
 <section class="hero"><div class="wrap">
@@ -2384,8 +2389,25 @@ def _write(rel, text):
     with open(path, "w", encoding="utf-8") as f:
         f.write(text)
 
+def build_css():
+    """Minified stylesheet + content hash for cache busting (source of truth stays assets/css/style.css)."""
+    import hashlib
+    src = open(os.path.join(ROOT, "assets/css/style.css"), encoding="utf-8").read()
+    css = re.sub(r"/\*.*?\*/", "", src, flags=re.S)
+    css = re.sub(r"\s+", " ", css)
+    css = re.sub(r"\s*([{};,>])\s*", r"\1", css)
+    css = re.sub(r";}", "}", css).strip()
+    _write("assets/css/style.min.css", css)
+    return hashlib.md5(css.encode("utf-8")).hexdigest()[:8]
+
+
+CSS_VER = None
+
+
 
 def main():
+    global CSS_VER
+    CSS_VER = build_css()
     apartments = _load_json("assets/data/apartments.json")
     packages_all = _load_json("assets/data/packages.json")
     for lang in LANGS:

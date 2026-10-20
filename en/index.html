@@ -26,7 +26,7 @@
 <meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
-<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/style.min.css?v=a55be673">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://smartspace.md/#org", "name": "SmartSpace", "url": "https://smartspace.md/", "telephone": "+37378202020", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "sameAs": ["https://smartspace.md/", "https://smartlight.md/"]}</script>
 </head>
 <body class="theme-lagmar">
@@ -53,9 +53,9 @@
 <script>(function(){var b=document.querySelector(".theme-toggle");if(!b)return;var m=window.matchMedia("(prefers-color-scheme: dark)");b.addEventListener("click",function(){var r=document.documentElement,cur=r.dataset.theme||(m.matches?"dark":"light"),n=cur==="dark"?"light":"dark";r.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}});})();</script>
 <main id="main" tabindex="-1">
 <section class="home-lg">
-  <img class="home-lg-bg" src="../assets/lagmar/aerial-800.jpg" srcset="../assets/lagmar/aerial-800.jpg 800w, ../assets/lagmar/aerial.jpg 1600w" sizes="100vw" alt="" fetchpriority="high">
+  <img class="home-lg-bg" src="../assets/lagmar/aerial-800.webp" srcset="../assets/lagmar/aerial-800.webp 800w, ../assets/lagmar/aerial.webp 1600w" sizes="100vw" alt="" fetchpriority="high">
   <div class="wrap home-lg-inner">
-    <div class="lg-logos"><img src="../assets/lagmar/logo-lagmar.png" alt="Lagmar Smart Home" width="160" height="48"><span class="x">×</span><span class="gr">SmartSpace <small>by Grenton</small></span></div>
+    <div class="lg-logos"><img src="../assets/lagmar/logo-lagmar.webp" alt="Lagmar Smart Home" width="160" height="48"><span class="x">×</span><span class="gr">SmartSpace <small>by Grenton</small></span></div>
     <h1>Your Lagmar apartment's smart home is already started</h1>
     <p class="lead">Every apartment in the complex already has a smart-home controller in its switchboard. What is left is deciding what it does: switch the lights, keep the heat, close the blinds, shut the water off on a leak.</p>
     <div class="cta-row cta-left">
@@ -135,7 +135,7 @@
       <ul class="mini-stats"><li><b data-count="11" data-sep=",">11</b><span>blocks</span></li><li><b data-count="1065" data-sep=",">1,065</b><span>apartments</span></li><li><b>Smart Home</b><span>in every apartment</span></li></ul>
       <a class="btn btn-primary" href="lagmar.html">Configure your apartment</a>
     </div>
-    <a href="lagmar.html" class="lagmar-teaser rv"><img class="rounded" src="../assets/lagmar/aerial.jpg" srcset="../assets/lagmar/aerial-800.jpg 800w, ../assets/lagmar/aerial.jpg 1600w" sizes="(max-width: 860px) 92vw, 45vw" alt="Lagmar Smart Home" width="1600" height="828" loading="lazy"><img class="lagmar-teaser-logo" src="../assets/lagmar/logo-lagmar.png" alt="" width="140" height="42"></a>
+    <a href="lagmar.html" class="lagmar-teaser rv"><img class="rounded" src="../assets/lagmar/aerial.webp" srcset="../assets/lagmar/aerial-800.webp 800w, ../assets/lagmar/aerial.webp 1600w" sizes="(max-width: 860px) 92vw, 45vw" alt="Lagmar Smart Home" width="1600" height="828" loading="lazy"><img class="lagmar-teaser-logo" src="../assets/lagmar/logo-lagmar.webp" alt="" width="140" height="42"></a>
   </div>
 </section>
 
@@ -250,6 +250,11 @@
 
   // swipe rails: dots show position and that there is more to the right
   each(d.querySelectorAll(".rail"), function (r) {
+    // a swipe rail with nothing focusable inside must itself be reachable from the keyboard (axe: scrollable-region-focusable)
+    if (!r.querySelector("a[href], button, input, select, textarea, [tabindex]")) {
+      r.tabIndex = 0; if (!/^(OL|UL)$/.test(r.tagName)) r.setAttribute("role", "region");
+      var sec = r.closest("section"), h = sec && sec.querySelector("h2, h3"); if (h) r.setAttribute("aria-label", h.textContent.trim());
+    }
     var items = r.children, n = items.length; if (n < 2) return;
     var dots = d.createElement("div"); dots.className = "rail-dots"; dots.setAttribute("aria-hidden", "true");
     for (var i = 0; i < n; i++) dots.appendChild(d.createElement("i"));
