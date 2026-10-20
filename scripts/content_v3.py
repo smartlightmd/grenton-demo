@@ -101,7 +101,7 @@ CMP = {
                ("Приложение myGrenton, работа без интернета", "Y", "Y", "Y"),
            ],
            "price": "Ориентировочно", "price_from": "от {p}",
-           "price_note": "Оборудование Grenton и программирование, без НДС. Датчики, приводы штор, аудио и монтаж — в персональном предложении после осмотра квартиры.",
+           "price_note": "Оборудование и программирование, без НДС. Датчики, приводы штор, аудио и монтаж — в персональном предложении после осмотра квартиры.",
            "cta": "Получить точный расчёт на мою квартиру", "yes": "есть", "no": "нет", "all": "Во всех пакетах"},
     "ro": {"eyebrow": "Comparație", "title": "Trei pachete — un singur sistem care crește odată cu tine",
            "sub": "Începe cu Basic și adaugă module mai târziu — fără a înlocui ce e deja montat.",
@@ -118,7 +118,7 @@ CMP = {
                ("Aplicația myGrenton, funcționează fără internet", "Y", "Y", "Y"),
            ],
            "price": "Orientativ", "price_from": "de la {p}",
-           "price_note": "Echipamente Grenton și programare, fără TVA. Senzorii, motoarele rulourilor, audio și montajul — în oferta personală după vizita la apartament.",
+           "price_note": "Echipamente și programare, fără TVA. Senzorii, motoarele rulourilor, audio și montajul — în oferta personală după vizita la apartament.",
            "cta": "Primește calculul exact pentru apartamentul meu", "yes": "da", "no": "nu", "all": "În toate pachetele"},
     "en": {"eyebrow": "Compare", "title": "Three packages — one system that grows with you",
            "sub": "Start with Basic and add modules later — nothing installed has to be replaced.",
@@ -135,14 +135,14 @@ CMP = {
                ("myGrenton app, works without internet", "Y", "Y", "Y"),
            ],
            "price": "Indicative", "price_from": "from {p}",
-           "price_note": "Grenton equipment and programming, excl. VAT. Sensors, blind motors, audio and installation are in your personal offer after we visit the apartment.",
+           "price_note": "Equipment and programming, excl. VAT. Sensors, blind motors, audio and installation are in your personal offer after we visit the apartment.",
            "cta": "Get an exact quote for my apartment", "yes": "yes", "no": "no", "all": "In every package"},
 }
 
 # ---------------------------------------------------------------------------
 # Product gallery
 GAL = {
-    "ru": {"eyebrow": "Продукция Grenton", "title": "То, что вы увидите на стене",
+    "ru": {"eyebrow": "Оборудование", "title": "То, что вы увидите на стене",
            "sub": "Панели — единственное, что видно в интерьере. Всё остальное спрятано в электрощите.",
            "credit": "Фото и видео: Grenton",
            "items": {
@@ -154,7 +154,7 @@ GAL = {
            },
            "finishes": [("black", "Чёрный"), ("titan", "Титан"), ("silver", "Серебро"), ("gold", "Золото")],
            "finish_label": "Отделки Monolith"},
-    "ro": {"eyebrow": "Produse Grenton", "title": "Ce vei vedea pe perete",
+    "ro": {"eyebrow": "Echipamente", "title": "Ce vei vedea pe perete",
            "sub": "Panourile sunt singurul lucru vizibil în interior. Restul stă ascuns în tabloul electric.",
            "credit": "Foto și video: Grenton",
            "items": {
@@ -166,7 +166,7 @@ GAL = {
            },
            "finishes": [("black", "Negru"), ("titan", "Titan"), ("silver", "Argintiu"), ("gold", "Auriu")],
            "finish_label": "Finisaje Monolith"},
-    "en": {"eyebrow": "Grenton products", "title": "What you'll see on the wall",
+    "en": {"eyebrow": "Equipment", "title": "What you'll see on the wall",
            "sub": "Panels are the only part visible in your interior. Everything else is hidden in the switchboard.",
            "credit": "Photos and video: Grenton",
            "items": {
@@ -198,15 +198,15 @@ FEATURE_PHOTO = {"light": "salon", "climate": "bedroom", "safety": "bath", "blin
 SCENE_PHOTO = ["bedroom", "hall", "security", "kitchen", "touch-hero", "kids", "app-saving"]
 
 PHOTO_ALT = {
-    "ru": {"salon": "Гостиная со сценой света", "bedroom": "Спальня с панелью Grenton", "bath": "Ванная с панелью управления климатом",
+    "ru": {"salon": "Гостиная со сценой света", "bedroom": "Спальня с панелью управления", "bath": "Ванная с панелью управления климатом",
            "office": "Кабинет с моторизованными шторами", "touch-hero": "Гостиная с панелями Touch Panel",
            "hallpanels": "Прихожая с панелями Grenton", "hall": "Прихожая", "security": "Уведомление в приложении myGrenton",
            "kids": "Детская комната", "kitchen": "Кухня"},
-    "ro": {"salon": "Living cu scenă de lumină", "bedroom": "Dormitor cu panou Grenton", "bath": "Baie cu panou de climă",
+    "ro": {"salon": "Living cu scenă de lumină", "bedroom": "Dormitor cu panou de comandă", "bath": "Baie cu panou de climă",
            "office": "Birou cu rulouri motorizate", "touch-hero": "Living cu panouri Touch Panel",
            "hallpanels": "Hol cu panouri Grenton", "hall": "Hol", "security": "Notificare în aplicația myGrenton",
            "kids": "Camera copiilor", "kitchen": "Bucătărie"},
-    "en": {"salon": "Living room with a lighting scene", "bedroom": "Bedroom with a Grenton panel", "bath": "Bathroom with a climate panel",
+    "en": {"salon": "Living room with a lighting scene", "bedroom": "Bedroom with a control panel", "bath": "Bathroom with a climate panel",
            "office": "Study with motorised blinds", "touch-hero": "Living room with Touch Panels",
            "hallpanels": "Hallway with Grenton panels", "hall": "Hallway", "security": "Notification in the myGrenton app",
            "kids": "Children's room", "kitchen": "Kitchen"},
@@ -214,10 +214,10 @@ PHOTO_ALT = {
 
 # Home hero over video + section copy for the new rhythm
 HOME_V3 = {
-    "ru": {"video_label": "Интерьеры с панелями Grenton", "out_title": "Что изменится в первую же неделю",
+    "ru": {"video_label": "Интерьеры с панелями управления", "out_title": "Что изменится в первую же неделю",
            "lagmar_ref": "Наш объект", "gallery_more": "Как устроена система"},
-    "ro": {"video_label": "Interioare cu panouri Grenton", "out_title": "Ce se schimbă din prima săptămână",
+    "ro": {"video_label": "Interioare cu panouri de comandă", "out_title": "Ce se schimbă din prima săptămână",
            "lagmar_ref": "Proiectul nostru", "gallery_more": "Cum e construit sistemul"},
-    "en": {"video_label": "Interiors with Grenton panels", "out_title": "What changes in the very first week",
+    "en": {"video_label": "Interiors with control panels", "out_title": "What changes in the very first week",
            "lagmar_ref": "Our project", "gallery_more": "How the system works"},
 }

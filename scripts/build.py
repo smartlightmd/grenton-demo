@@ -27,12 +27,12 @@ LANG_LABEL = {"ro": "RO", "ru": "RU", "en": "EN"}
 OG_LOCALE = {"ro": "ro_RO", "ru": "ru_RU", "en": "en_US"}
 # Share cards rendered by scripts/og_cards.mjs (1200x630)
 OG_IMG_ALT = {
-    "grenton": {"ro": "Grenton — SmartSpace, reprezentant oficial în Moldova",
-                "ru": "Grenton — SmartSpace, официальный представитель в Молдове",
-                "en": "Grenton — SmartSpace, official representative in Moldova"},
-    "lagmar": {"ro": "Lagmar Smart Home — configurator Grenton: pachetele Basic, Comfort, Premium",
-               "ru": "Lagmar Smart Home — конфигуратор Grenton: пакеты Basic, Comfort, Premium",
-               "en": "Lagmar Smart Home — Grenton configurator: Basic, Comfort, Premium packages"},
+    "grenton": {"ro": "Lagmar Smart Home — casă inteligentă în fiecare apartament",
+                "ru": "Lagmar Smart Home — умный дом в каждой квартире",
+                "en": "Lagmar Smart Home — a smart home in every apartment"},
+    "lagmar": {"ro": "Lagmar Smart Home — calculator smart home: pachetele Basic, Comfort, Premium",
+               "ru": "Lagmar Smart Home — подбор умного дома: пакеты Basic, Comfort, Premium",
+               "en": "Lagmar Smart Home — smart-home calculator: Basic, Comfort, Premium packages"},
 }
 
 NAV_LABELS = {
@@ -54,14 +54,14 @@ FOOTER = {
 PRIVACY_LABEL = {"ro": "Politica de confidențialitate", "ru": "Политика конфиденциальности", "en": "Privacy policy"}
 
 DEALER_BAND = {
-    "ro": {"h": "SmartSpace — reprezentant oficial Grenton în Moldova",
-           "p": "Consultanță, proiectare, montaj și service pentru sistemul Grenton — de la un singur apartament până la clădiri întregi.",
+    "ro": {"h": "SmartSpace — proiect, montaj și service pentru casa inteligentă din Lagmar Smart Home",
+           "p": "Consultanță, proiectare, montaj și service — pentru fiecare apartament din Lagmar Smart Home.",
            "cta": "Solicită o ofertă"},
-    "ru": {"h": "SmartSpace — официальный представитель Grenton в Молдове",
-           "p": "Консультация, проектирование, монтаж и сервис системы Grenton — от одной квартиры до целых зданий.",
+    "ru": {"h": "SmartSpace — проект, монтаж и сервис умного дома в Lagmar Smart Home",
+           "p": "Консультация, проектирование, монтаж и сервис — для каждой квартиры Lagmar Smart Home.",
            "cta": "Запросить предложение"},
-    "en": {"h": "SmartSpace — official Grenton representative in Moldova",
-           "p": "Consulting, design, installation and service for the Grenton system — from a single apartment to entire buildings.",
+    "en": {"h": "SmartSpace — design, installation and service of the smart home in Lagmar Smart Home",
+           "p": "Consulting, design, installation and service — for every apartment in Lagmar Smart Home.",
            "cta": "Request a quote"},
 }
 
@@ -72,32 +72,32 @@ CONTACT_INFO = {
 }
 
 HOME_LAGMAR = {
-    "ro": {"eyebrow": "Proiectul nostru", "h2": "Lagmar Smart Home: 1 065 de apartamente pe Grenton",
-           "p": "Lagmar Smart Home este un complex rezidențial din Chișinău (11 blocuri) în care casa inteligentă funcționează pe sistemul Grenton — proiectat, instalat și întreținut de SmartSpace. Ai un apartament în Lagmar? Găsește-l în configurator, alege pachetul Basic, Comfort sau Premium și primești o ofertă preliminară în câteva minute.",
+    "ro": {"eyebrow": "Proiectul nostru", "h2": "Lagmar Smart Home: 1 065 de apartamente inteligente",
+           "p": "Lagmar Smart Home este un complex rezidențial din Chișinău (11 blocuri) în care fiecare apartament vine cu casa inteligentă pregătită. O proiectează, o instalează și o întreține SmartSpace. Ai un apartament în Lagmar? Găsește-l în configurator, alege pachetul Basic, Comfort sau Premium și primești o ofertă preliminară în câteva minute.",
            "cta": "Configurează-ți apartamentul"},
-    "ru": {"eyebrow": "Наш проект", "h2": "Lagmar Smart Home: 1 065 квартир на Grenton",
-           "p": "Lagmar Smart Home — жилой комплекс в Кишинёве (11 блоков), где умный дом построен на системе Grenton — её проектирует, устанавливает и обслуживает SmartSpace. У вас квартира в Lagmar? Найдите её в конфигураторе, выберите пакет Basic, Comfort или Premium и получите предварительное предложение за пару минут.",
+    "ru": {"eyebrow": "Наш проект", "h2": "Lagmar Smart Home: 1 065 умных квартир",
+           "p": "Lagmar Smart Home — жилой комплекс в Кишинёве (11 блоков), где умный дом заложен в каждую квартиру. Его проектирует, устанавливает и обслуживает SmartSpace. У вас квартира в Lagmar? Найдите её в конфигураторе, выберите пакет Basic, Comfort или Premium и получите предварительное предложение за пару минут.",
            "cta": "Настроить свою квартиру"},
-    "en": {"eyebrow": "Our project", "h2": "Lagmar Smart Home: 1,065 apartments on Grenton",
-           "p": "Lagmar Smart Home is a residential complex in Chișinău (11 blocks) where the smart home runs on Grenton — designed, installed and supported by SmartSpace. Own an apartment in Lagmar? Find it in the configurator, pick Basic, Comfort or Premium and get a preliminary quote in minutes.",
+    "en": {"eyebrow": "Our project", "h2": "Lagmar Smart Home: 1,065 smart apartments",
+           "p": "Lagmar Smart Home is a residential complex in Chișinău (11 blocks) where every apartment comes with the smart home built in — designed, installed and supported by SmartSpace. Own an apartment in Lagmar? Find it in the configurator, pick Basic, Comfort or Premium and get a preliminary quote in minutes.",
            "cta": "Configure your apartment"},
 }
 
 META_DESC = {
     "home": {
-        "ro": "Grenton — sistem smart home din Polonia: iluminat, climă, rulouri, audio și securitate într-un singur ecosistem. SmartSpace, reprezentant oficial Grenton în Moldova.",
-        "ru": "Grenton — система умного дома из Польши: свет, климат, шторы, аудио и безопасность в одной экосистеме. SmartSpace — официальный представитель Grenton в Молдове.",
-        "en": "Grenton — a Polish smart-home system: lighting, climate, blinds, audio and security in one ecosystem. SmartSpace, official Grenton representative in Moldova.",
+        "ro": "Fiecare apartament din Lagmar Smart Home are deja unitatea casei inteligente. SmartSpace alege ce va face — lumină, căldură, rulouri, protecție la scurgeri — și calculează prețul pentru apartamentul tău.",
+        "ru": "В каждой квартире Lagmar Smart Home уже стоит контроллер умного дома. SmartSpace подберёт, что он будет делать — свет, тепло, шторы, защита от протечки, — и посчитает цену для вашей квартиры.",
+        "en": "Every Lagmar Smart Home apartment already has a smart-home controller. SmartSpace picks what it will do — light, heat, blinds, leak protection — and prices it for your apartment.",
     },
     "contact": {
-        "ro": "Consultație gratuită SmartSpace, reprezentant oficial Grenton în Moldova: Strada Pajurii 11, Chișinău, +373 78 202 020. Proiectare, montaj și service.",
-        "ru": "Бесплатная консультация SmartSpace, официального представителя Grenton в Молдове: Strada Pajurii 11, Кишинёв, +373 78 202 020. Проект, монтаж, сервис.",
-        "en": "Free consultation with SmartSpace, official Grenton representative in Moldova: Strada Pajurii 11, Chișinău, +373 78 202 020. Design, installation, service.",
+        "ro": "Consultație gratuită SmartSpace pentru locatarii Lagmar Smart Home: Strada Pajurii 11, Chișinău, +373 78 202 020. Proiectare, montaj și service.",
+        "ru": "Бесплатная консультация SmartSpace для жильцов Lagmar Smart Home: Strada Pajurii 11, Кишинёв, +373 78 202 020. Проект, монтаж, сервис.",
+        "en": "Free consultation with SmartSpace for Lagmar Smart Home residents: Strada Pajurii 11, Chișinău, +373 78 202 020. Design, installation, service.",
     },
     "lagmar": {
-        "ro": "Configurator smart home Grenton pentru apartamentele din Lagmar Smart Home: găsește-ți apartamentul, alege pachetul Basic, Comfort sau Premium și primești oferta de la SmartSpace.",
-        "ru": "Конфигуратор умного дома Grenton для квартир в Lagmar Smart Home: найдите свою квартиру, выберите пакет Basic, Comfort или Premium и получите предложение от SmartSpace.",
-        "en": "Grenton smart-home configurator for Lagmar Smart Home apartments: find your apartment, choose Basic, Comfort or Premium and get a quote from SmartSpace.",
+        "ro": "Calculator smart home pentru apartamentele din Lagmar Smart Home: găsește-ți apartamentul, alege pachetul Basic, Comfort sau Premium și primești oferta de la SmartSpace.",
+        "ru": "Подбор и расчёт умного дома для квартир в Lagmar Smart Home: найдите свою квартиру, выберите пакет Basic, Comfort или Premium и получите предложение от SmartSpace.",
+        "en": "Smart-home calculator for Lagmar Smart Home apartments: find your apartment, choose Basic, Comfort or Premium and get a quote from SmartSpace.",
     },
 }
 
@@ -167,10 +167,10 @@ PAGES["contact"] = {
 
 LAGMAR_UI = {
     "ru": {
-        "title": "Умный дом Grenton для квартиры в Lagmar Smart Home — конфигуратор | SmartSpace",
+        "title": "Подбор и цена умного дома для квартиры в Lagmar Smart Home | SmartSpace",
         "eyebrow": "Ваш дом в Lagmar Smart Home",
         "h1": "Рассчитайте умный дом для своей квартиры в Lagmar",
-        "lead": "Найдите свою квартиру — покажем пакеты на её планировке и сразу посчитаем цену. Контроллер Grenton в квартире уже стоит, платите только за то, что добавляем. Персональное предложение от SmartSpace, официального представителя Grenton.",
+        "lead": "Найдите свою квартиру — покажем пакеты на её планировке и сразу посчитаем цену. Контроллер умного дома в квартире уже стоит — платите только за то, что добавляем.",
         "step1_title": "1. Найдите свою квартиру",
         "building_label": "Блок", "building_placeholder": "Выберите блок",
         "apt_label": "№ квартиры", "apt_placeholder": "например, 21",
@@ -203,10 +203,10 @@ LAGMAR_UI = {
         "faq_title": "Вопросы и ответы",
     },
     "ro": {
-        "title": "Casă inteligentă Grenton pentru apartamentul tău în Lagmar Smart Home — configurator | SmartSpace",
+        "title": "Alege și calculează casa inteligentă pentru apartamentul tău din Lagmar Smart Home | SmartSpace",
         "eyebrow": "Apartamentul tău din Lagmar Smart Home",
         "h1": "Calculează casa inteligentă pentru apartamentul tău din Lagmar",
-        "lead": "Găsește-ți apartamentul — îți arătăm pachetele pe planul lui și calculăm prețul pe loc. Unitatea Grenton e deja montată, plătești doar ce adăugăm. Oferta personalizată de la SmartSpace, reprezentant oficial Grenton.",
+        "lead": "Găsește-ți apartamentul — îți arătăm pachetele pe planul lui și calculăm prețul pe loc. Unitatea casei inteligente e deja montată — plătești doar ce adăugăm.",
         "step1_title": "1. Găsește-ți apartamentul",
         "building_label": "Blocul", "building_placeholder": "Alege blocul",
         "apt_label": "Nr. apartament", "apt_placeholder": "de ex. 21",
@@ -239,10 +239,10 @@ LAGMAR_UI = {
         "faq_title": "Întrebări frecvente",
     },
     "en": {
-        "title": "Grenton smart home for your Lagmar Smart Home apartment — configurator | SmartSpace",
+        "title": "Smart home for your Lagmar Smart Home apartment — choose and price it | SmartSpace",
         "eyebrow": "Your home in Lagmar Smart Home",
         "h1": "Price a smart home for your Lagmar apartment",
-        "lead": "Find your apartment — we show the packages on its floor plan and price them right away. The Grenton controller is already installed; you pay only for what we add. A personal quote from SmartSpace, the official Grenton representative.",
+        "lead": "Find your apartment — we show the packages on its floor plan and price them right away. The smart-home controller is already installed — you pay only for what we add.",
         "step1_title": "1. Find your apartment",
         "building_label": "Block", "building_placeholder": "Choose your block",
         "apt_label": "Apartment No.", "apt_placeholder": "e.g. 21",
@@ -278,21 +278,21 @@ LAGMAR_UI = {
 
 FAQ = {
     "ru": [
-        ("Можно ли установить Grenton после ремонта?", "Да. Grenton работает по проводной шине и поддерживает беспроводные модули Z-Wave — для готового ремонта подбираем беспроводную часть без штробления. Оптимально закладывать систему до чистовой отделки."),
+        ("Можно ли подключить умный дом после ремонта?", "Да. Система работает по проводной шине и поддерживает беспроводные модули Z-Wave — для готового ремонта подбираем беспроводную часть без штробления. Оптимально закладывать систему до чистовой отделки."),
         ("Работает ли умный дом без интернета?", "Да. Сценарии выполняются локально на центральном модуле CLU; интернет нужен только для удалённого доступа из приложения myGrenton."),
         ("Кто устанавливает и обслуживает систему?", "SmartSpace — официальный представитель Grenton в Молдове: проектирование, монтаж, настройка и сервис."),
         ("Сколько занимает монтаж?", "Зависит от пакета и стадии отделки — от нескольких дней для базового пакета до пары недель для полной автоматизации. Сроки подтверждаем после осмотра квартиры."),
         ("Можно начать с Basic и расширить позже?", "Да, система модульная: модули, панели и датчики добавляются по мере необходимости без замены уже установленного."),
     ],
     "ro": [
-        ("Se poate instala Grenton după finalizarea renovării?", "Da. Grenton funcționează pe magistrală cablată și acceptă module wireless Z-Wave — pentru un apartament deja finisat alegem partea wireless, fără șlițuri. Ideal este ca sistemul să fie prevăzut înainte de finisaje."),
+        ("Se poate instala casa inteligentă după finalizarea renovării?", "Da. Sistemul funcționează pe magistrală cablată și acceptă module wireless Z-Wave — pentru un apartament deja finisat alegem partea wireless, fără șlițuri. Ideal este ca sistemul să fie prevăzut înainte de finisaje."),
         ("Funcționează casa inteligentă fără internet?", "Da. Scenariile rulează local pe unitatea centrală CLU; internetul este necesar doar pentru accesul de la distanță din aplicația myGrenton."),
         ("Cine instalează și întreține sistemul?", "SmartSpace — reprezentant oficial Grenton în Moldova: proiectare, montaj, configurare și service."),
         ("Cât durează montajul?", "Depinde de pachet și de stadiul finisajelor — de la câteva zile pentru pachetul de bază până la câteva săptămâni pentru automatizare completă. Termenele se confirmă după vizita la apartament."),
         ("Pot începe cu Basic și extinde mai târziu?", "Da, sistemul este modular: modulele, panourile și senzorii se adaugă pe măsură ce este nevoie, fără a înlocui ce este deja instalat."),
     ],
     "en": [
-        ("Can Grenton be installed after the renovation is finished?", "Yes. Grenton runs on a wired bus and supports Z-Wave wireless modules — for a finished apartment we use the wireless part, no chasing walls. Ideally the system is planned before finishing works."),
+        ("Can the smart home be set up after the renovation is finished?", "Yes. The system runs on a wired bus and supports Z-Wave wireless modules — for a finished apartment we use the wireless part, no chasing walls. Ideally the system is planned before finishing works."),
         ("Does the smart home work without internet?", "Yes. Scenes run locally on the CLU central unit; internet is only needed for remote access from the myGrenton app."),
         ("Who installs and services the system?", "SmartSpace — the official Grenton representative in Moldova: design, installation, configuration and service."),
         ("How long does installation take?", "It depends on the package and the finishing stage — from a few days for the basic package to a couple of weeks for full automation. Timing is confirmed after a site visit."),
@@ -304,8 +304,8 @@ PLAN_IMG_BASE = "https://api.lagmarsmarthome.md/images/apartments/"
 
 LAGMAR_VIS = {
     "ru": {
-        "kicker": "Lagmar Smart Home × Grenton",
-        "stats": [("11", "блоков"), ("1 065", "квартир"), ("Grenton", "умный дом в каждой")],
+        "kicker": "Lagmar Smart Home × SmartSpace",
+        "stats": [("11", "блоков"), ("1 065", "квартир"), ("Smart Home", "в каждой квартире")],
         "hero_stats": [("3", "шага до предложения"), ("≈2 мин", "на расчёт"), ("0 €", "за контроллер — уже стоит")],
         "cta_find": "Найти мою квартиру", "cta_examples": "Пакеты на планировке",
         "blocks_title": "Выберите свой блок", "blocks_sub": "Нажмите на блок — номер квартиры введёте ниже.",
@@ -322,8 +322,8 @@ LAGMAR_VIS = {
                     "Q": "Multisensor (CO₂)", "I": "Видеодомофон"},
     },
     "ro": {
-        "kicker": "Lagmar Smart Home × Grenton",
-        "stats": [("11", "blocuri"), ("1 065", "apartamente"), ("Grenton", "casă inteligentă în fiecare")],
+        "kicker": "Lagmar Smart Home × SmartSpace",
+        "stats": [("11", "blocuri"), ("1 065", "apartamente"), ("Smart Home", "în fiecare apartament")],
         "hero_stats": [("3", "pași până la ofertă"), ("≈2 min", "pentru calcul"), ("0 €", "pentru unitate — e deja montată")],
         "cta_find": "Găsește-mi apartamentul", "cta_examples": "Pachetele pe plan",
         "blocks_title": "Alege-ți blocul", "blocks_sub": "Apasă pe bloc — numărul apartamentului îl introduci mai jos.",
@@ -340,8 +340,8 @@ LAGMAR_VIS = {
                     "Q": "Multisensor (CO₂)", "I": "Videointerfon"},
     },
     "en": {
-        "kicker": "Lagmar Smart Home × Grenton",
-        "stats": [("11", "blocks"), ("1,065", "apartments"), ("Grenton", "smart home in every one")],
+        "kicker": "Lagmar Smart Home × SmartSpace",
+        "stats": [("11", "blocks"), ("1,065", "apartments"), ("Smart Home", "in every apartment")],
         "hero_stats": [("3", "steps to a quote"), ("≈2 min", "to price it"), ("0 €", "for the controller — already in")],
         "cta_find": "Find my apartment", "cta_examples": "Packages on a floor plan",
         "blocks_title": "Choose your block", "blocks_sub": "Tap a block — you'll enter the apartment number below.",
@@ -435,7 +435,7 @@ PLAN_SIZE = {"2": (424, 589), "3": (767, 615), "4": (558, 1064)}
 PAGE_IMG = {"home": "monolith.png", "contact": "project-1.png"}
 IMG_ALT = {
     "monolith.png": "Grenton Monolith — сенсорная панель / touch panel", "clu.jpg": "Grenton CLU — central unit",
-    "smart-panel.jpg": "Grenton Smart Panel", "audio-integration.png": "Grenton — audio integration",
+    "smart-panel.jpg": "Smart Panel", "audio-integration.png": "Grenton — audio integration",
     "project-1.png": "Smart home project", "project-2.png": "Smart home project",
 }
 
@@ -477,7 +477,7 @@ def head_html(lang, key, title, desc, extra_jsonld=None):
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:url" content="{BASE_URL}/{lang}/{file}">
 <meta property="og:locale" content="{OG_LOCALE[lang]}">
-<meta property="og:site_name" content="SmartSpace — Grenton Moldova">
+<meta property="og:site_name" content="SmartSpace · Lagmar Smart Home">
 <meta property="og:image" content="{og_img}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -1445,7 +1445,7 @@ def gvideo(name, poster, label, cls=""):
 
 
 def palt(lang, name):
-    return PHOTO_ALT[lang].get(name, "Grenton")
+    return PHOTO_ALT[lang].get(name, {"ro": "Interior cu casă inteligentă", "ru": "Интерьер с умным домом", "en": "Smart-home interior"}[lang])
 
 
 def cta_lagmar_html(lang):
@@ -1783,11 +1783,11 @@ def gallery_html(lang, alt=True):
         t, d = it[key]
         return f'<article class="gal-item rv {cls}"><div class="gal-media">{media}</div><div class="gal-body"><h3>{t}</h3><p>{d}</p></div></article>'
     items = (
-        card("panel", gvideo("panel", "panel-poster", "Grenton Smart Panel"), "gal-wide")
-        + card("multi", gvideo("multisensor", "multisensor-poster", "Grenton Multisensor"), "gal-dark")
-        + card("monolith", gimg("monolith-wall", "Grenton Monolith", sizes="(max-width: 700px) 82vw, 30vw") + finishes_html(lang))
-        + card("touch", gimg("touch-wall", "Grenton Touch Panel", sizes="(max-width: 700px) 82vw, 30vw"))
-        + card("clu", gimg("clu", "Grenton CLU", sizes="(max-width: 700px) 82vw, 30vw"), "gal-paper")
+        card("panel", gvideo("panel", "panel-poster", "Smart Panel"), "gal-wide")
+        + card("multi", gvideo("multisensor", "multisensor-poster", "Multisensor"), "gal-dark")
+        + card("monolith", gimg("monolith-wall", "Monolith", sizes="(max-width: 700px) 82vw, 30vw") + finishes_html(lang))
+        + card("touch", gimg("touch-wall", "Touch Panel", sizes="(max-width: 700px) 82vw, 30vw"))
+        + card("clu", gimg("clu", "CLU", sizes="(max-width: 700px) 82vw, 30vw"), "gal-paper")
     )
     return f'''<section class="block{" alt" if alt else ""}" id="products">
   <div class="wrap">
@@ -1880,9 +1880,9 @@ def scenarios_page_html(lang):
 
 def how_page_html(lang):
     h = HOW[lang]
-    visuals = [gimg("clu", "Grenton CLU", sizes="16rem"), None,
-               gvideo("multisensor", "multisensor-poster", "Grenton Multisensor"),
-               gvideo("panel", "panel-poster", "Grenton Smart Panel")]
+    visuals = [gimg("clu", "CLU", sizes="16rem"), None,
+               gvideo("multisensor", "multisensor-poster", "Multisensor"),
+               gvideo("panel", "panel-poster", "Smart Panel")]
     layers = []
     for i, (img, icons, title, text) in enumerate(h["layers"]):
         vis = visuals[i] if i < len(visuals) and visuals[i] else f'<div class="layer-icons">{mk_icons(icons, lang)}</div>'
@@ -1903,7 +1903,7 @@ def how_page_html(lang):
   </div>
 </section>
 <section class="mono-band" aria-label="Monolith">
-  {gimg("monolith-hero", "Grenton Monolith", "mono-bg", sizes="100vw")}
+  {gimg("monolith-hero", "Monolith", "mono-bg", sizes="100vw")}
   <div class="wrap mono-inner rv">
     <span class="eyebrow">{g["eyebrow"]}</span>
     <h2 class="h2">{t_mono}</h2>
@@ -2304,7 +2304,7 @@ def root_redirect():
 <meta http-equiv="refresh" content="0; url=ro/index.html">
 <link rel="canonical" href="{BASE_URL}/ro/index.html">
 {alternates}<link rel="alternate" hreflang="x-default" href="{BASE_URL}/ro/index.html">
-<title>Grenton — SmartSpace Moldova</title>
+<title>SmartSpace · Lagmar Smart Home</title>
 </head>
 <body>
 <p>Redirecting… / <a href="ro/index.html">RO</a> · <a href="ru/index.html">RU</a> · <a href="en/index.html">EN</a></p>
@@ -2319,7 +2319,7 @@ def not_found_html():
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>404 — SmartSpace · Grenton</title>
+<title>404 — SmartSpace · Lagmar Smart Home</title>
 <link rel="stylesheet" href="{BASE_URL}/assets/css/style.css">
 </head>
 <body>

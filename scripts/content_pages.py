@@ -25,10 +25,10 @@ CTA_LAGMAR = {
 
 FEATURES = {
     "ru": {
-        "title": "Возможности умного дома Grenton в квартире | SmartSpace",
+        "title": "Что умеет умная квартира в Lagmar Smart Home | SmartSpace",
         "eyebrow": "Что умеет ваш дом",
         "h1": "Не гаджеты, а готовые удобства для каждой комнаты",
-        "lead": "Мы не продаём «умные лампочки». Grenton связывает свет, тепло, шторы, датчики и домофон в одну систему — и вы управляете квартирой так, как удобно: со стены, с телефона или вообще без касаний.",
+        "lead": "Мы не продаём «умные лампочки». Умный дом в вашей квартире связывает свет, тепло, шторы, датчики и домофон в одну систему — и вы управляете квартирой так, как удобно: со стены, с телефона или вообще без касаний.",
         "groups": [
             {"id": "light", "icon": "L", "title": "Свет, который подстраивается под вас",
              "benefit": "Нужный свет одним касанием — и ни одной забытой лампы.",
@@ -66,10 +66,10 @@ FEATURES = {
         ],
     },
     "ro": {
-        "title": "Funcțiile casei inteligente Grenton în apartament | SmartSpace",
+        "title": "Ce știe apartamentul inteligent din Lagmar Smart Home | SmartSpace",
         "eyebrow": "Ce știe casa ta",
         "h1": "Nu gadgeturi, ci confort gata pregătit în fiecare cameră",
-        "lead": "Nu vindem „becuri inteligente”. Grenton leagă lumina, căldura, rulourile, senzorii și interfonul într-un singur sistem — iar tu controlezi apartamentul cum îți convine: de pe perete, de pe telefon sau fără nicio atingere.",
+        "lead": "Nu vindem „becuri inteligente”. Casa inteligentă din apartamentul tău leagă lumina, căldura, rulourile, senzorii și interfonul într-un singur sistem — iar tu controlezi apartamentul cum îți convine: de pe perete, de pe telefon sau fără nicio atingere.",
         "groups": [
             {"id": "light", "icon": "L", "title": "Lumină care se adaptează la tine",
              "benefit": "Lumina potrivită dintr-o atingere — și niciun bec uitat aprins.",
@@ -107,10 +107,10 @@ FEATURES = {
         ],
     },
     "en": {
-        "title": "Grenton smart-home features for your apartment | SmartSpace",
+        "title": "What a smart Lagmar Smart Home apartment does | SmartSpace",
         "eyebrow": "What your home can do",
         "h1": "Not gadgets — ready-made comfort in every room",
-        "lead": "We don't sell “smart bulbs”. Grenton ties lighting, heating, blinds, sensors and the intercom into one system — and you run the apartment the way you like: from the wall, from your phone, or without touching anything at all.",
+        "lead": "We don't sell “smart bulbs”. The smart home in your apartment ties lighting, heating, blinds, sensors and the intercom into one system — and you run the apartment the way you like: from the wall, from your phone, or without touching anything at all.",
         "groups": [
             {"id": "light", "icon": "L", "title": "Light that adapts to you",
              "benefit": "The right light in one touch — and no lamp left on.",
@@ -151,9 +151,9 @@ FEATURES = {
 
 SCENARIOS = {
     "ru": {
-        "title": "Сценарии умного дома: один день в квартире с Grenton | SmartSpace",
+        "title": "Сценарии умного дома: один день в квартире Lagmar Smart Home | SmartSpace",
         "eyebrow": "Сценарии",
-        "h1": "Один день в квартире Lagmar с Grenton",
+        "h1": "Один день в умной квартире Lagmar",
         "lead": "Сценарий — это несколько действий одним касанием или автоматически: по времени, по датчику или когда вы приходите домой. Вот как это выглядит в обычный день.",
         "items": [
             ("07:00", "Утро", "Шторы в спальне открываются, свет мягко набирает яркость, в ванной уже тепло. Без будильника и без поиска выключателей.", "CLT", "comfort"),
@@ -167,9 +167,9 @@ SCENARIOS = {
         "note": "Сценарии настраиваем под ваш распорядок при запуске системы и меняем по вашей просьбе.",
     },
     "ro": {
-        "title": "Scenarii smart home: o zi în apartament cu Grenton | SmartSpace",
+        "title": "Scenarii smart home: o zi într-un apartament Lagmar Smart Home | SmartSpace",
         "eyebrow": "Scenarii",
-        "h1": "O zi într-un apartament Lagmar cu Grenton",
+        "h1": "O zi într-un apartament inteligent Lagmar",
         "lead": "Un scenariu înseamnă mai multe acțiuni dintr-o singură atingere sau automat: după oră, după un senzor sau când ajungi acasă. Iată cum arată o zi obișnuită.",
         "items": [
             ("07:00", "Dimineața", "Rulourile din dormitor se deschid, lumina crește ușor, în baie e deja cald. Fără alarmă și fără căutat întrerupătoare.", "CLT", "comfort"),
@@ -183,9 +183,9 @@ SCENARIOS = {
         "note": "Scenariile le configurăm după rutina ta la punerea în funcțiune și le modificăm la cererea ta.",
     },
     "en": {
-        "title": "Smart-home scenes: a day in an apartment with Grenton | SmartSpace",
+        "title": "Smart-home scenes: a day in a Lagmar Smart Home apartment | SmartSpace",
         "eyebrow": "Scenes",
-        "h1": "A day in a Lagmar apartment with Grenton",
+        "h1": "A day in a smart Lagmar apartment",
         "lead": "A scene is several actions in one touch — or automatically, by time, by a sensor or when you get home. Here's what an ordinary day looks like.",
         "items": [
             ("07:00", "Morning", "Bedroom blinds open, the light slowly brightens, the bathroom is already warm. No alarm clock, no hunting for switches.", "CLT", "comfort"),
@@ -202,7 +202,7 @@ SCENARIOS = {
 
 HOW = {
     "ru": {
-        "title": "Как работает умный дом Grenton: система, монтаж, сервис | SmartSpace",
+        "title": "Как устроен умный дом в Lagmar Smart Home: система, монтаж, сервис | SmartSpace",
         "eyebrow": "Как это работает",
         "h1": "Надёжная система внутри — простое управление снаружи",
         "lead": "Grenton — профессиональная проводная система из Польши. Всё важное происходит в электрощите вашей квартиры, а вы видите только аккуратные панели и приложение.",
@@ -221,16 +221,16 @@ HOW = {
             ("Настройка сценариев", "Настраиваем свет, климат и сценарии под ваш распорядок и показываем, как всем пользоваться."),
             ("Сервис и расширение", "Остаёмся на связи: меняем сценарии, добавляем датчики и комнаты — без замены уже установленного."),
         ],
-        "why_title": "Почему Grenton",
+        "why_title": "Почему проводная система",
         "why": [
             ("Работает без интернета", "Сценарии выполняются локально — интернет нужен только для удалённого доступа."),
             ("Проводная надёжность", "Профессиональная шина вместо десятка беспроводных гаджетов с батарейками."),
             ("Растёт вместе с вами", "Начните с Basic — модули, панели и датчики добавляются позже."),
-            ("Официальный представитель", "SmartSpace проектирует, монтирует и обслуживает Grenton в Молдове."),
+            ("Официальный представитель", "SmartSpace проектирует, монтирует и обслуживает систему в каждой квартире Lagmar Smart Home."),
         ],
     },
     "ro": {
-        "title": "Cum funcționează casa inteligentă Grenton: sistem, montaj, service | SmartSpace",
+        "title": "Cum funcționează casa inteligentă din Lagmar Smart Home: sistem, montaj, service | SmartSpace",
         "eyebrow": "Cum funcționează",
         "h1": "Sistem fiabil în interior — control simplu în exterior",
         "lead": "Grenton este un sistem profesional cablat, produs în Polonia. Tot ce contează se întâmplă în tabloul electric al apartamentului, iar tu vezi doar panouri elegante și aplicația.",
@@ -249,16 +249,16 @@ HOW = {
             ("Configurarea scenariilor", "Setăm lumina, clima și scenariile după rutina ta și îți arătăm cum se folosește totul."),
             ("Service și extindere", "Rămânem alături: modificăm scenarii, adăugăm senzori și camere — fără a înlocui ce e deja instalat."),
         ],
-        "why_title": "De ce Grenton",
+        "why_title": "De ce un sistem cablat",
         "why": [
             ("Funcționează fără internet", "Scenariile rulează local — internetul e necesar doar pentru accesul de la distanță."),
             ("Fiabilitatea cablului", "O magistrală profesională în locul a zeci de gadgeturi wireless cu baterii."),
             ("Crește odată cu tine", "Începi cu Basic — modulele, panourile și senzorii se adaugă ulterior."),
-            ("Reprezentant oficial", "SmartSpace proiectează, montează și întreține Grenton în Moldova."),
+            ("Reprezentant oficial", "SmartSpace proiectează, montează și întreține sistemul în fiecare apartament Lagmar Smart Home."),
         ],
     },
     "en": {
-        "title": "How the Grenton smart home works: system, installation, service | SmartSpace",
+        "title": "How the smart home in Lagmar Smart Home works: system, installation, service | SmartSpace",
         "eyebrow": "How it works",
         "h1": "Reliable inside — simple to use outside",
         "lead": "Grenton is a professional wired system made in Poland. Everything that matters happens in your apartment's distribution board; you only see neat panels and the app.",
@@ -277,43 +277,43 @@ HOW = {
             ("Setting up scenes", "We set lighting, climate and scenes around your routine and show you how to use everything."),
             ("Service and expansion", "We stay in touch: change scenes, add sensors and rooms — without replacing what's installed."),
         ],
-        "why_title": "Why Grenton",
+        "why_title": "Why a wired system",
         "why": [
             ("Works without internet", "Scenes run locally — internet is only needed for remote access."),
             ("Wired reliability", "A professional bus instead of a dozen battery-powered wireless gadgets."),
             ("Grows with you", "Start with Basic — modules, panels and sensors can be added later."),
-            ("Official representative", "SmartSpace designs, installs and services Grenton in Moldova."),
+            ("Official representative", "SmartSpace designs, installs and services the system in every Lagmar Smart Home apartment."),
         ],
     },
 }
 
 HOME_CARDS = {
     "ru": [("Свет, климат, безопасность", "Готовые удобства для каждой комнаты — и в каком пакете они есть.", "features.html", "Возможности"),
-           ("Один день с Grenton", "Утро без будильника, «Ухожу» одной кнопкой, «Кино», «Ночь», «Отпуск».", "scenarios.html", "Сценарии"),
+           ("Один день в умной квартире", "Утро без будильника, «Ухожу» одной кнопкой, «Кино», «Ночь», «Отпуск».", "scenarios.html", "Сценарии"),
            ("Надёжно внутри", "Центральный модуль, датчики, панели — и как мы всё устанавливаем.", "how.html", "Как это работает")],
     "ro": [("Lumină, climă, siguranță", "Confort gata pregătit în fiecare cameră — și în ce pachet e inclus.", "features.html", "Funcții"),
-           ("O zi cu Grenton", "Dimineți fără alarmă, „Plec” dintr-un buton, „Film”, „Noapte”, „Concediu”.", "scenarios.html", "Scenarii"),
+           ("O zi într-un apartament inteligent", "Dimineți fără alarmă, „Plec” dintr-un buton, „Film”, „Noapte”, „Concediu”.", "scenarios.html", "Scenarii"),
            ("Fiabil în interior", "Unitatea centrală, senzorii, panourile — și cum instalăm totul.", "how.html", "Cum funcționează")],
     "en": [("Light, climate, safety", "Ready-made comfort in every room — and which package it's in.", "features.html", "Features"),
-           ("A day with Grenton", "Mornings without an alarm, “Leaving” in one tap, “Movie”, “Night”, “Holiday”.", "scenarios.html", "Scenes"),
+           ("A day in a smart apartment", "Mornings without an alarm, “Leaving” in one tap, “Movie”, “Night”, “Holiday”.", "scenarios.html", "Scenes"),
            ("Reliable inside", "The central unit, sensors, panels — and how we install it all.", "how.html", "How it works")],
 }
 
 META_DESC_NEW = {
     "features": {
-        "ru": "Что умеет умный дом Grenton в квартире: свет без лишних выключателей, тепло по расписанию, защита от протечки, шторы, музыка и управление с телефона.",
-        "ro": "Ce știe casa inteligentă Grenton în apartament: lumină fără întrerupătoare în plus, căldură după program, protecție la scurgeri, rulouri, muzică și control de pe telefon.",
-        "en": "What a Grenton smart home does in your apartment: light without extra switches, heat on schedule, leak protection, blinds, music and control from your phone.",
+        "ru": "Что умеет умная квартира в Lagmar Smart Home: свет без лишних выключателей, тепло по расписанию, защита от протечки, шторы, музыка и управление с телефона.",
+        "ro": "Ce știe apartamentul inteligent din Lagmar Smart Home: lumină fără întrerupătoare în plus, căldură după program, protecție la scurgeri, rulouri, muzică și control de pe telefon.",
+        "en": "What the smart home does in your Lagmar Smart Home apartment: light without extra switches, heat on schedule, leak protection, blinds, music and control from your phone.",
     },
     "scenarios": {
-        "ru": "Один день в квартире с Grenton: утро без будильника, «Ухожу» одной кнопкой, защита от протечки днём, «Кино», «Ночь» и «Отпуск».",
-        "ro": "O zi în apartament cu Grenton: dimineți fără alarmă, „Plec” dintr-un buton, protecție la scurgeri, „Film”, „Noapte” și „Concediu”.",
-        "en": "A day in an apartment with Grenton: mornings without an alarm, “Leaving” in one tap, leak protection, “Movie”, “Night” and “Holiday”.",
+        "ru": "Один день в умной квартире Lagmar Smart Home: утро без будильника, «Ухожу» одной кнопкой, защита от протечки днём, «Кино», «Ночь» и «Отпуск».",
+        "ro": "O zi într-un apartament inteligent Lagmar Smart Home: dimineți fără alarmă, „Plec” dintr-un buton, protecție la scurgeri, „Film”, „Noapte” și „Concediu”.",
+        "en": "A day in a smart Lagmar Smart Home apartment: mornings without an alarm, “Leaving” in one tap, leak protection, “Movie”, “Night” and “Holiday”.",
     },
     "how": {
-        "ru": "Как устроен умный дом Grenton: центральный модуль CLU, модули в щите, датчики, панели и приложение. Как SmartSpace проектирует, монтирует и обслуживает систему.",
-        "ro": "Cum e construită casa inteligentă Grenton: unitatea CLU, module în tablou, senzori, panouri și aplicație. Cum SmartSpace proiectează, montează și întreține sistemul.",
-        "en": "How a Grenton smart home is built: the CLU central unit, modules in the board, sensors, panels and the app. How SmartSpace designs, installs and services it.",
+        "ru": "Как устроен умный дом в Lagmar Smart Home: центральный модуль CLU, модули в щите, датчики, панели и приложение. Как SmartSpace проектирует, монтирует и обслуживает систему.",
+        "ro": "Cum e construită casa inteligentă din Lagmar Smart Home: unitatea CLU, module în tablou, senzori, panouri și aplicație. Cum SmartSpace proiectează, montează și întreține sistemul.",
+        "en": "How the smart home in Lagmar Smart Home is built: the CLU central unit, modules in the board, sensors, panels and the app. How SmartSpace designs, installs and services it.",
     },
 }
 
@@ -322,12 +322,12 @@ SMARTLIGHT_UTM = "?utm_source=grenton-demo&utm_medium=banner&utm_campaign=lagmar
 
 HOME_V2 = {
     "ru": {
-        "title": "Умный дом Grenton для квартиры в Кишинёве — SmartSpace, официальный представитель",
-        "eyebrow": "Умный дом Grenton · Молдова",
+        "title": "Lagmar Smart Home — умный дом в вашей квартире | SmartSpace",
+        "eyebrow": "Lagmar Smart Home",
         "h1": "Квартира, которая сама включает свет, тепло и шторы",
-        "lead": "Grenton превращает обычную квартиру в умную: свет по сценариям, тепло по расписанию, защита от протечки и управление с телефона. SmartSpace проектирует, монтирует и обслуживает систему под ключ.",
+        "lead": "Квартира в Lagmar Smart Home становится умной: свет по сценариям, тепло по расписанию, защита от протечки и управление с телефона. SmartSpace проектирует, монтирует и обслуживает систему под ключ.",
         "cta1": "Подобрать пакет для моей квартиры", "cta2": "Что умеет система",
-        "trust": ["Официальный представитель Grenton", "Работает без интернета", "Проект, монтаж и сервис"],
+        "trust": ["Контроллер уже в каждой квартире", "Работает без интернета", "Проект, монтаж и сервис"],
         "float1": ("C", "Сценарий «Утро»", "шторы · свет · +22 °C"),
         "float2": ("W", "Протечка на кухне", "вода перекрыта"),
         "out_eyebrow": "Что изменится", "out_title": "Четыре вещи, которые вы заметите в первую неделю", "out_more": "Подробнее",
@@ -340,16 +340,16 @@ HOME_V2 = {
         "scenes_eyebrow": "Сценарии", "scenes_title": "Один день — четыре касания", "scenes_more": "Все сценарии",
         "steps_eyebrow": "Как мы работаем", "steps_title": "От заявки до готового умного дома",
         "sl_eyebrow": "Свет от SmartLight", "sl_title": "Свет, который хочется включать",
-        "sl_text": "SmartLight — официальный дилер Flos, Vibia, Artemide, Davide Groppi и других европейских световых брендов. Подберём светильники к вашей квартире в Lagmar и подключим их к Grenton: свет будет управляться с панели и телефона.",
+        "sl_text": "SmartLight — официальный дилер Flos, Vibia, Artemide, Davide Groppi и других европейских световых брендов. Подберём светильники к вашей квартире в Lagmar и подключим их к умному дому: свет будет управляться с панели и телефона.",
         "sl_cta": "Смотреть коллекции на smartlight.md",
     },
     "ro": {
-        "title": "Casă inteligentă Grenton pentru apartament în Chișinău — SmartSpace, reprezentant oficial",
-        "eyebrow": "Casă inteligentă Grenton · Moldova",
+        "title": "Lagmar Smart Home — casa inteligentă din apartamentul tău | SmartSpace",
+        "eyebrow": "Lagmar Smart Home",
         "h1": "Apartamentul care aprinde singur lumina, căldura și rulourile",
-        "lead": "Grenton transformă un apartament obișnuit într-unul inteligent: lumină pe scenarii, căldură după program, protecție la scurgeri și control de pe telefon. SmartSpace proiectează, montează și întreține sistemul la cheie.",
+        "lead": "Apartamentul din Lagmar Smart Home devine inteligent: lumină pe scenarii, căldură după program, protecție la scurgeri și control de pe telefon. SmartSpace proiectează, montează și întreține sistemul la cheie.",
         "cta1": "Alege pachetul pentru apartamentul meu", "cta2": "Ce știe sistemul",
-        "trust": ["Reprezentant oficial Grenton", "Funcționează fără internet", "Proiect, montaj și service"],
+        "trust": ["Unitatea e deja în fiecare apartament", "Funcționează fără internet", "Proiect, montaj și service"],
         "float1": ("C", "Scenariul „Dimineața”", "rulouri · lumină · +22 °C"),
         "float2": ("W", "Scurgere în bucătărie", "apa oprită"),
         "out_eyebrow": "Ce se schimbă", "out_title": "Patru lucruri pe care le simți din prima săptămână", "out_more": "Detalii",
@@ -362,16 +362,16 @@ HOME_V2 = {
         "scenes_eyebrow": "Scenarii", "scenes_title": "O zi — patru atingeri", "scenes_more": "Toate scenariile",
         "steps_eyebrow": "Cum lucrăm", "steps_title": "De la cerere la casa inteligentă gata",
         "sl_eyebrow": "Lumină de la SmartLight", "sl_title": "Lumină pe care vrei s-o aprinzi",
-        "sl_text": "SmartLight este dealer oficial Flos, Vibia, Artemide, Davide Groppi și al altor branduri europene de iluminat. Alegem corpurile de iluminat pentru apartamentul tău din Lagmar și le conectăm la Grenton: lumina se comandă de pe panou și de pe telefon.",
+        "sl_text": "SmartLight este dealer oficial Flos, Vibia, Artemide, Davide Groppi și al altor branduri europene de iluminat. Alegem corpurile de iluminat pentru apartamentul tău din Lagmar și le conectăm la casa inteligentă: lumina se comandă de pe panou și de pe telefon.",
         "sl_cta": "Vezi colecțiile pe smartlight.md",
     },
     "en": {
-        "title": "Grenton smart home for your apartment in Chișinău — SmartSpace, official representative",
-        "eyebrow": "Grenton smart home · Moldova",
+        "title": "Lagmar Smart Home — the smart home in your apartment | SmartSpace",
+        "eyebrow": "Lagmar Smart Home",
         "h1": "An apartment that switches on the light, heat and blinds for you",
-        "lead": "Grenton turns an ordinary apartment into a smart one: lighting scenes, heating on schedule, leak protection and control from your phone. SmartSpace designs, installs and services the system turnkey.",
+        "lead": "Your Lagmar Smart Home apartment becomes a smart one: lighting scenes, heating on schedule, leak protection and control from your phone. SmartSpace designs, installs and services the system turnkey.",
         "cta1": "Find the package for my apartment", "cta2": "What it can do",
-        "trust": ["Official Grenton representative", "Works without internet", "Design, installation and service"],
+        "trust": ["Controller already in every apartment", "Works without internet", "Design, installation and service"],
         "float1": ("C", "“Morning” scene", "blinds · lights · +22 °C"),
         "float2": ("W", "Kitchen leak", "water shut off"),
         "out_eyebrow": "What changes", "out_title": "Four things you'll notice in the first week", "out_more": "Details",
@@ -384,7 +384,7 @@ HOME_V2 = {
         "scenes_eyebrow": "Scenes", "scenes_title": "One day — four taps", "scenes_more": "All scenes",
         "steps_eyebrow": "How we work", "steps_title": "From request to a finished smart home",
         "sl_eyebrow": "Light by SmartLight", "sl_title": "Light you'll want to switch on",
-        "sl_text": "SmartLight is the official dealer of Flos, Vibia, Artemide, Davide Groppi and other European lighting brands. We'll pick fixtures for your Lagmar apartment and connect them to Grenton, so you control the light from the panel and your phone.",
+        "sl_text": "SmartLight is the official dealer of Flos, Vibia, Artemide, Davide Groppi and other European lighting brands. We'll pick fixtures for your Lagmar apartment and connect them to the smart home, so you control the light from the panel and your phone.",
         "sl_cta": "See the collections at smartlight.md",
     },
 }
