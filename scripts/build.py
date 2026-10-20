@@ -10,7 +10,7 @@ from content_lagmar import HOME_LG, LAGMAR_MKT, OPTION_ICON, OPTION_PRICES, PROM
 from content_contact import CONTACT_V3, EMAIL, GEO, HOURS, PAGE_HERO_MEDIA, SOCIAL, WA_NUMBER
 from content_v3 import (APP, CMP, DAY, DAY_BLINDS, DAY_LIGHTS, DAY_STATES, FEATURE_PHOTO, GAL, HOME_V3,
                         PHOTO_ALT, PRICES, PROGRAMMING_SHARE, SCENE_PHOTO, fmt_eur)
-from content_offer import OFFER, PACKAGE_SPEC, PRICES  # noqa: E402  (overrides content_v3.PRICES)
+from content_offer import EQUIPMENT, OFFER, PACKAGE_SPEC, PRICES  # noqa: E402  (overrides content_v3.PRICES)
 from content_pages import (CTA_LAGMAR, FEATURES, HOME_CARDS, HOME_V2, HOW, META_DESC_NEW, SCENARIOS, SL_BRANDS,
                            SMARTLIGHT_URL, SMARTLIGHT_UTM, TIER_CHIP)
 
@@ -736,7 +736,8 @@ LAGMAR_JS = r"""
     var pkg = state.tariff && state.rooms && UI.price_num[String(state.rooms)] ? UI.price_num[String(state.rooms)][state.tariff] : null;
     show($("sum-empty"), !pkg); show($("sum-rows"), !!pkg);
     if (!pkg) return null;
-    var total = pkg + opts, promo = Math.round((total - total / (1 + UI.prog_share) * UI.promo_pct / 100) / 10) * 10;
+    var eq = UI.equip_num[String(state.rooms)][state.tariff] + opts / (1 + UI.prog_share);
+    var total = pkg + opts, promo = Math.round((total - eq * UI.promo_pct / 100) / 10) * 10;
     $("sum-pkg-l").textContent = M.sum_pkg + " " + (PK.labels[state.tariff] || "");
     $("sum-pkg").textContent = eur(pkg); $("sum-opts").textContent = opts ? "+" + eur(opts) : "—";
     $("sum-old").textContent = eur(total); $("sum-total").textContent = eur(promo);
@@ -1121,7 +1122,11 @@ def offer_card_html(lang, n, tier):
     off = OFFER[n][tier]
     spec = PACKAGE_SPEC[n][tier]
     get = "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in spec_lines(spec, lang))
-    rows = []
+    rows = [f'<tr class="oc-group oc-pre-g"><th colspan="4" scope="rowgroup">{o["groups"]["pre"]}</th></tr>']
+    for code, qty in off["pre"]:
+        name, what = o["bom"][code]
+        rows.append(f'<tr class="oc-pre"><th scope="row"><b>{name}</b><small>{what}</small></th><td class="num">{qty}</td>'
+                    f'<td class="num" colspan="2"><span class="oc-tag">{o["pre_price"]}</span></td></tr>')
     group_of = {"SP": "wall", "TP4": "wall", "TP8": "wall", "LEAK": "sens", "VALVE": "sens", "SMOKE": "sens", "MOTION": "sens", "MULTI": "sens"}
     last = None
     for code, qty, unit in off["bom"]:
@@ -1143,7 +1148,7 @@ def offer_card_html(lang, n, tier):
   </div>
   <div class="oc-built">
     <details class="oc-det" open>
-    <summary><h3>{o["built"]}</h3><span class="oc-sum">{o["items"].replace("{n}", str(len(off["bom"])))} · <b>{fmt_eur(off["total"], lang)}</b></span></summary>
+    <summary><h3>{o["built"]}</h3><span class="oc-sum">{o["items"].replace("{n}", str(len(off["bom"]) + len(off["pre"])))} · <b>{fmt_eur(off["total"], lang)}</b></span></summary>
     <div class="oc-scroll"><table class="oc-bom">
       <thead><tr><th scope="col">{o["col_item"]}</th><th scope="col" class="num">{o["col_qty"]}</th><th scope="col" class="num">{o["col_unit"]}</th><th scope="col" class="num">{o["col_sum"]}</th></tr></thead>
       <tbody>{"".join(rows)}</tbody>
@@ -1157,6 +1162,13 @@ def offer_card_html(lang, n, tier):
     {sensors}
   </div>
 </div>'''
+
+
+def preinstall_html(lang):
+    o = OFFER_TXT[lang]
+    chips = "".join(f'<li>{ico("check")}{o["bom"][c][0]}</li>' for c, _q in OFFER["2"]["basic"]["pre"])
+    return (f'<div class="preinst"><p class="preinst-t">{o["pre_title"]}</p><ul class="preinst-l">{chips}</ul>'
+            f'<p class="preinst-x">{o["pre_text"]}</p></div>')
 
 
 def offer_html(lang, pk):
@@ -1233,7 +1245,7 @@ def lagmar_page_html(lang, apartments, packages_all):
                  bstats={b: list(x) for b, x in block_stats(apartments).items()}, range_hint=LAGMAR_MKT[lang]["range_hint"],
                  mkt={k: LAGMAR_MKT[lang][k] for k in ("sum_pkg", "sum_opts", "sum_total", "sum_promo", "pick_pkg_first", "opt_add", "opt_added", "recap_none")},
                  opt_names={k: t for k, (t, _d) in LAGMAR_MKT[lang]["options"].items()}, area_unit={"ru": "м²"}.get(lang, "m²"),
-                 opt_prices=OPTION_PRICES, promo_pct=PROMO_PCT, prog_share=PROGRAMMING_SHARE, price_num=PRICES)
+                 opt_prices=OPTION_PRICES, promo_pct=PROMO_PCT, prog_share=PROGRAMMING_SHARE, price_num=PRICES, equip_num=EQUIPMENT)
     bst = block_stats(apartments)
     m = LAGMAR_MKT[lang]
     building_options = "".join(
@@ -1294,6 +1306,7 @@ def lagmar_page_html(lang, apartments, packages_all):
 <section class="block cfg-step" id="step2" hidden>
   <div class="wrap">
     <h2 class="h2">{u["step2_title"]}</h2>
+    {preinstall_html(lang)}
     <p class="cfg-note" id="cfg-edge" hidden>{u["edge_hint"]}</p>
     <div class="grid" id="cfg-tariffs" role="radiogroup" aria-label="{esc(u["step2_title"])}"></div>
     <p class="cfg-note" id="cfg-upsell" hidden></p>

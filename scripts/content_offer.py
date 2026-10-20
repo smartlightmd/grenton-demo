@@ -7,6 +7,10 @@ Unit prices: SmartSpace selling prices, EUR excl. VAT.
   * Grenton modules and panels — our 2025 quote (Casa Doni, «Automatizare - Grenton.pdf»).
   * Sensors / valve — see SENSOR_PRICES (source noted per item; None = priced in the personal offer).
 Programming & commissioning: 30 % of equipment (2025 quote: 2 150 € on 7 761 € of devices ≈ 28 %).
+
+Pre-installed by Lagmar (owner, 20.10.2026): every apartment already has a CLU, a 24 V power supply and a
+2-channel relay in the panel. The resident does not pay for them; we connect and program them, so the
+programming share is taken on the whole system, pre-installed CLU + PSU included.
 """
 import math
 
@@ -14,6 +18,7 @@ UNIT = {  # code: (price EUR, article)
     "CLU": (295, "CLU-300-E-00"),
     "PSU": (51, "PSU-241-2-01"),
     "R4": (115, "Relay x4, DIN, TF-Bus"),
+    "R2": (None, "Relay x2, DIN, TF-Bus"),  # only ever pre-installed by Lagmar
     "DIM": (105, "Dimmer, DIN, TF-Bus"),
     "RGBW": (115, "LED RGBW, DIN, TF-Bus"),
     "RS": (155, "Roller Shutter, DIN, TF-Bus"),
@@ -25,6 +30,8 @@ UNIT = {  # code: (price EUR, article)
 # Sensors and the water valve are not in the 2025 quote; None means "in the personal offer".
 SENSOR_PRICES = {"LEAK": None, "VALVE": None, "SMOKE": None, "MOTION": None, "MULTI": None}
 PROGRAMMING_SHARE = 0.30
+PREINSTALLED = [("CLU", 1), ("PSU", 1), ("R2", 1)]  # in every Lagmar apartment, paid by the developer
+PRE_RELAY_CH = 2
 
 # l = on/off light groups, d = dimmable groups, led = LED-strip zones, s = switched sockets,
 # b = motorised blinds, h = heating zones, sp/tp4/tp8 = panels, leak/valve/smoke/motion/multi = sensors
@@ -48,12 +55,14 @@ PACKAGE_SPEC = {
 
 
 def build_bom(spec):
-    """Spec -> list of (code, qty). Channel rules follow how we size Grenton cabinets."""
+    """Spec -> list of (code, qty) we supply on top of the Lagmar pre-install. Channel rules follow how we size
+    Grenton cabinets; the pre-installed relay covers the first 2 switched channels, the pre-installed PSU the first 24."""
     relay_ch = spec["l"] + spec["s"] + spec["valve"]
     io_in = spec["leak"] + spec["smoke"] + spec["motion"]
     io_out = spec["h"]
-    bom = [("CLU", 1), ("PSU", 1 if relay_ch + spec["d"] + spec["b"] <= 24 else 2),
-           ("R4", math.ceil(relay_ch / 4)),
+    psu_need = 1 if relay_ch + spec["d"] + spec["b"] <= 24 else 2
+    bom = [("PSU", psu_need - 1),
+           ("R4", math.ceil(max(0, relay_ch - PRE_RELAY_CH) / 4)),
            ("DIM", spec["d"]),
            ("RGBW", math.ceil(spec["led"] / 4)),
            ("RS", math.ceil(spec["b"] / 3)),
@@ -72,14 +81,17 @@ def price_package(spec):
     bom = build_bom(spec)
     priced = [(c, q, unit_price(c)) for c, q in bom]
     equipment = sum(q * p for _c, q, p in priced if p is not None)
-    programming = int(math.ceil(equipment * PROGRAMMING_SHARE / 10.0) * 10)
+    pre_value = sum(q * unit_price(c) for c, q in PREINSTALLED if unit_price(c) is not None)
+    programming = int(math.ceil((equipment + pre_value) * PROGRAMMING_SHARE / 10.0) * 10)
     total = equipment + programming
     unpriced = [c for c, _q, p in priced if p is None]
-    return {"bom": priced, "equipment": equipment, "programming": programming, "total": total, "unpriced": unpriced}
+    return {"bom": priced, "pre": PREINSTALLED, "pre_value": pre_value, "equipment": equipment,
+            "programming": programming, "total": total, "unpriced": unpriced}
 
 
 OFFER = {n: {t: price_package(s) for t, s in tiers.items()} for n, tiers in PACKAGE_SPEC.items()}
 PRICES = {n: {t: OFFER[n][t]["total"] for t in tiers} for n, tiers in OFFER.items()}
+EQUIPMENT = {n: {t: OFFER[n][t]["equipment"] for t in tiers} for n, tiers in OFFER.items()}  # promo base
 
 if __name__ == "__main__":
     for n in OFFER:
