@@ -112,7 +112,7 @@ PAGES["home"] = {
         "h1": "Casa ta, controlată dintr-un singur loc",
         "lead": "Grenton este un sistem de automatizare a locuinței produs în Polonia: iluminat, climă, rulouri, muzică și securitate — toate conectate într-un singur ecosistem. SmartSpace instalează și configurează sistemul Grenton în Moldova.",
         "cta_primary": ("Configuratorul Lagmar", "lagmar.html"),
-        "cta_secondary": ("Ce știe sistemul", "features.html"),
+        "cta_secondary": ("Ce poate face sistemul", "features.html"),
         "cards": HOME_CARDS["ro"],
     },
     "ru": {
@@ -224,7 +224,7 @@ LAGMAR_UI = {
         "email_label": "Email (opțional)",
         "consent_text": "Sunt de acord cu prelucrarea datelor personale pentru pregătirea ofertei —",
         "consent_link": "politica de confidențialitate",
-        "disclaimer": "Oferta generată este preliminară, are caracter informativ și nu constituie ofertă publică; prețul final se confirmă de managerul SmartSpace după vizita la apartament.",
+        "disclaimer": "Oferta generată este preliminară, are caracter informativ și nu constituie ofertă publică; prețul final îl confirmă managerul SmartSpace după vizita la apartament.",
         "submit_btn": "Primește oferta", "sending": "Se trimite…",
         "success_title": "Gata!", "success_text": "Oferta ta personalizată este pregătită:",
         "success_link": "Deschide oferta",
@@ -342,7 +342,7 @@ LAGMAR_VIS = {
     "en": {
         "kicker": "Lagmar Smart Home × SmartSpace",
         "stats": [("11", "blocks"), ("1,065", "apartments"), ("Smart Home", "in every apartment")],
-        "hero_stats": [("3", "steps to a quote"), ("≈2 min", "to price it"), ("0 €", "for the controller — already in")],
+        "hero_stats": [("3", "steps to a quote"), ("≈2 min", "to price it"), ("0 €", "for the controller — already installed")],
         "cta_find": "Find my apartment", "cta_examples": "Packages on a floor plan",
         "blocks_title": "Choose your block", "blocks_sub": "Tap a block — you'll enter the apartment number below.",
         "block_word": "Block",
