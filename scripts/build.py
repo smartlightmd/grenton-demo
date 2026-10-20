@@ -1839,7 +1839,7 @@ def features_page_html(lang, packages_all):
         rows.append(f'''<article class="frow rv" id="{g["id"]}">
       <div class="frow-media">{gimg(ph, palt(lang, ph))}<span class="frow-ico mk mk-{ICON_FOR_GROUP[g["id"]]}">{ico(ICON_FOR_GROUP[g["id"]])}</span></div>
       <div class="frow-text">
-        <h3 class="feat-title">{g["title"]}</h3>
+        <h2 class="feat-title">{g["title"]}</h2>
         <p class="feat-benefit">{g["benefit"]}</p>
         <ul class="feat-list">{items}</ul>
       </div>
