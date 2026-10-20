@@ -637,8 +637,8 @@
     var found = null;
     for (var i = 0; i < APTS.length; i++) { if (APTS[i].b === b && normNum(APTS[i].n) === n) { found = APTS[i]; break; } }
     if (found) {
-      var fl = String(found.f) === "0" ? UI.floor_ground : (UI.floor_word + " " + found.f);
-      $("cfg-found").textContent = UI.found_prefix + " " + UI.building_label + " " + b + " · " + fl + " · " + found.r + " " + UI.rooms_word + " · " + fmtArea(found.a) + " " + UI.area_word;
+      var fl = String(found.f) === "0" ? UI.floor_ground : (UI.floor_word + " " + found.f);
+      $("cfg-found").textContent = UI.found_prefix + " " + UI.building_label + " " + b + " · " + fl + " · " + found.r + " " + UI.rooms_word + " · " + fmtArea(found.a) + " " + UI.area_word;
       show($("cfg-found"), true);
       markBlock(b);
       showAptCard(found);
