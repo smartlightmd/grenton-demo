@@ -26,7 +26,7 @@
 <meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
-<link rel="preload" href="../assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/manrope-latin-ext.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=a55be673">
+<link rel="preload" href="../assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/manrope-latin-ext.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=ed692049">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://smartspace.md/#org", "name": "SmartSpace", "url": "https://smartspace.md/", "telephone": "+37378202020", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "sameAs": ["https://smartspace.md/", "https://smartlight.md/"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Se poate instala casa inteligentă după finalizarea renovării?", "acceptedAnswer": {"@type": "Answer", "text": "Da. Sistemul funcționează pe magistrală cablată și acceptă module wireless Z-Wave — pentru un apartament deja finisat alegem partea wireless, fără șlițuri. Ideal este ca sistemul să fie prevăzut înainte de finisaje."}}, {"@type": "Question", "name": "Funcționează casa inteligentă fără internet?", "acceptedAnswer": {"@type": "Answer", "text": "Da. Scenariile rulează local pe unitatea centrală CLU; internetul este necesar doar pentru accesul de la distanță din aplicația myGrenton."}}, {"@type": "Question", "name": "Cine instalează și întreține sistemul?", "acceptedAnswer": {"@type": "Answer", "text": "SmartSpace — reprezentant oficial Grenton în Moldova: proiectare, montaj, configurare și service."}}, {"@type": "Question", "name": "Cât durează montajul?", "acceptedAnswer": {"@type": "Answer", "text": "Depinde de pachet și de stadiul finisajelor — de la câteva zile pentru pachetul de bază până la câteva săptămâni pentru automatizare completă. Termenele se confirmă după vizita la apartament."}}, {"@type": "Question", "name": "Pot începe cu Basic și extinde mai târziu?", "acceptedAnswer": {"@type": "Answer", "text": "Da, sistemul este modular: modulele, panourile și senzorii se adaugă pe măsură ce este nevoie, fără a înlocui ce este deja instalat."}}]}</script>
 </head>
 <body class="theme-lagmar">
@@ -736,6 +736,25 @@
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   var save = navigator.connection && navigator.connection.saveData;
   var hasIO = "IntersectionObserver" in window;
+
+  // header: real height for the sticky stepper; hides on scroll down, returns on scroll up (iPad 20.10)
+  var hdr = d.querySelector("header.site"), root = d.documentElement;
+  if (hdr) {
+    var setH = function () { root.style.setProperty("--hdr-h", hdr.offsetHeight + "px"); };
+    setH(); window.addEventListener("resize", setH);
+    if (window.ResizeObserver) new ResizeObserver(setH).observe(hdr);
+    var lastY = window.scrollY, ticking = false;
+    window.addEventListener("scroll", function () {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function () {
+        var y = window.scrollY, dy = y - lastY;
+        if (y < hdr.offsetHeight * 2 || dy < -2 || hdr.contains(d.activeElement)) root.classList.remove("hdr-hidden");
+        else if (dy > 6) root.classList.add("hdr-hidden");
+        lastY = y; ticking = false;
+      });
+    }, { passive: true });
+    hdr.addEventListener("focusin", function () { root.classList.remove("hdr-hidden"); });
+  }
 
   // reveal on scroll
   if (hasIO && !reduce) {

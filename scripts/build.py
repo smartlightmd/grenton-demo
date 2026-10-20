@@ -1476,6 +1476,25 @@ SITE_JS = r"""
   var save = navigator.connection && navigator.connection.saveData;
   var hasIO = "IntersectionObserver" in window;
 
+  // header: real height for the sticky stepper; hides on scroll down, returns on scroll up (iPad 20.10)
+  var hdr = d.querySelector("header.site"), root = d.documentElement;
+  if (hdr) {
+    var setH = function () { root.style.setProperty("--hdr-h", hdr.offsetHeight + "px"); };
+    setH(); window.addEventListener("resize", setH);
+    if (window.ResizeObserver) new ResizeObserver(setH).observe(hdr);
+    var lastY = window.scrollY, ticking = false;
+    window.addEventListener("scroll", function () {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function () {
+        var y = window.scrollY, dy = y - lastY;
+        if (y < hdr.offsetHeight * 2 || dy < -2 || hdr.contains(d.activeElement)) root.classList.remove("hdr-hidden");
+        else if (dy > 6) root.classList.add("hdr-hidden");
+        lastY = y; ticking = false;
+      });
+    }, { passive: true });
+    hdr.addEventListener("focusin", function () { root.classList.remove("hdr-hidden"); });
+  }
+
   // reveal on scroll
   if (hasIO && !reduce) {
     d.documentElement.classList.add("js-rv");

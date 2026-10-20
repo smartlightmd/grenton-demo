@@ -229,7 +229,7 @@ nav.main a.active { background: var(--surface-2); color: var(--ink); box-shadow:
   :root:not([data-theme="light"]) .theme-toggle .i-moon { display: none; }
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1260px) {
   :root { --hdr: 3.5rem; }
   header.site .bar { grid-template-columns: 1fr auto; row-gap: 0; padding-top: .35rem; }
   nav.main {
@@ -284,7 +284,7 @@ nav.main a.active { background: var(--surface-2); color: var(--ink); box-shadow:
 section.block { padding-block: var(--section); }
 section.block.alt { background: var(--surface); border-block: 1px solid var(--line); }
 .cfg-step, #packages, #faq, #examples, #complex { scroll-margin-top: calc(var(--hdr) + 1rem); }
-@media (max-width: 1080px) { .cfg-step, #packages, #faq, #examples, #complex { scroll-margin-top: calc(var(--hdr) + 3.5rem); } }
+@media (max-width: 1260px) { .cfg-step, #packages, #faq, #examples, #complex { scroll-margin-top: calc(var(--hdr) + 3.5rem); } }
 h2.h2 { font-size: var(--fs-2xl); line-height: var(--lh-snug); letter-spacing: -0.02em; margin: 0 0 var(--sp-xs); max-width: 26ch; }
 p.sub { color: var(--muted); margin: 0 0 var(--sp-l); max-width: 62ch; font-size: var(--fs-lg); }
 
@@ -975,7 +975,7 @@ section.block:not(.alt) .scene-card { background: var(--surface); }
 
 /* anchors never hide under the sticky header */
 section[id], .frow, #day, #compare, #products, #app, #write, #map { scroll-margin-top: calc(var(--hdr) + .75rem); }
-@media (max-width: 1080px) { section[id], #day, #compare, #write, #map { scroll-margin-top: calc(var(--hdr) + 3rem); } }
+@media (max-width: 1260px) { section[id], #day, #compare, #write, #map { scroll-margin-top: calc(var(--hdr) + 3rem); } }
 html { scroll-behavior: smooth; }
 
 /* calmer reveal: shorter travel, no long delays */
@@ -1187,8 +1187,8 @@ details.faq p { padding-right: 2rem; }
 
 /* stepper over the configurator */
 .cfg-flow { position: relative; }
-.stepper-bar { position: sticky; top: var(--hdr); z-index: 15; background: color-mix(in srgb, var(--surface) 92%, transparent);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.stepper-bar { position: sticky; top: var(--hdr-h, var(--hdr)); z-index: 15; background: var(--surface);
+  border-bottom: 1px solid var(--line); transition: top .25s var(--ease); }
 .stepper { list-style: none; margin-block: 0; padding: .55rem 0; display: flex; gap: .4rem; counter-reset: none; }
 .stepper li { flex: 1; }
 .stepper a { display: flex; align-items: center; gap: .5rem; text-decoration: none; color: var(--muted); font-weight: 700; font-size: var(--fs-sm);
@@ -1228,7 +1228,7 @@ section.block.alt .recap { background: var(--bg); }
 .rc-edit { display: inline-block; margin-top: var(--sp-s); font-size: var(--fs-sm); font-weight: 700; color: var(--brand-text, var(--brand)); }
 @media (max-width: 900px) { .s3-grid { grid-template-columns: 1fr; } .recap { position: static; order: -1; } }
 
-@media (min-width: 1081px) { .cfg-step, #cfg-opts-title { scroll-margin-top: calc(var(--hdr) + 4.25rem); } }
+@media (min-width: 1261px) { .cfg-step, #cfg-opts-title { scroll-margin-top: calc(var(--hdr) + 4.25rem); } }
 #cfg-opts-title { scroll-margin-top: calc(var(--hdr) + 3.5rem); }
 
 /* =========================================================================
@@ -1471,7 +1471,7 @@ details[open]::details-content { block-size: auto; }
 }
 
 #cfg-found, #cfg-manual { scroll-margin-top: calc(var(--hdr) + 1rem); }
-@media (min-width: 1081px) { #cfg-found, #cfg-manual { scroll-margin-top: calc(var(--hdr) + 4.75rem); } }
+@media (min-width: 1261px) { #cfg-found, #cfg-manual { scroll-margin-top: calc(var(--hdr) + 4.75rem); } }
 
 /* =========================================================================
    Cross-page consistency 19.10.2026: one closing block, Lagmar palette site-wide
@@ -1563,3 +1563,9 @@ td.num, .oc-total td, .oc-total th { line-height: 1.25; }
 /* sticky header text stays AA over dark sections scrolling underneath (axe 20.10) */
 header.site .brand .by, header.site .langs a { color: var(--ink-soft); }
 header.site .langs a.active { color: var(--bg); }
+
+/* ===== header on tablets/phones (iPad, 20.10): solid, hides on scroll down, back on scroll up ===== */
+header.site { background: var(--bg); -webkit-backdrop-filter: none; backdrop-filter: none; transition: transform .25s var(--ease); will-change: transform; }
+.hdr-hidden header.site { transform: translateY(-100%); }
+.hdr-hidden .stepper-bar { top: 0; }
+@media (prefers-reduced-motion: reduce) { header.site, .stepper-bar { transition: none; } }
