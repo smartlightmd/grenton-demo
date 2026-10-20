@@ -154,13 +154,16 @@ LAGMAR_MKT = {
 }
 
 HOME_LG = {
-    "ru": {"h1": "Найдите свою квартиру в Lagmar",
-           "lead": "Выберите блок — покажем пакеты умного дома Grenton на планировке вашей квартиры и сразу посчитаем цену. Для жильцов — −10% на оборудование до 31.12.2026.",
-           "pick": "Выберите блок", "film": "Как живёт умная квартира", "all": "Всё о Lagmar Smart Home"},
-    "ro": {"h1": "Găsește-ți apartamentul în Lagmar",
-           "lead": "Alege blocul — îți arătăm pachetele Grenton pe planul apartamentului tău și calculăm prețul pe loc. Pentru locatari — −10% la echipamente până la 31.12.2026.",
-           "pick": "Alege blocul", "film": "Cum trăiește un apartament inteligent", "all": "Totul despre Lagmar Smart Home"},
-    "en": {"h1": "Find your apartment in Lagmar",
-           "lead": "Pick your block — we will show Grenton packages on your apartment's floor plan and price it right away. Residents get −10% on equipment until 31.12.2026.",
-           "pick": "Pick your block", "film": "How a smart apartment lives", "all": "All about Lagmar Smart Home"},
+    "ru": {"h1": "Умный дом в вашей квартире Lagmar уже начат",
+           "lead": "В электрощите каждой квартиры комплекса уже стоит контроллер Grenton. Осталось решить, что он будет делать: включать свет, держать тепло, закрывать шторы, перекрывать воду при протечке.",
+           "cta": "Рассчитать для моей квартиры",
+           "film": "Как живёт умная квартира"},
+    "ro": {"h1": "Casa inteligentă din apartamentul tău Lagmar e deja începută",
+           "lead": "În tabloul fiecărui apartament din complex e deja montată unitatea Grenton. Rămâne de hotărât ce va face: aprinde lumina, ține căldura, trage rulourile, oprește apa la o scurgere.",
+           "cta": "Calculează pentru apartamentul meu",
+           "film": "Cum trăiește un apartament inteligent"},
+    "en": {"h1": "Your Lagmar apartment's smart home is already started",
+           "lead": "Every apartment in the complex already has a Grenton controller in its switchboard. What is left is deciding what it does: switch the lights, keep the heat, close the blinds, shut the water off on a leak.",
+           "cta": "Price it for my apartment",
+           "film": "How a smart apartment lives"},
 }

@@ -36,9 +36,9 @@ OG_IMG_ALT = {
 }
 
 NAV_LABELS = {
-    "ro": {"home": "Acasă", "lagmar": "Lagmar Smart Home", "features": "Funcții", "scenarios": "Scenarii", "how": "Cum funcționează", "contact": "Contact"},
-    "ru": {"home": "Главная", "lagmar": "Lagmar Smart Home", "features": "Возможности", "scenarios": "Сценарии", "how": "Как это работает", "contact": "Контакты"},
-    "en": {"home": "Home", "lagmar": "Lagmar Smart Home", "features": "Features", "scenarios": "Scenes", "how": "How it works", "contact": "Contact"},
+    "ro": {"home": "Acasă", "lagmar": "Alege și calculează", "features": "Funcții", "scenarios": "Scenarii", "how": "Cum funcționează", "contact": "Contact"},
+    "ru": {"home": "Главная", "lagmar": "Подобрать и рассчитать", "features": "Возможности", "scenarios": "Сценарии", "how": "Как это работает", "contact": "Контакты"},
+    "en": {"home": "Home", "lagmar": "Get a quote", "features": "Features", "scenarios": "Scenes", "how": "How it works", "contact": "Contact"},
 }
 THEME_LABEL = {"ro": "Schimbă tema", "ru": "Переключить тему", "en": "Toggle theme"}
 
@@ -169,8 +169,8 @@ LAGMAR_UI = {
     "ru": {
         "title": "Умный дом Grenton для квартиры в Lagmar Smart Home — конфигуратор | SmartSpace",
         "eyebrow": "Ваш дом в Lagmar Smart Home",
-        "h1": "Умный дом для вашей квартиры в Lagmar",
-        "lead": "SmartSpace — официальный представитель Grenton — подберёт готовое решение для вашей квартиры в жилом комплексе Lagmar Smart Home. Найдите свою квартиру, выберите комплектацию и получите персональное предложение.",
+        "h1": "Рассчитайте умный дом для своей квартиры в Lagmar",
+        "lead": "Найдите свою квартиру — покажем пакеты на её планировке и сразу посчитаем цену. Контроллер Grenton в квартире уже стоит, платите только за то, что добавляем. Персональное предложение от SmartSpace, официального представителя Grenton.",
         "step1_title": "1. Найдите свою квартиру",
         "building_label": "Блок", "building_placeholder": "Выберите блок",
         "apt_label": "№ квартиры", "apt_placeholder": "например, 21",
@@ -205,8 +205,8 @@ LAGMAR_UI = {
     "ro": {
         "title": "Casă inteligentă Grenton pentru apartamentul tău în Lagmar Smart Home — configurator | SmartSpace",
         "eyebrow": "Apartamentul tău din Lagmar Smart Home",
-        "h1": "Casă inteligentă pentru apartamentul tău din Lagmar",
-        "lead": "SmartSpace — reprezentant oficial Grenton — îți propune soluția potrivită pentru apartamentul tău din complexul Lagmar Smart Home. Găsește-ți apartamentul, alege pachetul și primește oferta personalizată.",
+        "h1": "Calculează casa inteligentă pentru apartamentul tău din Lagmar",
+        "lead": "Găsește-ți apartamentul — îți arătăm pachetele pe planul lui și calculăm prețul pe loc. Unitatea Grenton e deja montată, plătești doar ce adăugăm. Oferta personalizată de la SmartSpace, reprezentant oficial Grenton.",
         "step1_title": "1. Găsește-ți apartamentul",
         "building_label": "Blocul", "building_placeholder": "Alege blocul",
         "apt_label": "Nr. apartament", "apt_placeholder": "de ex. 21",
@@ -241,8 +241,8 @@ LAGMAR_UI = {
     "en": {
         "title": "Grenton smart home for your Lagmar Smart Home apartment — configurator | SmartSpace",
         "eyebrow": "Your home in Lagmar Smart Home",
-        "h1": "Smart home for your Lagmar apartment",
-        "lead": "SmartSpace — the official Grenton representative — finds the right setup for your apartment in the Lagmar Smart Home complex. Find your apartment, pick a package, and get a personal quote.",
+        "h1": "Price a smart home for your Lagmar apartment",
+        "lead": "Find your apartment — we show the packages on its floor plan and price them right away. The Grenton controller is already installed; you pay only for what we add. A personal quote from SmartSpace, the official Grenton representative.",
         "step1_title": "1. Find your apartment",
         "building_label": "Block", "building_placeholder": "Choose your block",
         "apt_label": "Apartment No.", "apt_placeholder": "e.g. 21",
@@ -306,10 +306,8 @@ LAGMAR_VIS = {
     "ru": {
         "kicker": "Lagmar Smart Home × Grenton",
         "stats": [("11", "блоков"), ("1 065", "квартир"), ("Grenton", "умный дом в каждой")],
+        "hero_stats": [("3", "шага до предложения"), ("≈2 мин", "на расчёт"), ("0 €", "за контроллер — уже стоит")],
         "cta_find": "Найти мою квартиру", "cta_examples": "Пакеты на планировке",
-        "complex_eyebrow": "Жилой комплекс", "complex_title": "Lagmar Smart Home — 11 блоков в Кишинёве",
-        "complex_text": "Современные дома вокруг зелёных внутренних дворов с зонами отдыха и подземным паркингом. Умный дом здесь — часть проекта: квартиры рассчитаны на систему Grenton, а SmartSpace проектирует, монтирует и обслуживает её.",
-        "siteplan_caption": "Генплан комплекса: 11 блоков вокруг зелёных дворов",
         "blocks_title": "Выберите свой блок", "blocks_sub": "Нажмите на блок — номер квартиры введёте ниже.",
         "block_word": "Блок",
         "examples_eyebrow": "Наглядно", "examples_title": "Пакеты на реальных планировках Lagmar",
@@ -326,10 +324,8 @@ LAGMAR_VIS = {
     "ro": {
         "kicker": "Lagmar Smart Home × Grenton",
         "stats": [("11", "blocuri"), ("1 065", "apartamente"), ("Grenton", "casă inteligentă în fiecare")],
+        "hero_stats": [("3", "pași până la ofertă"), ("≈2 min", "pentru calcul"), ("0 €", "pentru unitate — e deja montată")],
         "cta_find": "Găsește-mi apartamentul", "cta_examples": "Pachetele pe plan",
-        "complex_eyebrow": "Complex rezidențial", "complex_title": "Lagmar Smart Home — 11 blocuri în Chișinău",
-        "complex_text": "Clădiri moderne în jurul curților interioare verzi, cu zone de odihnă și parcare subterană. Casa inteligentă face parte din proiect: apartamentele sunt gândite pentru sistemul Grenton, iar SmartSpace îl proiectează, îl montează și îl întreține.",
-        "siteplan_caption": "Planul general: 11 blocuri în jurul curților verzi",
         "blocks_title": "Alege-ți blocul", "blocks_sub": "Apasă pe bloc — numărul apartamentului îl introduci mai jos.",
         "block_word": "Blocul",
         "examples_eyebrow": "Concret", "examples_title": "Pachetele pe planuri reale Lagmar",
@@ -346,10 +342,8 @@ LAGMAR_VIS = {
     "en": {
         "kicker": "Lagmar Smart Home × Grenton",
         "stats": [("11", "blocks"), ("1,065", "apartments"), ("Grenton", "smart home in every one")],
+        "hero_stats": [("3", "steps to a quote"), ("≈2 min", "to price it"), ("0 €", "for the controller — already in")],
         "cta_find": "Find my apartment", "cta_examples": "Packages on a floor plan",
-        "complex_eyebrow": "Residential complex", "complex_title": "Lagmar Smart Home — 11 blocks in Chișinău",
-        "complex_text": "Modern buildings around green inner courtyards with leisure areas and underground parking. The smart home is part of the project: apartments are planned for the Grenton system, which SmartSpace designs, installs and services.",
-        "siteplan_caption": "Site plan: 11 blocks around green courtyards",
         "blocks_title": "Choose your block", "blocks_sub": "Tap a block — you'll enter the apartment number below.",
         "block_word": "Block",
         "examples_eyebrow": "See it", "examples_title": "Packages on real Lagmar floor plans",
@@ -1034,7 +1028,7 @@ def plan_widget_html(lang, n, pk, wid, extra_cls="", hidden=False):
 
 def lagmar_hero_html(lang, u):
     v = LAGMAR_VIS[lang]
-    stats = "".join(f'<li><b>{esc(a)}</b><span>{esc(b)}</span></li>' for a, b in v["stats"])
+    stats = "".join(f'<li><b>{esc(a)}</b><span>{esc(b)}</span></li>' for a, b in v["hero_stats"])
     return f'''<section class="lg-hero">
   <img class="lg-hero-bg" src="../assets/lagmar/hero.jpg" srcset="../assets/lagmar/hero-960.jpg 960w, ../assets/lagmar/hero.jpg 1920w" sizes="100vw" alt="Lagmar Smart Home" fetchpriority="high">
   <video class="lg-hero-bg lg-hero-vid" muted loop playsinline preload="none" data-auto aria-hidden="true" data-src-mobile="../assets/lagmar/hero-loop-mobile.mp4"><source src="../assets/lagmar/hero-loop-{lang}.mp4" type="video/mp4"></video>
@@ -1047,26 +1041,6 @@ def lagmar_hero_html(lang, u):
     </div>
     <ul class="lg-stats">{stats}</ul>
     <noscript><p class="lead"><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p></noscript>
-  </div>
-</section>'''
-
-
-def lagmar_complex_html(lang):
-    v = LAGMAR_VIS[lang]
-    return f'''<section class="block lg-complex" id="complex">
-  <div class="wrap">
-    <div class="split">
-      <div>
-        <span class="eyebrow">{v["complex_eyebrow"]}</span>
-        <h2 class="h2">{v["complex_title"]}</h2>
-        <p class="sub">{v["complex_text"]}</p>
-      </div>
-      <img class="rounded" src="../assets/lagmar/aerial.jpg" srcset="../assets/lagmar/aerial-800.jpg 800w, ../assets/lagmar/aerial.jpg 1600w" sizes="(max-width: 860px) 92vw, 45vw" width="1600" height="828" alt="Lagmar Smart Home" loading="lazy">
-    </div>
-    <div class="lg-gallery">
-      <div class="blk-collage"><img src="../assets/lagmar/blocks/A.jpg" width="330" height="508" alt="Lagmar Smart Home — A" loading="lazy"><img src="../assets/lagmar/blocks/D.jpg" width="330" height="508" alt="Lagmar Smart Home — D" loading="lazy"><img src="../assets/lagmar/blocks/F.jpg" width="330" height="508" alt="Lagmar Smart Home — F" loading="lazy"><img src="../assets/lagmar/blocks/J.jpg" width="330" height="508" alt="Lagmar Smart Home — J" loading="lazy"></div>
-      <figure><img src="../assets/lagmar/siteplan.jpg" width="1600" height="898" alt="{esc(v["siteplan_caption"])}" loading="lazy"><figcaption>{v["siteplan_caption"]}</figcaption></figure>
-    </div>
   </div>
 </section>'''
 
@@ -1365,7 +1339,6 @@ def lagmar_page_html(lang, apartments, packages_all):
 </section>
 </div>
 
-{lagmar_complex_html(lang)}
 
 <section class="block alt" id="faq">
   <div class="wrap faq-grid">
@@ -1987,19 +1960,16 @@ def home_page_html(lang, packages_all):
     stats = "".join(stat(a, b) for a, b in v["stats"])
 
     lg = HOME_LG[lang]
-    bst = BLOCK_STATS
-    tiles = "".join(
-        f'<a class="hb" href="lagmar.html?b={b}#step1"><img src="../assets/lagmar/blocks/{b}.jpg" width="330" height="508" alt="" loading="lazy"><b>{b}</b>'
-        + (f'<small>{bst[b][0]} {LAGMAR_MKT[lang]["apts"]}</small>' if b in bst else "") + "</a>" for b in BUILDINGS)
     body = f'''<section class="home-lg">
   <img class="home-lg-bg" src="../assets/lagmar/aerial-800.jpg" srcset="../assets/lagmar/aerial-800.jpg 800w, ../assets/lagmar/aerial.jpg 1600w" sizes="100vw" alt="" fetchpriority="high">
   <div class="wrap home-lg-inner">
     <div class="lg-logos"><img src="../assets/lagmar/logo-lagmar.png" alt="Lagmar Smart Home" width="160" height="48"><span class="x">×</span><span class="gr">SmartSpace <small>by Grenton</small></span></div>
     <h1>{lg["h1"]}</h1>
     <p class="lead">{lg["lead"]}</p>
-    <p class="hb-label">{lg["pick"]}</p>
-    <nav class="hb-row" aria-label="{lg["pick"]}">{tiles}</nav>
-    <p class="home-lg-alt"><a href="#film">{lg["film"]}</a><a href="lagmar.html">{lg["all"]}</a></p>
+    <div class="cta-row cta-left">
+      <a class="btn btn-primary" href="lagmar.html#step1">{lg["cta"]}</a>
+      <a class="btn btn-light" href="#film">{lg["film"]} {ico("play")}</a>
+    </div>
   </div>
 </section>
 
@@ -2347,7 +2317,6 @@ def robots_txt():
 _EYEBROW = re.compile(r'<span class="eyebrow">.*?</span>\s*', re.S)
 
 
-BLOCK_STATS = {}
 
 
 def finalize_html(html, lang):
@@ -2380,7 +2349,6 @@ def _write(rel, text):
 
 def main():
     apartments = _load_json("assets/data/apartments.json")
-    BLOCK_STATS.update(block_stats(apartments))
     packages_all = _load_json("assets/data/packages.json")
     for lang in LANGS:
         for n, tiers in PACKAGE_SPEC.items():
