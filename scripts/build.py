@@ -310,6 +310,9 @@ LAGMAR_VIS = {
         "cta_find": "Найти мою квартиру", "cta_examples": "Пакеты на планировке",
         "blocks_title": "Выберите свой блок", "blocks_sub": "Нажмите на блок — номер квартиры введёте ниже.",
         "block_word": "Блок",
+        "siteplan_hint": "Не знаете букву блока? Найдите свой дом на схеме",
+        "siteplan_alt": "Схема комплекса Lagmar Smart Home с буквами блоков",
+        "siteplan_note": "Нажмите на свой дом — блок выберется сам.",
         "examples_eyebrow": "Наглядно", "examples_title": "Пакеты на реальных планировках Lagmar",
         "examples_sub": "Типовые квартиры комплекса — переключайте Basic / Comfort / Premium и смотрите, что и где появляется.",
         "tabs": {"2": "2 комнаты · 46 м²", "3": "3 комнаты · 82 м²", "4": "4 комнаты · 99 м²"},
@@ -328,6 +331,9 @@ LAGMAR_VIS = {
         "cta_find": "Găsește-mi apartamentul", "cta_examples": "Pachetele pe plan",
         "blocks_title": "Alege-ți blocul", "blocks_sub": "Apasă pe bloc — numărul apartamentului îl introduci mai jos.",
         "block_word": "Blocul",
+        "siteplan_hint": "Nu știi litera blocului? Găsește-ți blocul pe schemă",
+        "siteplan_alt": "Schema complexului Lagmar Smart Home cu literele blocurilor",
+        "siteplan_note": "Apasă pe blocul tău — se selectează automat.",
         "examples_eyebrow": "Concret", "examples_title": "Pachetele pe planuri reale Lagmar",
         "examples_sub": "Apartamente tipice din complex — comută Basic / Comfort / Premium și vezi ce apare și unde.",
         "tabs": {"2": "2 camere · 46 m²", "3": "3 camere · 82 m²", "4": "4 camere · 99 m²"},
@@ -346,6 +352,9 @@ LAGMAR_VIS = {
         "cta_find": "Find my apartment", "cta_examples": "Packages on a floor plan",
         "blocks_title": "Choose your block", "blocks_sub": "Tap a block — you'll enter the apartment number below.",
         "block_word": "Block",
+        "siteplan_hint": "Not sure of your block letter? Find your building on the plan",
+        "siteplan_alt": "Lagmar Smart Home site plan with block letters",
+        "siteplan_note": "Tap your building — the block is selected for you.",
         "examples_eyebrow": "See it", "examples_title": "Packages on real Lagmar floor plans",
         "examples_sub": "Typical apartments in the complex — switch Basic / Comfort / Premium and see what appears and where.",
         "tabs": {"2": "2 rooms · 46 m²", "3": "3 rooms · 82 m²", "4": "4 rooms · 99 m²"},
@@ -709,6 +718,7 @@ LAGMAR_JS = r"""
     tile.addEventListener("click", function () {
       $("cfg-building").value = tile.dataset.block; rangeHint(tile.dataset.block);
       Array.prototype.forEach.call(document.querySelectorAll(".blk"), function (x) { x.setAttribute("aria-pressed", x === tile ? "true" : "false"); });
+      syncPlan(tile.dataset.block);
       show($("cfg-found"), false); show($("cfg-manual"), false); resetBelow();
       $("cfg-apt").focus();
     });
@@ -791,7 +801,20 @@ LAGMAR_JS = r"""
     var tile = pb && document.querySelector('.blk[data-block="' + pb + '"]');
     if (tile) { tile.click(); setTimeout(function () { scrollTo($("step1")); }, 50); }
   })();
+  function syncPlan(b) {
+    Array.prototype.forEach.call(document.querySelectorAll(".sp-b"), function (g) { g.setAttribute("aria-pressed", g.dataset.block === b ? "true" : "false"); });
+  }
+  // phones: the plan is wider than the screen; open it centred on the middle blocks
+  Array.prototype.forEach.call(document.querySelectorAll(".siteplan-fold"), function (f) {
+    f.addEventListener("toggle", function () { var sc = f.querySelector(".sp-scroll"); if (f.open && sc) sc.scrollLeft = (sc.scrollWidth - sc.clientWidth) / 2; });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll(".sp-b"), function (g) {
+    var pick = function () { var t = document.querySelector('.blk[data-block="' + g.dataset.block + '"]'); if (t) t.click(); };
+    g.addEventListener("click", pick);
+    g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } });
+  });
   function markBlock(b) {
+    syncPlan(b);
     rangeHint(b);
     Array.prototype.forEach.call(document.querySelectorAll(".blk"), function (x) { x.setAttribute("aria-pressed", x.dataset.block === b ? "true" : "false"); });
   }
@@ -1065,7 +1088,23 @@ def lagmar_blocks_html(lang, stats):
         + (f'<small class="blk-meta"><b>{stats[b][0]}</b> {m["apts"]}<br>№ {stats[b][1]}–{stats[b][2]}</small>' if b in stats else "")
         + '</button>'
         for b in BUILDINGS)
-    return f'<p class="cfg-note"><b>{v["blocks_title"]}.</b> {v["blocks_sub"]}</p><div class="blk-row">{tiles}</div>'
+    return f'<p class="cfg-note"><b>{v["blocks_title"]}.</b> {v["blocks_sub"]}</p><div class="blk-row">{tiles}</div>' + siteplan_html(lang, stats)
+
+
+def siteplan_html(lang, stats):
+    sp = _load_json("assets/data/siteplan.json")
+    vw, vh = sp["viewBox"]
+    v, m = LAGMAR_VIS[lang], LAGMAR_MKT[lang]
+    shapes = "".join(
+        f'<g class="sp-b" data-block="{o["b"]}" role="button" tabindex="0" aria-pressed="false" '
+        f'aria-label="{esc(v["block_word"])} {o["b"]}' + (f' · {stats[o["b"]][0]} {esc(m["apts"])}' if o["b"] in stats else "") + '">'
+        f'<path d="{o["d"]}"/><text x="{o["lx"]}" y="{o["ly"]}">{o["b"]}</text></g>'
+        for o in sp["blocks"])
+    return (f'<details class="fold siteplan-fold"><summary>{v["siteplan_hint"]}</summary>'
+            f'<div class="sp-scroll"><div class="sp"><img src="../assets/lagmar/aerial-800.webp" srcset="../assets/lagmar/aerial-800.webp 800w, ../assets/lagmar/aerial.webp 1600w" '
+            f'sizes="(max-width: 860px) 92vw, 1200px" width="1600" height="828" alt="{esc(v["siteplan_alt"])}" loading="lazy">'
+            f'<svg viewBox="0 0 {vw} {vh}" preserveAspectRatio="none">{shapes}</svg></div></div>'
+            f'<p class="sp-note">{v["siteplan_note"]}</p></details>')
 
 
 def spec_lines(spec, lang):

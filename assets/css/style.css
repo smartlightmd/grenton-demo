@@ -1569,3 +1569,20 @@ header.site { background: var(--bg); -webkit-backdrop-filter: none; backdrop-fil
 .hdr-hidden header.site { transform: translateY(-100%); }
 .hdr-hidden .stepper-bar { top: 0; }
 @media (prefers-reduced-motion: reduce) { header.site, .stepper-bar { transition: none; } }
+
+/* step 1: interactive site plan (block outlines from lagmarsmarthome.md, 20.10) */
+.siteplan-fold { margin: 0 0 var(--sp-m); }
+.sp { position: relative; margin-top: var(--sp-s); border-radius: var(--r-l); overflow: hidden; background: var(--surface-2); }
+.sp img { display: block; width: 100%; height: auto; }
+.sp svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sp-b { cursor: pointer; outline: none; }
+.sp-b path { fill: rgba(28, 53, 89, .16); stroke: rgba(255, 255, 255, .9); stroke-width: 2; vector-effect: non-scaling-stroke; transition: fill .15s var(--ease); }
+.sp-b text { font-family: Manrope, sans-serif; font-weight: 800; font-size: 34px; fill: #fff; text-anchor: middle; dominant-baseline: middle;
+  paint-order: stroke; stroke: rgba(20, 42, 75, .9); stroke-width: 7px; pointer-events: none; }
+@media (hover: hover) { .sp-b:hover path { fill: rgba(227, 34, 19, .34); } }
+.sp-b:focus-visible path { fill: rgba(227, 34, 19, .34); stroke: #fff; stroke-width: 4; }
+.sp-b[aria-pressed="true"] path { fill: rgba(227, 34, 19, .5); stroke: #fff; stroke-width: 3; }
+.sp-note { margin: .5rem 0 0; font-size: var(--fs-sm); color: var(--muted); }
+.sp-scroll { overflow-x: auto; scrollbar-width: thin; border-radius: var(--r-l); margin-top: var(--sp-s); }
+.sp-scroll .sp { margin-top: 0; }
+@media (max-width: 700px) { .sp-scroll .sp { width: 190%; } .sp-b text { font-size: 40px; stroke-width: 8px; } }  /* buildings big enough to tap */
