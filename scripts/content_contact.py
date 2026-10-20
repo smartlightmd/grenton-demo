@@ -5,7 +5,7 @@ address/phone/e-mail are the canonical NAP.
 """
 
 GEO = (47.0324269, 28.8657644)
-EMAIL = "import@smartlight.md"
+EMAIL = "office@smartspace.md"
 WA_NUMBER = "37378202020"
 SOCIAL = [("Instagram", "https://www.instagram.com/smartspace.md/"), ("Facebook", "https://www.facebook.com/smartspace.md/")]
 HOURS = [("09:00", "18:00")] * 5 + [("10:00", "14:00"), (None, None)]  # Monday..Sunday

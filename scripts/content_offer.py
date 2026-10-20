@@ -9,8 +9,8 @@ Unit prices: SmartSpace selling prices, EUR excl. VAT.
 Programming & commissioning: 30 % of equipment (2025 quote: 2 150 € on 7 761 € of devices ≈ 28 %).
 
 Pre-installed by Lagmar (owner, 20.10.2026): every apartment already has a CLU, a 24 V power supply and a
-2-channel relay in the panel. The resident does not pay for them; we connect and program them, so the
-programming share is taken on the whole system, pre-installed CLU + PSU included.
+2-channel relay in the panel. The resident does not pay for them; programming is 30% of the equipment we
+supply (owner, 20.10.2026: the pre-install is not part of the base).
 """
 import math
 
@@ -82,7 +82,7 @@ def price_package(spec):
     priced = [(c, q, unit_price(c)) for c, q in bom]
     equipment = sum(q * p for _c, q, p in priced if p is not None)
     pre_value = sum(q * unit_price(c) for c, q in PREINSTALLED if unit_price(c) is not None)
-    programming = int(math.ceil((equipment + pre_value) * PROGRAMMING_SHARE / 10.0) * 10)
+    programming = int(math.ceil(equipment * PROGRAMMING_SHARE / 10.0) * 10)  # our equipment only (owner 20.10)
     total = equipment + programming
     unpriced = [c for c, _q, p in priced if p is None]
     return {"bom": priced, "pre": PREINSTALLED, "pre_value": pre_value, "equipment": equipment,
