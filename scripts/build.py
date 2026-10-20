@@ -27,10 +27,10 @@ LANG_LABEL = {"ro": "RO", "ru": "RU", "en": "EN"}
 OG_LOCALE = {"ro": "ro_RO", "ru": "ru_RU", "en": "en_US"}
 # Share cards rendered by scripts/og_cards.mjs (1200x630)
 OG_IMG_ALT = {
-    "grenton": {"ro": "Lagmar Smart Home — casă inteligentă în fiecare apartament",
+    "home": {"ro": "Lagmar Smart Home — casă inteligentă în fiecare apartament",
                 "ru": "Lagmar Smart Home — умный дом в каждой квартире",
                 "en": "Lagmar Smart Home — a smart home in every apartment"},
-    "lagmar": {"ro": "Lagmar Smart Home — calculator smart home: pachetele Basic, Comfort, Premium",
+    "calc": {"ro": "Lagmar Smart Home — calculator smart home: pachetele Basic, Comfort, Premium",
                "ru": "Lagmar Smart Home — подбор умного дома: пакеты Basic, Comfort, Premium",
                "en": "Lagmar Smart Home — smart-home calculator: Basic, Comfort, Premium packages"},
 }
@@ -464,7 +464,7 @@ def head_html(lang, key, title, desc, extra_jsonld=None):
     alternates = "".join(f'<link rel="alternate" hreflang="{l}" href="{BASE_URL}/{l}/{file}">' for l in LANGS)
     jsonld = [org_jsonld(lang)] + (extra_jsonld or [])
     jsonld_html = "".join(f'<script type="application/ld+json">{json.dumps(j, ensure_ascii=False)}</script>' for j in jsonld)
-    card = "lagmar" if key == "lagmar" else "grenton"
+    card = "calc" if key == "lagmar" else "home"  # Lagmar-first share cards (scripts/og_cards.mjs)
     og_img = f"{BASE_URL}/assets/og/og-{card}-{lang}.jpg"
     return f'''<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
