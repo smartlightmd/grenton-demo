@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Smart-home scenes: a day in an apartment with Grenton | SmartSpace</title>
+<title>Smart-home scenes: a day in an apartment with Grenton | SmartSpace</title>
 <meta name="description" content="A day in an apartment with Grenton: mornings without an alarm, “Leaving” in one tap, leak protection, “Movie”, “Night” and “Holiday”.">
 <link rel="canonical" href="https://smartlightmd.github.io/grenton-demo/en/scenarios.html">
 <link rel="alternate" hreflang="ro" href="https://smartlightmd.github.io/grenton-demo/ro/scenarios.html"><link rel="alternate" hreflang="ru" href="https://smartlightmd.github.io/grenton-demo/ru/scenarios.html"><link rel="alternate" hreflang="en" href="https://smartlightmd.github.io/grenton-demo/en/scenarios.html"><link rel="alternate" hreflang="x-default" href="https://smartlightmd.github.io/grenton-demo/ro/scenarios.html">
@@ -39,7 +39,7 @@
       <span class="by">by <img src="../assets/img/favicon-32.png" alt="" width="14" height="14"> GRENTON</span>
     </a>
     <nav class="main" aria-label="Main menu">
-      <a href="index.html">Home</a><a href="lagmar.html">Get a quote</a><a href="features.html">Features</a><a class="active" href="scenarios.html">Scenes</a><a href="how.html">How it works</a><a href="contact.html">Contact</a>
+      <a href="index.html">Home</a><a href="lagmar.html">Get a quote</a><a href="features.html">Features</a><a class="active" href="scenarios.html">Scenes</a><a href="how.html">How it works</a><a href="contact.html">Contact</a>
     </nav>
     <div class="controls">
       <div class="langs"><a href="../ro/scenarios.html" hreflang="ro">RO</a><a href="../ru/scenarios.html" hreflang="ru">RU</a><a class="active" href="../en/scenarios.html" hreflang="en">EN</a></div>
@@ -54,14 +54,14 @@
 <main id="main" tabindex="-1">
 <section class="hero hero-media">
   <div class="wrap hero-media-grid">
-    <div><h1>A day in a Lagmar apartment with Grenton</h1><p class="lead">A scene is several actions in one touch — or automatically, by time, by a sensor or when you get home. Here's what an ordinary day looks like.</p></div>
+    <div><h1>A day in a Lagmar apartment with Grenton</h1><p class="lead">A scene is several actions in one touch — or automatically, by time, by a sensor or when you get home. Here's what an ordinary day looks like.</p></div>
     <div class="hero-media-visual"><img src="../assets/grenton/bedroom.webp" srcset="../assets/grenton/bedroom-800.webp 800w, ../assets/grenton/bedroom.webp 1600w" sizes="(max-width: 860px) 92vw, 45vw" width="1600" height="880" alt="Bedroom with a Grenton panel" fetchpriority="high"></div>
   </div>
 </section>
 <section class="block alt day-sec" id="day">
   <div class="wrap">
     <div class="section-head rv">
-      <div><h2 class="h2">One day in a 46 m² Lagmar apartment</h2><p class="sub">Pick a time and watch what the apartment does on its own. Light, blinds and climate follow scenes — no switches needed.</p></div>
+      <div><h2 class="h2">One day in a 46 m² Lagmar apartment</h2><p class="sub">Pick a time and watch what the apartment does on its own. Light, blinds and climate follow scenes — no switches needed.</p></div>
       
     </div>
     <div class="day rv " id="day-w" style="--dark:0.32">
@@ -80,19 +80,19 @@
       <div class="dp-scene" id="day-scene">Morning</div>
       <div class="dp-dots"><i></i><i></i><i></i><i></i></div>
     </div>
-    <p class="day-text" id="day-text">Bedroom blinds open, the light slowly brightens, the bathroom is already warm. No alarm clock, no hunting for switches.</p>
+    <p class="day-text" id="day-text">Bedroom blinds open, the light slowly brightens, the bathroom is already warm. No alarm clock, no hunting for switches.</p>
     <ul class="day-chips">
       <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-L"/></svg><span>Light</span><b id="day-light"></b></li>
       <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-C"/></svg><span>Blinds</span><b id="day-blinds"></b></li>
       <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-T"/></svg><span>Climate</span><b id="day-clim"></b></li>
     </ul>
-    <div class="day-toast" id="day-toast" hidden><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-W"/></svg><div><b>Kitchen leak — water shut off</b><span>a notification reached your phone</span></div></div>
+    <div class="day-toast" id="day-toast" hidden><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-W"/></svg><div><b>Kitchen leak — water shut off</b><span>a notification reached your phone</span></div></div>
   </div>
   <div class="day-scrub">
     <div class="day-tabs" role="tablist"><button type="button" role="tab" data-day="0" aria-selected="true"><span class="t">07:00</span><span class="n">Morning</span></button><button type="button" role="tab" data-day="1" aria-selected="false"><span class="t">08:30</span><span class="n">“Leaving”</span></button><button type="button" role="tab" data-day="2" aria-selected="false"><span class="t">13:00</span><span class="n">During the day</span></button><button type="button" role="tab" data-day="3" aria-selected="false"><span class="t">18:30</span><span class="n">“I'm home”</span></button><button type="button" role="tab" data-day="4" aria-selected="false"><span class="t">21:00</span><span class="n">“Movie”</span></button><button type="button" role="tab" data-day="5" aria-selected="false"><span class="t">23:00</span><span class="n">“Night”</span></button></div>
     <button type="button" class="day-play" id="day-play" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-play"/></svg><span>Play the day</span></button>
   </div>
-  <script id="day-data" type="application/json">{"labels":{"zones":"{n} of 6 zones","off":"off","open":"open","closed":"closed","eco":"eco","play":"Play the day","pause":"Pause"},"states":[{"sc":0,"dark":0.32,"lights":{"bed":0.75,"bath":1},"blinds":{"bed":0,"liv":0},"temp":22,"eco":false,"time":"07:00","title":"Morning","text":"Bedroom blinds open, the light slowly brightens, the bathroom is already warm. No alarm clock, no hunting for switches."},{"sc":1,"dark":0,"lights":{},"blinds":{"bed":0,"liv":0},"temp":18,"eco":true,"guard":true,"time":"08:30","title":"“Leaving”","text":"One button by the door: all lights go off, heating switches to eco mode, the sensors keep watching the apartment."},{"sc":2,"dark":0,"lights":{},"blinds":{"bed":0,"liv":0},"temp":18,"eco":true,"guard":true,"alert":true,"time":"13:00","title":"During the day","text":"The app shows whether everything is off. If the leak sensor trips, the water is shut off and you get a notification."},{"sc":3,"dark":0.45,"lights":{"hall":1,"kit":0.9,"liv":0.8},"blinds":{"bed":0,"liv":0},"temp":22,"eco":false,"time":"18:30","title":"“I'm home”","text":"Press the button or open the smart lock: the hallway light comes on and the heating returns to your comfort temperature."},{"sc":4,"dark":0.78,"lights":{"liv":0.7},"blinds":{"bed":1,"liv":1},"temp":22,"eco":false,"audio":true,"time":"21:00","title":"“Movie”","text":"Lights dim, blinds close, sound starts in the living room — all with one touch of the panel."},{"sc":5,"dark":0.84,"lights":{"hall":0.5},"blinds":{"bed":1,"liv":1},"temp":20,"eco":false,"time":"23:00","title":"“Night”","text":"Lights go off across the apartment, the bedroom cools down, and a soft night light comes on in the hallway as you walk by."}]}</script>
+  <script id="day-data" type="application/json">{"labels":{"zones":"{n} of 6 zones","off":"off","open":"open","closed":"closed","eco":"eco","play":"Play the day","pause":"Pause"},"states":[{"sc":0,"dark":0.32,"lights":{"bed":0.75,"bath":1},"blinds":{"bed":0,"liv":0},"temp":22,"eco":false,"time":"07:00","title":"Morning","text":"Bedroom blinds open, the light slowly brightens, the bathroom is already warm. No alarm clock, no hunting for switches."},{"sc":1,"dark":0,"lights":{},"blinds":{"bed":0,"liv":0},"temp":18,"eco":true,"guard":true,"time":"08:30","title":"“Leaving”","text":"One button by the door: all lights go off, heating switches to eco mode, the sensors keep watching the apartment."},{"sc":2,"dark":0,"lights":{},"blinds":{"bed":0,"liv":0},"temp":18,"eco":true,"guard":true,"alert":true,"time":"13:00","title":"During the day","text":"The app shows whether everything is off. If the leak sensor trips, the water is shut off and you get a notification."},{"sc":3,"dark":0.45,"lights":{"hall":1,"kit":0.9,"liv":0.8},"blinds":{"bed":0,"liv":0},"temp":22,"eco":false,"time":"18:30","title":"“I'm home”","text":"Press the button or open the smart lock: the hallway light comes on and the heating returns to your comfort temperature."},{"sc":4,"dark":0.78,"lights":{"liv":0.7},"blinds":{"bed":1,"liv":1},"temp":22,"eco":false,"audio":true,"time":"21:00","title":"“Movie”","text":"Lights dim, blinds close, sound starts in the living room — all with one touch of the panel."},{"sc":5,"dark":0.84,"lights":{"hall":0.5},"blinds":{"bed":1,"liv":1},"temp":20,"eco":false,"time":"23:00","title":"“Night”","text":"Lights go off across the apartment, the bedroom cools down, and a soft night light comes on in the hallway as you walk by."}]}</script>
 </div>
   </div>
 </section>
@@ -102,8 +102,8 @@
       <div class="scene-time">07:00</div>
       <div class="scene-card">
         <div class="scene-body">
-          <div class="scene-top"><h3 class="scene-title">Morning</h3><span class="tier tier-comfort">from Comfort</span></div>
-          <p>Bedroom blinds open, the light slowly brightens, the bathroom is already warm. No alarm clock, no hunting for switches.</p>
+          <div class="scene-top"><h3 class="scene-title">Morning</h3><span class="tier tier-comfort">from Comfort</span></div>
+          <p>Bedroom blinds open, the light slowly brightens, the bathroom is already warm. No alarm clock, no hunting for switches.</p>
           <div class="scene-devices"><i class="mk mk-C" title="Blind motor"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-C"/></svg></i><i class="mk mk-L" title="Lighting group"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-L"/></svg></i><i class="mk mk-T" title="Climate zone"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-T"/></svg></i></div>
         </div>
         <div class="scene-photo"><img src="../assets/grenton/bedroom.webp" srcset="../assets/grenton/bedroom-800.webp 800w, ../assets/grenton/bedroom.webp 1600w" sizes="(max-width: 600px) 90vw, 16rem" width="1600" height="880" alt="Bedroom with a Grenton panel" loading="lazy" decoding="async"></div>
@@ -112,7 +112,7 @@
       <div class="scene-time">08:30</div>
       <div class="scene-card">
         <div class="scene-body">
-          <div class="scene-top"><h3 class="scene-title">“Leaving”</h3><span class="tier tier-basic">from Basic</span></div>
+          <div class="scene-top"><h3 class="scene-title">“Leaving”</h3><span class="tier tier-basic">from Basic</span></div>
           <p>One button by the door: all lights go off, heating switches to eco mode, the sensors keep watching the apartment.</p>
           <div class="scene-devices"><i class="mk mk-L" title="Lighting group"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-L"/></svg></i><i class="mk mk-T" title="Climate zone"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-T"/></svg></i><i class="mk mk-W" title="Leak sensor"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-W"/></svg></i></div>
         </div>
@@ -122,8 +122,8 @@
       <div class="scene-time">13:00</div>
       <div class="scene-card">
         <div class="scene-body">
-          <div class="scene-top"><h3 class="scene-title">During the day</h3><span class="tier tier-comfort">from Comfort</span></div>
-          <p>The app shows whether everything is off. If the leak sensor trips, the water is shut off and you get a notification.</p>
+          <div class="scene-top"><h3 class="scene-title">During the day</h3><span class="tier tier-comfort">from Comfort</span></div>
+          <p>The app shows whether everything is off. If the leak sensor trips, the water is shut off and you get a notification.</p>
           <div class="scene-devices"><i class="mk mk-W" title="Leak sensor"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-W"/></svg></i><i class="mk mk-P" title="Control panel"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-P"/></svg></i></div>
         </div>
         <div class="scene-photo"><img src="../assets/grenton/security.webp" width="768" height="512" alt="Notification in the myGrenton app" loading="lazy" decoding="async"></div>
@@ -132,8 +132,8 @@
       <div class="scene-time">18:30</div>
       <div class="scene-card">
         <div class="scene-body">
-          <div class="scene-top"><h3 class="scene-title">“I'm home”</h3><span class="tier tier-basic">from Basic</span></div>
-          <p>Press the button or open the smart lock: the hallway light comes on and the heating returns to your comfort temperature.</p>
+          <div class="scene-top"><h3 class="scene-title">“I'm home”</h3><span class="tier tier-basic">from Basic</span></div>
+          <p>Press the button or open the smart lock: the hallway light comes on and the heating returns to your comfort temperature.</p>
           <div class="scene-devices"><i class="mk mk-L" title="Lighting group"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-L"/></svg></i><i class="mk mk-T" title="Climate zone"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-T"/></svg></i><i class="mk mk-I" title="Video intercom"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-I"/></svg></i></div>
         </div>
         <div class="scene-photo"><img src="../assets/grenton/kitchen.webp" srcset="../assets/grenton/kitchen-800.webp 800w, ../assets/grenton/kitchen.webp 1600w" sizes="(max-width: 600px) 90vw, 16rem" width="1600" height="880" alt="Kitchen" loading="lazy" decoding="async"></div>
@@ -143,7 +143,7 @@
       <div class="scene-card">
         <div class="scene-body">
           <div class="scene-top"><h3 class="scene-title">“Movie”</h3><span class="tier tier-premium">in Premium</span></div>
-          <p>Lights dim, blinds close, sound starts in the living room — all with one touch of the panel.</p>
+          <p>Lights dim, blinds close, sound starts in the living room — all with one touch of the panel.</p>
           <div class="scene-devices"><i class="mk mk-L" title="Lighting group"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-L"/></svg></i><i class="mk mk-C" title="Blind motor"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-C"/></svg></i><i class="mk mk-A" title="Audio zone"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-A"/></svg></i></div>
         </div>
         <div class="scene-photo"><img src="../assets/grenton/touch-hero.webp" srcset="../assets/grenton/touch-hero-800.webp 800w, ../assets/grenton/touch-hero.webp 1600w" sizes="(max-width: 600px) 90vw, 16rem" width="1600" height="941" alt="Living room with Touch Panels" loading="lazy" decoding="async"></div>
@@ -152,8 +152,8 @@
       <div class="scene-time">23:00</div>
       <div class="scene-card">
         <div class="scene-body">
-          <div class="scene-top"><h3 class="scene-title">“Night”</h3><span class="tier tier-comfort">from Comfort</span></div>
-          <p>Lights go off across the apartment, the bedroom cools down, and a soft night light comes on in the hallway as you walk by.</p>
+          <div class="scene-top"><h3 class="scene-title">“Night”</h3><span class="tier tier-comfort">from Comfort</span></div>
+          <p>Lights go off across the apartment, the bedroom cools down, and a soft night light comes on in the hallway as you walk by.</p>
           <div class="scene-devices"><i class="mk mk-L" title="Lighting group"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-L"/></svg></i><i class="mk mk-T" title="Climate zone"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-T"/></svg></i><i class="mk mk-M" title="Motion sensor"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-M"/></svg></i></div>
         </div>
         <div class="scene-photo"><img src="../assets/grenton/kids.webp" width="1000" height="1000" alt="Children&#x27;s room" loading="lazy" decoding="async"></div>
@@ -162,30 +162,30 @@
       <div class="scene-time">✈</div>
       <div class="scene-card">
         <div class="scene-body">
-          <div class="scene-top"><h3 class="scene-title">“Holiday”</h3><span class="tier tier-comfort">from Comfort</span></div>
-          <p>Lights and blinds run on a schedule as if someone were home. The video intercom answers through your phone, and you hear about any leak at once.</p>
+          <div class="scene-top"><h3 class="scene-title">“Holiday”</h3><span class="tier tier-comfort">from Comfort</span></div>
+          <p>Lights and blinds run on a schedule as if someone were home. The video intercom answers through your phone, and you hear about any leak at once.</p>
           <div class="scene-devices"><i class="mk mk-L" title="Lighting group"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-L"/></svg></i><i class="mk mk-C" title="Blind motor"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-C"/></svg></i><i class="mk mk-I" title="Video intercom"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-I"/></svg></i></div>
         </div>
         <div class="scene-photo"><img src="../assets/grenton/app-saving.webp" width="1000" height="666" alt="Grenton" loading="lazy" decoding="async"></div>
       </div>
     </li></ol>
-    <p class="cfg-note scene-note">We set the scenes up around your routine when the system is commissioned and change them whenever you ask.</p>
+    <p class="cfg-note scene-note">We set the scenes up around your routine when the system is commissioned and change them whenever you ask.</p>
   </div>
 </section>
 
 </main>
 <section class="closing">
   <div class="wrap closing-inner">
-    <h2>See what goes into your apartment</h2>
-    <p>Find your apartment in Lagmar — we'll show the packages right on your floor plan.</p>
-    <div class="cta-row cta-left"><a class="btn btn-primary" href="lagmar.html#step1">Open the configurator <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a><a class="btn btn-light" href="tel:+37378202020"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>Call us · +373 78 202 020</a></div>
+    <h2>See what goes into your apartment</h2>
+    <p>Find your apartment in Lagmar — we'll show the packages right on your floor plan.</p>
+    <div class="cta-row cta-left"><a class="btn btn-primary" href="lagmar.html#step1">Open the configurator <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a><a class="btn btn-light" href="tel:+37378202020"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>Call us · +373 78 202 020</a></div>
     <p class="closing-rep">SmartSpace — official Grenton representative in Moldova</p>
   </div>
 </section>
 <footer class="site">
   <div class="wrap">
-    <div>SmartSpace · Strada Pajurii 11, MD-2059 Chișinău · <a href="tel:+37378202020">+373 78 202 020</a></div>
-    <div class="disclaimer">Informational site by SmartSpace, the official Grenton representative in Moldova. Product photos belong to Grenton sp. z o.o. · <a href="https://smartspace.md/privacy" rel="noopener">Privacy policy</a></div>
+    <div>SmartSpace · Strada Pajurii 11, MD-2059 Chișinău · <a href="tel:+37378202020">+373 78 202 020</a></div>
+    <div class="disclaimer">Informational site by SmartSpace, the official Grenton representative in Moldova. Product photos belong to Grenton sp. z o.o. · <a href="https://smartspace.md/privacy" rel="noopener">Privacy policy</a></div>
   </div>
 </footer>
 <script>

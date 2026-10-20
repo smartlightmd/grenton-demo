@@ -965,7 +965,10 @@ LAGMAR_JS = r"""
 """
 
 
-def _json_for_script(obj):
+
+def _json_for_script(obj, lang=None):
+    if lang:
+        obj = typo_data(obj, lang)  # strings the page scripts render get the HTML typography too
     return json.dumps(obj, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 
 
@@ -1100,7 +1103,7 @@ def offer_card_html(lang, n, tier):
     for code, qty in off["pre"]:
         name, what = o["bom"][code]
         rows.append(f'<tr class="oc-pre"><th scope="row"><b>{name}</b><small>{what}</small></th><td class="num">{qty}</td>'
-                    f'<td class="num" colspan="2"><span class="oc-tag">{o["pre_price"]}</span></td></tr>')
+                    f'<td class="num"><span class="oc-tag">{o["pre_price"]}</span></td><td class="num">{fmt_eur(0, lang)}</td></tr>')  # price: tag; sum: 0 (phones hide the price cell)
     group_of = {"SP": "wall", "TP4": "wall", "TP8": "wall", "LEAK": "sens", "VALVE": "sens", "SMOKE": "sens", "MOTION": "sens", "MULTI": "sens"}
     last = None
     for code, qty, unit in off["bom"]:
@@ -1225,7 +1228,7 @@ def lagmar_page_html(lang, apartments, packages_all):
     building_options = "".join(
         f'<option value="{b}">{b}' + (f' · {bst[b][0]} {m["apts"]} · {bst[b][1]}–{bst[b][2]}' if b in bst else "") + '</option>'
         for b in BUILDINGS)
-    js = (LAGMAR_JS.replace("__LANG__", lang).replace("__UI__", _json_for_script(ui_js)).replace("__API__", API_URL)
+    js = (LAGMAR_JS.replace("__LANG__", lang).replace("__UI__", _json_for_script(ui_js, lang)).replace("__API__", API_URL)
           .replace("__PHONE_DISPLAY__", PHONE_DISPLAY).replace("__PHONE_TEL__", PHONE_TEL)
           .replace("__PLAN_BASE__", PLAN_IMG_BASE))
     s2_widgets = "".join(plan_widget_html(lang, n, pk, f"s2-{n}", "s2-plan", hidden=True) for n in ["2", "3", "4"])
@@ -1359,7 +1362,7 @@ def lagmar_page_html(lang, apartments, packages_all):
 {footer_html(lang)}
 
 <script id="apt-data" type="application/json">{_json_for_script(apartments)}</script>
-<script id="pk-data" type="application/json">{_json_for_script(pk)}</script>
+<script id="pk-data" type="application/json">{_json_for_script(pk, lang)}</script>
 <script>{js}</script>
 <script>{SITE_JS}</script>
 </body>
@@ -1421,7 +1424,7 @@ G_SIZE = {"app-bedroom": (480, 709), "app-saving": (1000, 666), "bath": (1600, 8
           "kids": (1000, 1000), "kitchen": (1600, 880), "monolith-hero": (1600, 942), "monolith-wall": (800, 933),
           "multi-wall": (800, 933), "multisensor-poster": (720, 720), "multisensor": (800, 800), "office": (1600, 880),
           "oled": (800, 800), "panel-poster": (960, 540), "salon": (1600, 880), "security": (768, 512),
-          "smartpanel": (800, 800), "touch-hero": (1600, 941), "touch-wall": (800, 933)}
+          "smartpanel": (800, 800), "touch-hero": (1600, 941), "touch-wall": (772, 933)}
 G_HAS_800 = {"bath", "bedroom", "hall", "kitchen", "office", "salon", "touch-hero", "monolith-hero"}
 
 
@@ -1693,7 +1696,7 @@ def day_widget_html(lang, cls=""):
     <div class="day-tabs" role="tablist">{tabs}</div>
     <button type="button" class="day-play" id="day-play" aria-pressed="false">{ico("play")}<span>{dy["play"]}</span></button>
   </div>
-  <script id="day-data" type="application/json">{_json_for_script(data)}</script>
+  <script id="day-data" type="application/json">{_json_for_script(data, lang)}</script>
 </div>'''
 
 
@@ -2210,7 +2213,7 @@ def contact_page_html(lang):
     <ol class="steps steps-3 rail">{steps}</ol>
   </div>
 </section>
-<script id="contact-data" type="application/json">{_json_for_script(data)}</script>
+<script id="contact-data" type="application/json">{_json_for_script(data, lang)}</script>
 <script>{CONTACT_JS}</script>'''
     return shell(lang, "contact", c["title"], body, [ld])
 
@@ -2231,10 +2234,10 @@ def legacy_redirect_html(target):
 
 # --- typography: glue short words, numbers+units, dashes, phone numbers with no-break spaces ---
 NBSP = " "
-_SHORT = {
-    "ru": r"в|во|и|с|со|к|ко|о|об|у|а|я|на|по|до|за|от|из|не|ни|но|же",
-    "ro": r"și|în|la|de|pe|cu|o|un|a|al|nu|e|să|se|ce",
-    "en": r"a|an|the|of|in|to|on|at|by|or|no|I",
+_SHORT = {  # longest first, so the alternation never stops at a prefix
+    "ru": r"для|без|при|как|что|или|над|под|про|обо|во|со|ко|об|на|по|до|за|от|из|не|ни|но|в|и|с|к|о|у|а|я",
+    "ro": r"pentru|prin|spre|sau|ale|din|și|în|la|de|pe|cu|că|un|al|nu|să|se|ce|îi|le|ne|vă|o|a|e",
+    "en": r"with|your|from|into|and|the|for|our|an|of|in|to|on|at|by|or|no|is|as|it|my|a|I",
 }
 _SPLIT = re.compile(r"(<script\b.*?</script>|<style\b.*?</style>|<[^>]+>)", re.S | re.I)
 
@@ -2242,10 +2245,35 @@ _SPLIT = re.compile(r"(<script\b.*?</script>|<style\b.*?</style>|<[^>]+>)", re.S
 def _typo_text(t, lang):
     t = re.sub(r"(?<![\w-])(" + _SHORT[lang] + r") +(?=\S)", lambda m: m.group(1) + NBSP, t, flags=re.I)
     t = re.sub(r" +([—–])", NBSP + r"\1", t)
+    t = re.sub(r" +(·)(?= )", NBSP + r"\1", t)
+    t = re.sub(r" (же|ли|бы)(?!\w)", NBSP + r"\1", t)
+    t = re.sub(r"№ (?=\d)", "№" + NBSP, t)
     t = re.sub(r"(\d) (\d{3})(?!\d)", r"\1" + NBSP + r"\2", t)
     t = re.sub(r"(\d) +(?=[^\s\d])", r"\1" + NBSP, t)
     t = re.sub(r"(\+373)[  ](\d{2})[  ](\d{3})[  ](\d{3})", lambda m: NBSP.join(m.groups()), t)
     return t
+
+
+_HEAD = re.compile(r"(<h([1-3])\b[^>]*>)(.*?)(</h\2>)", re.S)
+_TAG = re.compile(r"(<[^>]+>)")
+
+
+def _bind_last_words(m):
+    """h1-h3 never end on one lonely word: the last two words share a no-break space."""
+    open_t, lvl, inner, close_t = m.groups()
+    limit = {"1": 16, "2": 18, "3": 16}[lvl]  # longer glued tails split words in narrow cards
+    parts = _TAG.split(inner)
+    for i in range(len(parts) - 1, -1, -1):
+        p = parts[i]
+        if p.startswith("<") or not p.strip():
+            continue
+        body = p.rstrip()
+        k = body.rfind(" ")
+        prev = body.rfind(" ", 0, k)  # the glued unit must stay short, or the browser splits a word instead
+        if k > 0 and len(body) - k - 1 <= 12 and len(body) - prev - 1 <= limit:
+            parts[i] = p[:k] + NBSP + p[k + 1:]
+        break
+    return open_t + "".join(parts) + close_t
 
 
 def typo(html, lang):
@@ -2254,7 +2282,17 @@ def typo(html, lang):
         if i % 2 == 1:
             continue
         parts[i] = _typo_text(part, lang)
-    return "".join(parts)
+    return _HEAD.sub(_bind_last_words, "".join(parts))
+
+
+def typo_data(obj, lang):
+    if isinstance(obj, str):
+        return "".join(p if p.startswith("<") else _typo_text(p, lang) for p in _TAG.split(obj))
+    if isinstance(obj, list):
+        return [typo_data(x, lang) for x in obj]
+    if isinstance(obj, dict):
+        return {k: typo_data(v, lang) for k, v in obj.items()}
+    return obj
 
 
 def root_redirect():
