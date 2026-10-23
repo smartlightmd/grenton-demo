@@ -1,20 +1,10 @@
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("../fonts/inter-cyrillic.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("../fonts/inter-latin-ext.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("../fonts/inter-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "LagBody"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("../fonts/inter-cyrillic.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "LagBody"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("../fonts/dmsans-latin-ext.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "LagBody"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("../fonts/dmsans-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 /* Manrope self-hosted (SIL OFL 1.1, assets/fonts/OFL.txt) — no request to Google Fonts */
-@font-face {
-  font-family: "Manrope"; font-style: normal; font-weight: 500 800; font-display: swap;
-  src: url("../fonts/manrope-cyrillic.woff2") format("woff2");
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-@font-face {
-  font-family: "Manrope"; font-style: normal; font-weight: 500 800; font-display: swap;
-  src: url("../fonts/manrope-latin-ext.woff2") format("woff2");
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: "Manrope"; font-style: normal; font-weight: 500 800; font-display: swap;
-  src: url("../fonts/manrope-latin.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
 /* =========================================================================
    Design tokens
    Fluid scale: values interpolate between ~360px and ~1600px viewports.
@@ -24,7 +14,7 @@
 :root {
   color-scheme: light;
   /* type */
-  --font: "Manrope", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font: "LagBody", "Inter", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --fs-xs:   clamp(0.75rem, 0.72rem + 0.12vw, 0.82rem);
   --fs-sm:   clamp(0.84rem, 0.80rem + 0.16vw, 0.92rem);
   --fs-base: clamp(0.95rem, 0.90rem + 0.24vw, 1.06rem);
@@ -1577,7 +1567,7 @@ header.site { background: var(--bg); -webkit-backdrop-filter: none; backdrop-fil
 .sp svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .sp-b { cursor: pointer; outline: none; }
 .sp-b path { fill: rgba(28, 53, 89, .16); stroke: rgba(255, 255, 255, .9); stroke-width: 2; vector-effect: non-scaling-stroke; transition: fill .15s var(--ease); }
-.sp-b text { font-family: Manrope, sans-serif; font-weight: 800; font-size: 34px; fill: #fff; text-anchor: middle; dominant-baseline: middle;
+.sp-b text { font-family: var(--font-display); font-weight: 800; font-size: 34px; fill: #fff; text-anchor: middle; dominant-baseline: middle;
   paint-order: stroke; stroke: rgba(20, 42, 75, .9); stroke-width: 7px; pointer-events: none; }
 @media (hover: hover) { .sp-b:hover path { fill: rgba(227, 34, 19, .34); } }
 .sp-b:focus-visible path { fill: rgba(227, 34, 19, .34); stroke: #fff; stroke-width: 4; }
@@ -1607,3 +1597,134 @@ header.site { background: var(--bg); -webkit-backdrop-filter: none; backdrop-fil
 .cx-pane[data-cx="2"] .sp-b text { font-size: 96px; stroke-width: 18px; }
 @media (max-width: 700px) { .cx-pane[data-cx="2"] .sp-b text { font-size: 110px; stroke-width: 20px; } }
 .cx-opt small { color: var(--ink-soft); }
+
+/* =========================================================================
+   LAGMAR REDESIGN (23.10.2026) - measured on lagmar.md
+   ========================================================================= */
+:root, .theme-lagmar {
+  --font: "LagBody", "Inter", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: "Inter", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --fs-3xl: clamp(2.05rem, 1.15rem + 3.4vw, 4.25rem);
+  --fs-2xl: clamp(1.7rem, 1.05rem + 2.5vw, 3.35rem);
+  --r-s: 6px; --r-m: 8px; --r-l: 12px;
+  --heading: #17171d;
+  --ink: #1d3658; --ink-soft: #4a5d7a; --muted: #5d6c86;
+  --bg: #fafaf8; --surface: #ffffff; --surface-2: #f3f5f8; --line: #e1e7ef;
+  --brand: #19355b; --brand-hover: #0f2440; --brand-ink: #ffffff; --brand-text: #19355b;
+  --navy: #19355b; --accent: #4e72a2; --tint: #eef2f8; --tint-ink: #19355b;
+  --band: #19355b; --band-ink: #ffffff; --band-soft: #c3cfe2;
+  --header-bg: #ffffff;
+  --shadow-1: 0 1px 2px 0 rgba(26, 53, 91, .05);
+  --shadow-2: 0 10px 15px -3px rgba(26, 53, 91, .1), 0 4px 6px -4px rgba(26, 53, 91, .1);
+  --shadow-brand: none;
+  --promo: #e32213;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .theme-lagmar {
+  --heading: #f1f4f9; --ink: #e3e9f3; --ink-soft: #b6c3d8; --muted: #8f9db5;
+  --bg: #0b1220; --surface: #121c2e; --surface-2: #18243a; --line: #24324b;
+  --brand: #4e72a2; --brand-hover: #5f85b8; --brand-text: #a9c1e6; --navy: #c6d6f1; --tint: rgba(157, 180, 220, .14); --tint-ink: #c6d6f1;
+  --band: #121c2e; --header-bg: #0b1220; } }
+:root[data-theme="dark"] .theme-lagmar {
+  --heading: #f1f4f9; --ink: #e3e9f3; --ink-soft: #b6c3d8; --muted: #8f9db5;
+  --bg: #0b1220; --surface: #121c2e; --surface-2: #18243a; --line: #24324b;
+  --brand: #4e72a2; --brand-hover: #5f85b8; --brand-text: #a9c1e6; --navy: #c6d6f1; --tint: rgba(157, 180, 220, .14); --tint-ink: #c6d6f1;
+  --band: #121c2e; --header-bg: #0b1220; }
+
+body { font-family: var(--font); background: var(--bg); }
+h1, h2, h3, h4, .h2 { font-family: var(--font-display); }
+h2.h2, .home-lg h1, .lg-hero h1, .vhero-title, .hero-media h1, .hero h1 {
+  text-transform: uppercase; font-weight: 600; letter-spacing: -.025em; line-height: 1.02; }
+h2.h2 { font-size: var(--fs-2xl); color: var(--heading); max-width: 26ch; }
+.hero-media h1, .hero h1 { color: var(--heading); }
+.home-lg h1, .lg-hero h1, .vhero-title { color: #fff; }
+h3 { font-weight: 600; letter-spacing: -.012em; }
+.badge-rec, .oc-group th, .oc-bom thead th { font-family: var(--font); }
+
+/* header: white bar, pill nav, navy call pill */
+header.site { background: var(--header-bg); box-shadow: 0 1px 3px rgba(0, 0, 0, .08); border-bottom: 0; }
+header.site .brand-name { font-family: var(--font-display); font-weight: 700; letter-spacing: -.02em; }
+nav.main a { font-family: var(--font); text-transform: uppercase; font-size: .8rem; font-weight: 500; letter-spacing: .03em;
+  color: color-mix(in srgb, var(--heading) 80%, transparent); background: none; }
+nav.main a.active { color: var(--heading); font-weight: 700; background: none; box-shadow: inset 0 -2px 0 var(--brand); border-radius: 0; }
+nav.main a:hover { background: none; color: var(--heading); }
+@media (min-width: 1261px) {
+  nav.main { background: color-mix(in srgb, var(--surface) 72%, transparent); border: 1px solid color-mix(in srgb, var(--heading) 10%, transparent);
+    border-radius: var(--r-pill); padding: 0 1.25rem; gap: .25rem; height: 2.75rem; align-items: center; }
+  nav.main a { padding: .55rem .65rem; }
+  nav.main a.active { box-shadow: none; }
+}
+.langs a { font-family: var(--font); font-weight: 500; }
+.hdr-call { display: inline-flex; align-items: center; gap: .45rem; height: 2.75rem; padding: 0 1.15rem; border-radius: var(--r-pill);
+  background: var(--brand); color: var(--brand-ink); text-decoration: none; font-weight: 500; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; }
+.hdr-call:hover { background: var(--brand-hover); }
+.hdr-call .ico { width: 1rem; height: 1rem; }
+@media (max-width: 720px) { .hdr-call { width: 2.75rem; padding: 0; justify-content: center; } .hdr-call span { display: none; } }
+
+/* buttons: pills, navy primary, no lift */
+.btn { font-family: var(--font); font-weight: 500; font-size: .95rem; letter-spacing: .005em; padding: .9em 1.6em; }
+.btn-primary { background: var(--brand); color: var(--brand-ink); box-shadow: none; }
+.btn-primary:hover { background: var(--brand-hover); transform: none; }
+.btn-ghost { background: transparent; color: var(--brand); box-shadow: inset 0 0 0 1px var(--brand); }
+.btn-ghost:hover { background: var(--tint); }
+.btn-light { background: #fff; color: #17171d; }
+.btn-light:hover { background: #f1f4f9; }
+
+/* surfaces */
+.block.alt { background: #f8fafc; }
+.card, .tariff-card, .opts-pick .opt, details.fold, .offer, .faq-list details.faq { border-radius: var(--r-m); }
+.card { border: 1px solid var(--line); box-shadow: var(--shadow-1); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .block.alt { background: var(--surface); } }
+:root[data-theme="dark"] .block.alt { background: var(--surface); }
+/* the one warm section, like lagmar.md facilities */
+:root:not([data-theme="dark"]) main > section.block.alt:has(.outcomes) { background: #ede0dc; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) main > section.block.alt:has(.outcomes) { background: var(--surface); } }
+
+/* photo heroes: glass stat chips */
+.lg-stats { border-top: 0; gap: .6rem; padding-top: 0; }
+.lg-stats li { background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .18); border-radius: var(--r-m);
+  padding: .85rem 1.15rem; min-width: 9.5rem; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.lg-stats b { font-family: var(--font); font-weight: 400; font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.1rem); }
+.lg-stats span { color: rgba(255, 255, 255, .7); }
+.mini-stats b { font-family: var(--font); font-weight: 400; }
+
+/* promo: neutral strip, red only on the badge */
+.promo-strip { background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.promo-strip-badge { background: var(--promo) !important; color: #fff !important; }
+.sum-caption, .rc-caption { color: var(--promo); }
+
+/* site plan labels */
+.sp-b text { font-family: var(--font-display); font-weight: 700; }
+
+/* footer: near-black, columns, wordmark */
+footer.site { background: #17171d; color: rgba(255, 255, 255, .68); border-top: 0; text-align: left; padding: var(--sp-xl) 0 0; overflow: hidden; }
+footer.site a { color: rgba(255, 255, 255, .86); text-decoration: none; }
+footer.site a:hover { color: #fff; text-decoration: underline; }
+.ft-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: var(--sp-l); }
+.ft-col h2 { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: #fff; margin: 0 0 .75rem; text-transform: none; letter-spacing: 0; }
+.ft-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; }
+.ft-col p { margin: 0 0 .7rem; font-size: var(--fs-sm); line-height: 1.6; }
+footer.site .disclaimer { margin: var(--sp-l) 0 0; max-width: 80ch; font-size: var(--fs-xs); color: rgba(255, 255, 255, .5); }
+.ft-word { font-family: var(--font-display); font-weight: 600; text-transform: uppercase; color: #fff; white-space: nowrap;
+  font-size: clamp(3.4rem, 15.5vw, 15rem); line-height: .78; letter-spacing: .02em; margin: var(--sp-l) 0 -.06em; padding-inline: var(--gutter); }
+@media (max-width: 760px) { .ft-grid { grid-template-columns: 1fr 1fr; } .ft-col:first-child { grid-column: 1 / -1; } }
+/* reskin fixes: uppercase headings need wider measures; wordmark fits; header compacts before it collides */
+.home-lg h1, .lg-hero h1 { max-width: 22ch; font-size: clamp(2rem, 1.05rem + 3vw, 3.9rem); }
+.ft-word { font-size: clamp(3rem, 13.4vw, 13.5rem); }
+@media (min-width: 1261px) { nav.main a { padding-inline: .5rem; font-size: .76rem; letter-spacing: .02em; } nav.main { padding: 0 .85rem; } }
+header.site .brand .by { display: none; }  /* the Lagmar-style header has no room for the sub-brand; the hero chip carries it */
+@media (min-width: 1261px) and (max-width: 1299px) { nav.main a { padding-inline: .38rem; } }
+
+/* reskin contrast + heading fixes */
+.btn-ghost { color: var(--brand-text); box-shadow: inset 0 0 0 1px var(--brand-text); }
+:root, .theme-lagmar { --promo-text: #c01b0e; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .theme-lagmar { --promo-text: #ff8073; } }
+:root[data-theme="dark"] .theme-lagmar { --promo-text: #ff8073; }
+.sum-caption, .rc-caption { color: var(--promo-text); }
+.hero-media h1 { font-size: clamp(1.85rem, 1.15rem + 2.1vw, 2.85rem); max-width: 21ch; }
+.blk-meta .nowrap { white-space: nowrap; }
+.faq-aside h2.h2 { font-size: clamp(1.6rem, 1.1rem + 1.6vw, 2.5rem); overflow-wrap: normal; }
+.lg-hero h1 { max-width: 24ch; }
+.hero-media h1 { max-width: 23ch; }
+.hero-media h1 { font-size: clamp(1.75rem, 1.1rem + 1.9vw, 2.6rem); }
+@media (max-width: 480px) { .home-lg h1, .lg-hero h1, .hero-media h1 { font-size: clamp(1.6rem, 7.6vw, 2.1rem); } }
+@media (max-width: 360px) { h2.h2 { font-size: 1.42rem; } }

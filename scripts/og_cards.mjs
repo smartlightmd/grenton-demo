@@ -16,13 +16,13 @@ fs.mkdirSync(OUT, { recursive: true });
 
 const b64 = (p) => fs.readFileSync(path.join(ROOT, p)).toString("base64");
 const FONT = {
-  latin: b64("assets/fonts/manrope-latin.woff2"),
-  ext: b64("assets/fonts/manrope-latin-ext.woff2"),
-  cyr: b64("assets/fonts/manrope-cyrillic.woff2"),
+  latin: b64("assets/fonts/inter-latin.woff2"),
+  ext: b64("assets/fonts/inter-latin-ext.woff2"),
+  cyr: b64("assets/fonts/inter-cyrillic.woff2"),
 };
 const AERIAL = "data:image/jpeg;base64," + b64("assets/lagmar/aerial.jpg");
 const LOGO = "data:image/png;base64," + b64("assets/lagmar/logo-lagmar.png");
-const NAVY = "#142a4b", NAVY2 = "#1c3559", RED = "#e32213";
+const NAVY = "#19355b", NAVY2 = "#22446f", RED = "#e32213";
 
 const NB = " ";
 const T = {
@@ -56,19 +56,19 @@ const T = {
 };
 
 const base = `
-@font-face{font-family:M;font-weight:500 800;src:url(data:font/woff2;base64,${FONT.cyr}) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:M;font-weight:500 800;src:url(data:font/woff2;base64,${FONT.ext}) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+2020,U+20A0-20AB,U+2C60-2C7F,U+A720-A7FF}
-@font-face{font-family:M;font-weight:500 800;src:url(data:font/woff2;base64,${FONT.latin}) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212}
+@font-face{font-family:M;font-weight:400 700;src:url(data:font/woff2;base64,${FONT.cyr}) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:M;font-weight:400 700;src:url(data:font/woff2;base64,${FONT.ext}) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+2020,U+20A0-20AB,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:M;font-weight:400 700;src:url(data:font/woff2;base64,${FONT.latin}) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212}
 *{margin:0;padding:0;box-sizing:border-box}
 .card{width:1200px;height:630px;position:relative;overflow:hidden;font-family:M,sans-serif;color:#fff;background:${NAVY}}
 .chip{position:absolute;top:56px;left:72px;display:flex;align-items:center;gap:14px;background:#fff;color:${NAVY2};
   border-radius:16px;padding:12px 20px;box-shadow:0 10px 30px -12px rgba(0,0,0,.5)}
 .chip img{height:40px;width:auto;display:block}
-.chip .x{font-weight:800;color:#8a95a8;font-size:20px}
-.chip .gr{font-weight:800;font-size:24px;letter-spacing:-.02em}
+.chip .x{font-weight:700;color:#8a95a8;font-size:20px}
+.chip .gr{font-weight:700;font-size:24px;letter-spacing:-.02em}
 .foot{position:absolute;left:72px;bottom:56px;display:flex;align-items:center;gap:16px}
 .foot b{width:4px;height:44px;background:${RED};border-radius:2px}
-.foot .cta{font-size:24px;font-weight:800;letter-spacing:-.01em}
+.foot .cta{font-size:24px;font-weight:700;letter-spacing:-.01em}
 .foot .loc{font-size:16px;font-weight:500;color:rgba(255,255,255,.66);letter-spacing:.04em;margin-top:3px}
 h1,h2{text-wrap:balance}
 `;
@@ -79,7 +79,7 @@ const home = (t) => `<!doctype html><meta charset="utf-8"><style>${base}
 .ph{position:absolute;top:0;right:0;width:620px;height:630px;overflow:hidden}
 .photo{position:absolute;top:0;right:0;width:620px;height:630px;object-fit:cover;object-position:40% 50%;transform:scale(1.32);transform-origin:62% 8%}
 .fade{position:absolute;top:0;right:0;width:620px;height:630px;background:linear-gradient(90deg,${NAVY} 0%,rgba(20,42,75,.55) 30%,rgba(20,42,75,0) 62%)}
-h1{position:absolute;left:68px;top:170px;width:640px;font-size:88px;font-weight:800;letter-spacing:-.035em;line-height:1}
+h1{position:absolute;left:68px;top:170px;width:640px;font-size:88px;font-weight:700;letter-spacing:-.035em;line-height:1}
 h2{position:absolute;left:72px;top:368px;width:600px;font-size:31px;font-weight:700;line-height:1.25;color:rgba(255,255,255,.92)}
 </style><div class="card"><div class="ph"><img class="photo" src="${AERIAL}"><div class="fade"></div></div>${chip}
 <h1>Lagmar Smart${NB}Home</h1><h2>${t.sub}</h2>
@@ -88,13 +88,13 @@ h2{position:absolute;left:72px;top:368px;width:600px;font-size:31px;font-weight:
 const calc = (t) => `<!doctype html><meta charset="utf-8"><style>${base}
 .card{background:radial-gradient(760px 520px at 100% 0%, ${NAVY2} 0%, transparent 70%), ${NAVY}}
 .col{position:absolute;left:72px;top:160px;width:650px;display:flex;flex-direction:column;align-items:flex-start;gap:26px}
-.col h1{margin-left:-4px;font-size:60px;font-weight:800;letter-spacing:-.03em;line-height:1.06}
+.col h1{margin-left:-4px;font-size:60px;font-weight:700;letter-spacing:-.03em;line-height:1.06}
 .zero{display:inline-flex;align-items:center;gap:10px;font-size:22px;font-weight:700;
   background:rgba(139,224,173,.14);color:#a6ecc2;border:1px solid rgba(139,224,173,.35);border-radius:999px;padding:10px 18px}
 .zero i{width:10px;height:10px;border-radius:50%;background:#8be0ad}
 .rooms{margin-top:-12px;font-size:19px;font-weight:500;color:rgba(255,255,255,.66)}
 .tiers{position:absolute;right:72px;top:150px;width:330px;display:flex;flex-direction:column;gap:16px}
-.tier{border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:22px 26px;font-size:28px;font-weight:800;
+.tier{border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:22px 26px;font-size:28px;font-weight:700;
   display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.04)}
 .tier.rec{border-color:${RED};background:rgba(227,34,19,.16)}
 .tier span{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:${RED};border-radius:999px;padding:6px 11px}

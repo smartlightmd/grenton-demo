@@ -73,14 +73,14 @@ CONTACT_INFO = {
 }
 
 HOME_LAGMAR = {
-    "ro": {"eyebrow": "Proiectul nostru", "h2": "Lagmar Smart Home: 1 065 de apartamente inteligente",
-           "p": "Lagmar Smart Home este un complex rezidențial din Chișinău (11 blocuri) în care fiecare apartament vine cu casa inteligentă pregătită. O proiectează, o instalează și o întreține SmartSpace. Ai un apartament în Lagmar? Găsește-l în configurator, alege pachetul Basic, Comfort sau Premium și primești o ofertă preliminară în câteva minute.",
+    "ro": {"eyebrow": "Proiectul nostru", "h2": "Smart Home 1 și Smart Home 2: 3 247 de apartamente inteligente",
+           "p": "Lagmar construiește în Chișinău două complexe Smart Home: Smart Home 1 (11 blocuri) și Smart Home 2 (16 blocuri, dare în exploatare iulie 2030). Fiecare apartament vine cu casa inteligentă pregătită. O proiectează, o instalează și o întreține SmartSpace. Ai un apartament în Lagmar? Găsește-l în configurator, alege pachetul Basic, Comfort sau Premium și primești o ofertă preliminară în câteva minute.",
            "cta": "Configurează-ți apartamentul"},
-    "ru": {"eyebrow": "Наш проект", "h2": "Lagmar Smart Home: 1 065 умных квартир",
-           "p": "Lagmar Smart Home — жилой комплекс в Кишинёве (11 блоков), где умный дом заложен в каждую квартиру. Его проектирует, устанавливает и обслуживает SmartSpace. У вас квартира в Lagmar? Найдите её в конфигураторе, выберите пакет Basic, Comfort или Premium и получите предварительное предложение за пару минут.",
+    "ru": {"eyebrow": "Наш проект", "h2": "Smart Home 1 и Smart Home 2: 3 247 умных квартир",
+           "p": "Lagmar строит в Кишинёве два комплекса Smart Home: Smart Home 1 (11 блоков) и Smart Home 2 (16 блоков, сдача в июле 2030). Умный дом заложен в каждую квартиру. Его проектирует, устанавливает и обслуживает SmartSpace. У вас квартира в Lagmar? Найдите её в конфигураторе, выберите пакет Basic, Comfort или Premium и получите предварительное предложение за пару минут.",
            "cta": "Настроить свою квартиру"},
-    "en": {"eyebrow": "Our project", "h2": "Lagmar Smart Home: 1,065 smart apartments",
-           "p": "Lagmar Smart Home is a residential complex in Chișinău (11 blocks) where every apartment comes with the smart home built in — designed, installed and supported by SmartSpace. Own an apartment in Lagmar? Find it in the configurator, pick Basic, Comfort or Premium and get a preliminary quote in minutes.",
+    "en": {"eyebrow": "Our project", "h2": "Smart Home 1 and Smart Home 2: 3,247 smart apartments",
+           "p": "Lagmar is building two Smart Home complexes in Chișinău: Smart Home 1 (11 blocks) and Smart Home 2 (16 blocks, completion July 2030). Every apartment comes with the smart home built in — designed, installed and supported by SmartSpace. Own an apartment in Lagmar? Find it in the configurator, pick Basic, Comfort or Premium and get a preliminary quote in minutes.",
            "cta": "Configure your apartment"},
 }
 
@@ -308,7 +308,7 @@ FAQ = {
 LAGMAR_VIS = {
     "ru": {
         "kicker": "Lagmar Smart Home × SmartSpace",
-        "stats": [("11", "блоков"), ("1 065", "квартир"), ("Smart Home", "в каждой квартире")],
+        "stats": [("2", "комплекса"), ("27", "блоков"), ("3 247", "умных квартир")],
         "hero_stats": [("3", "шага до предложения"), ("≈2 мин", "на расчёт"), ("0 €", "за контроллер — уже стоит")],
         "cta_find": "Найти мою квартиру", "cta_examples": "Пакеты на планировке",
         "blocks_title": "Выберите свой блок", "blocks_sub": "Нажмите на блок — номер квартиры введёте ниже.",
@@ -329,7 +329,7 @@ LAGMAR_VIS = {
     },
     "ro": {
         "kicker": "Lagmar Smart Home × SmartSpace",
-        "stats": [("11", "blocuri"), ("1 065", "apartamente"), ("Smart Home", "în fiecare apartament")],
+        "stats": [("2", "complexe"), ("27", "blocuri"), ("3 247", "apartamente inteligente")],
         "hero_stats": [("3", "pași până la ofertă"), ("≈2 min", "pentru calcul"), ("0 €", "pentru unitate — e deja montată")],
         "cta_find": "Găsește-mi apartamentul", "cta_examples": "Pachetele pe plan",
         "blocks_title": "Alege-ți blocul", "blocks_sub": "Apasă pe bloc — numărul apartamentului îl introduci mai jos.",
@@ -350,7 +350,7 @@ LAGMAR_VIS = {
     },
     "en": {
         "kicker": "Lagmar Smart Home × SmartSpace",
-        "stats": [("11", "blocks"), ("1,065", "apartments"), ("Smart Home", "in every apartment")],
+        "stats": [("2", "complexes"), ("27", "blocks"), ("3,247", "smart apartments")],
         "hero_stats": [("3", "steps to a quote"), ("≈2 min", "to price it"), ("0 €", "for the controller — already installed")],
         "cta_find": "Find my apartment", "cta_examples": "Packages on a floor plan",
         "blocks_title": "Choose your block", "blocks_sub": "Tap a block — you'll enter the apartment number below.",
@@ -532,6 +532,7 @@ def nav_html(lang, current):
     </nav>
     <div class="controls">
       <div class="langs">{''.join(lang_links)}</div>
+      <a class="hdr-call" href="tel:{PHONE_TEL}" aria-label="{CALL_LABEL[lang]} {PHONE_DISPLAY}"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span>{CALL_LABEL[lang]}</span></a>
       <button type="button" class="theme-toggle" aria-label="{THEME_LABEL[lang]}" title="{THEME_LABEL[lang]}">
         <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
@@ -566,12 +567,30 @@ def dealer_band_html(lang, key=""):
 </section>'''
 
 
+CALL_LABEL = {"ro": "Sună acum", "ru": "Позвонить", "en": "Call us"}
+FT = {
+    "ro": {"contact": "Contact", "pages": "Pagini", "cx": "Complexe", "legal": "Documente", "hours": "Lu–Vi 9:00–18:00 · Sâ 10:00–14:00"},
+    "ru": {"contact": "Контакты", "pages": "Страницы", "cx": "Комплексы", "legal": "Документы", "hours": "Пн–Пт 9:00–18:00 · Сб 10:00–14:00"},
+    "en": {"contact": "Contact", "pages": "Pages", "cx": "Complexes", "legal": "Legal", "hours": "Mon–Fri 9:00–18:00 · Sat 10:00–14:00"},
+}
+
+
 def footer_html(lang):
+    t = FT[lang]
+    pages = "".join(f'<li><a href="{PAGE_FILE[k]}">{NAV_LABELS[lang][k]}</a></li>' for k in PAGE_ORDER)
     return f'''<footer class="site">
   <div class="wrap">
-    <div>SmartSpace · Strada Pajurii 11, MD-2059 Chișinău · <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></div>
-    <div class="disclaimer">{FOOTER[lang]} · <a href="{PRIVACY_URL}" rel="noopener">{PRIVACY_LABEL[lang]}</a></div>
+    <div class="ft-grid">
+      <div class="ft-col"><h2>{t["contact"]}</h2>
+        <p><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a><br><a href="mailto:office@smartspace.md">office@smartspace.md</a></p>
+        <p>SmartSpace · Strada Pajurii 11<br>MD-2059 Chișinău</p><p>{t["hours"]}</p></div>
+      <div class="ft-col"><h2>{t["pages"]}</h2><ul>{pages}</ul></div>
+      <div class="ft-col"><h2>{t["cx"]}</h2><ul><li><a href="lagmar.html?c=1#step1">Smart Home 1</a></li><li><a href="lagmar.html?c=2#step1">Smart Home 2</a></li></ul></div>
+      <div class="ft-col"><h2>{t["legal"]}</h2><ul><li><a href="{PRIVACY_URL}" rel="noopener">{PRIVACY_LABEL[lang]}</a></li></ul></div>
+    </div>
+    <p class="disclaimer">{FOOTER[lang]}</p>
   </div>
+  <div class="ft-word" aria-hidden="true">Smart Home</div>
 </footer>'''
 
 
@@ -1149,10 +1168,10 @@ def lagmar_blocks_html(lang, stats, cx="1", blocks=None):
     m = LAGMAR_MKT[lang]
     img = "../assets/lagmar/blocks/{}.webp" if cx == "1" else "../assets/lagmar/sh2/blocks/{}.webp"
     blocks = blocks or BUILDINGS
-    floor_w = LAGMAR_UI[lang]["floor_word"]
+    floor_w = {"ru": "эт.", "ro": "et.", "en": "fl."}[lang]
     tiles = "".join(
         f'<button type="button" class="blk" data-cx="{cx}" data-block="{b}" aria-pressed="false"><img src="{img.format(b)}" width="330" height="508" alt="{esc(v["block_word"])} {b}" loading="lazy"><span>{b}</span>'
-        + (f'<small class="blk-meta"><b>{stats[b][0]}</b> {m["apts"]}<br>{floor_w} {stats[b][1]}–{stats[b][2]}</small>' if b in stats else "")
+        + (f'<small class="blk-meta"><b>{stats[b][0]}</b> {m["apts"]}<br><span class="nowrap">{floor_w} {stats[b][1]}–{stats[b][2]}</span></small>' if b in stats else "")
         + '</button>'
         for b in blocks)
     return (f'<p class="cfg-note"><b>{v["blocks_title"]}.</b> {v["blocks_sub"]}</p>'
@@ -2383,7 +2402,7 @@ def legacy_redirect_html(target):
 NBSP = " "
 _SHORT = {  # longest first, so the alternation never stops at a prefix
     "ru": r"для|без|при|как|что|или|над|под|про|обо|во|со|ко|об|на|по|до|за|от|из|не|ни|но|в|и|с|к|о|у|а|я",
-    "ro": r"pentru|prin|spre|sau|ale|din|și|în|la|de|pe|cu|că|un|al|nu|să|se|ce|îi|le|ne|vă|o|a|e",
+    "ro": r"prin|spre|sau|ale|din|și|în|la|de|pe|cu|că|un|al|nu|să|se|ce|îi|le|ne|vă|o|a|e",
     "en": r"with|your|from|into|and|the|for|our|an|of|in|to|on|at|by|or|no|is|as|it|my|a|I",
 }
 _SPLIT = re.compile(r"(<script\b.*?</script>|<style\b.*?</style>|<[^>]+>)", re.S | re.I)
@@ -2544,9 +2563,10 @@ def build_css():
 
 
 CSS_VER = None
-_FP = '<link rel="preload" href="../assets/fonts/manrope-{}.woff2" as="font" type="font/woff2" crossorigin>'
+_FP = '<link rel="preload" href="../assets/fonts/{}.woff2" as="font" type="font/woff2" crossorigin>'
 # fonts arrive with the first request: the hero text no longer reflows when Manrope swaps in (CLS)
-FONT_PRELOAD = {"ru": _FP.format("cyrillic") + _FP.format("latin"), "ro": _FP.format("latin") + _FP.format("latin-ext"), "en": _FP.format("latin")}
+FONT_PRELOAD = {"ru": _FP.format("inter-cyrillic") + _FP.format("inter-latin"),
+                "ro": _FP.format("dmsans-latin") + _FP.format("inter-latin"), "en": _FP.format("dmsans-latin") + _FP.format("inter-latin")}
 
 
 

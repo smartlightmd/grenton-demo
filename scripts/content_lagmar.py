@@ -155,15 +155,15 @@ LAGMAR_MKT = {
 
 HOME_LG = {
     "ru": {"h1": "Умный дом в вашей квартире Lagmar уже начат",
-           "lead": "В электрощите каждой квартиры комплекса уже стоит контроллер умного дома. Осталось решить, что он будет делать: включать свет, держать тепло, закрывать шторы, перекрывать воду при протечке.",
+           "lead": "В электрощите каждой квартиры Smart Home 1 и Smart Home 2 уже стоит контроллер умного дома. Осталось решить, что он будет делать: включать свет, держать тепло, закрывать шторы, перекрывать воду при протечке.",
            "cta": "Рассчитать для моей квартиры",
            "film": "Как живёт умная квартира"},
     "ro": {"h1": "Apartamentul tău din Lagmar are deja baza casei inteligente",
-           "lead": "În tabloul fiecărui apartament din complex e deja montată unitatea casei inteligente. Rămâne de hotărât ce va face: aprinde lumina, ține căldura, închide rulourile, oprește apa la o scurgere.",
+           "lead": "În tabloul fiecărui apartament din Smart Home 1 și Smart Home 2 e deja montată unitatea casei inteligente. Rămâne de hotărât ce va face: aprinde lumina, ține căldura, închide rulourile, oprește apa la o scurgere.",
            "cta": "Calculează pentru apartamentul meu",
            "film": "Cum trăiește un apartament inteligent"},
     "en": {"h1": "Your Lagmar apartment is already smart-home ready",
-           "lead": "Every apartment in the complex already has a smart-home controller in its switchboard. What is left is deciding what it does: switch the lights, keep the heat, close the blinds, shut the water off on a leak.",
+           "lead": "Every apartment in Smart Home 1 and Smart Home 2 already has a smart-home controller in its switchboard. What is left is deciding what it does: switch the lights, keep the heat, close the blinds, shut the water off on a leak.",
            "cta": "Price it for my apartment",
            "film": "See a smart apartment in action"},
 }
