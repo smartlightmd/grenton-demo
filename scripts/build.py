@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Static site generator for the Grenton showcase (RO/RU/EN) — SmartSpace, official Grenton representative in Moldova."""
 import html as _html
+import hashlib
 import json
 import os
 import re
@@ -173,8 +174,9 @@ LAGMAR_UI = {
         "lead": "Найдите свою квартиру — покажем пакеты на её планировке и сразу посчитаем цену. Контроллер умного дома в квартире уже стоит — платите только за то, что добавляем.",
         "step1_title": "1. Найдите свою квартиру",
         "building_label": "Блок", "building_placeholder": "Выберите блок",
-        "apt_label": "№ квартиры", "apt_placeholder": "например, 21",
-        "apt_hint": "Только номер квартиры — без буквы блока и «кв.»",
+        "apt_label": "№ квартиры", "apt_placeholder": "например, 507",
+        "apt_hint": "Номер как в договоре: например 507, на первом этаже — P101.",
+        "cx_label": "Комплекс", "cx": {"1": ["Smart Home 1", "11 блоков · 1 065 кв."], "2": ["Smart Home 2", "16 блоков · 2 182 кв. · сдача 2030"]},
         "find_btn": "Найти", "loading": "Загружаем список квартир…",
         "choose_building": "Сначала выберите блок.",
         "found_prefix": "Найдено:", "floor_word": "этаж", "floor_ground": "первый этаж (parter)", "rooms_word": "комн.", "area_word": "м²",
@@ -209,8 +211,9 @@ LAGMAR_UI = {
         "lead": "Găsește-ți apartamentul — îți arătăm pachetele pe planul lui și calculăm prețul pe loc. Unitatea casei inteligente e deja montată — plătești doar ce adăugăm.",
         "step1_title": "1. Găsește-ți apartamentul",
         "building_label": "Blocul", "building_placeholder": "Alege blocul",
-        "apt_label": "Nr. apartament", "apt_placeholder": "de ex. 21",
-        "apt_hint": "Doar numărul apartamentului — fără litera blocului și fără „ap.”",
+        "apt_label": "Nr. apartament", "apt_placeholder": "de ex. 507",
+        "apt_hint": "Numărul ca în contract: de ex. 507, la parter — P101.",
+        "cx_label": "Complexul", "cx": {"1": ["Smart Home 1", "11 blocuri · 1 065 ap."], "2": ["Smart Home 2", "16 blocuri · 2 182 ap. · dare în exploatare 2030"]},
         "find_btn": "Caută", "loading": "Se încarcă lista apartamentelor…",
         "choose_building": "Alege mai întâi blocul.",
         "found_prefix": "Găsit:", "floor_word": "etaj", "floor_ground": "parter", "rooms_word": "camere", "area_word": "m²",
@@ -245,8 +248,9 @@ LAGMAR_UI = {
         "lead": "Find your apartment — we show the packages on its floor plan and price them right away. The smart-home controller is already installed — you pay only for what we add.",
         "step1_title": "1. Find your apartment",
         "building_label": "Block", "building_placeholder": "Choose your block",
-        "apt_label": "Apartment No.", "apt_placeholder": "e.g. 21",
-        "apt_hint": "Apartment number only — no block letter, no “apt.”",
+        "apt_label": "Apartment No.", "apt_placeholder": "e.g. 507",
+        "apt_hint": "The number as in your contract: e.g. 507, on the ground floor P101.",
+        "cx_label": "Complex", "cx": {"1": ["Smart Home 1", "11 blocks · 1,065 apts"], "2": ["Smart Home 2", "16 blocks · 2,182 apts · completion 2030"]},
         "find_btn": "Find", "loading": "Loading the apartment list…",
         "choose_building": "Choose your block first.",
         "found_prefix": "Found:", "floor_word": "floor", "floor_ground": "ground floor", "rooms_word": "rooms", "area_word": "m²",
@@ -300,7 +304,6 @@ FAQ = {
     ],
 }
 
-PLAN_IMG_BASE = "https://api.lagmarsmarthome.md/images/apartments/"
 
 LAGMAR_VIS = {
     "ru": {
@@ -664,11 +667,19 @@ LAGMAR_JS = r"""
   var API_URL = "__API__";
   var PHONE_DISPLAY = "__PHONE_DISPLAY__";
   var PHONE_TEL = "__PHONE_TEL__";
-  var PLAN_BASE = "__PLAN_BASE__";
-  var APTS = JSON.parse(document.getElementById("apt-data").textContent);
+  var CX = "1", DATA = {}, LOADING = {};
+  function loadApts(cx, cb) {
+    if (DATA[cx]) { cb(DATA[cx]); return; }
+    (LOADING[cx] = LOADING[cx] || []).push(cb);
+    if (LOADING[cx].length > 1) return;
+    fetch(UI.cxdata[cx].url).then(function (r) { return r.json(); })
+      .then(function (j) { DATA[cx] = j; var q = LOADING[cx]; LOADING[cx] = null; q.forEach(function (f) { f(j); }); })
+      .catch(function () { var q = LOADING[cx]; LOADING[cx] = null; q.forEach(function (f) { f(null); }); });
+  }
+  loadApts("1", function () {});
   var PK = JSON.parse(document.getElementById("pk-data").textContent);
   var LOCALE = LANG === "en" ? "en-GB" : (LANG === "ru" ? "ru-RU" : "ro-RO");
-  var state = { building: "", apt: "", floor: null, rooms: null, roomsActual: null, area: null, tariff: null, opts: {} };
+  var state = { cx: "1", building: "", apt: "", floor: null, rooms: null, roomsActual: null, area: null, tariff: null, opts: {} };
 
   function $(id) { return document.getElementById(id); }
   function show(el, on) { el.hidden = !on; }
@@ -676,7 +687,8 @@ LAGMAR_JS = r"""
   function fmtArea(a) { try { return Number(a).toLocaleString(LOCALE, { maximumFractionDigits: 2 }); } catch (e) { return String(a); } }
   function normNum(s) {
     s = String(s || "").replace(/[０-９]/g, function (d) { return String.fromCharCode(d.charCodeAt(0) - 0xFEE0); });
-    s = s.replace(/[^0-9]/g, "").replace(/^0+/, "");
+    s = s.toUpperCase().replace(/[РП]/g, "P").replace(/[^0-9P]/g, "");  // Cyrillic Р/П typed for the Latin P of P101
+    if (/^\d+$/.test(s)) s = s.replace(/^0+/, "");
     return s;
   }
   function normPhone(s) {
@@ -714,10 +726,28 @@ LAGMAR_JS = r"""
       });
     });
   });
+  function setBuildingOptions(cx) {
+    var sel = $("cfg-building"), d = UI.cxdata[cx];
+    while (sel.options.length > 1) sel.remove(1);
+    d.blocks.forEach(function (b) { var o = document.createElement("option"); o.value = b; o.textContent = b + " · " + d.bstats[b][0] + " " + UI.mkt_apts; sel.appendChild(o); });
+  }
+  function setComplex(cx, keep) {
+    if (!UI.cxdata[cx]) return;
+    CX = cx; state.cx = cx;
+    Array.prototype.forEach.call(document.querySelectorAll(".cx-opt"), function (b) { b.setAttribute("aria-checked", b.dataset.cx === cx ? "true" : "false"); });
+    Array.prototype.forEach.call(document.querySelectorAll(".cx-pane"), function (p) { p.hidden = p.dataset.cx !== cx; });
+    setBuildingOptions(cx);
+    if (!keep) { $("cfg-apt").value = ""; rangeHint(""); show($("cfg-found"), false); show($("cfg-manual"), false); resetBelow(); }
+    Array.prototype.forEach.call(document.querySelectorAll(".blk, .sp-b"), function (x) { x.setAttribute("aria-pressed", "false"); });
+    loadApts(cx, function () {});
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".cx-opt"), function (b) {
+    b.addEventListener("click", function () { if (b.dataset.cx !== CX) setComplex(b.dataset.cx); });
+  });
   Array.prototype.forEach.call(document.querySelectorAll(".blk"), function (tile) {
     tile.addEventListener("click", function () {
       $("cfg-building").value = tile.dataset.block; rangeHint(tile.dataset.block);
-      Array.prototype.forEach.call(document.querySelectorAll(".blk"), function (x) { x.setAttribute("aria-pressed", x === tile ? "true" : "false"); });
+      Array.prototype.forEach.call(document.querySelectorAll('.blk[data-cx="' + CX + '"]'), function (x) { x.setAttribute("aria-pressed", x === tile ? "true" : "false"); });
       syncPlan(tile.dataset.block);
       show($("cfg-found"), false); show($("cfg-manual"), false); resetBelow();
       $("cfg-apt").focus();
@@ -725,8 +755,8 @@ LAGMAR_JS = r"""
   });
   function eur(v) { return String(v).replace(/\B(?=(\d{3})+(?!\d))/g, LANG === "en" ? "," : "\u00a0") + "\u00a0€"; }
   function rangeHint(b) {
-    var st = UI.bstats[b], hint = $("cfg-apt-hint"), inp = $("cfg-apt");
-    if (st) { hint.textContent = UI.range_hint.replace("{b}", b).replace("{c}", st[0]).replace("{from}", st[1]).replace("{to}", st[2]); inp.placeholder = st[1] + "–" + st[2]; }
+    var st = b && UI.cxdata[CX].bstats[b], hint = $("cfg-apt-hint"), inp = $("cfg-apt");
+    if (st) { hint.textContent = UI.range_hint.replace("{b}", b).replace("{c}", st[0]).replace("{from}", st[1]).replace("{to}", st[2]); inp.placeholder = UI.apt_placeholder; }
     else { hint.textContent = UI.apt_hint; inp.placeholder = UI.apt_placeholder; }
   }
   var REDUCE = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -797,33 +827,36 @@ LAGMAR_JS = r"""
     show($("cfg-notfound-text"), false); show($("cfg-manual"), true); scrollTo($("cfg-manual"));
   });
   (function () {
-    var pb = (new URLSearchParams(location.search).get("b") || "").toUpperCase();
-    var tile = pb && document.querySelector('.blk[data-block="' + pb + '"]');
+    var qs = new URLSearchParams(location.search), pc = qs.get("c") === "2" ? "2" : "1";
+    if (pc !== "1") setComplex(pc, true);
+    var pb = (qs.get("b") || "").toUpperCase();
+    var tile = pb && document.querySelector('.blk[data-cx="' + pc + '"][data-block="' + pb + '"]');
     if (tile) { tile.click(); setTimeout(function () { scrollTo($("step1")); }, 50); }
   })();
   function syncPlan(b) {
-    Array.prototype.forEach.call(document.querySelectorAll(".sp-b"), function (g) { g.setAttribute("aria-pressed", g.dataset.block === b ? "true" : "false"); });
+    Array.prototype.forEach.call(document.querySelectorAll('.cx-pane[data-cx="' + CX + '"] .sp-b[data-block]'), function (g) { g.setAttribute("aria-pressed", g.dataset.block === b ? "true" : "false"); });
   }
   // phones: the plan is wider than the screen; open it centred on the middle blocks
   Array.prototype.forEach.call(document.querySelectorAll(".siteplan-fold"), function (f) {
     f.addEventListener("toggle", function () { var sc = f.querySelector(".sp-scroll"); if (f.open && sc) sc.scrollLeft = (sc.scrollWidth - sc.clientWidth) / 2; });
   });
-  Array.prototype.forEach.call(document.querySelectorAll(".sp-b"), function (g) {
-    var pick = function () { var t = document.querySelector('.blk[data-block="' + g.dataset.block + '"]'); if (t) t.click(); };
+  Array.prototype.forEach.call(document.querySelectorAll(".sp-b[data-block]"), function (g) {
+    var cx = g.closest(".cx-pane").dataset.cx;
+    var pick = function () { var t = document.querySelector('.blk[data-cx="' + cx + '"][data-block="' + g.dataset.block + '"]'); if (t) t.click(); };
     g.addEventListener("click", pick);
     g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } });
   });
   function markBlock(b) {
     syncPlan(b);
     rangeHint(b);
-    Array.prototype.forEach.call(document.querySelectorAll(".blk"), function (x) { x.setAttribute("aria-pressed", x.dataset.block === b ? "true" : "false"); });
+    Array.prototype.forEach.call(document.querySelectorAll('.blk[data-cx="' + CX + '"]'), function (x) { x.setAttribute("aria-pressed", x.dataset.block === b ? "true" : "false"); });
   }
   function showAptCard(found) {
     var plan = $("cfg-plan-img"), blk = $("cfg-block-img");
     var pfig = plan.closest("figure");
-    if (found.p) { plan.src = PLAN_BASE + found.p; plan.alt = UI.your_plan + " — " + found.b + "/" + found.n; show(pfig, true); }
+    if (found.p) { plan.src = UI.plan_url + found.p + ".jpg"; plan.alt = UI.your_plan + " — " + found.b + "/" + found.n; show(pfig, true); }
     else { plan.removeAttribute("src"); show(pfig, false); }
-    blk.src = "../assets/lagmar/blocks/" + found.b + ".webp"; blk.alt = UI.block_word + " " + found.b;
+    blk.src = (CX === "1" ? "../assets/lagmar/blocks/" : "../assets/lagmar/sh2/blocks/") + found.b + ".webp"; blk.alt = UI.block_word + " " + found.b;
     $("cfg-block-cap").textContent = UI.your_block + ": " + found.b;
     show($("cfg-aptcard"), true);
   }
@@ -875,19 +908,24 @@ LAGMAR_JS = r"""
     state.building = b; state.apt = n;
     if (!b) { $("cfg-found").textContent = UI.choose_building; show($("cfg-found"), true); $("cfg-building").focus(); return; }
     if (!n) { show($("cfg-manual"), true); return; }
-    var found = null;
-    for (var i = 0; i < APTS.length; i++) { if (APTS[i].b === b && normNum(APTS[i].n) === n) { found = APTS[i]; break; } }
-    if (found) {
-      var fl = String(found.f) === "0" ? UI.floor_ground : (UI.floor_word + " " + found.f);
-      $("cfg-found").textContent = UI.found_prefix + " " + UI.building_label + " " + b + " · " + fl + " · " + found.r + " " + UI.rooms_word + " · " + fmtArea(found.a) + " " + UI.area_word;
-      show($("cfg-found"), true);
-      markBlock(b);
-      showAptCard(found);
-      state.found = true;
-      showStep2(found.r, found.a, String(found.f));
-    } else {
-      show($("cfg-manual"), true);
-    }
+    var cx = CX;
+    loadApts(cx, function (apts) {
+      if (cx !== CX) return;
+      var found = null;
+      for (var i = 0; apts && i < apts.length; i++) { if (apts[i].b === b && apts[i].n === n) { found = apts[i]; break; } }
+      if (found) {
+        var fl = String(found.f) === "0" ? UI.floor_ground : (UI.floor_word + "\u00a0" + found.f);
+        $("cfg-found").textContent = UI.found_prefix + " " + UI.cx[cx][0] + "\u00a0· " + UI.building_label + "\u00a0" + b + "\u00a0· " + fl + "\u00a0· " + found.r + "\u00a0" + UI.rooms_word + "\u00a0· " + fmtArea(found.a) + "\u00a0" + UI.area_word;
+        show($("cfg-found"), true);
+        markBlock(b);
+        showAptCard(found);
+        state.found = true;
+        // Smart Home 2 counts bedrooms (1 = bedroom + living-kitchen): package size is one more
+        showStep2(cx === "2" ? found.r + 1 : found.r, found.a, String(found.f));
+      } else {
+        show($("cfg-manual"), true);
+      }
+    });
   }
 
   $("cfg-search").addEventListener("submit", function (ev) { ev.preventDefault(); doFind(); });
@@ -938,6 +976,12 @@ LAGMAR_JS = r"""
       var m = $(id + "-err"); if (m) { m.remove(); $(id).removeAttribute("aria-invalid"); }
     });
   });
+  function leadUrl() {  // full selection for the manager while the CRM model only knows SH1 blocks A-K and digit numbers
+    var keys = Object.keys(state.opts).filter(function (k) { return state.opts[k]; });
+    var tag = ["SH" + state.cx, state.building || "-", state.apt || "-", state.tariff || "-", keys.join("+") || "-"].join("|");
+    var base = location.href.split("#")[0];
+    return (base + (base.indexOf("?") < 0 ? "?" : "&") + "lead=" + encodeURIComponent(tag)).slice(0, 500);
+  }
   function validQuoteUrl(u) { return typeof u === "string" && /^https:\/\/app\.smartspace\.md\/q\/[A-Za-z0-9_-]{10,}$/.test(u); }
 
   $("cfg-form").addEventListener("submit", function (ev) {
@@ -955,10 +999,13 @@ LAGMAR_JS = r"""
     btn.disabled = true; btn.textContent = UI.sending;
     var payload = {
       name: name, phone: phone, email: $("cfg-email").value.trim() || null,
-      building: state.building || null, floor: state.floor, apartment_number: state.apt || null,
+      // the CRM model accepts blocks A-K and digit-only numbers: anything else stays in page_url until it is extended
+      building: /^[A-K]$/.test(state.building) && state.cx === "1" ? state.building : null, floor: state.floor,
+      apartment_number: /^\d{1,4}[A-Z]?$/.test(state.apt || "") ? state.apt : null,
+      complex: "SH" + state.cx, block: state.building || null, apartment: state.apt || null,
       rooms: state.rooms, rooms_actual: state.roomsActual, area_m2: state.area, tariff: state.tariff,
       options: Object.keys(state.opts).filter(function (k) { return state.opts[k]; }), estimate_eur: recalc(),
-      lang: LANG, source: "grenton-demo", page_url: location.href, consent: $("cfg-consent").checked
+      lang: LANG, source: "grenton-demo", page_url: leadUrl(), consent: $("cfg-consent").checked
     };
     var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
     var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 15000) : null;
@@ -1072,37 +1119,66 @@ def lagmar_hero_html(lang, u):
 
 
 def block_stats(apartments):
+    """block -> (apartments, lowest residential floor >= 1, top floor) for the tiles and the range hint."""
     st = {}
     for x in apartments:
-        n = int(re.sub(r"\D", "", str(x["n"])) or 0)
+        f = int(x["f"])
         c, lo, hi = st.get(x["b"], (0, 10 ** 6, 0))
-        st[x["b"]] = (c + 1, min(lo, n), max(hi, n))
+        st[x["b"]] = (c + 1, min(lo, max(f, 1)), max(hi, f))
     return st
 
 
-def lagmar_blocks_html(lang, stats):
+APTS_FILES = {"1": "assets/data/apts-sh1.json", "2": "assets/data/apts-sh2.json"}
+SITEPLANS = {"1": "assets/data/siteplan.json", "2": "assets/data/siteplan-sh2.json"}
+PLAN_URL = "https://pb21648.profitbase.ru/uploads/preset/21648/"
+
+
+def complex_data():
+    """Per complex: apartments, stats, block list (only blocks that have apartments get a tile)."""
+    out = {}
+    for cx, rel in APTS_FILES.items():
+        apts = _load_json(rel)
+        st = block_stats(apts)
+        raw = open(os.path.join(ROOT, rel), "rb").read()
+        out[cx] = {"apts": apts, "stats": st, "blocks": sorted(st), "ver": hashlib.md5(raw).hexdigest()[:8]}
+    return out
+
+
+def lagmar_blocks_html(lang, stats, cx="1", blocks=None):
     v = LAGMAR_VIS[lang]
     m = LAGMAR_MKT[lang]
+    img = "../assets/lagmar/blocks/{}.webp" if cx == "1" else "../assets/lagmar/sh2/blocks/{}.webp"
+    blocks = blocks or BUILDINGS
+    floor_w = LAGMAR_UI[lang]["floor_word"]
     tiles = "".join(
-        f'<button type="button" class="blk" data-block="{b}" aria-pressed="false"><img src="../assets/lagmar/blocks/{b}.webp" width="330" height="508" alt="{esc(v["block_word"])} {b}" loading="lazy"><span>{b}</span>'
-        + (f'<small class="blk-meta"><b>{stats[b][0]}</b> {m["apts"]}<br>№ {stats[b][1]}–{stats[b][2]}</small>' if b in stats else "")
+        f'<button type="button" class="blk" data-cx="{cx}" data-block="{b}" aria-pressed="false"><img src="{img.format(b)}" width="330" height="508" alt="{esc(v["block_word"])} {b}" loading="lazy"><span>{b}</span>'
+        + (f'<small class="blk-meta"><b>{stats[b][0]}</b> {m["apts"]}<br>{floor_w} {stats[b][1]}–{stats[b][2]}</small>' if b in stats else "")
         + '</button>'
-        for b in BUILDINGS)
-    return f'<p class="cfg-note"><b>{v["blocks_title"]}.</b> {v["blocks_sub"]}</p><div class="blk-row">{tiles}</div>' + siteplan_html(lang, stats)
+        for b in blocks)
+    return (f'<p class="cfg-note"><b>{v["blocks_title"]}.</b> {v["blocks_sub"]}</p>'
+            f'<div class="blk-row" style="--n:{len(blocks)}">{tiles}</div>' + siteplan_html(lang, stats, cx))
 
 
-def siteplan_html(lang, stats):
-    sp = _load_json("assets/data/siteplan.json")
+def siteplan_html(lang, stats, cx="1"):
+    sp = _load_json(SITEPLANS[cx])
     vw, vh = sp["viewBox"]
     v, m = LAGMAR_VIS[lang], LAGMAR_MKT[lang]
     shapes = "".join(
         f'<g class="sp-b" data-block="{o["b"]}" role="button" tabindex="0" aria-pressed="false" '
         f'aria-label="{esc(v["block_word"])} {o["b"]}' + (f' · {stats[o["b"]][0]} {esc(m["apts"])}' if o["b"] in stats else "") + '">'
-        f'<path d="{o["d"]}"/><text x="{o["lx"]}" y="{o["ly"]}">{o["b"]}</text></g>'
-        for o in sp["blocks"])
+        + (f'<path d="{o["d"]}"/>' if "d" in o else f'<polygon points="{o["points"]}"/>')
+        + f'<text x="{o["lx"]}" y="{o["ly"]}">{o["b"]}</text></g>'
+        for o in sp["blocks"] if o["b"] in stats)
+    shapes += "".join(  # blocks with nothing on sale yet: drawn, not clickable
+        (f'<g class="sp-b sp-off" aria-hidden="true">' + (f'<path d="{o["d"]}"/>' if "d" in o else f'<polygon points="{o["points"]}"/>')
+         + f'<text x="{o["lx"]}" y="{o["ly"]}">{o["b"]}</text></g>')
+        for o in sp["blocks"] if o["b"] not in stats)
+    plan_img = (f'<img src="../assets/lagmar/aerial-800.webp" srcset="../assets/lagmar/aerial-800.webp 800w, ../assets/lagmar/aerial.webp 1600w" '
+                f'sizes="(max-width: 860px) 92vw, 1200px" width="1600" height="828" alt="{esc(v["siteplan_alt"])}" loading="lazy">' if cx == "1" else
+                f'<img src="../assets/lagmar/sh2/plan-900.webp" srcset="../assets/lagmar/sh2/plan-900.webp 900w, ../assets/lagmar/sh2/plan.webp 1824w" '
+                f'sizes="(max-width: 860px) 92vw, 1200px" width="1824" height="1026" alt="{esc(v["siteplan_alt"])} — Smart Home 2" loading="lazy">')
     return (f'<details class="fold siteplan-fold"><summary>{v["siteplan_hint"]}</summary>'
-            f'<div class="sp-scroll"><div class="sp"><img src="../assets/lagmar/aerial-800.webp" srcset="../assets/lagmar/aerial-800.webp 800w, ../assets/lagmar/aerial.webp 1600w" '
-            f'sizes="(max-width: 860px) 92vw, 1200px" width="1600" height="828" alt="{esc(v["siteplan_alt"])}" loading="lazy">'
+            f'<div class="sp-scroll"><div class="sp">{plan_img}'
             f'<svg viewBox="0 0 {vw} {vh}" preserveAspectRatio="none">{shapes}</svg></div></div>'
             f'<p class="sp-note">{v["siteplan_note"]}</p></details>')
 
@@ -1253,23 +1329,29 @@ def lagmar_examples_html(lang, pk):
 </section>'''
 
 
-def lagmar_page_html(lang, apartments, packages_all):
+def lagmar_page_html(lang, packages_all):
     u = LAGMAR_UI[lang]
     v = LAGMAR_VIS[lang]
     pk = packages_all[lang]
+    cxd = complex_data()
     ui_js = dict(u, block_word=v["block_word"], your_plan=v["your_plan"], your_block=v["your_block"],
-                 bstats={b: list(x) for b, x in block_stats(apartments).items()}, range_hint=LAGMAR_MKT[lang]["range_hint"],
+                 cxdata={cx: {"blocks": d["blocks"], "bstats": {b: list(x) for b, x in d["stats"].items()},
+                              "url": "../" + APTS_FILES[cx] + "?v=" + d["ver"]} for cx, d in cxd.items()},
+                 plan_url=PLAN_URL, mkt_apts=LAGMAR_MKT[lang]["apts"], range_hint=LAGMAR_MKT[lang]["range_hint"],
                  mkt={k: LAGMAR_MKT[lang][k] for k in ("sum_pkg", "sum_opts", "sum_total", "sum_promo", "pick_pkg_first", "opt_add", "opt_added", "recap_none")},
                  opt_names={k: t for k, (t, _d) in LAGMAR_MKT[lang]["options"].items()}, area_unit={"ru": "м²"}.get(lang, "m²"),
                  opt_prices=OPTION_PRICES, promo_pct=PROMO_PCT, prog_share=PROGRAMMING_SHARE, price_num=PRICES, equip_num=EQUIPMENT)
-    bst = block_stats(apartments)
+    bst = cxd["1"]["stats"]
     m = LAGMAR_MKT[lang]
-    building_options = "".join(
-        f'<option value="{b}">{b}' + (f' · {bst[b][0]} {m["apts"]} · {bst[b][1]}–{bst[b][2]}' if b in bst else "") + '</option>'
-        for b in BUILDINGS)
+    building_options = "".join(f'<option value="{b}">{b} · {bst[b][0]} {m["apts"]}</option>' for b in cxd["1"]["blocks"])
+    cx_switch = (f'<div class="cx-switch" role="radiogroup" aria-label="{esc(u["cx_label"])}">'
+                 + "".join(f'<button type="button" class="cx-opt" role="radio" data-cx="{cx}" aria-checked="{"true" if cx == "1" else "false"}">'
+                           f'<b>{esc(u["cx"][cx][0])}</b><small>{esc(u["cx"][cx][1])}</small></button>' for cx in ("1", "2"))
+                 + '</div>')
+    panes = "".join(f'<div class="cx-pane" data-cx="{cx}"{"" if cx == "1" else " hidden"}>'
+                    + lagmar_blocks_html(lang, cxd[cx]["stats"], cx, cxd[cx]["blocks"]) + '</div>' for cx in ("1", "2"))
     js = (LAGMAR_JS.replace("__LANG__", lang).replace("__UI__", _json_for_script(ui_js, lang)).replace("__API__", API_URL)
-          .replace("__PHONE_DISPLAY__", PHONE_DISPLAY).replace("__PHONE_TEL__", PHONE_TEL)
-          .replace("__PLAN_BASE__", PLAN_IMG_BASE))
+          .replace("__PHONE_DISPLAY__", PHONE_DISPLAY).replace("__PHONE_TEL__", PHONE_TEL))
     s2_widgets = "".join(plan_widget_html(lang, n, pk, f"s2-{n}", "s2-plan", hidden=True) for n in ["2", "3", "4"])
     return f'''<!doctype html>
 <html lang="{lang}">
@@ -1289,13 +1371,14 @@ def lagmar_page_html(lang, apartments, packages_all):
 <section class="block alt cfg-step" id="step1">
   <div class="wrap">
     <h2 class="h2">{u["step1_title"]}</h2>
-    {lagmar_blocks_html(lang, bst)}
+    {cx_switch}
+    {panes}
     <form id="cfg-search" class="cfg-row" autocomplete="off">
       <label>{u["building_label"]}
         <select id="cfg-building" name="building"><option value="">{u["building_placeholder"]}</option>{building_options}</select>
       </label>
       <label>{u["apt_label"]}
-        <input id="cfg-apt" name="apt" type="text" inputmode="numeric" maxlength="4" pattern="[0-9]*" enterkeyhint="search" placeholder="{u["apt_placeholder"]}" aria-describedby="cfg-apt-hint">
+        <input id="cfg-apt" name="apt" type="text" inputmode="text" autocapitalize="characters" autocorrect="off" spellcheck="false" maxlength="6" enterkeyhint="search" placeholder="{u["apt_placeholder"]}" aria-describedby="cfg-apt-hint">
       </label>
       <button class="btn btn-primary" type="submit" id="cfg-find">{u["find_btn"]}</button>
     </form>
@@ -1400,7 +1483,6 @@ def lagmar_page_html(lang, apartments, packages_all):
 {dealer_band_html(lang, "lagmar")}
 {footer_html(lang)}
 
-<script id="apt-data" type="application/json">{_json_for_script(apartments)}</script>
 <script id="pk-data" type="application/json">{_json_for_script(pk, lang)}</script>
 <script>{js}</script>
 <script>{SITE_JS}</script>
@@ -2471,7 +2553,6 @@ FONT_PRELOAD = {"ru": _FP.format("cyrillic") + _FP.format("latin"), "ro": _FP.fo
 def main():
     global CSS_VER
     CSS_VER = build_css()
-    apartments = _load_json("assets/data/apartments.json")
     packages_all = _load_json("assets/data/packages.json")
     for lang in LANGS:
         for n, tiers in PACKAGE_SPEC.items():
@@ -2486,7 +2567,7 @@ def main():
     for lang in LANGS:
         for key in PAGE_ORDER:
             if key == "lagmar":
-                html = lagmar_page_html(lang, apartments, packages_all)
+                html = lagmar_page_html(lang, packages_all)
             elif key == "features":
                 html = features_page_html(lang, packages_all)
             elif key == "scenarios":

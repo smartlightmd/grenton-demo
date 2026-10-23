@@ -1586,3 +1586,24 @@ header.site { background: var(--bg); -webkit-backdrop-filter: none; backdrop-fil
 .sp-scroll { overflow-x: auto; scrollbar-width: thin; border-radius: var(--r-l); margin-top: var(--sp-s); }
 .sp-scroll .sp { margin-top: 0; }
 @media (max-width: 700px) { .sp-scroll .sp { width: 190%; } .sp-b text { font-size: 40px; stroke-width: 8px; } }  /* buildings big enough to tap */
+
+/* ===== complex switch (Smart Home 1 / 2, 23.10) ===== */
+.cx-switch { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; margin: 0 0 var(--sp-m); max-width: 44rem; }
+.cx-opt { display: flex; flex-direction: column; align-items: flex-start; gap: .15rem; text-align: left; cursor: pointer;
+  padding: .85rem 1.1rem; border-radius: var(--r-m); border: 1.5px solid var(--line); background: var(--surface); color: var(--ink);
+  transition: border-color .15s var(--ease), background-color .15s var(--ease); }
+.cx-opt b { font-size: var(--fs-lg); letter-spacing: -.01em; }
+.cx-opt small { font-size: var(--fs-xs); color: var(--muted); }
+.cx-opt[aria-checked="true"] { border-color: var(--navy, #1c3559); background: color-mix(in srgb, var(--navy, #1c3559) 7%, var(--surface)); box-shadow: inset 0 0 0 1px var(--navy, #1c3559); }
+@media (hover: hover) { .cx-opt:hover { border-color: color-mix(in srgb, var(--navy, #1c3559) 55%, var(--line)); } }
+.blk-row { grid-template-columns: repeat(var(--n, 11), minmax(0, 1fr)); }
+.sp-off { pointer-events: none; }
+.sp-off path, .sp-off polygon { fill: rgba(20, 42, 75, .35); stroke: rgba(255, 255, 255, .45); }
+.sp-off text { opacity: .55; }
+.sp-b polygon { fill: rgba(28, 53, 89, .16); stroke: rgba(255, 255, 255, .9); stroke-width: 2; vector-effect: non-scaling-stroke; transition: fill .15s var(--ease); }
+@media (hover: hover) { .sp-b:not(.sp-off):hover polygon { fill: rgba(227, 34, 19, .34); } }
+.sp-b:focus-visible polygon { fill: rgba(227, 34, 19, .34); stroke: #fff; stroke-width: 4; }
+.sp-b[aria-pressed="true"] polygon { fill: rgba(227, 34, 19, .5); stroke: #fff; stroke-width: 3; }
+.cx-pane[data-cx="2"] .sp-b text { font-size: 96px; stroke-width: 18px; }
+@media (max-width: 700px) { .cx-pane[data-cx="2"] .sp-b text { font-size: 110px; stroke-width: 20px; } }
+.cx-opt small { color: var(--ink-soft); }
