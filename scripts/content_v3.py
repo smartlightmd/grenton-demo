@@ -41,7 +41,7 @@ PRICES = package_prices()
 
 def fmt_eur(v, lang):
     s = f"{v:,}".replace(",", " " if lang != "en" else ",")
-    return f"{s} €"
+    return f"€{s}" if lang == "en" else f"{s} €"
 
 
 # ---------------------------------------------------------------------------
@@ -60,10 +60,10 @@ DAY_STATES = [
 ]
 
 DAY = {
-    "ru": {"eyebrow": "Интерактив", "title": "Один день в квартире Lagmar 46 м²",
+    "ru": {"eyebrow": "Интерактив", "title": "Один день в квартире Lagmar на 46 м²",
            "sub": "Выберите время — и посмотрите, что квартира делает сама. Свет, шторы и климат меняются по сценариям, без единого выключателя.",
            "light": "Свет", "blinds": "Шторы", "climate": "Климат", "open": "открыты", "closed": "закрыты",
-           "zones": "{n} из 6 зон", "off": "выключен", "eco": "эко", "guard": "Квартира под охраной датчиков",
+           "zones": "{n} из 6 зон", "off": "выключен", "eco": "эко", "guard": "Датчики следят за квартирой",
            "alert": "Протечка на кухне — вода перекрыта", "alert_sub": "уведомление пришло на телефон",
            "audio": "Музыка в гостиной", "play": "Смотреть день", "pause": "Пауза",
            "plan_alt": "Квартира Lagmar 46 м²: свет и шторы по времени суток", "more": "Все сценарии"},
@@ -91,18 +91,18 @@ CMP = {
            "size_label": "Квартира", "sizes": {"2": "2 комнаты", "3": "3 комнаты", "4": "4 комнаты"},
            "feature": "Что входит",
            "rows": [
-               ("Свет", "группами", "по комнатам + диммирование", "весь свет + декоративная подсветка"),
+               ("Свет", "группами", "по комнатам + плавная яркость", "весь свет + декоративная подсветка"),
                ("Панели управления", "Smart Panel + Touch Panel у входа", "в каждой комнате", "во всех зонах"),
                ("Отопление", "термостат + график", "своя температура в каждой зоне", "зоны + контроль CO₂ и влажности"),
                ("Защита от протечки", "датчики + уведомление", "+ автоперекрытие воды", "+ автоперекрытие воды"),
-               ("Моторизованные шторы", "N", "2–4 окна", "все окна"),
+               ("Шторы с электроприводом", "N", "2–4 окна", "все окна"),
                ("Датчики движения и дыма", "N", "Y", "Y"),
-               ("Сценарии", "«Ухожу», «Я дома»", "+ «Утро», «Ночь», «Отпуск»", "+ «Кино» и личные сцены"),
-               ("Приложение myGrenton, работа без интернета", "Y", "Y", "Y"),
+               ("Сценарии", "«Ухожу», «Я дома»", "+ «Утро», «Ночь», «Отпуск»", "+ «Кино» и личные сценарии"),
+               ("Приложение myGrenton; сценарии работают без интернета", "Y", "Y", "Y"),
            ],
            "price": "Ориентировочно", "price_from": "от {p}",
            "price_note": "Оборудование и программирование, без НДС. Датчики, приводы штор, аудио и монтаж — в персональном предложении после осмотра квартиры.",
-           "cta": "Получить точный расчёт на мою квартиру", "yes": "есть", "no": "нет", "all": "Во всех пакетах"},
+           "cta": "Точный расчёт для моей квартиры", "yes": "есть", "no": "нет", "all": "Во всех пакетах"},
     "ro": {"eyebrow": "Comparație", "title": "Trei pachete — un singur sistem care crește odată cu tine",
            "sub": "Începe cu Basic și adaugă module mai târziu — fără a înlocui ce e deja montat.",
            "size_label": "Apartament", "sizes": {"2": "2 camere", "3": "3 camere", "4": "4 camere"},
@@ -110,16 +110,16 @@ CMP = {
            "rows": [
                ("Lumină", "pe grupuri", "pe camere + reglaj de intensitate", "toată lumina + iluminat decorativ"),
                ("Panouri de comandă", "Smart Panel + Touch Panel la intrare", "în fiecare cameră", "în toate zonele"),
-               ("Încălzire", "termostat + program", "temperatură proprie în fiecare zonă", "zone + control CO₂ și umiditate"),
+               ("Încălzire", "termostat + program", "temperatură proprie în fiecare zonă", "zone + monitorizare CO₂ și umiditate"),
                ("Protecție la scurgeri", "senzori + notificare", "+ oprirea automată a apei", "+ oprirea automată a apei"),
                ("Rulouri motorizate", "N", "2–4 ferestre", "toate ferestrele"),
                ("Senzori de mișcare și fum", "N", "Y", "Y"),
-               ("Scenarii", "„Plec”, „Sunt acasă”", "+ „Dimineața”, „Noaptea”, „Concediu”", "+ „Film” și scene personale"),
+               ("Scenarii", "„Plec”, „Am ajuns”", "+ „Dimineața”, „Noaptea”, „Concediu”", "+ „Film” și scene personale"),
                ("Aplicația myGrenton, funcționează fără internet", "Y", "Y", "Y"),
            ],
            "price": "Orientativ", "price_from": "de la {p}",
-           "price_note": "Echipamente și programare, fără TVA. Senzorii, motoarele rulourilor, audio și montajul — în oferta personală după vizita la apartament.",
-           "cta": "Primește calculul exact pentru apartamentul meu", "yes": "da", "no": "nu", "all": "În toate pachetele"},
+           "price_note": "Echipamente și programare, fără TVA. Senzorii, motoarele rulourilor, audio și montajul — în oferta personalizată, după vizita în apartament.",
+           "cta": "Primește calculul exact pentru apartamentul tău", "yes": "da", "no": "nu", "all": "În toate pachetele"},
     "en": {"eyebrow": "Compare", "title": "Three packages — one system that grows with you",
            "sub": "Start with Basic and add modules later — nothing installed has to be replaced.",
            "size_label": "Apartment", "sizes": {"2": "2 rooms", "3": "3 rooms", "4": "4 rooms"},
@@ -135,7 +135,7 @@ CMP = {
                ("myGrenton app, works without internet", "Y", "Y", "Y"),
            ],
            "price": "Indicative", "price_from": "from {p}",
-           "price_note": "Equipment and programming, excl. VAT. Sensors, blind motors, audio and installation are in your personal offer after we visit the apartment.",
+           "price_note": "Equipment and programming, excl. VAT. Sensors, blind motors, audio and installation are priced in your personal quote after we visit the apartment.",
            "cta": "Get an exact quote for my apartment", "yes": "yes", "no": "no", "all": "In every package"},
 }
 

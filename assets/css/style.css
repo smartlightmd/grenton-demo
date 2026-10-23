@@ -1835,3 +1835,64 @@ header.site .brand .by { display: none; }  /* the Lagmar-style header has no roo
 .cx-card .ico { position: absolute; right: 1rem; top: 50%; width: 1.1rem; height: 1.1rem; transform: translateY(-50%); color: var(--brand-text, var(--brand)); transition: transform var(--dur) var(--ease); }
 @media (hover: hover) { .cx-card:hover { border-color: var(--brand-text, var(--brand)); } .cx-card:hover .ico { transform: translate(3px, -50%); } }
 @media (max-width: 520px) { .cx-cards { grid-template-columns: 1fr; } }
+
+/* ===== full review 23.10: design ===== */
+.nc { text-transform: none; }
+/* heading rhythm: a heading never sits on its subtitle or on the content below */
+h2.h2 { margin-bottom: 1rem; }
+.section-head .h2:not(:last-child) { margin-bottom: .8rem; }
+.cfg-step h2.h2 { margin-bottom: var(--sp-m); }
+/* search row: select, input and button share one height and one baseline */
+.cfg-row select, .cfg-row input { height: 3.25rem; box-sizing: border-box; }
+.cfg-row .btn { height: 3.25rem; }
+/* decorative icon tiles in the Lagmar navy (plan markers in the configurator keep their legend colours) */
+.outcome-icon.mk, .frow-ico.mk, .topic .mk { background: var(--navy, #19355b); }
+:root[data-theme="dark"] .outcome-icon.mk, :root[data-theme="dark"] .frow-ico.mk { background: #4e72a2; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .outcome-icon.mk, :root:not([data-theme="light"]) .frow-ico.mk { background: #4e72a2; } }
+/* modules drawing */
+.layer-visual .din { width: 86%; height: auto; }
+/* video poster: no dark seam under a light poster */
+.gal-media video { background: transparent; }
+.gal-media:has(video[poster*="panel"]) { background: #ebebeb; }
+/* phones: CTA pairs full width, day widget text under the panel */
+@media (max-width: 520px) {
+  .home-lg .cta-row .btn, .vhero .cta-row .btn, .closing .cta-row .btn { flex: 1 1 100%; justify-content: center; }
+  .day-side { grid-template-columns: 1fr; }
+  .day-panel { width: 100%; aspect-ratio: 2.6; }
+}
+
+/* ===== full review 23.10: sales ===== */
+/* sticky action bar on phones */
+.mbar { display: none; }
+@media (max-width: 720px) {
+  .mbar { position: fixed; z-index: 60; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: .4rem;
+    padding: .5rem .6rem calc(.5rem + env(safe-area-inset-bottom)); background: color-mix(in srgb, var(--surface) 92%, transparent);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-top: 1px solid var(--line); }
+  .mbar a { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; height: 2.75rem; border-radius: var(--r-pill);
+    font-size: .85rem; font-weight: 600; text-decoration: none; color: var(--ink); border: 1px solid var(--line); background: var(--surface); }
+  .mbar a .ico { width: 1rem; height: 1rem; }
+  .mbar .mbar-calc { background: var(--navy, #19355b); color: #fff; border-color: transparent; }
+  .mbar .mbar-calc .ico { order: 2; }
+  .mbar .mbar-wa { color: #128c4b; }
+  body { padding-bottom: calc(3.9rem + env(safe-area-inset-bottom)); }
+  .mbar { transition: transform .2s ease, visibility 0s linear .3s; }
+  body:has(input:focus, textarea:focus, select:focus) .mbar { transform: translateY(110%); visibility: hidden; transition: transform .2s ease, visibility 0s; }
+  /* site plan side card: only the picked block on phones, the totals are above already */
+  .sp-side:not(.has-pick) { display: none; }
+  .sp-side.has-pick .sp-eyebrow, .sp-side.has-pick h3, .sp-side.has-pick dl, .sp-side.has-pick .sp-status { display: none; }
+  .sp-side.has-pick { padding: .75rem; }
+}
+
+/* heading straight above a grid (no subtitle): more air */
+h2.h2:not(:has(+ p.sub)) { margin-bottom: 1.75rem; }
+
+/* action bar steps aside once the request form is open, and nothing scrolls under it */
+@media (max-width: 720px) {
+  html { scroll-padding-bottom: 5rem; }
+  body:has(#step3:not([hidden])) .mbar { display: none; }
+}
+
+/* action bar CTA keeps its contrast in both themes */
+.mbar .mbar-calc { background: #19355b; color: #fff; }
+:root[data-theme="dark"] .mbar .mbar-calc { background: #4e72a2; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mbar .mbar-calc { background: #4e72a2; } }

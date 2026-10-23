@@ -25,7 +25,7 @@ PHONE_TEL = "+37378202020"
 
 LANGS = ["ro", "ru", "en"]
 LANG_LABEL = {"ro": "RO", "ru": "RU", "en": "EN"}
-OG_LOCALE = {"ro": "ro_RO", "ru": "ru_RU", "en": "en_US"}
+OG_LOCALE = {"ro": "ro_RO", "ru": "ru_RU", "en": "en_GB"}
 # Share cards rendered by scripts/og_cards.mjs (1200x630)
 OG_IMG_ALT = {
     "home": {"ro": "Lagmar Smart Home — casă inteligentă în fiecare apartament",
@@ -61,8 +61,8 @@ DEALER_BAND = {
     "ru": {"h": "SmartSpace — проект, монтаж и сервис умного дома в Lagmar Smart Home",
            "p": "Консультация, проектирование, монтаж и сервис — для каждой квартиры Lagmar Smart Home.",
            "cta": "Запросить предложение"},
-    "en": {"h": "SmartSpace — design, installation and service of the smart home in Lagmar Smart Home",
-           "p": "Consulting, design, installation and service — for every apartment in Lagmar Smart Home.",
+    "en": {"h": "SmartSpace — smart-home design, installation and service for Lagmar Smart Home",
+           "p": "Consultation, design, installation and service — for every apartment in Lagmar Smart Home.",
            "cta": "Request a quote"},
 }
 
@@ -74,21 +74,21 @@ CONTACT_INFO = {
 
 HOME_LAGMAR = {
     "ro": {"eyebrow": "Proiectul nostru", "h2": "Smart Home 1 și Smart Home 2: 3 247 de apartamente inteligente",
-           "p": "Lagmar construiește în Chișinău două complexe Smart Home: Smart Home 1 (11 blocuri) și Smart Home 2 (16 blocuri, dare în exploatare iulie 2030). Fiecare apartament vine cu casa inteligentă pregătită. O proiectează, o instalează și o întreține SmartSpace. Ai un apartament în Lagmar? Găsește-l în configurator, alege pachetul Basic, Comfort sau Premium și primești o ofertă preliminară în câteva minute.",
+           "p": "Lagmar construiește în Chișinău două complexe Smart Home: Smart Home 1 (11 blocuri) și Smart Home 2 (16 blocuri, cu darea în exploatare în iulie 2030). Fiecare apartament vine cu casa inteligentă pregătită. O proiectează, o instalează și o întreține SmartSpace. Ai un apartament în Lagmar? Găsește-l în configurator, alege pachetul Basic, Comfort sau Premium și primești o ofertă preliminară în câteva minute.",
            "cta": "Configurează-ți apartamentul"},
     "ru": {"eyebrow": "Наш проект", "h2": "Smart Home 1 и Smart Home 2: 3 247 умных квартир",
            "p": "Lagmar строит в Кишинёве два комплекса Smart Home: Smart Home 1 (11 блоков) и Smart Home 2 (16 блоков, сдача в июле 2030). Умный дом заложен в каждую квартиру. Его проектирует, устанавливает и обслуживает SmartSpace. У вас квартира в Lagmar? Найдите её в конфигураторе, выберите пакет Basic, Comfort или Premium и получите предварительное предложение за пару минут.",
-           "cta": "Настроить свою квартиру"},
-    "en": {"eyebrow": "Our project", "h2": "Smart Home 1 and Smart Home 2: 3,247 smart apartments",
-           "p": "Lagmar is building two Smart Home complexes in Chișinău: Smart Home 1 (11 blocks) and Smart Home 2 (16 blocks, completion July 2030). Every apartment comes with the smart home built in — designed, installed and supported by SmartSpace. Own an apartment in Lagmar? Find it in the configurator, pick Basic, Comfort or Premium and get a preliminary quote in minutes.",
+           "cta": "Рассчитать для своей квартиры"},
+    "en": {"eyebrow": "Our project", "h2": "Smart Home 1 and Smart Home 2: 3,247 smart-home-ready apartments",
+           "p": "Lagmar is building two Smart Home complexes in Chișinău: Smart Home 1 (11 blocks) and Smart Home 2 (16 blocks, completion July 2030). Every apartment already has a smart-home controller installed; SmartSpace designs, installs and supports everything else. Own an apartment in Lagmar? Find it in the configurator, pick Basic, Comfort or Premium and get a preliminary quote in minutes.",
            "cta": "Configure your apartment"},
 }
 
 META_DESC = {
     "home": {
-        "ro": "Fiecare apartament din Lagmar Smart Home are deja unitatea casei inteligente. SmartSpace alege ce va face — lumină, căldură, rulouri, protecție la scurgeri — și calculează prețul.",
-        "ru": "В каждой квартире Lagmar Smart Home уже стоит контроллер умного дома. SmartSpace подберёт, что он будет делать — свет, тепло, шторы, защита от протечки, — и посчитает цену для вашей квартиры.",
-        "en": "Every Lagmar Smart Home apartment already has a smart-home controller. SmartSpace picks what it will do — light, heat, blinds, leak protection — and prices it for your apartment.",
+        "ro": "Fiecare apartament din Lagmar Smart Home are deja unitatea casei inteligente. Tu alegi ce va face — lumină, căldură, rulouri, protecție la scurgeri —, iar SmartSpace calculează prețul.",
+        "ru": "В каждой квартире Lagmar Smart Home уже стоит контроллер умного дома. Вы решаете, что он будет делать — свет, тепло, шторы, защита от протечки, — а SmartSpace посчитает цену.",
+        "en": "Every Lagmar Smart Home apartment already has a smart-home controller. You decide what it does — light, heat, blinds, leak protection — and SmartSpace prices it for your apartment.",
     },
     "contact": {
         "ro": "Consultație gratuită SmartSpace pentru locatarii Lagmar Smart Home: Strada Pajurii 11, Chișinău, +373 78 202 020. Proiectare, montaj și service.",
@@ -175,24 +175,25 @@ LAGMAR_UI = {
         "step1_title": "1. Найдите свою квартиру",
         "building_label": "Блок", "building_placeholder": "Выберите блок",
         "apt_label": "№ квартиры", "apt_placeholder": "например, 507",
-        "apt_hint": "По закону номер квартиры — этаж и её номер на этаже: 507 = 5-й этаж, квартира 07; на партере — P101. Старый номер из договора тоже подойдёт — подскажем новый.",
+        "apt_hint": "По закону номер квартиры складывается из этажа и номера на этаже: 507 — 5-й этаж, квартира 07; на партере — P101. Старый номер из договора тоже подойдёт — подскажем новый.",
         "cx_label": "Комплекс", "cx": {"1": ["Smart Home 1", "11 блоков · 1 065 кв."], "2": ["Smart Home 2", "16 блоков · 2 182 кв. · сдача 2030"]},
         "find_btn": "Найти", "loading": "Загружаем список квартир…",
         "choose_building": "Сначала выберите блок.",
         "found_prefix": "Найдено:", "floor_word": "этаж", "floor_ground": "партер", "rooms_word": "комн.", "area_word": "м²",
-        "not_found_text": "Не нашли такую квартиру — не страшно, выберите тип квартиры вручную:",
+        "not_found_text": "Такую квартиру мы не нашли — ничего страшного. Укажите число комнат вручную:",
         "manual_label": "Комнат",
-        "edge_hint": "Для квартир от 5 комнат и студий готовим индивидуальный расчёт — пакеты ниже ориентировочные.",
-        "step2_title": "2. Выберите комплектацию",
-        "tariff_required": "Выберите комплектацию, чтобы продолжить.",
+        "edge_hint": "Для 1-комнатных квартир и квартир от 5 комнат готовим индивидуальный расчёт — пакеты ниже ориентировочные.",
+        "step2_title": "2. Выберите пакет",
+        "tariff_required": "Выберите пакет, чтобы продолжить.",
         "step3_title": "3. Оставьте контакты — пришлём предложение",
         "name_label": "Имя", "phone_label": "Телефон", "phone_hint": "Например, +373 6x xxx xxx или 06x xxx xxx",
         "email_label": "Email (необязательно)",
         "consent_text": "Согласен(-на) на обработку персональных данных для подготовки предложения —",
         "consent_link": "политика конфиденциальности",
         "disclaimer": "Предложение носит предварительный, информационный характер и не является публичной офертой; итоговая цена подтверждается менеджером SmartSpace после осмотра квартиры.",
-        "submit_btn": "Получить предложение", "sending": "Отправляем…",
-        "success_title": "Готово!", "success_text": "Ваше персональное предложение готово:",
+        "submit_btn": "Получить предложение на мою квартиру", "sending": "Отправляем…",
+        "submit_note": "Ссылка на предварительное предложение откроется сразу после отправки. Мы позвоним, чтобы уточнить детали и договориться об осмотре. Ни к чему не обязывает.",
+        "success_title": "Готово!", "success_text": "Ваше персональное предложение:",
         "success_link": "Открыть предложение",
         "success_next": "Менеджер SmartSpace свяжется с вами, чтобы уточнить детали.",
         "again": "Отправить для другой квартиры",
@@ -208,27 +209,28 @@ LAGMAR_UI = {
         "title": "Calculează casa inteligentă în Lagmar Smart Home | SmartSpace",
         "eyebrow": "Apartamentul tău din Lagmar Smart Home",
         "h1": "Calculează casa inteligentă pentru apartamentul tău din Lagmar",
-        "lead": "Găsește-ți apartamentul — îți arătăm pachetele pe planul lui și calculăm prețul pe loc. Unitatea casei inteligente e deja montată — plătești doar ce adăugăm.",
+        "lead": "Găsește-ți apartamentul — îți arătăm pachetele pe planul lui și calculăm prețul pe loc. Unitatea centrală e deja montată — plătești doar ce adăugăm.",
         "step1_title": "1. Găsește-ți apartamentul",
         "building_label": "Blocul", "building_placeholder": "Alege blocul",
         "apt_label": "Nr. apartament", "apt_placeholder": "de ex. 507",
-        "apt_hint": "Conform legii, numărul apartamentului = etajul și numărul de pe etaj: 507 = etajul 5, apartamentul 07; la parter — P101. Merge și numărul vechi din contract — îți spunem numărul nou.",
+        "apt_hint": "Conform legii, numărul apartamentului este format din etaj și numărul de pe etaj: 507 = etajul 5, apartamentul 07; la parter — P101. Poți introduce și numărul vechi din contract — îți spunem numărul nou.",
         "cx_label": "Complexul", "cx": {"1": ["Smart Home 1", "11 blocuri · 1 065 ap."], "2": ["Smart Home 2", "16 blocuri · 2 182 ap. · dare în exploatare 2030"]},
         "find_btn": "Caută", "loading": "Se încarcă lista apartamentelor…",
         "choose_building": "Alege mai întâi blocul.",
-        "found_prefix": "Găsit:", "floor_word": "etaj", "floor_ground": "parter", "rooms_word": "camere", "area_word": "m²",
+        "found_prefix": "Găsit:", "floor_word": "etaj", "floor_ground": "parter", "rooms_word": "camere", "rooms_one": "cameră", "area_word": "m²",
         "not_found_text": "Nu am găsit acest apartament — nicio problemă, alege tipul de apartament manual:",
         "manual_label": "Camere",
-        "edge_hint": "Pentru apartamente cu 5+ camere sau garsoniere pregătim un calcul individual — pachetele de mai jos sunt orientative.",
+        "edge_hint": "Pentru apartamente cu o cameră sau cu 5+ camere pregătim un calcul individual — pachetele de mai jos sunt orientative.",
         "step2_title": "2. Alege pachetul",
         "tariff_required": "Alege un pachet pentru a continua.",
         "step3_title": "3. Lasă-ne datele de contact — îți trimitem oferta",
-        "name_label": "Nume", "phone_label": "Telefon", "phone_hint": "De ex. +373 6x xxx xxx sau 06x xxx xxx",
+        "name_label": "Nume", "phone_label": "Telefon", "phone_hint": "De ex. +373 6x xxx xxx sau 07x xxx xxx",
         "email_label": "Email (opțional)",
         "consent_text": "Sunt de acord cu prelucrarea datelor personale pentru pregătirea ofertei —",
         "consent_link": "politica de confidențialitate",
         "disclaimer": "Oferta generată este preliminară, are caracter informativ și nu constituie ofertă publică; prețul final îl confirmă managerul SmartSpace după vizita la apartament.",
-        "submit_btn": "Primește oferta", "sending": "Se trimite…",
+        "submit_btn": "Primește oferta pentru apartamentul tău", "sending": "Se trimite…",
+        "submit_note": "Linkul către oferta preliminară se deschide imediat după trimitere. Te sunăm ca să clarificăm detaliile și să stabilim o vizită. Fără obligații.",
         "success_title": "Gata!", "success_text": "Oferta ta personalizată este pregătită:",
         "success_link": "Deschide oferta",
         "success_next": "Un manager SmartSpace te va contacta pentru detalii.",
@@ -242,21 +244,21 @@ LAGMAR_UI = {
         "faq_title": "Întrebări frecvente",
     },
     "en": {
-        "title": "Price a smart home for your Lagmar apartment | SmartSpace",
+        "title": "Smart-home prices for your Lagmar apartment | SmartSpace",
         "eyebrow": "Your home in Lagmar Smart Home",
-        "h1": "Price a smart home for your Lagmar apartment",
-        "lead": "Find your apartment — we show the packages on its floor plan and price them right away. The smart-home controller is already installed — you pay only for what we add.",
+        "h1": "Get a smart-home price for your Lagmar apartment",
+        "lead": "Find your apartment and we'll show the packages on its floor plan, with prices. The smart-home controller is already installed, so you pay only for what we add.",
         "step1_title": "1. Find your apartment",
         "building_label": "Block", "building_placeholder": "Choose your block",
         "apt_label": "Apartment No.", "apt_placeholder": "e.g. 507",
-        "apt_hint": "By law the apartment number is the floor plus its number on the floor: 507 = floor 5, apartment 07; on the ground floor P101. An old number from your contract works too — we will tell you the new one.",
+        "apt_hint": "Apartment numbers combine the floor and the apartment's number on it: 507 = floor 5, apartment 07; ground-floor numbers look like P101. An old number from your contract also works — we'll tell you the new one.",
         "cx_label": "Complex", "cx": {"1": ["Smart Home 1", "11 blocks · 1,065 apts"], "2": ["Smart Home 2", "16 blocks · 2,182 apts · completion 2030"]},
         "find_btn": "Find", "loading": "Loading the apartment list…",
         "choose_building": "Choose your block first.",
-        "found_prefix": "Found:", "floor_word": "floor", "floor_ground": "ground floor", "rooms_word": "rooms", "area_word": "m²",
-        "not_found_text": "We couldn't find that apartment — no problem, pick your apartment type manually:",
+        "found_prefix": "Found:", "floor_word": "floor", "floor_ground": "ground floor", "rooms_word": "rooms", "rooms_one": "room", "area_word": "m²",
+        "not_found_text": "We couldn't find that apartment. No problem — just choose the number of rooms:",
         "manual_label": "Rooms",
-        "edge_hint": "For 5+ room apartments and studios we prepare an individual estimate — the packages below are indicative.",
+        "edge_hint": "For 1-room apartments and apartments with 5+ rooms we prepare an individual quote — the packages below are indicative.",
         "step2_title": "2. Choose a package",
         "tariff_required": "Choose a package to continue.",
         "step3_title": "3. Leave your details — we'll send your quote",
@@ -265,7 +267,8 @@ LAGMAR_UI = {
         "consent_text": "I agree to the processing of my personal data to prepare the quote —",
         "consent_link": "privacy policy",
         "disclaimer": "The quote is preliminary and for information only; it is not a binding offer. The final price is confirmed by a SmartSpace manager after a site visit.",
-        "submit_btn": "Get my quote", "sending": "Sending…",
+        "submit_btn": "Get the quote for my apartment", "sending": "Sending…",
+        "submit_note": "A link to your preliminary quote opens right after you send this. We'll call to go over the details and arrange a visit. No obligation.",
         "success_title": "Done!", "success_text": "Your personal quote is ready:",
         "success_link": "Open quote",
         "success_next": "A SmartSpace manager will contact you to confirm the details.",
@@ -282,25 +285,37 @@ LAGMAR_UI = {
 
 FAQ = {
     "ru": [
-        ("Можно ли подключить умный дом после ремонта?", "Да. Система работает по проводной шине и поддерживает беспроводные модули Z-Wave — для готового ремонта подбираем беспроводную часть без штробления. Оптимально закладывать систему до чистовой отделки."),
-        ("Работает ли умный дом без интернета?", "Да. Сценарии выполняются локально на центральном модуле CLU; интернет нужен только для удалённого доступа из приложения myGrenton."),
+        ("Можно ли подключить умный дом после ремонта?", "Да. Система проводная, но есть и беспроводные модули — для готового ремонта подберём их, и штробить стены не придётся. Лучше всего закладывать систему до чистовой отделки."),
+        ("Работает ли умный дом без интернета?", "Да. Сценарии выполняются прямо в квартире, на контроллере CLU; интернет нужен только для удалённого доступа из приложения myGrenton."),
         ("Кто устанавливает и обслуживает систему?", "SmartSpace — официальный представитель Grenton в Молдове: проектирование, монтаж, настройка и сервис."),
         ("Сколько занимает монтаж?", "Зависит от пакета и стадии отделки — от нескольких дней для базового пакета до пары недель для полной автоматизации. Сроки подтверждаем после осмотра квартиры."),
         ("Можно начать с Basic и расширить позже?", "Да, система модульная: модули, панели и датчики добавляются по мере необходимости без замены уже установленного."),
+        ("Что уже установил Lagmar — и платить ли за это?", "В электрощите каждой квартиры уже стоят контроллер CLU, блок питания 24 В и реле на 2 канала. За них вы не платите: мы подключаем их к системе, а в цену входит только то, что добавляем мы."),
+        ("Что не входит в цену пакета?", "В цене — оборудование и программирование. Датчики, приводы штор, аудио и монтаж считаем в персональном предложении после осмотра квартиры — до подписания и без обязательств."),
+        ("Не знаю номер квартиры — что делать?", "Подойдёт и старый номер из договора — подскажем новый. Можно выбрать этаж и нажать на свою квартиру в списке или просто указать число комнат."),
+        ("Квартира будет готова только к 2030 году — зачем решать сейчас?", "Систему проще всего заложить до чистовой отделки, а скидка 10% на оборудование действует до 30.06.2027. Расчёт и консультация ни к чему не обязывают."),
     ],
     "ro": [
-        ("Se poate instala casa inteligentă după finalizarea renovării?", "Da. Sistemul funcționează pe magistrală cablată și acceptă module wireless Z-Wave — pentru un apartament deja finisat alegem partea wireless, fără șlițuri. Ideal este ca sistemul să fie prevăzut înainte de finisaje."),
+        ("Se poate instala casa inteligentă după finalizarea renovării?", "Da. Sistemul funcționează pe magistrală cablată și acceptă și module wireless — pentru un apartament deja renovat le folosim pe acestea, fără șlițuri. Ideal este ca sistemul să fie prevăzut înainte de finisaje."),
         ("Funcționează casa inteligentă fără internet?", "Da. Scenariile rulează local pe unitatea centrală CLU; internetul este necesar doar pentru accesul de la distanță din aplicația myGrenton."),
         ("Cine instalează și întreține sistemul?", "SmartSpace — reprezentant oficial Grenton în Moldova: proiectare, montaj, configurare și service."),
         ("Cât durează montajul?", "Depinde de pachet și de stadiul finisajelor — de la câteva zile pentru pachetul de bază până la câteva săptămâni pentru automatizare completă. Termenele se confirmă după vizita la apartament."),
         ("Pot începe cu Basic și extinde mai târziu?", "Da, sistemul este modular: modulele, panourile și senzorii se adaugă pe măsură ce este nevoie, fără a înlocui ce este deja instalat."),
+        ("Ce a montat deja Lagmar — și trebuie să plătesc pentru asta?", "În tabloul electric al fiecărui apartament sunt deja unitatea centrală CLU, o sursă de alimentare de 24 V și un releu cu 2 canale. Nu plătești pentru ele: le conectăm la sistem, iar în preț intră doar ce adăugăm noi."),
+        ("Ce nu intră în prețul pachetului?", "Prețul include echipamentele și programarea. Senzorii, motoarele pentru jaluzele, audio și montajul le calculăm în oferta personalizată, după vizita în apartament — înainte de semnare și fără obligații."),
+        ("Nu știu numărul apartamentului — ce fac?", "Merge și numărul vechi din contract — îți spunem numărul nou. Poți alege etajul și apăsa pe apartamentul tău din listă sau poți indica doar numărul de camere."),
+        ("Apartamentul va fi gata abia în 2030 — de ce să decid acum?", "Sistemul se prevede cel mai ușor înainte de finisaje, iar reducerea de 10% la echipamente este valabilă până la 30.06.2027. Calculul și consultația nu te obligă la nimic."),
     ],
     "en": [
-        ("Can the smart home be set up after the renovation is finished?", "Yes. The system runs on a wired bus and supports Z-Wave wireless modules — for a finished apartment we use the wireless part, no chasing walls. Ideally the system is planned before finishing works."),
-        ("Does the smart home work without internet?", "Yes. Scenes run locally on the CLU central unit; internet is only needed for remote access from the myGrenton app."),
+        ("Can the smart home be set up after the renovation is finished?", "Yes. The system is wired but also supports wireless modules — in a finished apartment we use those, so there's no need to cut into walls. Ideally, though, it's planned before the finishing work."),
+        ("Does the smart home work without internet?", "Yes. Scenes run locally on the CLU controller; internet is only needed for remote access from the myGrenton app."),
         ("Who installs and services the system?", "SmartSpace — the official Grenton representative in Moldova: design, installation, configuration and service."),
         ("How long does installation take?", "It depends on the package and the finishing stage — from a few days for the basic package to a couple of weeks for full automation. Timing is confirmed after a site visit."),
         ("Can I start with Basic and expand later?", "Yes, the system is modular: modules, panels and sensors are added as needed without replacing what is already installed."),
+        ("What has Lagmar already installed — and do I pay for it?", "Every apartment's electrical panel already has the CLU controller, a 24 V power supply and a 2-channel relay. You don't pay for them: we connect them to the system, and the price covers only what we add."),
+        ("What is not included in the package price?", "The price covers equipment and programming. Sensors, blind motors, audio and installation are priced in your personal quote after a visit to the apartment — before you sign anything, with no obligation."),
+        ("I don't know my apartment number — what now?", "An old number from your contract works too — we'll tell you the new one. You can also pick your floor and tap your apartment in the list, or just enter the number of rooms."),
+        ("My apartment will only be ready in 2030 — why decide now?", "The system is easiest to plan before the finishing works, and the 10% equipment discount runs until 30.06.2027. The estimate and the consultation are free of obligation."),
     ],
 }
 
@@ -309,7 +324,7 @@ LAGMAR_VIS = {
     "ru": {
         "kicker": "Lagmar Smart Home × SmartSpace",
         "stats": [("2", "комплекса"), ("27", "блоков"), ("3 247", "умных квартир")],
-        "hero_stats": [("3", "шага до предложения"), ("≈2 мин", "на расчёт"), ("0 €", "за контроллер — уже стоит")],
+        "hero_stats": [("от " + fmt_eur(PRICES["2"]["basic"], "ru"), "пакет Basic для 2 комнат"), ("≈2 мин", "на расчёт"), ("0 €", "за контроллер — уже стоит")],
         "cta_find": "Найти мою квартиру", "cta_examples": "Пакеты на планировке",
         "blocks_title": "Выберите свой блок", "blocks_sub": "Нажмите на блок — номер квартиры введёте ниже.",
         "block_word": "Блок",
@@ -320,17 +335,17 @@ LAGMAR_VIS = {
         "examples_sub": "Типовые квартиры комплекса — переключайте Basic / Comfort / Premium и смотрите, что и где появляется.",
         "tabs": {"2": "2 комнаты · 46 м²", "3": "3 комнаты · 82 м²", "4": "4 комнаты · 99 м²"},
         "plan_alt": "Планировка типовой {n}-комнатной квартиры Lagmar",
-        "example_note": "Иллюстрация: примерная расстановка на типовой планировке Lagmar. Точный проект — после осмотра вашей квартиры.",
+        "example_note": "Иллюстрация: примерное размещение устройств на типовой планировке Lagmar. Точный проект — после осмотра вашей квартиры.",
         "your_plan": "Планировка вашей квартиры", "your_block": "Ваш блок",
         "s2_plan_title": "Как это выглядит на похожей планировке",
         "devices": {"L": "Группа света", "P": "Панель управления", "T": "Зона климата", "W": "Датчик протечки",
-                    "S": "Датчик дыма", "M": "Датчик движения", "C": "Привод штор", "A": "Аудио-зона",
+                    "S": "Датчик дыма", "M": "Датчик движения", "C": "Привод штор", "A": "Аудиозона",
                     "Q": "Multisensor (CO₂)", "I": "Видеодомофон"},
     },
     "ro": {
         "kicker": "Lagmar Smart Home × SmartSpace",
         "stats": [("2", "complexe"), ("27", "blocuri"), ("3 247", "apartamente inteligente")],
-        "hero_stats": [("3", "pași până la ofertă"), ("≈2 min", "pentru calcul"), ("0 €", "pentru unitate — e deja montată")],
+        "hero_stats": [("de la " + fmt_eur(PRICES["2"]["basic"], "ro"), "pachetul Basic pentru 2 camere"), ("≈2 min", "pentru calcul"), ("0 €", "pentru unitate — e deja montată")],
         "cta_find": "Găsește-mi apartamentul", "cta_examples": "Pachetele pe plan",
         "blocks_title": "Alege-ți blocul", "blocks_sub": "Apasă pe bloc — numărul apartamentului îl introduci mai jos.",
         "block_word": "Blocul",
@@ -350,10 +365,10 @@ LAGMAR_VIS = {
     },
     "en": {
         "kicker": "Lagmar Smart Home × SmartSpace",
-        "stats": [("2", "complexes"), ("27", "blocks"), ("3,247", "smart apartments")],
-        "hero_stats": [("3", "steps to a quote"), ("≈2 min", "to price it"), ("0 €", "for the controller — already installed")],
+        "stats": [("2", "complexes"), ("27", "blocks"), ("3,247", "smart-home-ready apartments")],
+        "hero_stats": [("from " + fmt_eur(PRICES["2"]["basic"], "en"), "Basic package, 2 rooms"), ("≈2 min", "to price it"), ("€0", "for the controller — already installed")],
         "cta_find": "Find my apartment", "cta_examples": "Packages on a floor plan",
-        "blocks_title": "Choose your block", "blocks_sub": "Tap a block — you'll enter the apartment number below.",
+        "blocks_title": "Choose your block", "blocks_sub": "Tap your block, then enter your apartment number below.",
         "block_word": "Block",
         "siteplan_hint": "Not sure of your block letter? Find your building on the plan",
         "siteplan_alt": "Lagmar Smart Home site plan with block letters",
@@ -543,7 +558,7 @@ def nav_html(lang, current):
 <script>(function(){{var b=document.querySelector(".theme-toggle");if(!b)return;var m=window.matchMedia("(prefers-color-scheme: dark)");b.addEventListener("click",function(){{var r=document.documentElement,cur=r.dataset.theme||(m.matches?"dark":"light"),n=cur==="dark"?"light":"dark";r.dataset.theme=n;try{{localStorage.setItem("theme",n)}}catch(e){{}}}});}})();</script>'''
 
 
-CLOSING_Q = {"ru": "Остались вопросы?", "ro": "Ai întrebări?", "en": "Still have questions?"}
+CLOSING_Q = {"ru": "Удобнее обсудить по телефону?", "ro": "Preferi să discutăm la telefon?", "en": "Rather talk it through?"}
 
 
 def dealer_band_html(lang, key=""):
@@ -573,9 +588,9 @@ HERO_CHIPS = {
     "en": ("Lagmar × SmartSpace", "Smart Home 1 · Smart Home 2", "Râșcani, Chișinău"),
 }
 HOME_STATS = {
-    "ro": [("3 247", "apartamente în două complexe"), ("27", "blocuri"), ("0 €", "pentru unitate — e deja montată"), ("−10%", "la echipamente până la 30.06.2027")],
-    "ru": [("3 247", "квартир в двух комплексах"), ("27", "блоков"), ("0 €", "за контроллер — уже стоит"), ("−10%", "на оборудование до 30.06.2027")],
-    "en": [("3,247", "apartments in two complexes"), ("27", "blocks"), ("0 €", "for the controller — already in"), ("−10%", "on equipment until 30.06.2027")],
+    "ro": [("3 247", "apartamente în două complexe"), ("de la " + fmt_eur(PRICES["2"]["basic"], "ro"), "pachetul Basic pentru 2 camere"), ("0 €", "pentru unitate — e deja montată"), ("−10%", "la echipamente până la 30.06.2027")],
+    "ru": [("3 247", "квартир в двух комплексах"), ("от " + fmt_eur(PRICES["2"]["basic"], "ru"), "пакет Basic для 2 комнат"), ("0 €", "за контроллер — уже стоит"), ("−10%", "на оборудование до 30.06.2027")],
+    "en": [("3,247", "apartments in two complexes"), ("from " + fmt_eur(PRICES["2"]["basic"], "en"), "Basic package, 2 rooms"), ("€0", "controller already installed"), ("−10%", "off equipment until 30 June 2027")],
 }
 
 
@@ -587,7 +602,7 @@ def hero_chips_html(lang, second=None):
 
 NUM_TXT = {
     "ru": {
-        "apt_hint": "По закону номер квартиры — этаж и её номер на этаже: 507 = 5-й этаж, квартира 07; на партере — P101. Старый номер из договора тоже подойдёт — подскажем новый.",
+        "apt_hint": "По закону номер квартиры складывается из этажа и номера на этаже: 507 — 5-й этаж, квартира 07; на партере — P101. Старый номер из договора тоже подойдёт — подскажем новый.",
         "fp_link": "Не помните номер? Выберите этаж — покажем все квартиры",
         "fp_floor": "Этаж",
         "fp_title": "Квартиры на этаже — нажмите на свою:",
@@ -598,18 +613,18 @@ NUM_TXT = {
         "old_no": "Нет — выбрать по этажу"
     },
     "ro": {
-        "apt_hint": "Conform legii, numărul apartamentului = etajul și numărul de pe etaj: 507 = etajul 5, apartamentul 07; la parter — P101. Merge și numărul vechi din contract — îți spunem numărul nou.",
+        "apt_hint": "Conform legii, numărul apartamentului este format din etaj și numărul de pe etaj: 507 = etajul 5, apartamentul 07; la parter — P101. Poți introduce și numărul vechi din contract — îți spunem numărul nou.",
         "fp_link": "Nu știi numărul? Alege etajul — îți arătăm toate apartamentele",
         "fp_floor": "Etaj",
         "fp_title": "Apartamentele de pe etaj — apasă pe al tău:",
         "fp_msg": "Apartamentul {n} din blocul {b} nu există în baza Lagmar. Alege etajul — îți arătăm toate apartamentele:",
         "fp_need_block": "Alege mai întâi blocul.",
-        "old_q": "Pare că {o} e un număr din vechea numerotare, de proiect. Conform legii, apartamentele se numerotează pe etaje — acum apartamentul tău este {n}: {fl}, {r} camere, {a} m². Este al tău?",
+        "old_q": "Se pare că {o} este un număr din vechea numerotare (de proiect). Conform legii, apartamentele se numerotează pe etaje — acum apartamentul tău este {n}: {fl}, {r} camere, {a} m². Este al tău?",
         "old_yes": "Da, este apartamentul meu",
         "old_no": "Nu — aleg după etaj"
     },
     "en": {
-        "apt_hint": "By law the apartment number is the floor plus its number on the floor: 507 = floor 5, apartment 07; on the ground floor P101. An old number from your contract works too — we will tell you the new one.",
+        "apt_hint": "Apartment numbers combine the floor and the apartment's number on it: 507 = floor 5, apartment 07; ground-floor numbers look like P101. An old number from your contract also works — we'll tell you the new one.",
         "fp_link": "Don't know the number? Pick the floor — we'll list every apartment",
         "fp_floor": "Floor",
         "fp_title": "Apartments on this floor — tap yours:",
@@ -623,6 +638,15 @@ NUM_TXT = {
 
 
 CALL_LABEL = {"ro": "Sună acum", "ru": "Позвонить", "en": "Call us"}
+MBAR = {"ro": ("Calculează", "Sună"), "ru": ("Рассчитать", "Позвонить"), "en": ("Get a price", "Call")}
+
+
+def mbar_html(lang, key):
+    calc, call = MBAR[lang]
+    href = "#step1" if key == "lagmar" else "lagmar.html#step1"
+    return (f'<nav class="mbar" aria-label="{esc(calc)}"><a class="mbar-calc" href="{href}">{ico("arrow")}{esc(calc)}</a>'
+            f'<a href="tel:{PHONE_TEL}">{ico("phone")}{esc(call)}</a>'
+            f'<a class="mbar-wa" href="https://wa.me/{WA_NUMBER}" target="_blank" rel="noopener">{ico("chat")}WhatsApp</a></nav>')
 FT = {
     "ro": {"contact": "Contact", "pages": "Pagini", "cx": "Complexe", "legal": "Documente", "hours": "Lu–Vi 9:00–18:00 · Sâ 10:00–14:00"},
     "ru": {"contact": "Контакты", "pages": "Страницы", "cx": "Комплексы", "legal": "Документы", "hours": "Пн–Пт 9:00–18:00 · Сб 10:00–14:00"},
@@ -828,7 +852,8 @@ LAGMAR_JS = r"""
       $("cfg-apt").focus();
     });
   });
-  function eur(v) { return String(v).replace(/\B(?=(\d{3})+(?!\d))/g, LANG === "en" ? "," : "\u00a0") + "\u00a0€"; }
+  function roomsTxt(r) { var n = CX === "2" ? r + 1 : r; return n + "\u00a0" + (n === 1 && UI.rooms_one ? UI.rooms_one : UI.rooms_word); }  // Smart Home 2 data counts bedrooms
+  function eur(v) { var s = String(v).replace(/\B(?=(\d{3})+(?!\d))/g, LANG === "en" ? "," : "\u00a0"); return LANG === "en" ? "€" + s : s + "\u00a0€"; }
   function rangeHint(b) {
     var st = b && UI.cxdata[CX].bstats[b], hint = $("cfg-apt-hint"), inp = $("cfg-apt");
     if (st) { hint.textContent = UI.range_hint.replace("{b}", b).replace("{c}", st[0]).replace("{from}", st[1]).replace("{to}", st[2]); inp.placeholder = UI.apt_placeholder; }
@@ -1008,7 +1033,7 @@ LAGMAR_JS = r"""
       list.filter(function (x) { return x.f === f; }).forEach(function (x) {
         var bt = document.createElement("button"); bt.type = "button"; bt.className = "fp-apt";
         var nb = document.createElement("b"); nb.textContent = x.n; bt.appendChild(nb);
-        var sp = document.createElement("span"); sp.textContent = x.r + "\u00a0" + UI.rooms_word + " · " + fmtArea(x.a) + "\u00a0" + UI.area_word; bt.appendChild(sp);
+        var sp = document.createElement("span"); sp.textContent = roomsTxt(x.r) + " · " + fmtArea(x.a) + "\u00a0" + UI.area_word; bt.appendChild(sp);
         bt.addEventListener("click", function () { pickApt(x.n); });
         box.appendChild(bt);
       });
@@ -1037,7 +1062,7 @@ LAGMAR_JS = r"""
       for (var i = 0; apts && i < apts.length; i++) { if (apts[i].b === b && apts[i].n === n) { found = apts[i]; break; } }
       if (found) {
         var fl = String(found.f) === "0" ? UI.floor_ground : (UI.floor_word + "\u00a0" + found.f);
-        $("cfg-found").textContent = UI.found_prefix + " " + UI.cx[cx][0] + "\u00a0· " + UI.building_label + "\u00a0" + b + "\u00a0· " + fl + "\u00a0· " + found.r + "\u00a0" + UI.rooms_word + "\u00a0· " + fmtArea(found.a) + "\u00a0" + UI.area_word;
+        $("cfg-found").textContent = UI.found_prefix + " " + UI.cx[cx][0] + "\u00a0· " + UI.building_label + "\u00a0" + b + "\u00a0· " + fl + "\u00a0· " + roomsTxt(found.r) + "\u00a0· " + fmtArea(found.a) + "\u00a0" + UI.area_word;
         show($("cfg-found"), true);
         markBlock(b);
         showAptCard(found);
@@ -1296,7 +1321,7 @@ SP_SIDE = {
     "ru": {"eyebrow": "О комплексе", "title": "{name} в цифрах", "apts": "квартир", "blocks": "блоков",
            "st": {"1": "строится · сект. Рышкань", "2": "сдача — июль 2030 · Calea Moșilor"},
            "pick": "Нажмите на блок на схеме — покажем его данные.", "sel": "Блок {b}", "line": "{c} кв. · этажи {from}–{to}",
-           "off": "Блок {b} — квартиры Lagmar ещё не выставил в продажу."},
+           "off": "В блоке {b} Lagmar ещё не выставил квартиры в продажу."},
     "ro": {"eyebrow": "Despre complex", "title": "{name} în cifre", "apts": "apartamente", "blocks": "blocuri",
            "st": {"1": "în construcție · sect. Râșcani", "2": "dare în exploatare — iulie 2030 · Calea Moșilor"},
            "pick": "Apasă pe un bloc pe schemă — îți arătăm datele lui.", "sel": "Blocul {b}", "line": "{c} ap. · etajele {from}–{to}",
@@ -1304,7 +1329,7 @@ SP_SIDE = {
     "en": {"eyebrow": "About the complex", "title": "{name} in numbers", "apts": "apartments", "blocks": "blocks",
            "st": {"1": "under construction · Râșcani", "2": "completion — July 2030 · Calea Moșilor"},
            "pick": "Tap a block on the plan — we will show its details.", "sel": "Block {b}", "line": "{c} apts · floors {from}–{to}",
-           "off": "Block {b} — Lagmar has not put its apartments on sale yet."},
+           "off": "Block {b}: apartments not on sale yet."},
 }
 CX_FACTS = {"1": ("1 065", "11"), "2": ("2 182", "16")}
 
@@ -1617,6 +1642,7 @@ def lagmar_page_html(lang, packages_all):
       <label>{u["email_label"]}<input type="email" id="cfg-email" name="email" autocomplete="email" maxlength="120"></label>
       <label class="cfg-consent"><input type="checkbox" id="cfg-consent" required> <span>{u["consent_text"]} <a href="{PRIVACY_URL}" target="_blank" rel="noopener noreferrer">{u["consent_link"]}</a></span></label>
       <button class="btn btn-primary" type="submit" id="cfg-submit">{u["submit_btn"]}</button>
+      <p class="cfg-hint submit-note">{u["submit_note"]}</p>
       <p class="cfg-disclaimer">{u["disclaimer"]}</p>
     </form>
     <div class="s3-next">
@@ -1660,6 +1686,7 @@ def lagmar_page_html(lang, packages_all):
 
 {dealer_band_html(lang, "lagmar")}
 {footer_html(lang)}
+{mbar_html(lang, "lagmar")}
 
 <script id="pk-data" type="application/json">{_json_for_script(pk, lang)}</script>
 <script>{js}</script>
@@ -1966,6 +1993,7 @@ def shell(lang, key, title, body, extra_jsonld=None):
 {body}
 {dealer_band_html(lang, key)}
 {footer_html(lang)}
+{mbar_html(lang, key)}
 <script>{SITE_JS}</script>
 </body>
 </html>'''
@@ -2206,7 +2234,7 @@ def scenarios_page_html(lang):
 
 def how_page_html(lang):
     h = HOW[lang]
-    visuals = [gimg("clu", "CLU", sizes="16rem"), None,
+    visuals = [gimg("clu", "CLU", sizes="16rem"), '<svg class="din" viewBox="0 0 260 120" role="img" aria-label="DIN"><rect x="6" y="52" width="248" height="16" rx="2" fill="#cfd5de"/><g transform="translate(14 14)"><rect width="70" height="92" rx="5" fill="#f4f5f7" stroke="#c3cad5"/><rect x="6" y="8" width="58" height="10" rx="2" fill="#dfe3ea"/><rect x="6" y="74" width="58" height="10" rx="2" fill="#dfe3ea"/><rect x="6" y="28" width="58" height="36" rx="3" fill="#19355b"/><circle cx="57" cy="36" r="2.6" fill="#7ee08f"/></g><g transform="translate(92 14)"><rect width="46" height="92" rx="5" fill="#f4f5f7" stroke="#c3cad5"/><rect x="6" y="8" width="34" height="10" rx="2" fill="#dfe3ea"/><rect x="6" y="74" width="34" height="10" rx="2" fill="#dfe3ea"/><rect x="6" y="28" width="34" height="36" rx="3" fill="#4e72a2"/><circle cx="33" cy="36" r="2.6" fill="#7ee08f"/></g><g transform="translate(146 14)"><rect width="46" height="92" rx="5" fill="#f4f5f7" stroke="#c3cad5"/><rect x="6" y="8" width="34" height="10" rx="2" fill="#dfe3ea"/><rect x="6" y="74" width="34" height="10" rx="2" fill="#dfe3ea"/><rect x="6" y="28" width="34" height="36" rx="3" fill="#4e72a2"/><circle cx="33" cy="36" r="2.6" fill="#7ee08f"/></g><g transform="translate(200 14)"><rect width="46" height="92" rx="5" fill="#f4f5f7" stroke="#c3cad5"/><rect x="6" y="8" width="34" height="10" rx="2" fill="#dfe3ea"/><rect x="6" y="74" width="34" height="10" rx="2" fill="#dfe3ea"/><rect x="6" y="28" width="34" height="36" rx="3" fill="#4e72a2"/><circle cx="33" cy="36" r="2.6" fill="#ffd36b"/></g></svg>',
                gvideo("multisensor", "multisensor-poster", "Multisensor"),
                gvideo("panel", "panel-poster", "Smart Panel")]
     layers = []
@@ -2316,8 +2344,8 @@ def home_page_html(lang, packages_all):
       <h2 class="vhero-title">{h["h1"]}</h2>
       <p class="lead">{h["lead"]}</p>
       <div class="cta-row cta-left">
-        <a class="btn btn-primary" href="features.html">{h["cta2"]}</a>
-        <a class="btn btn-light" href="#day">{DAY[lang]["play"]} {ico("play")}</a>
+        <a class="btn btn-light" href="features.html">{h["cta2"]}</a>
+        <a class="btn btn-outline-light" href="#day">{DAY[lang]["play"]} {ico("play")}</a>
       </div>
       <ul class="trust">{trust}</ul>
     </div>
@@ -2451,7 +2479,7 @@ def contact_page_html(lang):
         for i, (o, cl) in enumerate(HOURS))
     status = '<span class="open-status" hidden><i></i><span></span></span>'
     actions = (f'<div class="cta-row cta-left quick">'
-               f'<a class="btn btn-primary" href="tel:{PHONE_TEL}">{ico("phone")}{c["call"]} · {PHONE_DISPLAY}</a>'
+               f'<a class="btn btn-primary" href="tel:{PHONE_TEL}" aria-label="{esc(c["call"])} {PHONE_DISPLAY}">{ico("phone")}{PHONE_DISPLAY}</a>'
                f'<a class="btn btn-wa" href="{wa}" target="_blank" rel="noopener">{ico("chat")}{c["wa"]}</a>'
                f'<a class="btn btn-ghost" href="mailto:{EMAIL}">{ico("mail")}{c["mail"]}</a></div>')
     media = (gimg(PAGE_HERO_MEDIA["contact"], c["showroom"], sizes="(max-width: 860px) 92vw, 40vw", eager=True)
@@ -2473,7 +2501,7 @@ def contact_page_html(lang):
           "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059",
                       "addressLocality": "Chișinău", "addressCountry": "MD"},
           "geo": {"@type": "GeoCoordinates", "latitude": lat, "longitude": lon},
-          "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": day_names[i], "opens": o, "closes": cl}
+          "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": day_names[i], "opens": o.zfill(5), "closes": cl.zfill(5)}
                                         for i, (o, cl) in enumerate(HOURS) if o],
           "sameAs": [u for _n, u in SOCIAL]}
 
@@ -2580,6 +2608,7 @@ def _typo_text(t, lang):
     t = re.sub(r" (же|ли|бы)(?!\w)", NBSP + r"\1", t)
     t = re.sub(r"№ (?=\d)", "№" + NBSP, t)
     t = re.sub(r"\b(Smart) (Home) (\d)\b", lambda m: NBSP.join(m.groups()), t, flags=re.I)
+    t = re.sub(r"\b(Lagmar) (Smart) (Home)\b(?!" + NBSP + r"?\d)", lambda m: NBSP.join(m.groups()), t)
     t = re.sub(r"(\d) (\d{3})(?!\d)", r"\1" + NBSP + r"\2", t)
     t = re.sub(r"(\d) +(?=[^\s\d])", r"\1" + NBSP, t)
     t = re.sub(r"(\+373)[  ](\d{2})[  ](\d{3})[  ](\d{3})", lambda m: NBSP.join(m.groups()), t)
@@ -2589,6 +2618,13 @@ def _typo_text(t, lang):
 
 _HEAD = re.compile(r"(<h([1-3])\b[^>]*>)(.*?)(</h\2>)", re.S)
 _TAG = re.compile(r"(<[^>]+>)")
+
+
+def _units_lower(m):
+    open_t, lvl, inner, close_t = m.groups()
+    parts = _TAG.split(inner)
+    parts = [p if p.startswith("<") else re.sub(r"(м²|m²|кв\.|ap\.|apts)", r'<span class="nc">\1</span>', p) for p in parts]
+    return open_t + "".join(parts) + close_t
 
 
 def _bind_last_words(m):
@@ -2615,7 +2651,7 @@ def typo(html, lang):
         if i % 2 == 1:
             continue
         parts[i] = _typo_text(part, lang)
-    return _HEAD.sub(_bind_last_words, "".join(parts))
+    return _HEAD.sub(_units_lower, _HEAD.sub(_bind_last_words, "".join(parts)))
 
 
 def typo_data(obj, lang):
