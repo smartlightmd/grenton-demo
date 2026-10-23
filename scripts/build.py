@@ -1295,18 +1295,21 @@ def lagmar_blocks_html(lang, stats, cx="1", blocks=None):
 SP_SIDE = {
     "ru": {"eyebrow": "О комплексе", "title": "{name} в цифрах", "apts": "квартир", "blocks": "блоков",
            "st": {"1": "строится · сект. Рышкань", "2": "сдача — июль 2030 · Calea Moșilor"},
-           "pick": "Нажмите на блок на схеме — покажем его данные.", "sel": "Блок {b}", "line": "{c} кв. · этажи {from}–{to}"},
+           "pick": "Нажмите на блок на схеме — покажем его данные.", "sel": "Блок {b}", "line": "{c} кв. · этажи {from}–{to}",
+           "off": "Блок {b} — квартиры Lagmar ещё не выставил в продажу."},
     "ro": {"eyebrow": "Despre complex", "title": "{name} în cifre", "apts": "apartamente", "blocks": "blocuri",
            "st": {"1": "în construcție · sect. Râșcani", "2": "dare în exploatare — iulie 2030 · Calea Moșilor"},
-           "pick": "Apasă pe un bloc pe schemă — îți arătăm datele lui.", "sel": "Blocul {b}", "line": "{c} ap. · etajele {from}–{to}"},
+           "pick": "Apasă pe un bloc pe schemă — îți arătăm datele lui.", "sel": "Blocul {b}", "line": "{c} ap. · etajele {from}–{to}",
+           "off": "Blocul {b} — Lagmar nu a scos încă apartamentele la vânzare."},
     "en": {"eyebrow": "About the complex", "title": "{name} in numbers", "apts": "apartments", "blocks": "blocks",
            "st": {"1": "under construction · Râșcani", "2": "completion — July 2030 · Calea Moșilor"},
-           "pick": "Tap a block on the plan — we will show its details.", "sel": "Block {b}", "line": "{c} apts · floors {from}–{to}"},
+           "pick": "Tap a block on the plan — we will show its details.", "sel": "Block {b}", "line": "{c} apts · floors {from}–{to}",
+           "off": "Block {b} — Lagmar has not put its apartments on sale yet."},
 }
 CX_FACTS = {"1": ("1 065", "11"), "2": ("2 182", "16")}
 
 
-def siteplan_side_html(lang, cx):
+def siteplan_side_html(lang, cx, off=()):
     t = SP_SIDE[lang]
     apts, blocks = CX_FACTS[cx]
     if lang == "en":
@@ -1315,7 +1318,9 @@ def siteplan_side_html(lang, cx):
     return (f'<aside class="sp-side" data-sel="{esc(t["sel"])}" data-line="{esc(t["line"])}">'
             f'<p class="sp-eyebrow">{t["eyebrow"]}</p><h3>{t["title"].replace("{name}", name)}</h3>'
             f'<dl><div><dt>{t["apts"]}</dt><dd>{apts}</dd></div><div><dt>{t["blocks"]}</dt><dd>{blocks}</dd></div></dl>'
-            f'<p class="sp-status">{ico("pin")}{t["st"][cx]}</p>'
+            f'<p class="sp-status">{ico("pin")}<span>' + " · ".join(f'<span class="nowrap">{x}</span>' for x in t["st"][cx].split(" · ")) + '</span></p>'
+            + "".join(f'<p class="sp-offnote">{t["off"].replace("{b}", b)}</p>' for b in off)
+            + ""
             f'<div class="sp-pick" aria-live="polite"><b class="sp-pick-t">{t["pick"]}</b><span class="sp-pick-l"></span></div></aside>')
 
 
@@ -1337,10 +1342,10 @@ def siteplan_html(lang, stats, cx="1"):
                 f'sizes="(max-width: 860px) 92vw, 1200px" width="1600" height="828" alt="{esc(v["siteplan_alt"])}" loading="lazy">' if cx == "1" else
                 f'<img src="../assets/lagmar/sh2/plan-900.webp" srcset="../assets/lagmar/sh2/plan-900.webp 900w, ../assets/lagmar/sh2/plan.webp 1824w" '
                 f'sizes="(max-width: 860px) 92vw, 1200px" width="1824" height="1026" alt="{esc(v["siteplan_alt"])} — Smart Home 2" loading="lazy">')
-    return (f'<div class="siteplan-fold sp-open"><p class="sp-hint"><b>{v["siteplan_hint"]}</b> {v["siteplan_note"]}</p>'
+    return (f'<div class="siteplan-fold sp-open"><p class="sp-hint"><b>{v["siteplan_hint"]}.</b> {v["siteplan_note"]}</p>'
             f'<div class="sp-grid"><div class="sp-scroll"><div class="sp">{plan_img}'
             f'<svg viewBox="0 0 {vw} {vh}" preserveAspectRatio="none">{shapes}</svg></div></div>'
-            + siteplan_side_html(lang, cx) + '</div></div>')
+            + siteplan_side_html(lang, cx, [o["b"] for o in sp["blocks"] if o["b"] not in stats]) + '</div></div>')
 
 
 def spec_lines(spec, lang):
@@ -2282,6 +2287,9 @@ def home_page_html(lang, packages_all):
         cnt = f' data-count="{digits}" data-sep="{sep}"' if digits.isdigit() else ""
         return f'<li><b{cnt}>{esc(a)}</b><span>{esc(b)}</span></li>'
     stats = "".join(stat(a, b) for a, b in v["stats"])
+    lu = LAGMAR_UI[lang]
+    cx_cards = "".join(f'<a class="cx-card" href="lagmar.html?c={cx}#step1"><b>{esc(lu["cx"][cx][0])}</b>'
+                       f'<span>{esc(lu["cx"][cx][1])}</span>{ico("arrow")}</a>' for cx in ("1", "2"))
 
     lg = HOME_LG[lang]
     hstats = "".join(f'<li><b>{esc(a)}</b><span>{esc(b)}</span></li>' for a, b in HOME_STATS[lang])
@@ -2332,8 +2340,7 @@ def home_page_html(lang, packages_all):
       <span class="eyebrow">{h3["lagmar_ref"]} · {hl["eyebrow"]}</span>
       <h2 class="h2">{hl["h2"]}</h2>
       <p class="sub">{hl["p"]}</p>
-      <ul class="mini-stats">{stats}</ul>
-      <a class="btn btn-primary" href="lagmar.html">{hl["cta"]}</a>
+      <div class="cx-cards">{cx_cards}</div>
     </div>
     <a href="lagmar.html" class="lagmar-teaser rv"><img class="rounded" src="../assets/lagmar/aerial.webp" srcset="../assets/lagmar/aerial-800.webp 800w, ../assets/lagmar/aerial.webp 1600w" sizes="(max-width: 860px) 92vw, 45vw" alt="Lagmar Smart Home" width="1600" height="828" loading="lazy"><img class="lagmar-teaser-logo" src="../assets/lagmar/logo-lagmar.webp" alt="" width="140" height="42"></a>
   </div>
@@ -2572,9 +2579,11 @@ def _typo_text(t, lang):
     t = re.sub(r" +(·)(?= )", NBSP + r"\1", t)
     t = re.sub(r" (же|ли|бы)(?!\w)", NBSP + r"\1", t)
     t = re.sub(r"№ (?=\d)", "№" + NBSP, t)
+    t = re.sub(r"\b(Smart) (Home) (\d)\b", lambda m: NBSP.join(m.groups()), t, flags=re.I)
     t = re.sub(r"(\d) (\d{3})(?!\d)", r"\1" + NBSP + r"\2", t)
     t = re.sub(r"(\d) +(?=[^\s\d])", r"\1" + NBSP, t)
     t = re.sub(r"(\+373)[  ](\d{2})[  ](\d{3})[  ](\d{3})", lambda m: NBSP.join(m.groups()), t)
+    t = re.sub(r"(Home" + NBSP + r"\d)" + NBSP, r"\1 ", t, flags=re.I)  # 'Smart Home 1' is one unit, but a line may break after it
     return t
 
 
