@@ -3,7 +3,8 @@
 Everything shown on the site (what is included, which devices, how many, unit price, total) is derived
 from PACKAGE_SPEC by build_bom(), so the three can never drift apart.
 
-Unit prices: SmartSpace selling prices, EUR excl. VAT.
+Unit prices: SmartSpace selling prices, EUR excl. VAT, shown on the site WITH 20% VAT (owner, 23.10.2026):
+unit_price() adds VAT per unit, rounded to 1 EUR, so every table row, sum, programming share and total stays exact.
   * Grenton modules and panels — our 2025 quote (Casa Doni, «Automatizare - Grenton.pdf»).
   * Sensors / valve — see SENSOR_PRICES (source noted per item; None = priced in the personal offer).
 Programming & commissioning: 30 % of equipment (2025 quote: 2 150 € on 7 761 € of devices ≈ 28 %).
@@ -30,6 +31,7 @@ UNIT = {  # code: (price EUR, article)
 # Sensors and the water valve are not in the 2025 quote; None means "in the personal offer".
 SENSOR_PRICES = {"LEAK": None, "VALVE": None, "SMOKE": None, "MOTION": None, "MULTI": None}
 PROGRAMMING_SHARE = 0.30
+VAT = 0.20  # Moldova standard rate; residents see prices including VAT (owner, 23.10.2026)
 PREINSTALLED = [("CLU", 1), ("PSU", 1), ("R2", 1)]  # in every Lagmar apartment, paid by the developer
 PRE_RELAY_CH = 2
 
@@ -74,7 +76,8 @@ def build_bom(spec):
 
 
 def unit_price(code):
-    return UNIT[code][0] if code in UNIT else SENSOR_PRICES.get(code)
+    net = UNIT[code][0] if code in UNIT else SENSOR_PRICES.get(code)
+    return None if net is None else int(round(net * (1 + VAT)))
 
 
 def price_package(spec):

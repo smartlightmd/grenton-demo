@@ -101,7 +101,7 @@ CMP = {
                ("Приложение myGrenton; сценарии работают без интернета", "Y", "Y", "Y"),
            ],
            "price": "Ориентировочно", "price_from": "от {p}",
-           "price_note": "Оборудование и программирование, без НДС. Датчики, приводы штор, аудио и монтаж — в персональном предложении после осмотра квартиры.",
+           "price_note": "Оборудование и программирование, с НДС. Датчики, приводы штор, аудио и монтаж — в персональном предложении после осмотра квартиры.",
            "cta": "Точный расчёт для моей квартиры", "yes": "есть", "no": "нет", "all": "Во всех пакетах"},
     "ro": {"eyebrow": "Comparație", "title": "Trei pachete — un singur sistem care crește odată cu tine",
            "sub": "Începe cu Basic și adaugă module mai târziu — fără a înlocui ce e deja montat.",
@@ -118,7 +118,7 @@ CMP = {
                ("Aplicația myGrenton, funcționează fără internet", "Y", "Y", "Y"),
            ],
            "price": "Orientativ", "price_from": "de la {p}",
-           "price_note": "Echipamente și programare, fără TVA. Senzorii, motoarele rulourilor, audio și montajul — în oferta personalizată, după vizita în apartament.",
+           "price_note": "Echipamente și programare, cu TVA. Senzorii, motoarele rulourilor, audio și montajul — în oferta personalizată, după vizita în apartament.",
            "cta": "Primește calculul exact pentru apartamentul tău", "yes": "da", "no": "nu", "all": "În toate pachetele"},
     "en": {"eyebrow": "Compare", "title": "Three packages — one system that grows with you",
            "sub": "Start with Basic and add modules later — nothing installed has to be replaced.",
@@ -135,7 +135,7 @@ CMP = {
                ("myGrenton app, works without internet", "Y", "Y", "Y"),
            ],
            "price": "Indicative", "price_from": "from {p}",
-           "price_note": "Equipment and programming, excl. VAT. Sensors, blind motors, audio and installation are priced in your personal quote after we visit the apartment.",
+           "price_note": "Equipment and programming, incl. VAT. Sensors, blind motors, audio and installation are priced in your personal quote after we visit the apartment.",
            "cta": "Get an exact quote for my apartment", "yes": "yes", "no": "no", "all": "In every package"},
 }
 

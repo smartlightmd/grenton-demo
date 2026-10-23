@@ -1,12 +1,13 @@
 """Lagmar page marketing layer (13.10.2026): promo banner, add-on options with prices, block stats copy.
 
 Option prices = SmartSpace unit price of the Grenton module (2025 quote) x 1.3 (programming),
-rounded up to 10 EUR, VAT excluded — same basis as the package "from" prices.
+plus 20% VAT, rounded up to 10 EUR — same basis as the package "from" prices.
 PROMO is a default offer for the owner to approve or change (one place).
 """
 import math
 
 from content_v3 import PRICE_UNITS, PROGRAMMING_SHARE
+from content_offer import VAT
 
 OPTION_UNITS = {
     "panel": PRICE_UNITS["SP"],            # extra Smart Panel
@@ -20,7 +21,7 @@ OPTION_UNITS = {
 
 
 def option_price(k):
-    return int(math.ceil(OPTION_UNITS[k] * (1 + PROGRAMMING_SHARE) / 10.0) * 10)
+    return int(math.ceil(round(OPTION_UNITS[k] * (1 + VAT)) * (1 + PROGRAMMING_SHARE) / 10.0) * 10)
 
 
 OPTION_PRICES = {k: option_price(k) for k in OPTION_UNITS}
@@ -37,12 +38,12 @@ LAGMAR_MKT = {
         "strip": "Владельцам квартир в Lagmar: −10% на оборудование до 30.06.2027",
         "strip_cta": "Рассчитать",
         "next_title": "Что будет дальше",
-        "next1": "Менеджер SmartSpace свяжется с вами в рабочее время: Пн–Пт 9:00–18:00, Сб 10:00–14:00.",
+        "next1": "Менеджер SmartSpace перезвонит в тот же рабочий день (Пн–Пт 9:00–18:00, Сб 10:00–14:00); на заявки, отправленные позже, — утром следующего рабочего дня.",
         "next2": "Консультация бесплатная — по телефону или в шоуруме на Strada Pajurii 11.",
         "next3": "Точную стоимость назовём после осмотра квартиры — без обязательств.",
         "call_instead": "Удобнее голосом?",
         "done_title": "Заявка отправлена",
-        "done_text": "Мы получили ваш выбор. Менеджер SmartSpace свяжется с вами в рабочее время, чтобы договориться о консультации.",
+        "done_text": "Мы получили ваш выбор. Менеджер SmartSpace перезвонит в тот же рабочий день, чтобы договориться о консультации.",
         "recap_title": "Ваш выбор", "recap_apt": "Квартира", "recap_none": "без опций", "recap_edit": "Изменить пакет или опции",
         "details_label": "Подробный состав пакетов для 2, 3 и 4 комнат", "pk_eyebrow": "Пакеты и цены",
         "faq_sub": "Не нашли ответ? Позвоните или напишите — подскажем пакет под вашу квартиру.",
@@ -66,7 +67,7 @@ LAGMAR_MKT = {
             "intercom": ("Панель видеодомофона 10″", "Видеть гостя на экране в квартире, а не только в телефоне"),
         },
         "sum_pkg": "Пакет", "sum_opts": "Опции", "sum_total": "Итого", "sum_promo": "По акции −10% на оборудование",
-        "sum_note": "Оборудование и программирование, ориентировочно, без НДС. Датчики, приводы штор и монтаж посчитаем в персональном предложении после осмотра — до подписания и без обязательств.",
+        "sum_note": "Оборудование и программирование, ориентировочно, с НДС. Датчики, приводы штор и монтаж посчитаем в персональном предложении после осмотра — до подписания и без обязательств.",
         "pick_pkg_first": "Выберите пакет выше — и итог посчитается здесь.",
     },
     "ro": {
@@ -78,12 +79,12 @@ LAGMAR_MKT = {
         "strip": "Pentru proprietarii Lagmar — −10% la echipamente până la 30.06.2027",
         "strip_cta": "Calculează",
         "next_title": "Ce urmează",
-        "next1": "Un manager SmartSpace te va contacta în orele de program: Lu–Vi 9:00–18:00, Sâ 10:00–14:00.",
+        "next1": "Un manager SmartSpace te sună în aceeași zi lucrătoare (Lu–Vi 9:00–18:00, Sâ 10:00–14:00); pentru cererile trimise mai târziu — a doua zi lucrătoare, dimineața.",
         "next2": "Consultația e gratuită — la telefon sau în showroom pe Strada Pajurii 11.",
         "next3": "Prețul exact ți-l comunicăm după vizita în apartament — fără nicio obligație.",
         "call_instead": "Preferi să vorbim?",
         "done_title": "Cererea a fost trimisă",
-        "done_text": "Am primit alegerea ta. Managerul SmartSpace te contactează în timpul programului pentru a stabili consultația.",
+        "done_text": "Am primit alegerea ta. Un manager SmartSpace te sună în aceeași zi lucrătoare pentru a stabili consultația.",
         "recap_title": "Alegerea ta", "recap_apt": "Apartament", "recap_none": "fără opțiuni", "recap_edit": "Schimbă pachetul sau opțiunile",
         "details_label": "Componența detaliată a pachetelor pentru 2, 3 și 4 camere", "pk_eyebrow": "Pachete și prețuri",
         "faq_sub": "N-ai găsit răspunsul? Sună-ne sau scrie-ne — îți recomandăm pachetul potrivit.",
@@ -107,7 +108,7 @@ LAGMAR_MKT = {
             "intercom": ("Panou videointerfon 10″", "Vezi vizitatorul pe ecranul din apartament, nu doar pe telefon"),
         },
         "sum_pkg": "Pachet", "sum_opts": "Opțiuni", "sum_total": "Total", "sum_promo": "Cu promoția −10% la echipamente",
-        "sum_note": "Echipamente și programare, orientativ, fără TVA. Senzorii, motoarele pentru rulouri și montajul le calculăm în oferta personalizată, după vizită — înainte de semnare și fără obligații.",
+        "sum_note": "Echipamente și programare, orientativ, cu TVA. Senzorii, motoarele pentru rulouri și montajul le calculăm în oferta personalizată, după vizită — înainte de semnare și fără obligații.",
         "pick_pkg_first": "Alege un pachet mai sus — totalul se calculează aici.",
     },
     "en": {
@@ -119,12 +120,12 @@ LAGMAR_MKT = {
         "strip": "Lagmar residents: 10% off equipment until 30 June 2027",
         "strip_cta": "Calculate",
         "next_title": "What happens next",
-        "next1": "A SmartSpace manager will contact you during business hours: Mon–Fri 9:00–18:00, Sat 10:00–14:00.",
+        "next1": "A SmartSpace manager will call you the same working day (Mon–Fri 9:00–18:00, Sat 10:00–14:00); requests sent later get a call the next working morning.",
         "next2": "The consultation is free — by phone or at the showroom on Strada Pajurii 11.",
         "next3": "We'll confirm the exact price after visiting your apartment, with no obligation.",
         "call_instead": "Prefer to talk?",
         "done_title": "Request sent",
-        "done_text": "We've received your selection. A SmartSpace manager will contact you during business hours to arrange the consultation.",
+        "done_text": "We've received your selection. A SmartSpace manager will call you the same working day to arrange the consultation.",
         "recap_title": "Your choice", "recap_apt": "Apartment", "recap_none": "no options", "recap_edit": "Change package or options",
         "details_label": "Detailed package contents for 2, 3 and 4 rooms", "pk_eyebrow": "Packages and prices",
         "faq_sub": "Didn't find the answer? Call or message us and we will suggest the right package.",
@@ -148,7 +149,7 @@ LAGMAR_MKT = {
             "intercom": ("10″ video intercom panel", "See the visitor on a screen in the apartment, not only on the phone"),
         },
         "sum_pkg": "Package", "sum_opts": "Options", "sum_total": "Total", "sum_promo": "With 10% off equipment",
-        "sum_note": "Equipment and programming, indicative, excl. VAT. Sensors, blind motors and installation are priced in your personal quote after our visit — before you sign, with no obligation.",
+        "sum_note": "Equipment and programming, indicative, incl. VAT. Sensors, blind motors and installation are priced in your personal quote after our visit — before you sign, with no obligation.",
         "pick_pkg_first": "Pick a package above and the total appears here.",
     },
 }

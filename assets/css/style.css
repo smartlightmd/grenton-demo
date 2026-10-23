@@ -1896,3 +1896,29 @@ h2.h2:not(:has(+ p.sub)) { margin-bottom: 1.75rem; }
 .mbar .mbar-calc { background: #19355b; color: #fff; }
 :root[data-theme="dark"] .mbar .mbar-calc { background: #4e72a2; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mbar .mbar-calc { background: #4e72a2; } }
+
+/* Viber (owner 23.10) */
+.btn-viber { background: #665cac; color: #fff; }
+.btn-viber:hover { background: #59267c; color: #fff; }
+@media (max-width: 720px) {
+  .mbar { grid-template-columns: 1.35fr 1.15fr 2.75rem 2.75rem; }
+  .mbar .mbar-wa, .mbar .mbar-vb { padding: 0; }
+  .mbar .mbar-wa span, .mbar .mbar-vb span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .mbar .mbar-wa .ico, .mbar .mbar-vb .ico { width: 1.2rem; height: 1.2rem; }
+  .mbar .mbar-vb { color: #665cac; }
+}
+
+/* contact hero: e-mail as a quiet link under the three quick buttons */
+.quick-mail { margin: .9rem 0 0; font-size: var(--fs-sm); }
+.quick-mail a { display: inline-flex; align-items: center; gap: .45rem; color: var(--brand-text, var(--brand)); font-weight: 600; text-underline-offset: .2em; }
+.quick-mail .ico { width: 1rem; height: 1rem; }
+/* configurator hero on phones: price card across, the other two side by side */
+@media (max-width: 760px) {
+  .lg-hero .lg-stats { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+  .lg-hero .lg-stats li { min-width: 0; padding: .65rem .85rem; }
+  .lg-hero .lg-stats li:first-child { grid-column: 1 / -1; }
+  .lg-hero .lg-stats b { font-size: 1.45rem; }
+}
+
+/* phones: the video pause button sits top-right, clear of the stat cards */
+@media (max-width: 760px) { .lg-hero .vid-toggle, .home-lg .vid-toggle { top: var(--sp-s); bottom: auto; } }

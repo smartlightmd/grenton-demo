@@ -48,20 +48,20 @@ BUILDINGS = list("ABCDEFGHIJK")
 REP = {"ro": "Reprezentant oficial", "ru": "Официальный представитель", "en": "Official representative"}
 
 FOOTER = {
-    "ro": "Site informativ realizat de SmartSpace, reprezentant oficial Grenton în Moldova. Fotografiile produselor aparțin Grenton sp. z o.o.",
-    "ru": "Информационный сайт SmartSpace, официального представителя Grenton в Молдове. Фотографии продуктов принадлежат Grenton sp. z o.o.",
-    "en": "Informational site by SmartSpace, the official Grenton representative in Moldova. Product photos belong to Grenton sp. z o.o.",
+    "ro": "Site informativ realizat de SmartSpace, partener oficial Lagmar pentru casa inteligentă și reprezentant oficial Grenton în Moldova. Fotografiile produselor aparțin Grenton sp. z o.o.",
+    "ru": "Информационный сайт SmartSpace — официального партнёра Lagmar по умному дому и официального представителя Grenton в Молдове. Фотографии продуктов принадлежат Grenton sp. z o.o.",
+    "en": "Informational site by SmartSpace, Lagmar's official smart-home partner and the official Grenton representative in Moldova. Product photos belong to Grenton sp. z o.o.",
 }
 PRIVACY_LABEL = {"ro": "Politica de confidențialitate", "ru": "Политика конфиденциальности", "en": "Privacy policy"}
 
 DEALER_BAND = {
-    "ro": {"h": "SmartSpace — proiect, montaj și service pentru casa inteligentă din Lagmar Smart Home",
+    "ro": {"h": "SmartSpace — partener oficial Lagmar: proiect, montaj și service pentru casa inteligentă",
            "p": "Consultanță, proiectare, montaj și service — pentru fiecare apartament din Lagmar Smart Home.",
            "cta": "Solicită o ofertă"},
-    "ru": {"h": "SmartSpace — проект, монтаж и сервис умного дома в Lagmar Smart Home",
+    "ru": {"h": "SmartSpace — официальный партнёр Lagmar: проект, монтаж и сервис умного дома",
            "p": "Консультация, проектирование, монтаж и сервис — для каждой квартиры Lagmar Smart Home.",
            "cta": "Запросить предложение"},
-    "en": {"h": "SmartSpace — smart-home design, installation and service for Lagmar Smart Home",
+    "en": {"h": "SmartSpace — Lagmar's official smart-home partner: design, installation and service",
            "p": "Consultation, design, installation and service — for every apartment in Lagmar Smart Home.",
            "cta": "Request a quote"},
 }
@@ -192,10 +192,10 @@ LAGMAR_UI = {
         "consent_link": "политика конфиденциальности",
         "disclaimer": "Предложение носит предварительный, информационный характер и не является публичной офертой; итоговая цена подтверждается менеджером SmartSpace после осмотра квартиры.",
         "submit_btn": "Получить предложение на мою квартиру", "sending": "Отправляем…",
-        "submit_note": "Ссылка на предварительное предложение откроется сразу после отправки. Мы позвоним, чтобы уточнить детали и договориться об осмотре. Ни к чему не обязывает.",
+        "submit_note": "Ссылка на предварительное предложение откроется сразу после отправки. Мы перезвоним в тот же рабочий день, чтобы уточнить детали и договориться об осмотре. Ни к чему не обязывает.",
         "success_title": "Готово!", "success_text": "Ваше персональное предложение:",
         "success_link": "Открыть предложение",
-        "success_next": "Менеджер SmartSpace свяжется с вами, чтобы уточнить детали.",
+        "success_next": "Менеджер SmartSpace перезвонит в тот же рабочий день, чтобы уточнить детали.",
         "again": "Отправить для другой квартиры",
         "error_text": "Не удалось отправить автоматически. Свяжитесь с нами напрямую:",
         "error_phone": "Проверьте номер телефона — похоже, он введён с ошибкой.",
@@ -230,10 +230,10 @@ LAGMAR_UI = {
         "consent_link": "politica de confidențialitate",
         "disclaimer": "Oferta generată este preliminară, are caracter informativ și nu constituie ofertă publică; prețul final îl confirmă managerul SmartSpace după vizita la apartament.",
         "submit_btn": "Primește oferta pentru apartamentul tău", "sending": "Se trimite…",
-        "submit_note": "Linkul către oferta preliminară se deschide imediat după trimitere. Te sunăm ca să clarificăm detaliile și să stabilim o vizită. Fără obligații.",
+        "submit_note": "Linkul către oferta preliminară se deschide imediat după trimitere. Te sunăm în aceeași zi lucrătoare ca să clarificăm detaliile și să stabilim o vizită. Fără obligații.",
         "success_title": "Gata!", "success_text": "Oferta ta personalizată este pregătită:",
         "success_link": "Deschide oferta",
-        "success_next": "Un manager SmartSpace te va contacta pentru detalii.",
+        "success_next": "Un manager SmartSpace te sună în aceeași zi lucrătoare pentru detalii.",
         "again": "Trimite pentru alt apartament",
         "error_text": "Nu am putut trimite automat. Contactează-ne direct:",
         "error_phone": "Verifică numărul de telefon — pare introdus greșit.",
@@ -268,10 +268,10 @@ LAGMAR_UI = {
         "consent_link": "privacy policy",
         "disclaimer": "The quote is preliminary and for information only; it is not a binding offer. The final price is confirmed by a SmartSpace manager after a site visit.",
         "submit_btn": "Get the quote for my apartment", "sending": "Sending…",
-        "submit_note": "A link to your preliminary quote opens right after you send this. We'll call to go over the details and arrange a visit. No obligation.",
+        "submit_note": "A link to your preliminary quote opens right after you send this. We'll call the same working day to go over the details and arrange a visit. No obligation.",
         "success_title": "Done!", "success_text": "Your personal quote is ready:",
         "success_link": "Open quote",
-        "success_next": "A SmartSpace manager will contact you to confirm the details.",
+        "success_next": "A SmartSpace manager will call you the same working day to confirm the details.",
         "again": "Submit for another apartment",
         "error_text": "We couldn't send your request automatically. Please contact us directly:",
         "error_phone": "Please check the phone number — it looks mistyped.",
@@ -287,35 +287,38 @@ FAQ = {
     "ru": [
         ("Можно ли подключить умный дом после ремонта?", "Да. Система проводная, но есть и беспроводные модули — для готового ремонта подберём их, и штробить стены не придётся. Лучше всего закладывать систему до чистовой отделки."),
         ("Работает ли умный дом без интернета?", "Да. Сценарии выполняются прямо в квартире, на контроллере CLU; интернет нужен только для удалённого доступа из приложения myGrenton."),
-        ("Кто устанавливает и обслуживает систему?", "SmartSpace — официальный представитель Grenton в Молдове: проектирование, монтаж, настройка и сервис."),
+        ("Кто устанавливает и обслуживает систему?", "SmartSpace — официальный партнёр Lagmar по умному дому и официальный представитель Grenton в Молдове: проектирование, монтаж, настройка и сервис."),
         ("Сколько занимает монтаж?", "Зависит от пакета и стадии отделки — от нескольких дней для базового пакета до пары недель для полной автоматизации. Сроки подтверждаем после осмотра квартиры."),
         ("Можно начать с Basic и расширить позже?", "Да, система модульная: модули, панели и датчики добавляются по мере необходимости без замены уже установленного."),
+        ("Какая гарантия?", "24 месяца на всё оборудование, которое мы устанавливаем, — с момента установки."),
         ("Что уже установил Lagmar — и платить ли за это?", "В электрощите каждой квартиры уже стоят контроллер CLU, блок питания 24 В и реле на 2 канала. За них вы не платите: мы подключаем их к системе, а в цену входит только то, что добавляем мы."),
         ("Что не входит в цену пакета?", "В цене — оборудование и программирование. Датчики, приводы штор, аудио и монтаж считаем в персональном предложении после осмотра квартиры — до подписания и без обязательств."),
         ("Не знаю номер квартиры — что делать?", "Подойдёт и старый номер из договора — подскажем новый. Можно выбрать этаж и нажать на свою квартиру в списке или просто указать число комнат."),
-        ("Квартира будет готова только к 2030 году — зачем решать сейчас?", "Систему проще всего заложить до чистовой отделки, а скидка 10% на оборудование действует до 30.06.2027. Расчёт и консультация ни к чему не обязывают."),
+        ("Квартира будет готова только к 2030 году — зачем решать сейчас?", "Монтаж в Smart Home 2 — в 2030 году, после сдачи дома. Сейчас — расчёт и консультация: систему проще всего заложить до чистовой отделки, а скидка 10% на оборудование действует при заявке до 30.06.2027. Ни к чему не обязывает."),
     ],
     "ro": [
         ("Se poate instala casa inteligentă după finalizarea renovării?", "Da. Sistemul funcționează pe magistrală cablată și acceptă și module wireless — pentru un apartament deja renovat le folosim pe acestea, fără șlițuri. Ideal este ca sistemul să fie prevăzut înainte de finisaje."),
         ("Funcționează casa inteligentă fără internet?", "Da. Scenariile rulează local pe unitatea centrală CLU; internetul este necesar doar pentru accesul de la distanță din aplicația myGrenton."),
-        ("Cine instalează și întreține sistemul?", "SmartSpace — reprezentant oficial Grenton în Moldova: proiectare, montaj, configurare și service."),
+        ("Cine instalează și întreține sistemul?", "SmartSpace — partener oficial Lagmar pentru casa inteligentă și reprezentant oficial Grenton în Moldova: proiectare, montaj, configurare și service."),
         ("Cât durează montajul?", "Depinde de pachet și de stadiul finisajelor — de la câteva zile pentru pachetul de bază până la câteva săptămâni pentru automatizare completă. Termenele se confirmă după vizita la apartament."),
         ("Pot începe cu Basic și extinde mai târziu?", "Da, sistemul este modular: modulele, panourile și senzorii se adaugă pe măsură ce este nevoie, fără a înlocui ce este deja instalat."),
+        ("Ce garanție oferiți?", "24 de luni pentru toate echipamentele pe care le montăm, de la data instalării."),
         ("Ce a montat deja Lagmar — și trebuie să plătesc pentru asta?", "În tabloul electric al fiecărui apartament sunt deja unitatea centrală CLU, o sursă de alimentare de 24 V și un releu cu 2 canale. Nu plătești pentru ele: le conectăm la sistem, iar în preț intră doar ce adăugăm noi."),
         ("Ce nu intră în prețul pachetului?", "Prețul include echipamentele și programarea. Senzorii, motoarele pentru jaluzele, audio și montajul le calculăm în oferta personalizată, după vizita în apartament — înainte de semnare și fără obligații."),
         ("Nu știu numărul apartamentului — ce fac?", "Merge și numărul vechi din contract — îți spunem numărul nou. Poți alege etajul și apăsa pe apartamentul tău din listă sau poți indica doar numărul de camere."),
-        ("Apartamentul va fi gata abia în 2030 — de ce să decid acum?", "Sistemul se prevede cel mai ușor înainte de finisaje, iar reducerea de 10% la echipamente este valabilă până la 30.06.2027. Calculul și consultația nu te obligă la nimic."),
+        ("Apartamentul va fi gata abia în 2030 — de ce să decid acum?", "Montajul în Smart Home 2 are loc în 2030, după darea blocului în exploatare. Acum — calculul și consultația: sistemul se prevede cel mai ușor înainte de finisaje, iar reducerea de 10% la echipamente se aplică cererilor trimise până la 30.06.2027. Fără obligații."),
     ],
     "en": [
         ("Can the smart home be set up after the renovation is finished?", "Yes. The system is wired but also supports wireless modules — in a finished apartment we use those, so there's no need to cut into walls. Ideally, though, it's planned before the finishing work."),
         ("Does the smart home work without internet?", "Yes. Scenes run locally on the CLU controller; internet is only needed for remote access from the myGrenton app."),
-        ("Who installs and services the system?", "SmartSpace — the official Grenton representative in Moldova: design, installation, configuration and service."),
+        ("Who installs and services the system?", "SmartSpace — Lagmar's official smart-home partner and the official Grenton representative in Moldova: design, installation, configuration and service."),
         ("How long does installation take?", "It depends on the package and the finishing stage — from a few days for the basic package to a couple of weeks for full automation. Timing is confirmed after a site visit."),
         ("Can I start with Basic and expand later?", "Yes, the system is modular: modules, panels and sensors are added as needed without replacing what is already installed."),
+        ("What is the warranty?", "24 months on all the equipment we install, starting from installation."),
         ("What has Lagmar already installed — and do I pay for it?", "Every apartment's electrical panel already has the CLU controller, a 24 V power supply and a 2-channel relay. You don't pay for them: we connect them to the system, and the price covers only what we add."),
         ("What is not included in the package price?", "The price covers equipment and programming. Sensors, blind motors, audio and installation are priced in your personal quote after a visit to the apartment — before you sign anything, with no obligation."),
         ("I don't know my apartment number — what now?", "An old number from your contract works too — we'll tell you the new one. You can also pick your floor and tap your apartment in the list, or just enter the number of rooms."),
-        ("My apartment will only be ready in 2030 — why decide now?", "The system is easiest to plan before the finishing works, and the 10% equipment discount runs until 30.06.2027. The estimate and the consultation are free of obligation."),
+        ("My apartment will only be ready in 2030 — why decide now?", "Installation in Smart Home 2 takes place in 2030, after the building is handed over. Right now you can get the estimate and a consultation: the system is easiest to plan before the finishing work, and 10% off equipment applies to requests sent by 30 June 2027. No obligation."),
     ],
 }
 
@@ -558,6 +561,9 @@ def nav_html(lang, current):
 <script>(function(){{var b=document.querySelector(".theme-toggle");if(!b)return;var m=window.matchMedia("(prefers-color-scheme: dark)");b.addEventListener("click",function(){{var r=document.documentElement,cur=r.dataset.theme||(m.matches?"dark":"light"),n=cur==="dark"?"light":"dark";r.dataset.theme=n;try{{localStorage.setItem("theme",n)}}catch(e){{}}}});}})();</script>'''
 
 
+VIBER_URL = "viber://chat?number=%2B" + WA_NUMBER
+
+
 CLOSING_Q = {"ru": "Удобнее обсудить по телефону?", "ro": "Preferi să discutăm la telefon?", "en": "Rather talk it through?"}
 
 
@@ -568,7 +574,7 @@ def dealer_band_html(lang, key=""):
     tel = f'<a class="btn btn-light" href="tel:{PHONE_TEL}">{ico("phone")}{c["alt"]} · {PHONE_DISPLAY}</a>'
     if key == "lagmar":
         title, text = CLOSING_Q[lang], d["p"]
-        btns = tel + f'<a class="btn btn-wa" href="https://wa.me/{WA_NUMBER}" target="_blank" rel="noopener">{ico("chat")}WhatsApp</a>'
+        btns = tel + f'<a class="btn btn-wa" href="https://wa.me/{WA_NUMBER}" target="_blank" rel="noopener">{ico("chat")}WhatsApp</a>' + f'<a class="btn btn-viber" href="{VIBER_URL}">{ico("chat")}Viber</a>'
     else:
         title, text = c["title"], c["text"]
         btns = f'<a class="btn btn-light" href="lagmar.html#step1">{c["btn"]} {ico("arrow")}</a>' + ("" if key == "contact" else tel.replace("btn btn-light", "btn btn-outline-light"))
@@ -646,7 +652,8 @@ def mbar_html(lang, key):
     href = "#step1" if key == "lagmar" else "lagmar.html#step1"
     return (f'<nav class="mbar" aria-label="{esc(calc)}"><a class="mbar-calc" href="{href}">{ico("arrow")}{esc(calc)}</a>'
             f'<a href="tel:{PHONE_TEL}">{ico("phone")}{esc(call)}</a>'
-            f'<a class="mbar-wa" href="https://wa.me/{WA_NUMBER}" target="_blank" rel="noopener">{ico("chat")}WhatsApp</a></nav>')
+            f'<a class="mbar-wa" href="https://wa.me/{WA_NUMBER}" target="_blank" rel="noopener" aria-label="WhatsApp">{ico("chat")}<span>WhatsApp</span></a>'
+            f'<a class="mbar-vb" href="{VIBER_URL}" aria-label="Viber">{ico("chat")}<span>Viber</span></a></nav>')
 FT = {
     "ro": {"contact": "Contact", "pages": "Pagini", "cx": "Complexe", "legal": "Documente", "hours": "Lu–Vi 9:00–18:00 · Sâ 10:00–14:00"},
     "ru": {"contact": "Контакты", "pages": "Страницы", "cx": "Комплексы", "legal": "Документы", "hours": "Пн–Пт 9:00–18:00 · Сб 10:00–14:00"},
@@ -1648,7 +1655,7 @@ def lagmar_page_html(lang, packages_all):
     <div class="s3-next">
       <h3>{m["next_title"]}</h3>
       <ul class="checks"><li>{ico("check")}<span>{m["next1"]}</span></li><li>{ico("check")}<span>{m["next2"]}</span></li><li>{ico("check")}<span>{m["next3"]}</span></li></ul>
-      <p class="s3-call">{m["call_instead"]} <a href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a> · <a href="https://wa.me/{WA_NUMBER}" target="_blank" rel="noopener">{ico("chat")}WhatsApp</a></p>
+      <p class="s3-call">{m["call_instead"]} <a href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a> · <a href="https://wa.me/{WA_NUMBER}" target="_blank" rel="noopener">{ico("chat")}WhatsApp</a> · <a href="{VIBER_URL}">{ico("chat")}Viber</a></p>
     </div>
     <div id="cfg-result" class="cfg-note cfg-status" role="status" aria-live="polite" hidden></div>
     </div>
@@ -1678,6 +1685,7 @@ def lagmar_page_html(lang, packages_all):
       <div class="cta-row cta-left">
         <a class="btn btn-primary" href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a>
         <a class="btn btn-wa" href="https://wa.me/{WA_NUMBER}" target="_blank" rel="noopener">{ico("chat")}WhatsApp</a>
+        <a class="btn btn-viber" href="{VIBER_URL}">{ico("chat")}Viber</a>
       </div>
     </div>
     <div class="faq-list">{faq_html(lang)}</div>
@@ -2481,7 +2489,8 @@ def contact_page_html(lang):
     actions = (f'<div class="cta-row cta-left quick">'
                f'<a class="btn btn-primary" href="tel:{PHONE_TEL}" aria-label="{esc(c["call"])} {PHONE_DISPLAY}">{ico("phone")}{PHONE_DISPLAY}</a>'
                f'<a class="btn btn-wa" href="{wa}" target="_blank" rel="noopener">{ico("chat")}{c["wa"]}</a>'
-               f'<a class="btn btn-ghost" href="mailto:{EMAIL}">{ico("mail")}{c["mail"]}</a></div>')
+               f'<a class="btn btn-viber" href="{VIBER_URL}">{ico("chat")}Viber</a>'
+               f'</div><p class="quick-mail"><a href="mailto:{EMAIL}">{ico("mail")}{EMAIL}</a></p>')
     media = (gimg(PAGE_HERO_MEDIA["contact"], c["showroom"], sizes="(max-width: 860px) 92vw, 40vw", eager=True)
              + f'<div class="float-card hero-fc"><span class="mk mk-I">{ico("pin")}</span><div><b>{c["showroom"]}</b><span>Strada Pajurii 11</span></div></div>')
     topics = "".join(
@@ -2555,7 +2564,7 @@ def contact_page_html(lang):
         <div><h3>{c["write"]}</h3>
           <ul class="links">
             <li>{ico("phone")}<a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></li>
-            <li>{ico("chat")}<a href="{wa}" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li>{ico("chat")}<a href="{wa}" target="_blank" rel="noopener">WhatsApp</a> · <a href="{VIBER_URL}">Viber</a></li>
             <li>{ico("mail")}<a href="mailto:{EMAIL}">{EMAIL}</a></li>
           </ul>
           <h3>{c["social"]}</h3><p class="social">{social}</p>
@@ -2781,7 +2790,7 @@ def main():
         for n, tiers in PACKAGE_SPEC.items():
             for t, spec in tiers.items():
                 packages_all[lang][n][t] = [f"{k}: {v}" for k, v in spec_lines(spec, lang)[:-1]]
-    vat = {"ru": "без НДС, ориентировочно", "ro": "fără TVA, orientativ", "en": "excl. VAT, indicative"}
+    vat = {"ru": "с НДС, ориентировочно", "ro": "cu TVA, orientativ", "en": "incl. VAT, indicative"}
     for lang in LANGS:
         pk = packages_all[lang]
         pk["labels"]["price_vat"] = vat[lang]
