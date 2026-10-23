@@ -175,11 +175,11 @@ LAGMAR_UI = {
         "step1_title": "1. Найдите свою квартиру",
         "building_label": "Блок", "building_placeholder": "Выберите блок",
         "apt_label": "№ квартиры", "apt_placeholder": "например, 507",
-        "apt_hint": "Номер как в договоре: например 507, на первом этаже — P101.",
+        "apt_hint": "По закону номер квартиры — этаж и её номер на этаже: 507 = 5-й этаж, квартира 07; на партере — P101. Старый номер из договора тоже подойдёт — подскажем новый.",
         "cx_label": "Комплекс", "cx": {"1": ["Smart Home 1", "11 блоков · 1 065 кв."], "2": ["Smart Home 2", "16 блоков · 2 182 кв. · сдача 2030"]},
         "find_btn": "Найти", "loading": "Загружаем список квартир…",
         "choose_building": "Сначала выберите блок.",
-        "found_prefix": "Найдено:", "floor_word": "этаж", "floor_ground": "первый этаж (parter)", "rooms_word": "комн.", "area_word": "м²",
+        "found_prefix": "Найдено:", "floor_word": "этаж", "floor_ground": "партер", "rooms_word": "комн.", "area_word": "м²",
         "not_found_text": "Не нашли такую квартиру — не страшно, выберите тип квартиры вручную:",
         "manual_label": "Комнат",
         "edge_hint": "Для квартир от 5 комнат и студий готовим индивидуальный расчёт — пакеты ниже ориентировочные.",
@@ -212,7 +212,7 @@ LAGMAR_UI = {
         "step1_title": "1. Găsește-ți apartamentul",
         "building_label": "Blocul", "building_placeholder": "Alege blocul",
         "apt_label": "Nr. apartament", "apt_placeholder": "de ex. 507",
-        "apt_hint": "Numărul ca în contract: de ex. 507, la parter — P101.",
+        "apt_hint": "Conform legii, numărul apartamentului = etajul și numărul de pe etaj: 507 = etajul 5, apartamentul 07; la parter — P101. Merge și numărul vechi din contract — îți spunem numărul nou.",
         "cx_label": "Complexul", "cx": {"1": ["Smart Home 1", "11 blocuri · 1 065 ap."], "2": ["Smart Home 2", "16 blocuri · 2 182 ap. · dare în exploatare 2030"]},
         "find_btn": "Caută", "loading": "Se încarcă lista apartamentelor…",
         "choose_building": "Alege mai întâi blocul.",
@@ -249,7 +249,7 @@ LAGMAR_UI = {
         "step1_title": "1. Find your apartment",
         "building_label": "Block", "building_placeholder": "Choose your block",
         "apt_label": "Apartment No.", "apt_placeholder": "e.g. 507",
-        "apt_hint": "The number as in your contract: e.g. 507, on the ground floor P101.",
+        "apt_hint": "By law the apartment number is the floor plus its number on the floor: 507 = floor 5, apartment 07; on the ground floor P101. An old number from your contract works too — we will tell you the new one.",
         "cx_label": "Complex", "cx": {"1": ["Smart Home 1", "11 blocks · 1,065 apts"], "2": ["Smart Home 2", "16 blocks · 2,182 apts · completion 2030"]},
         "find_btn": "Find", "loading": "Loading the apartment list…",
         "choose_building": "Choose your block first.",
@@ -556,8 +556,8 @@ def dealer_band_html(lang, key=""):
         btns = tel + f'<a class="btn btn-wa" href="https://wa.me/{WA_NUMBER}" target="_blank" rel="noopener">{ico("chat")}WhatsApp</a>'
     else:
         title, text = c["title"], c["text"]
-        btns = f'<a class="btn btn-primary" href="lagmar.html#step1">{c["btn"]} {ico("arrow")}</a>' + ("" if key == "contact" else tel)
-    return f'''<section class="closing">
+        btns = f'<a class="btn btn-light" href="lagmar.html#step1">{c["btn"]} {ico("arrow")}</a>' + ("" if key == "contact" else tel.replace("btn btn-light", "btn btn-outline-light"))
+    return f'''<section class="closing closing-photo">
   <div class="wrap closing-inner">
     <h2>{title}</h2>
     <p>{text}</p>
@@ -565,6 +565,61 @@ def dealer_band_html(lang, key=""):
     <p class="closing-rep">{d["h"]}</p>
   </div>
 </section>'''
+
+
+HERO_CHIPS = {
+    "ro": ("Lagmar × SmartSpace", "Smart Home 1 · Smart Home 2", "sect. Râșcani, Chișinău"),
+    "ru": ("Lagmar × SmartSpace", "Smart Home 1 · Smart Home 2", "сект. Рышкань, Кишинёв"),
+    "en": ("Lagmar × SmartSpace", "Smart Home 1 · Smart Home 2", "Râșcani, Chișinău"),
+}
+HOME_STATS = {
+    "ro": [("3 247", "apartamente în două complexe"), ("27", "blocuri"), ("0 €", "pentru unitate — e deja montată"), ("−10%", "la echipamente până la 30.06.2027")],
+    "ru": [("3 247", "квартир в двух комплексах"), ("27", "блоков"), ("0 €", "за контроллер — уже стоит"), ("−10%", "на оборудование до 30.06.2027")],
+    "en": [("3,247", "apartments in two complexes"), ("27", "blocks"), ("0 €", "for the controller — already in"), ("−10%", "on equipment until 30.06.2027")],
+}
+
+
+def hero_chips_html(lang, second=None):
+    a, b, loc = HERO_CHIPS[lang]
+    return (f'<div class="hero-chips"><span class="chip"><i class="dot"></i>{esc(a)}<span class="chip-2"><span class="sep">/</span>{esc(second or b)}</span></span>'
+            f'<span class="chip">{ico("pin")}{esc(loc)}</span></div>')
+
+
+NUM_TXT = {
+    "ru": {
+        "apt_hint": "По закону номер квартиры — этаж и её номер на этаже: 507 = 5-й этаж, квартира 07; на партере — P101. Старый номер из договора тоже подойдёт — подскажем новый.",
+        "fp_link": "Не помните номер? Выберите этаж — покажем все квартиры",
+        "fp_floor": "Этаж",
+        "fp_title": "Квартиры на этаже — нажмите на свою:",
+        "fp_msg": "Квартиры {n} в блоке {b} в базе Lagmar нет. Выберите этаж — покажем все квартиры:",
+        "fp_need_block": "Сначала выберите блок.",
+        "old_q": "Похоже, {o} — номер из старой, проектной нумерации. По закону квартиры нумеруют по этажам, и сейчас ваша квартира — {n}: {fl}, {r} комн., {a} м². Это она?",
+        "old_yes": "Да, это моя квартира",
+        "old_no": "Нет — выбрать по этажу"
+    },
+    "ro": {
+        "apt_hint": "Conform legii, numărul apartamentului = etajul și numărul de pe etaj: 507 = etajul 5, apartamentul 07; la parter — P101. Merge și numărul vechi din contract — îți spunem numărul nou.",
+        "fp_link": "Nu știi numărul? Alege etajul — îți arătăm toate apartamentele",
+        "fp_floor": "Etaj",
+        "fp_title": "Apartamentele de pe etaj — apasă pe al tău:",
+        "fp_msg": "Apartamentul {n} din blocul {b} nu există în baza Lagmar. Alege etajul — îți arătăm toate apartamentele:",
+        "fp_need_block": "Alege mai întâi blocul.",
+        "old_q": "Pare că {o} e un număr din vechea numerotare, de proiect. Conform legii, apartamentele se numerotează pe etaje — acum apartamentul tău este {n}: {fl}, {r} camere, {a} m². Este al tău?",
+        "old_yes": "Da, este apartamentul meu",
+        "old_no": "Nu — aleg după etaj"
+    },
+    "en": {
+        "apt_hint": "By law the apartment number is the floor plus its number on the floor: 507 = floor 5, apartment 07; on the ground floor P101. An old number from your contract works too — we will tell you the new one.",
+        "fp_link": "Don't know the number? Pick the floor — we'll list every apartment",
+        "fp_floor": "Floor",
+        "fp_title": "Apartments on this floor — tap yours:",
+        "fp_msg": "Apartment {n} in block {b} is not in the Lagmar database. Pick the floor — we'll list every apartment:",
+        "fp_need_block": "Choose your block first.",
+        "old_q": "{o} looks like an old, design-stage number. By law apartments are numbered per floor — your apartment is now {n}: {fl}, {r} rooms, {a} m². Is this it?",
+        "old_yes": "Yes, that's my apartment",
+        "old_no": "No — pick by floor"
+    }
+}
 
 
 CALL_LABEL = {"ro": "Sună acum", "ru": "Позвонить", "en": "Call us"}
@@ -759,6 +814,7 @@ LAGMAR_JS = r"""
     if (!keep) { $("cfg-apt").value = ""; rangeHint(""); show($("cfg-found"), false); show($("cfg-manual"), false); resetBelow(); }
     Array.prototype.forEach.call(document.querySelectorAll(".blk, .sp-b"), function (x) { x.setAttribute("aria-pressed", "false"); });
     loadApts(cx, function () {});
+    setTimeout(centrePlan, 30);
   }
   Array.prototype.forEach.call(document.querySelectorAll(".cx-opt"), function (b) {
     b.addEventListener("click", function () { if (b.dataset.cx !== CX) setComplex(b.dataset.cx); });
@@ -843,6 +899,7 @@ LAGMAR_JS = r"""
   })();
   $("cfg-to-step2").addEventListener("click", function () { scrollTo($("step2")); });
   $("cfg-no-number").addEventListener("click", function () {
+    hideFallbacks();
     show($("cfg-notfound-text"), false); show($("cfg-manual"), true); scrollTo($("cfg-manual"));
   });
   (function () {
@@ -852,13 +909,22 @@ LAGMAR_JS = r"""
     var tile = pb && document.querySelector('.blk[data-cx="' + pc + '"][data-block="' + pb + '"]');
     if (tile) { tile.click(); setTimeout(function () { scrollTo($("step1")); }, 50); }
   })();
+  function syncSide(b) {
+    var side = document.querySelector('.cx-pane[data-cx="' + CX + '"] .sp-side'); if (!side) return;
+    var st = b && UI.cxdata[CX].bstats[b];
+    side.querySelector(".sp-pick-t").textContent = st ? side.dataset.sel.replace("{b}", b) : side.querySelector(".sp-pick-t").textContent;
+    side.querySelector(".sp-pick-l").textContent = st ? side.dataset.line.replace("{c}", st[0]).replace("{from}", st[1]).replace("{to}", st[2]) : "";
+    side.classList.toggle("has-pick", !!st);
+  }
   function syncPlan(b) {
+    syncSide(b);
     Array.prototype.forEach.call(document.querySelectorAll('.cx-pane[data-cx="' + CX + '"] .sp-b[data-block]'), function (g) { g.setAttribute("aria-pressed", g.dataset.block === b ? "true" : "false"); });
   }
   // phones: the plan is wider than the screen; open it centred on the middle blocks
-  Array.prototype.forEach.call(document.querySelectorAll(".siteplan-fold"), function (f) {
-    f.addEventListener("toggle", function () { var sc = f.querySelector(".sp-scroll"); if (f.open && sc) sc.scrollLeft = (sc.scrollWidth - sc.clientWidth) / 2; });
-  });
+  function centrePlan() {
+    Array.prototype.forEach.call(document.querySelectorAll('.cx-pane:not([hidden]) .sp-scroll'), function (sc) { sc.scrollLeft = (sc.scrollWidth - sc.clientWidth) / 2; });
+  }
+  centrePlan(); window.addEventListener("load", centrePlan);
   Array.prototype.forEach.call(document.querySelectorAll(".sp-b[data-block]"), function (g) {
     var cx = g.closest(".cx-pane").dataset.cx;
     var pick = function () { var t = document.querySelector('.blk[data-cx="' + cx + '"][data-block="' + g.dataset.block + '"]'); if (t) t.click(); };
@@ -919,7 +985,44 @@ LAGMAR_JS = r"""
     if (state.found) { scrollTo($("cfg-found")); } else { scrollTo($("step2")); }
   }
 
+  var OLD = null;
+  function loadOld(cb) {
+    if (OLD) { cb(OLD); return; }
+    fetch(UI.oldnum_url).then(function (r) { return r.json(); }).then(function (j) { OLD = j; cb(j); }).catch(function () { cb({}); });
+  }
+  function hideFallbacks() { show($("cfg-oldnum"), false); show($("cfg-floorpick"), false); }
+  function floorName(f) { return String(f) === "0" ? UI.floor_ground : (UI.floor_word + "\u00a0" + f); }
+  function pickApt(n) { $("cfg-apt").value = n; hideFallbacks(); doFind(); }
+  function openFloorPick(b, n, apts) {
+    var list = (apts || []).filter(function (x) { return x.b === b; });
+    if (!b || !list.length) { $("cfg-found").textContent = UI.num.fp_need_block; show($("cfg-found"), true); return; }
+    $("cfg-fp-msg").textContent = n ? UI.num.fp_msg.replace("{n}", n).replace("{b}", b) : "";
+    show($("cfg-fp-msg"), !!n);
+    var sel = $("cfg-fp-floor"), floors = [];
+    list.forEach(function (x) { if (floors.indexOf(x.f) < 0) floors.push(x.f); });
+    floors.sort(function (a, c) { return a - c; });
+    sel.innerHTML = "";
+    floors.forEach(function (f) { var o = document.createElement("option"); o.value = f; o.textContent = floorName(f); sel.appendChild(o); });
+    function draw() {
+      var box = $("cfg-fp-list"), f = +sel.value; box.innerHTML = "";
+      list.filter(function (x) { return x.f === f; }).forEach(function (x) {
+        var bt = document.createElement("button"); bt.type = "button"; bt.className = "fp-apt";
+        var nb = document.createElement("b"); nb.textContent = x.n; bt.appendChild(nb);
+        var sp = document.createElement("span"); sp.textContent = x.r + "\u00a0" + UI.rooms_word + " · " + fmtArea(x.a) + "\u00a0" + UI.area_word; bt.appendChild(sp);
+        bt.addEventListener("click", function () { pickApt(x.n); });
+        box.appendChild(bt);
+      });
+    }
+    sel.onchange = draw; draw();
+    show($("cfg-floorpick"), true);
+  }
+  $("cfg-by-floor").addEventListener("click", function () {
+    var b = $("cfg-building").value; resetBelow(); hideFallbacks(); show($("cfg-manual"), false); show($("cfg-found"), false);
+    if (!b) { $("cfg-found").textContent = UI.num.fp_need_block; show($("cfg-found"), true); $("cfg-building").focus(); return; }
+    var cx = CX; loadApts(cx, function (apts) { if (cx === CX) { openFloorPick(b, "", apts); scrollTo($("cfg-floorpick")); } });
+  });
   function doFind() {
+    hideFallbacks();
     var b = $("cfg-building").value;
     var n = normNum($("cfg-apt").value);
     resetBelow();
@@ -941,8 +1044,19 @@ LAGMAR_JS = r"""
         state.found = true;
         // Smart Home 2 counts bedrooms (1 = bedroom + living-kitchen): package size is one more
         showStep2(cx === "2" ? found.r + 1 : found.r, found.a, String(found.f));
+      } else if (cx === "1") {
+        loadOld(function (old) {
+          var nn = old[b] && old[b][n], hit = null;
+          for (var j = 0; nn && j < apts.length; j++) { if (apts[j].b === b && apts[j].n === nn) { hit = apts[j]; break; } }
+          if (hit) {
+            $("cfg-old-q").textContent = UI.num.old_q.replace("{o}", n).replace("{n}", hit.n).replace("{fl}", floorName(hit.f)).replace("{r}", hit.r).replace("{a}", fmtArea(hit.a));
+            $("cfg-old-yes").onclick = function () { pickApt(hit.n); };
+            $("cfg-old-no").onclick = function () { show($("cfg-oldnum"), false); openFloorPick(b, n, apts); };
+            show($("cfg-oldnum"), true);
+          } else { openFloorPick(b, n, apts); }
+        });
       } else {
-        show($("cfg-manual"), true);
+        openFloorPick(b, n, apts);
       }
     });
   }
@@ -1125,11 +1239,11 @@ def lagmar_hero_html(lang, u):
   <img class="lg-hero-bg" src="../assets/lagmar/hero.webp" srcset="../assets/lagmar/hero-960.webp 960w, ../assets/lagmar/hero.webp 1920w" sizes="100vw" alt="Lagmar Smart Home" fetchpriority="high">
   <video class="lg-hero-bg lg-hero-vid" muted loop playsinline preload="none" data-auto aria-hidden="true" data-src-mobile="../assets/lagmar/hero-loop-mobile.mp4"><source src="../assets/lagmar/hero-loop-{lang}.mp4" type="video/mp4"></video>
   <div class="wrap lg-hero-inner">
-    <div class="lg-logos"><img src="../assets/lagmar/logo-lagmar.webp" alt="Lagmar Smart Home" width="160" height="48"><span class="x">×</span><span class="gr">SmartSpace <small>by Grenton</small></span></div>
+    {hero_chips_html(lang, NAV_LABELS[lang]["lagmar"])}
     <h1>{u["h1"]}</h1>
     <p class="lead">{u["lead"]}</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="#step1">{v["cta_find"]}</a>
+      <a class="btn btn-light" href="#step1">{v["cta_find"]}</a>
     </div>
     <ul class="lg-stats">{stats}</ul>
     <noscript><p class="lead"><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p></noscript>
@@ -1178,6 +1292,33 @@ def lagmar_blocks_html(lang, stats, cx="1", blocks=None):
             f'<div class="blk-row" style="--n:{len(blocks)}">{tiles}</div>' + siteplan_html(lang, stats, cx))
 
 
+SP_SIDE = {
+    "ru": {"eyebrow": "О комплексе", "title": "{name} в цифрах", "apts": "квартир", "blocks": "блоков",
+           "st": {"1": "строится · сект. Рышкань", "2": "сдача — июль 2030 · Calea Moșilor"},
+           "pick": "Нажмите на блок на схеме — покажем его данные.", "sel": "Блок {b}", "line": "{c} кв. · этажи {from}–{to}"},
+    "ro": {"eyebrow": "Despre complex", "title": "{name} în cifre", "apts": "apartamente", "blocks": "blocuri",
+           "st": {"1": "în construcție · sect. Râșcani", "2": "dare în exploatare — iulie 2030 · Calea Moșilor"},
+           "pick": "Apasă pe un bloc pe schemă — îți arătăm datele lui.", "sel": "Blocul {b}", "line": "{c} ap. · etajele {from}–{to}"},
+    "en": {"eyebrow": "About the complex", "title": "{name} in numbers", "apts": "apartments", "blocks": "blocks",
+           "st": {"1": "under construction · Râșcani", "2": "completion — July 2030 · Calea Moșilor"},
+           "pick": "Tap a block on the plan — we will show its details.", "sel": "Block {b}", "line": "{c} apts · floors {from}–{to}"},
+}
+CX_FACTS = {"1": ("1 065", "11"), "2": ("2 182", "16")}
+
+
+def siteplan_side_html(lang, cx):
+    t = SP_SIDE[lang]
+    apts, blocks = CX_FACTS[cx]
+    if lang == "en":
+        apts = apts.replace(" ", ",")
+    name = "Smart Home " + cx
+    return (f'<aside class="sp-side" data-sel="{esc(t["sel"])}" data-line="{esc(t["line"])}">'
+            f'<p class="sp-eyebrow">{t["eyebrow"]}</p><h3>{t["title"].replace("{name}", name)}</h3>'
+            f'<dl><div><dt>{t["apts"]}</dt><dd>{apts}</dd></div><div><dt>{t["blocks"]}</dt><dd>{blocks}</dd></div></dl>'
+            f'<p class="sp-status">{ico("pin")}{t["st"][cx]}</p>'
+            f'<div class="sp-pick" aria-live="polite"><b class="sp-pick-t">{t["pick"]}</b><span class="sp-pick-l"></span></div></aside>')
+
+
 def siteplan_html(lang, stats, cx="1"):
     sp = _load_json(SITEPLANS[cx])
     vw, vh = sp["viewBox"]
@@ -1196,10 +1337,10 @@ def siteplan_html(lang, stats, cx="1"):
                 f'sizes="(max-width: 860px) 92vw, 1200px" width="1600" height="828" alt="{esc(v["siteplan_alt"])}" loading="lazy">' if cx == "1" else
                 f'<img src="../assets/lagmar/sh2/plan-900.webp" srcset="../assets/lagmar/sh2/plan-900.webp 900w, ../assets/lagmar/sh2/plan.webp 1824w" '
                 f'sizes="(max-width: 860px) 92vw, 1200px" width="1824" height="1026" alt="{esc(v["siteplan_alt"])} — Smart Home 2" loading="lazy">')
-    return (f'<details class="fold siteplan-fold"><summary>{v["siteplan_hint"]}</summary>'
-            f'<div class="sp-scroll"><div class="sp">{plan_img}'
+    return (f'<div class="siteplan-fold sp-open"><p class="sp-hint"><b>{v["siteplan_hint"]}</b> {v["siteplan_note"]}</p>'
+            f'<div class="sp-grid"><div class="sp-scroll"><div class="sp">{plan_img}'
             f'<svg viewBox="0 0 {vw} {vh}" preserveAspectRatio="none">{shapes}</svg></div></div>'
-            f'<p class="sp-note">{v["siteplan_note"]}</p></details>')
+            + siteplan_side_html(lang, cx) + '</div></div>')
 
 
 def spec_lines(spec, lang):
@@ -1356,7 +1497,8 @@ def lagmar_page_html(lang, packages_all):
     ui_js = dict(u, block_word=v["block_word"], your_plan=v["your_plan"], your_block=v["your_block"],
                  cxdata={cx: {"blocks": d["blocks"], "bstats": {b: list(x) for b, x in d["stats"].items()},
                               "url": "../" + APTS_FILES[cx] + "?v=" + d["ver"]} for cx, d in cxd.items()},
-                 plan_url=PLAN_URL, mkt_apts=LAGMAR_MKT[lang]["apts"], range_hint=LAGMAR_MKT[lang]["range_hint"],
+                 plan_url=PLAN_URL, mkt_apts=LAGMAR_MKT[lang]["apts"], range_hint=LAGMAR_MKT[lang]["range_hint"], num=NUM_TXT[lang],
+                 oldnum_url="../assets/data/sh1-oldnum.json",
                  mkt={k: LAGMAR_MKT[lang][k] for k in ("sum_pkg", "sum_opts", "sum_total", "sum_promo", "pick_pkg_first", "opt_add", "opt_added", "recap_none")},
                  opt_names={k: t for k, (t, _d) in LAGMAR_MKT[lang]["options"].items()}, area_unit={"ru": "м²"}.get(lang, "m²"),
                  opt_prices=OPTION_PRICES, promo_pct=PROMO_PCT, prog_share=PROGRAMMING_SHARE, price_num=PRICES, equip_num=EQUIPMENT)
@@ -1402,7 +1544,19 @@ def lagmar_page_html(lang, packages_all):
       <button class="btn btn-primary" type="submit" id="cfg-find">{u["find_btn"]}</button>
     </form>
     <p id="cfg-apt-hint" class="cfg-hint">{u["apt_hint"]}</p>
-    <button type="button" class="link-btn" id="cfg-no-number">{m["no_number"]}</button>
+    <div class="cfg-links"><button type="button" class="link-btn" id="cfg-by-floor">{NUM_TXT[lang]["fp_link"]}</button>
+      <button type="button" class="link-btn" id="cfg-no-number">{m["no_number"]}</button></div>
+    <div id="cfg-oldnum" class="cfg-oldnum" role="status" aria-live="polite" hidden>
+      <p id="cfg-old-q"></p>
+      <div class="cta-row cta-left"><button type="button" class="btn btn-primary" id="cfg-old-yes">{NUM_TXT[lang]["old_yes"]}</button>
+        <button type="button" class="btn btn-ghost" id="cfg-old-no">{NUM_TXT[lang]["old_no"]}</button></div>
+    </div>
+    <div id="cfg-floorpick" class="cfg-floorpick" hidden>
+      <p class="cfg-note" id="cfg-fp-msg"></p>
+      <label class="fp-floor">{NUM_TXT[lang]["fp_floor"]} <select id="cfg-fp-floor"></select></label>
+      <p class="cfg-hint">{NUM_TXT[lang]["fp_title"]}</p>
+      <div id="cfg-fp-list" class="fp-list"></div>
+    </div>
     <div id="cfg-found" class="cfg-found" role="status" aria-live="polite" hidden></div>
     <div id="cfg-aptcard" class="aptcard" hidden>
       <figure class="aptcard-plan"><img id="cfg-plan-img" alt="" loading="lazy"><figcaption>{v["your_plan"]}</figcaption></figure>
@@ -1534,6 +1688,7 @@ ICON_PATHS = {
     "chat": '<path d="M4 19.5l1.3-3.9A8 8 0 1 1 8.6 19z"/><path d="M9 10.5h.01M12 10.5h.01M15 10.5h.01"/>',
     "mail": '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/>',
     "phone": '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>',
+    "pin": '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>',
 }
 ICON_FOR_GROUP = {"light": "L", "climate": "T", "safety": "W", "blinds": "C", "media": "A", "control": "P"}
 
@@ -2129,16 +2284,19 @@ def home_page_html(lang, packages_all):
     stats = "".join(stat(a, b) for a, b in v["stats"])
 
     lg = HOME_LG[lang]
+    hstats = "".join(f'<li><b>{esc(a)}</b><span>{esc(b)}</span></li>' for a, b in HOME_STATS[lang])
     body = f'''<section class="home-lg">
-  <img class="home-lg-bg" src="../assets/lagmar/aerial-800.webp" srcset="../assets/lagmar/aerial-800.webp 800w, ../assets/lagmar/aerial.webp 1600w" sizes="100vw" alt="" fetchpriority="high">
+  <img class="home-lg-bg" src="../assets/lagmar/sh2/hero-poster.webp" srcset="../assets/lagmar/sh2/hero-poster-800.webp 800w, ../assets/lagmar/sh2/hero-poster.webp 1280w" sizes="100vw" alt="Smart Home 2 — Lagmar" fetchpriority="high">
+  <video class="home-lg-bg lg-hero-vid" muted loop playsinline preload="none" data-auto aria-hidden="true" data-src-mobile="../assets/lagmar/sh2/hero-mobile.mp4"><source src="../assets/lagmar/sh2/hero.mp4" type="video/mp4"></video>
   <div class="wrap home-lg-inner">
-    <div class="lg-logos"><img src="../assets/lagmar/logo-lagmar.webp" alt="Lagmar Smart Home" width="160" height="48"><span class="x">×</span><span class="gr">SmartSpace <small>by Grenton</small></span></div>
+    {hero_chips_html(lang)}
     <h1>{lg["h1"]}</h1>
     <p class="lead">{lg["lead"]}</p>
     <div class="cta-row cta-left">
-      <a class="btn btn-primary" href="lagmar.html#step1">{lg["cta"]}</a>
-      <a class="btn btn-light" href="#film">{lg["film"]} {ico("play")}</a>
+      <a class="btn btn-light" href="lagmar.html#step1">{lg["cta"]}</a>
+      <a class="btn btn-outline-light" href="#film">{lg["film"]} {ico("play")}</a>
     </div>
+    <ul class="lg-stats hero-stats">{hstats}</ul>
   </div>
 </section>
 
