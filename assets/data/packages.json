@@ -94,11 +94,11 @@
       "recommended": "Recomandat",
       "price_note": "Preț la cerere · calcul preliminar",
       "upsell_title": "Îți recomandăm și",
-      "upsell": "Încuietoare inteligentă (biometrie/NFC) — scenariul „Am ajuns acasă” la intrare",
-      "footnote": "Senzorii de fum trimit notificare în aplicație și nu înlocuiesc sistemul de detecție incendiu al clădirii. „Sistem de alarmă” înseamnă integrare cu sistemul de alarmă, nu pază cu dispecerat.",
+      "upsell": "Încuietoare inteligentă (amprentă sau card): scenariul „Am ajuns” pornește chiar de la ușă",
+      "footnote": "Senzorii de fum trimit o alertă în aplicație și nu înlocuiesc sistemul antiincendiu al blocului. „Alarmă” înseamnă integrarea cu sistemul tău de alarmă, nu pază cu dispecerat.",
       "size_title": "Pachete pentru apartament cu {n} camere",
-      "why_comfort": "De ce Comfort? Economie la încălzire prin programe precise + apa se oprește automat la scurgere cât timp nu e nimeni acasă.",
-      "why_premium": "De ce Premium? Toată lumina cu iluminat decorativ, rulouri la toate ferestrele, control CO₂ și umiditate și panouri în fiecare zonă."
+      "why_comfort": "De ce Comfort? Încălzești doar când ai nevoie, iar apa se închide singură la inundație, chiar dacă nu e nimeni acasă.",
+      "why_premium": "De ce Premium? Toată lumina, cu iluminat decorativ, jaluzele la toate ferestrele, CO₂ și umiditate sub control și panouri în fiecare zonă."
     },
     "2": {
       "basic": [

@@ -1922,3 +1922,9 @@ h2.h2:not(:has(+ p.sub)) { margin-bottom: 1.75rem; }
 
 /* phones: the video pause button sits top-right, clear of the stat cards */
 @media (max-width: 760px) { .lg-hero .vid-toggle, .home-lg .vid-toggle { top: var(--sp-s); bottom: auto; } }
+
+/* stat numbers never break inside a price ("de la 1 278 €") */
+.lg-stats b { white-space: nowrap; }
+.lg-stats.hero-stats { max-width: min(54rem, 100% - 3.5rem); }
+.lg-stats.hero-stats b { font-size: clamp(1.3rem, .9rem + 1vw, 1.75rem); }
+@media (max-width: 760px) { .lg-stats.hero-stats { max-width: none; } .lg-stats.hero-stats b { font-size: 1.3rem; } }

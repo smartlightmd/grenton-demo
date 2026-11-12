@@ -37,7 +37,7 @@ OG_IMG_ALT = {
 }
 
 NAV_LABELS = {
-    "ro": {"home": "Acasă", "lagmar": "Alege și calculează", "features": "Funcții", "scenarios": "Scenarii", "how": "Cum funcționează", "contact": "Contact"},
+    "ro": {"home": "Acasă", "lagmar": "Calculează prețul", "features": "Funcții", "scenarios": "Scenarii", "how": "Cum funcționează", "contact": "Contact"},
     "ru": {"home": "Главная", "lagmar": "Подобрать и рассчитать", "features": "Возможности", "scenarios": "Сценарии", "how": "Как это работает", "contact": "Контакты"},
     "en": {"home": "Home", "lagmar": "Get a quote", "features": "Features", "scenarios": "Scenes", "how": "How it works", "contact": "Contact"},
 }
@@ -45,7 +45,7 @@ THEME_LABEL = {"ro": "Schimbă tema", "ru": "Переключить тему", "
 
 BUILDINGS = list("ABCDEFGHIJK")
 
-REP = {"ro": "Reprezentant oficial", "ru": "Официальный представитель", "en": "Official representative"}
+REP = {"ro": "Partener oficial Lagmar", "ru": "Официальный партнёр Lagmar", "en": "Official Lagmar partner"}
 
 FOOTER = {
     "ro": "Site informativ realizat de SmartSpace, partener oficial Lagmar pentru casa inteligentă și reprezentant oficial Grenton în Moldova. Fotografiile produselor aparțin Grenton sp. z o.o.",
@@ -55,8 +55,8 @@ FOOTER = {
 PRIVACY_LABEL = {"ro": "Politica de confidențialitate", "ru": "Политика конфиденциальности", "en": "Privacy policy"}
 
 DEALER_BAND = {
-    "ro": {"h": "SmartSpace — partener oficial Lagmar: proiect, montaj și service pentru casa inteligentă",
-           "p": "Consultanță, proiectare, montaj și service — pentru fiecare apartament din Lagmar Smart Home.",
+    "ro": {"h": "SmartSpace, partener oficial Lagmar: proiect, montaj și service pentru casa ta inteligentă",
+           "p": "Consultanță, proiectare, montaj și service pentru orice apartament din Lagmar Smart Home.",
            "cta": "Solicită o ofertă"},
     "ru": {"h": "SmartSpace — официальный партнёр Lagmar: проект, монтаж и сервис умного дома",
            "p": "Консультация, проектирование, монтаж и сервис — для каждой квартиры Lagmar Smart Home.",
@@ -73,10 +73,10 @@ CONTACT_INFO = {
 }
 
 HOME_LAGMAR = {
-    "ro": {"eyebrow": "Proiectul nostru", "h2": "Smart Home 1 și Smart Home 2: 3 247 de apartamente inteligente",
-           "p": "Lagmar construiește în Chișinău două complexe Smart Home: Smart Home 1 (11 blocuri) și Smart Home 2 (16 blocuri, cu darea în exploatare în iulie 2030). Fiecare apartament vine cu casa inteligentă pregătită. O proiectează, o instalează și o întreține SmartSpace. Ai un apartament în Lagmar? Găsește-l în configurator, alege pachetul Basic, Comfort sau Premium și primești o ofertă preliminară în câteva minute.",
+    "ro": {"eyebrow": "Proiectul nostru", "h2": "Smart Home 1 și Smart Home 2: 3 247 de apartamente gata pentru casa inteligentă",
+           "p": "Lagmar construiește în Chișinău două complexe Smart Home: Smart Home 1 (11 blocuri) și Smart Home 2 (16 blocuri, cu darea în exploatare în iulie 2030). În fiecare apartament, unitatea centrală a casei inteligente e deja montată, iar de restul ne ocupăm noi, SmartSpace: proiect, montaj și service. Ai un apartament în Lagmar? Găsește-l în configurator, alege pachetul Basic, Comfort sau Premium și primești o ofertă preliminară în câteva minute.",
            "cta": "Configurează-ți apartamentul"},
-    "ru": {"eyebrow": "Наш проект", "h2": "Smart Home 1 и Smart Home 2: 3 247 умных квартир",
+    "ru": {"eyebrow": "Наш проект", "h2": "Smart Home 1 и Smart Home 2: 3 247 квартир, готовых к умному дому",
            "p": "Lagmar строит в Кишинёве два комплекса Smart Home: Smart Home 1 (11 блоков) и Smart Home 2 (16 блоков, сдача в июле 2030). Умный дом заложен в каждую квартиру. Его проектирует, устанавливает и обслуживает SmartSpace. У вас квартира в Lagmar? Найдите её в конфигураторе, выберите пакет Basic, Comfort или Premium и получите предварительное предложение за пару минут.",
            "cta": "Рассчитать для своей квартиры"},
     "en": {"eyebrow": "Our project", "h2": "Smart Home 1 and Smart Home 2: 3,247 smart-home-ready apartments",
@@ -86,12 +86,12 @@ HOME_LAGMAR = {
 
 META_DESC = {
     "home": {
-        "ro": "Fiecare apartament din Lagmar Smart Home are deja unitatea casei inteligente. Tu alegi ce va face — lumină, căldură, rulouri, protecție la scurgeri —, iar SmartSpace calculează prețul.",
+        "ro": "Fiecare apartament din Lagmar Smart Home are deja unitatea centrală a casei inteligente. Tu alegi ce face: lumină, căldură, jaluzele, protecție la inundații. SmartSpace îți calculează prețul pe loc.",
         "ru": "В каждой квартире Lagmar Smart Home уже стоит контроллер умного дома. Вы решаете, что он будет делать — свет, тепло, шторы, защита от протечки, — а SmartSpace посчитает цену.",
         "en": "Every Lagmar Smart Home apartment already has a smart-home controller. You decide what it does — light, heat, blinds, leak protection — and SmartSpace prices it for your apartment.",
     },
     "contact": {
-        "ro": "Consultație gratuită SmartSpace pentru locatarii Lagmar Smart Home: Strada Pajurii 11, Chișinău, +373 78 202 020. Proiectare, montaj și service.",
+        "ro": "Consultație gratuită SmartSpace pentru proprietarii din Lagmar Smart Home: strada Pajurii 11, Chișinău, +373 78 202 020. Proiectare, montaj și service.",
         "ru": "Бесплатная консультация SmartSpace для жильцов Lagmar Smart Home: Strada Pajurii 11, Кишинёв, +373 78 202 020. Проект, монтаж, сервис.",
         "en": "Free consultation with SmartSpace for Lagmar Smart Home residents: Strada Pajurii 11, Chișinău, +373 78 202 020. Design, installation, service.",
     },
@@ -113,7 +113,7 @@ PAGES["home"] = {
         "h1": "Casa ta, controlată dintr-un singur loc",
         "lead": "Grenton este un sistem de automatizare a locuinței produs în Polonia: iluminat, climă, rulouri, muzică și securitate — toate conectate într-un singur ecosistem. SmartSpace instalează și configurează sistemul Grenton în Moldova.",
         "cta_primary": ("Configuratorul Lagmar", "lagmar.html"),
-        "cta_secondary": ("Ce poate face sistemul", "features.html"),
+        "cta_secondary": ("Ce știe să facă sistemul", "features.html"),
         "cards": HOME_CARDS["ro"],
     },
     "ru": {
@@ -206,40 +206,40 @@ LAGMAR_UI = {
         "faq_title": "Вопросы и ответы",
     },
     "ro": {
-        "title": "Calculează casa inteligentă în Lagmar Smart Home | SmartSpace",
+        "title": "Calculează prețul casei inteligente în Lagmar Smart Home | SmartSpace",
         "eyebrow": "Apartamentul tău din Lagmar Smart Home",
-        "h1": "Calculează casa inteligentă pentru apartamentul tău din Lagmar",
-        "lead": "Găsește-ți apartamentul — îți arătăm pachetele pe planul lui și calculăm prețul pe loc. Unitatea centrală e deja montată — plătești doar ce adăugăm.",
-        "step1_title": "1. Găsește-ți apartamentul",
+        "h1": "Află cât costă casa inteligentă în apartamentul tău din Lagmar",
+        "lead": "Găsește-ți apartamentul, iar noi îți arătăm pachetele pe planul lui și calculăm prețul pe loc. Unitatea centrală e deja montată, așa că plătești doar ce adăugăm.",
+        "step1_title": "1. Găsește apartamentul tău",
         "building_label": "Blocul", "building_placeholder": "Alege blocul",
         "apt_label": "Nr. apartament", "apt_placeholder": "de ex. 507",
-        "apt_hint": "Conform legii, numărul apartamentului este format din etaj și numărul de pe etaj: 507 = etajul 5, apartamentul 07; la parter — P101. Poți introduce și numărul vechi din contract — îți spunem numărul nou.",
-        "cx_label": "Complexul", "cx": {"1": ["Smart Home 1", "11 blocuri · 1 065 ap."], "2": ["Smart Home 2", "16 blocuri · 2 182 ap. · dare în exploatare 2030"]},
+        "apt_hint": "Conform legii, numărul apartamentului arată etajul și locul de pe etaj: 507 înseamnă etajul 5, apartamentul 07, iar la parter numerele arată ca P101. Poți scrie și numărul vechi din contract: îți spunem noi care e cel nou.",
+        "cx_label": "Complexul", "cx": {"1": ["Smart Home 1", "11 blocuri · 1 065 ap."], "2": ["Smart Home 2", "16 blocuri · 2 182 ap. · dare în exploatare în 2030"]},
         "find_btn": "Caută", "loading": "Se încarcă lista apartamentelor…",
         "choose_building": "Alege mai întâi blocul.",
         "found_prefix": "Găsit:", "floor_word": "etaj", "floor_ground": "parter", "rooms_word": "camere", "rooms_one": "cameră", "area_word": "m²",
-        "not_found_text": "Nu am găsit acest apartament — nicio problemă, alege tipul de apartament manual:",
+        "not_found_text": "N-am găsit acest apartament. Nicio problemă, alege numărul de camere:",
         "manual_label": "Camere",
-        "edge_hint": "Pentru apartamente cu o cameră sau cu 5+ camere pregătim un calcul individual — pachetele de mai jos sunt orientative.",
+        "edge_hint": "Pentru apartamentele cu o cameră sau cu 5 și mai multe camere pregătim un calcul individual. Pachetele de mai jos sunt orientative.",
         "step2_title": "2. Alege pachetul",
         "tariff_required": "Alege un pachet pentru a continua.",
-        "step3_title": "3. Lasă-ne datele de contact — îți trimitem oferta",
+        "step3_title": "3. Lasă-ne un număr de telefon și îți trimitem oferta",
         "name_label": "Nume", "phone_label": "Telefon", "phone_hint": "De ex. +373 6x xxx xxx sau 07x xxx xxx",
         "email_label": "Email (opțional)",
         "consent_text": "Sunt de acord cu prelucrarea datelor personale pentru pregătirea ofertei —",
         "consent_link": "politica de confidențialitate",
         "disclaimer": "Oferta generată este preliminară, are caracter informativ și nu constituie ofertă publică; prețul final îl confirmă managerul SmartSpace după vizita la apartament.",
-        "submit_btn": "Primește oferta pentru apartamentul tău", "sending": "Se trimite…",
-        "submit_note": "Linkul către oferta preliminară se deschide imediat după trimitere. Te sunăm în aceeași zi lucrătoare ca să clarificăm detaliile și să stabilim o vizită. Fără obligații.",
-        "success_title": "Gata!", "success_text": "Oferta ta personalizată este pregătită:",
+        "submit_btn": "Vreau oferta pentru apartamentul meu", "sending": "Se trimite…",
+        "submit_note": "Oferta preliminară se deschide imediat după ce trimiți cererea. Te sunăm în aceeași zi lucrătoare, ca să lămurim detaliile și să stabilim o vizită. Nu te obligă la nimic.",
+        "success_title": "Gata!", "success_text": "Oferta ta personalizată e gata:",
         "success_link": "Deschide oferta",
-        "success_next": "Un manager SmartSpace te sună în aceeași zi lucrătoare pentru detalii.",
+        "success_next": "Te sună un consultant SmartSpace în aceeași zi lucrătoare, pentru detalii.",
         "again": "Trimite pentru alt apartament",
-        "error_text": "Nu am putut trimite automat. Contactează-ne direct:",
-        "error_phone": "Verifică numărul de telefon — pare introdus greșit.",
-        "error_name": "Cum să ne adresăm? Introdu numele — cel puțin 2 litere.",
-        "error_consent": "Bifează acordul pentru prelucrarea datelor — fără el nu putem pregăti oferta.",
-        "error_rate": "Prea multe cereri — încearcă din nou peste câteva minute.",
+        "error_text": "Cererea n-a putut fi trimisă automat. Scrie-ne sau sună-ne direct:",
+        "error_phone": "Verifică numărul de telefon, pare scris greșit.",
+        "error_name": "Cum îți spunem? Scrie-ți numele, cel puțin 2 litere.",
+        "error_consent": "Bifează acordul pentru prelucrarea datelor. Fără el nu putem pregăti oferta.",
+        "error_rate": "Prea multe cereri. Mai încearcă peste câteva minute.",
         "packages_title": "Ce include fiecare pachet",
         "faq_title": "Întrebări frecvente",
     },
@@ -297,16 +297,16 @@ FAQ = {
         ("Квартира будет готова только к 2030 году — зачем решать сейчас?", "Монтаж в Smart Home 2 — в 2030 году, после сдачи дома. Сейчас — расчёт и консультация: систему проще всего заложить до чистовой отделки, а скидка 10% на оборудование действует при заявке до 30.06.2027. Ни к чему не обязывает."),
     ],
     "ro": [
-        ("Se poate instala casa inteligentă după finalizarea renovării?", "Da. Sistemul funcționează pe magistrală cablată și acceptă și module wireless — pentru un apartament deja renovat le folosim pe acestea, fără șlițuri. Ideal este ca sistemul să fie prevăzut înainte de finisaje."),
-        ("Funcționează casa inteligentă fără internet?", "Da. Scenariile rulează local pe unitatea centrală CLU; internetul este necesar doar pentru accesul de la distanță din aplicația myGrenton."),
-        ("Cine instalează și întreține sistemul?", "SmartSpace — partener oficial Lagmar pentru casa inteligentă și reprezentant oficial Grenton în Moldova: proiectare, montaj, configurare și service."),
-        ("Cât durează montajul?", "Depinde de pachet și de stadiul finisajelor — de la câteva zile pentru pachetul de bază până la câteva săptămâni pentru automatizare completă. Termenele se confirmă după vizita la apartament."),
-        ("Pot începe cu Basic și extinde mai târziu?", "Da, sistemul este modular: modulele, panourile și senzorii se adaugă pe măsură ce este nevoie, fără a înlocui ce este deja instalat."),
-        ("Ce garanție oferiți?", "24 de luni pentru toate echipamentele pe care le montăm, de la data instalării."),
-        ("Ce a montat deja Lagmar — și trebuie să plătesc pentru asta?", "În tabloul electric al fiecărui apartament sunt deja unitatea centrală CLU, o sursă de alimentare de 24 V și un releu cu 2 canale. Nu plătești pentru ele: le conectăm la sistem, iar în preț intră doar ce adăugăm noi."),
-        ("Ce nu intră în prețul pachetului?", "Prețul include echipamentele și programarea. Senzorii, motoarele pentru jaluzele, audio și montajul le calculăm în oferta personalizată, după vizita în apartament — înainte de semnare și fără obligații."),
-        ("Nu știu numărul apartamentului — ce fac?", "Merge și numărul vechi din contract — îți spunem numărul nou. Poți alege etajul și apăsa pe apartamentul tău din listă sau poți indica doar numărul de camere."),
-        ("Apartamentul va fi gata abia în 2030 — de ce să decid acum?", "Montajul în Smart Home 2 are loc în 2030, după darea blocului în exploatare. Acum — calculul și consultația: sistemul se prevede cel mai ușor înainte de finisaje, iar reducerea de 10% la echipamente se aplică cererilor trimise până la 30.06.2027. Fără obligații."),
+        ("Se poate monta casa inteligentă după ce renovarea e gata?", "Da. Sistemul e pe cablu, dar acceptă și module wireless. Într-un apartament deja renovat le folosim pe acestea și nu spargem pereții. Ideal e totuși să prevezi sistemul înainte de finisaje."),
+        ("Casa inteligentă merge și fără internet?", "Da. Scenariile rulează în apartament, pe unitatea centrală CLU. Internetul îți trebuie doar ca să comanzi casa de la distanță, din aplicația myGrenton."),
+        ("Cine montează și întreține sistemul?", "SmartSpace, partener oficial Lagmar pentru casa inteligentă și reprezentant oficial Grenton în Moldova. Ne ocupăm de proiectare, montaj, programare și service."),
+        ("Cât durează montajul?", "Depinde de pachet și de stadiul finisajelor: de la câteva zile pentru pachetul de bază până la câteva săptămâni pentru o automatizare completă. Termenul exact ți-l confirmăm după ce vedem apartamentul."),
+        ("Pot începe cu Basic și să extind mai târziu?", "Da, sistemul e modular. Modulele, panourile și senzorii se adaugă pe parcurs, fără să schimbi ce e deja montat."),
+        ("Ce garanție oferiți?", "24 de luni pentru toate echipamentele pe care le montăm, de la data montajului."),
+        ("Ce a montat deja Lagmar și trebuie să plătesc pentru asta?", "În tabloul electric al fiecărui apartament există deja unitatea centrală CLU, o sursă de alimentare de 24 V și un releu cu 2 canale. Pentru ele nu plătești nimic: noi le conectăm la sistem, iar în preț intră doar ce adăugăm."),
+        ("Ce nu intră în prețul pachetului?", "Prețul include echipamentele și programarea. Senzorii, motoarele pentru jaluzele, sistemul audio și montajul le calculăm în oferta personalizată, după ce vedem apartamentul. O primești înainte să semnezi ceva și nu te obligă la nimic."),
+        ("Nu-mi știu numărul apartamentului. Ce fac?", "Poți scrie numărul vechi din contract și îți spunem noi care e cel nou. Sau alegi etajul și apeși pe apartamentul tău din listă. Ori indici doar numărul de camere."),
+        ("Apartamentul va fi gata abia în 2030. De ce să mă hotărăsc acum?", "În Smart Home 2 montăm în 2030, după darea blocului în exploatare. Acum poți primi calculul și o consultație: sistemul se prevede cel mai ușor înainte de finisaje, iar reducerea de 10% la echipamente se aplică cererilor trimise până la 30.06.2027. Nu te obligă la nimic."),
     ],
     "en": [
         ("Can the smart home be set up after the renovation is finished?", "Yes. The system is wired but also supports wireless modules — in a finished apartment we use those, so there's no need to cut into walls. Ideally, though, it's planned before the finishing work."),
@@ -326,7 +326,7 @@ FAQ = {
 LAGMAR_VIS = {
     "ru": {
         "kicker": "Lagmar Smart Home × SmartSpace",
-        "stats": [("2", "комплекса"), ("27", "блоков"), ("3 247", "умных квартир")],
+        "stats": [("2", "комплекса"), ("27", "блоков"), ("3 247", "квартир, готовых к умному дому")],
         "hero_stats": [("от " + fmt_eur(PRICES["2"]["basic"], "ru"), "пакет Basic для 2 комнат"), ("≈2 мин", "на расчёт"), ("0 €", "за контроллер — уже стоит")],
         "cta_find": "Найти мою квартиру", "cta_examples": "Пакеты на планировке",
         "blocks_title": "Выберите свой блок", "blocks_sub": "Нажмите на блок — номер квартиры введёте ниже.",
@@ -347,23 +347,23 @@ LAGMAR_VIS = {
     },
     "ro": {
         "kicker": "Lagmar Smart Home × SmartSpace",
-        "stats": [("2", "complexe"), ("27", "blocuri"), ("3 247", "apartamente inteligente")],
-        "hero_stats": [("de la " + fmt_eur(PRICES["2"]["basic"], "ro"), "pachetul Basic pentru 2 camere"), ("≈2 min", "pentru calcul"), ("0 €", "pentru unitate — e deja montată")],
-        "cta_find": "Găsește-mi apartamentul", "cta_examples": "Pachetele pe plan",
-        "blocks_title": "Alege-ți blocul", "blocks_sub": "Apasă pe bloc — numărul apartamentului îl introduci mai jos.",
+        "stats": [("2", "complexe"), ("27", "blocuri"), ("3 247", "apartamente gata pentru smart home")],
+        "hero_stats": [("de la " + fmt_eur(PRICES["2"]["basic"], "ro"), "pachetul Basic pentru 2 camere"), ("≈2 min", "durează calculul"), ("0 €", "pentru unitatea centrală, deja montată")],
+        "cta_find": "Găsește apartamentul meu", "cta_examples": "Pachetele pe plan",
+        "blocks_title": "Alege-ți blocul", "blocks_sub": "Apasă pe bloc, apoi scrie mai jos numărul apartamentului.",
         "block_word": "Blocul",
-        "siteplan_hint": "Nu știi litera blocului? Găsește-ți blocul pe schemă",
+        "siteplan_hint": "Nu știi litera blocului? Caută-l pe schemă",
         "siteplan_alt": "Schema complexului Lagmar Smart Home cu literele blocurilor",
-        "siteplan_note": "Apasă pe blocul tău — se selectează automat.",
+        "siteplan_note": "Apasă pe blocul tău și se selectează singur.",
         "examples_eyebrow": "Concret", "examples_title": "Pachetele pe planuri reale Lagmar",
-        "examples_sub": "Apartamente tipice din complex — comută Basic / Comfort / Premium și vezi ce apare și unde.",
+        "examples_sub": "Apartamente tipice din complex: comută între Basic, Comfort și Premium și vezi ce apare și unde.",
         "tabs": {"2": "2 camere · 46 m²", "3": "3 camere · 82 m²", "4": "4 camere · 99 m²"},
         "plan_alt": "Planul unui apartament tipic Lagmar cu {n} camere",
-        "example_note": "Ilustrație: amplasare orientativă pe un plan tipic Lagmar. Proiectul exact — după vizita la apartamentul tău.",
+        "example_note": "Ilustrație: amplasare orientativă pe un plan tipic Lagmar. Proiectul exact îl facem după ce vedem apartamentul tău.",
         "your_plan": "Planul apartamentului tău", "your_block": "Blocul tău",
         "s2_plan_title": "Cum arată pe un plan asemănător",
-        "devices": {"L": "Grup de iluminat", "P": "Panou de comandă", "T": "Zonă de climă", "W": "Senzor de scurgere",
-                    "S": "Senzor de fum", "M": "Senzor de mișcare", "C": "Motor rulou", "A": "Zonă audio",
+        "devices": {"L": "Grup de iluminat", "P": "Panou de comandă", "T": "Zonă de temperatură", "W": "Senzor de inundație",
+                    "S": "Senzor de fum", "M": "Senzor de mișcare", "C": "Motor de jaluzea", "A": "Zonă audio",
                     "Q": "Multisensor (CO₂)", "I": "Videointerfon"},
     },
     "en": {
@@ -564,7 +564,7 @@ def nav_html(lang, current):
 VIBER_URL = "viber://chat?number=%2B" + WA_NUMBER
 
 
-CLOSING_Q = {"ru": "Удобнее обсудить по телефону?", "ro": "Preferi să discutăm la telefon?", "en": "Rather talk it through?"}
+CLOSING_Q = {"ru": "Удобнее обсудить по телефону?", "ro": "Preferi să vorbim la telefon?", "en": "Rather talk it through?"}
 
 
 def dealer_band_html(lang, key=""):
@@ -594,7 +594,7 @@ HERO_CHIPS = {
     "en": ("Lagmar × SmartSpace", "Smart Home 1 · Smart Home 2", "Râșcani, Chișinău"),
 }
 HOME_STATS = {
-    "ro": [("3 247", "apartamente în două complexe"), ("de la " + fmt_eur(PRICES["2"]["basic"], "ro"), "pachetul Basic pentru 2 camere"), ("0 €", "pentru unitate — e deja montată"), ("−10%", "la echipamente până la 30.06.2027")],
+    "ro": [("3 247", "apartamente în două complexe"), ("de la " + fmt_eur(PRICES["2"]["basic"], "ro"), "pachetul Basic pentru 2 camere"), ("0 €", "pentru unitatea centrală, deja montată"), ("−10%", "la echipamente până la 30.06.2027")],
     "ru": [("3 247", "квартир в двух комплексах"), ("от " + fmt_eur(PRICES["2"]["basic"], "ru"), "пакет Basic для 2 комнат"), ("0 €", "за контроллер — уже стоит"), ("−10%", "на оборудование до 30.06.2027")],
     "en": [("3,247", "apartments in two complexes"), ("from " + fmt_eur(PRICES["2"]["basic"], "en"), "Basic package, 2 rooms"), ("€0", "controller already installed"), ("−10%", "off equipment until 30 June 2027")],
 }
@@ -619,15 +619,15 @@ NUM_TXT = {
         "old_no": "Нет — выбрать по этажу"
     },
     "ro": {
-        "apt_hint": "Conform legii, numărul apartamentului este format din etaj și numărul de pe etaj: 507 = etajul 5, apartamentul 07; la parter — P101. Poți introduce și numărul vechi din contract — îți spunem numărul nou.",
-        "fp_link": "Nu știi numărul? Alege etajul — îți arătăm toate apartamentele",
+        "apt_hint": "Conform legii, numărul apartamentului arată etajul și locul de pe etaj: 507 înseamnă etajul 5, apartamentul 07, iar la parter numerele arată ca P101. Poți scrie și numărul vechi din contract: îți spunem noi care e cel nou.",
+        "fp_link": "Nu-ți amintești numărul? Alege etajul și îți arătăm toate apartamentele",
         "fp_floor": "Etaj",
-        "fp_title": "Apartamentele de pe etaj — apasă pe al tău:",
-        "fp_msg": "Apartamentul {n} din blocul {b} nu există în baza Lagmar. Alege etajul — îți arătăm toate apartamentele:",
+        "fp_title": "Apartamentele de pe etaj. Apasă pe al tău:",
+        "fp_msg": "Apartamentul {n} din blocul {b} nu apare în baza Lagmar. Alege etajul și îți arătăm toate apartamentele:",
         "fp_need_block": "Alege mai întâi blocul.",
-        "old_q": "Se pare că {o} este un număr din vechea numerotare (de proiect). Conform legii, apartamentele se numerotează pe etaje — acum apartamentul tău este {n}: {fl}, {r} camere, {a} m². Este al tău?",
-        "old_yes": "Da, este apartamentul meu",
-        "old_no": "Nu — aleg după etaj"
+        "old_q": "Se pare că {o} e un număr din vechea numerotare, cea de proiect. Conform legii, apartamentele se numerotează pe etaje, așa că acum apartamentul tău are numărul {n}: {fl}, {r} camere, {a} m². E al tău?",
+        "old_yes": "Da, e apartamentul meu",
+        "old_no": "Nu, aleg după etaj"
     },
     "en": {
         "apt_hint": "Apartment numbers combine the floor and the apartment's number on it: 507 = floor 5, apartment 07; ground-floor numbers look like P101. An old number from your contract also works — we'll tell you the new one.",
@@ -644,7 +644,7 @@ NUM_TXT = {
 
 
 CALL_LABEL = {"ro": "Sună acum", "ru": "Позвонить", "en": "Call us"}
-MBAR = {"ro": ("Calculează", "Sună"), "ru": ("Рассчитать", "Позвонить"), "en": ("Get a price", "Call")}
+MBAR = {"ro": ("Vezi prețul", "Sună"), "ru": ("Рассчитать", "Позвонить"), "en": ("Get a price", "Call")}
 
 
 def mbar_html(lang, key):
@@ -1330,9 +1330,9 @@ SP_SIDE = {
            "pick": "Нажмите на блок на схеме — покажем его данные.", "sel": "Блок {b}", "line": "{c} кв. · этажи {from}–{to}",
            "off": "В блоке {b} Lagmar ещё не выставил квартиры в продажу."},
     "ro": {"eyebrow": "Despre complex", "title": "{name} în cifre", "apts": "apartamente", "blocks": "blocuri",
-           "st": {"1": "în construcție · sect. Râșcani", "2": "dare în exploatare — iulie 2030 · Calea Moșilor"},
-           "pick": "Apasă pe un bloc pe schemă — îți arătăm datele lui.", "sel": "Blocul {b}", "line": "{c} ap. · etajele {from}–{to}",
-           "off": "Blocul {b} — Lagmar nu a scos încă apartamentele la vânzare."},
+           "st": {"1": "în construcție · sect. Râșcani", "2": "dare în exploatare: iulie 2030 · Calea Moșilor"},
+           "pick": "Apasă pe un bloc din schemă și îți arătăm datele lui.", "sel": "Blocul {b}", "line": "{c} ap. · etajele {from}–{to}",
+           "off": "Blocul {b}: Lagmar încă nu a scos apartamentele la vânzare."},
     "en": {"eyebrow": "About the complex", "title": "{name} in numbers", "apts": "apartments", "blocks": "blocks",
            "st": {"1": "under construction · Râșcani", "2": "completion — July 2030 · Calea Moșilor"},
            "pick": "Tap a block on the plan — we will show its details.", "sel": "Block {b}", "line": "{c} apts · floors {from}–{to}",
