@@ -26,7 +26,7 @@
 <meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
-<link rel="preload" href="../assets/fonts/dmsans-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=2718827a">
+<link rel="preload" href="../assets/fonts/dmsans-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=fdb8ee8e">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://smartspace.md/#org", "name": "SmartSpace", "url": "https://smartspace.md/", "telephone": "+37378202020", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "sameAs": ["https://smartspace.md/", "https://smartlight.md/"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "LocalBusiness", "name": "SmartSpace", "telephone": "+37378202020", "email": "office@smartspace.md", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "geo": {"@type": "GeoCoordinates", "latitude": 47.0324269, "longitude": 28.8657644}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "09:00", "closes": "18:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "09:00", "closes": "18:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "09:00", "closes": "18:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Thursday", "opens": "09:00", "closes": "18:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "09:00", "closes": "18:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "10:00", "closes": "14:00"}], "sameAs": ["https://www.instagram.com/smartspace.md/", "https://www.facebook.com/smartspace.md/"]}</script>
 </head>
 <body class="theme-lagmar">
@@ -56,7 +56,7 @@
 <section class="hero hero-media">
   <div class="wrap hero-media-grid">
     <div><h1>Visit the showroom or message us — whatever suits you</h1><p class="lead">We will show you the panels and scenes in person, go through your floor plan and prepare a quote. The consultation is free.</p><span class="open-status" hidden><i></i><span></span></span><div class="cta-row cta-left quick"><a class="btn btn-primary" href="tel:+37378202020" aria-label="Call +373 78 202 020"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>+373 78 202 020</a><a class="btn btn-wa" href="https://wa.me/37378202020" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chat"/></svg>WhatsApp</a><a class="btn btn-viber" href="viber://chat?number=%2B37378202020"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chat"/></svg>Viber</a></div><p class="quick-mail"><a href="mailto:office@smartspace.md"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>office@smartspace.md</a></p></div>
-    <div class="hero-media-visual"><img src="../assets/grenton/monolith-hero.webp" srcset="../assets/grenton/monolith-hero-800.webp 800w, ../assets/grenton/monolith-hero.webp 1600w" sizes="(max-width: 860px) 92vw, 40vw" width="1600" height="942" alt="SmartSpace showroom" fetchpriority="high"><div class="float-card hero-fc"><span class="mk mk-I"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg></span><div><b>SmartSpace showroom</b><span>Strada Pajurii 11</span></div></div></div>
+    <div class="hero-media-visual"><img src="../assets/grenton/kitchen.webp" srcset="../assets/grenton/kitchen-800.webp 800w, ../assets/grenton/kitchen.webp 1600w" sizes="(max-width: 860px) 92vw, 40vw" width="1600" height="880" alt="SmartSpace showroom" fetchpriority="high"><div class="float-card hero-fc"><span class="mk mk-I"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg></span><div><b>SmartSpace showroom</b><span>Strada Pajurii 11</span></div></div></div>
   </div>
 </section>
 <section class="block alt" id="write">
@@ -69,8 +69,9 @@
         <h3>What stage is the renovation at?</h3>
         <div class="chips"><button type="button" class="chip" data-stage="rough" aria-pressed="false">bare shell, no renovation yet</button><button type="button" class="chip" data-stage="works" aria-pressed="false">renovation underway</button><button type="button" class="chip" data-stage="done" aria-pressed="false">renovation finished</button></div>
         <p class="hint">It's best to install before the finishing work; in an already renovated apartment we use wireless modules.</p>
-        <h3>A few words about the project (optional)</h3>
+        <h3>What should we call you?</h3>
         <input id="b-name" type="text" maxlength="80" autocomplete="name" placeholder="Your name" aria-label="Your name">
+        <h3 class="b-q b-q-text">A few words about the project (optional)</h3>
         <textarea id="b-text" rows="3" maxlength="600" placeholder="E.g.: 3 rooms, blinds and zoned climate" aria-label="A few words about the project (optional)"></textarea>
       </div>
       <div class="bprev">
@@ -81,7 +82,7 @@
         <div class="bactions">
           <a class="btn btn-wa" id="b-wa" href="https://wa.me/37378202020" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chat"/></svg>Send via WhatsApp</a>
           <a class="btn btn-ghost" id="b-mail" href="mailto:office@smartspace.md"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>Send by email</a>
-          <a class="btn btn-ghost" id="b-cfg" href="lagmar.html#step1" hidden>Open the configurator <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost" id="b-cfg" href="lagmar.html#step1" hidden>Get a price <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
         </div>
       </div>
     </div>
@@ -91,7 +92,7 @@
 <section class="block" id="map">
   <div class="wrap map-grid">
     <div class="mapcard" id="mapcard">
-      <img class="map-img map-l" src="../assets/img/map-light.webp" width="1110" height="640" alt="Strada Pajurii 11, Chișinău" loading="lazy">
+      <img class="map-img map-l" src="../assets/img/map-light.webp" width="1110" height="640" alt="Strada Pajurii 11, Chișinău" loading="lazy">
       <img class="map-img map-d" src="../assets/img/map-dark.webp" width="1110" height="640" alt="" loading="lazy">
       <span class="map-pin" style="left:50.4%;top:50%"><span class="pin-dot"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg></span></span>
       <div class="map-label"><b>SmartSpace showroom</b><span>Strada Pajurii 11</span></div>
@@ -99,7 +100,7 @@
       <span class="map-attr">© OpenStreetMap</span>
     </div>
     <aside class="map-info rv">
-      <h2 class="h2">Strada Pajurii 11, Chișinău</h2>
+      <h2 class="h2">Strada Pajurii 11, Chișinău</h2>
       <p class="sub">Râșcani district, next to Râșcani Park.</p>
       <div class="route"><a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=47.0324269,28.8657644" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>Directions in Google Maps</a><a class="btn btn-ghost" href="https://waze.com/ul?ll=47.0324269,28.8657644&navigate=yes" target="_blank" rel="noopener">Waze</a></div>
       <div class="info-cols">
@@ -120,8 +121,8 @@
 
 <section class="block alt">
   <div class="wrap">
-    <div class="rv"><h2 class="h2">What happens after you get in touch</h2></div>
-    <ol class="steps steps-3 rail"><li class="step rv" style="--d:1"><span class="step-n">1</span><h3>Configurator or a call</h3><p>Pick your apartment and package on the site or call us — we prepare a preliminary quote.</p></li><li class="step rv" style="--d:2"><span class="step-n">2</span><h3>Visit and design</h3><p>We come over, learn your habits and draw up the design: what works where and how.</p></li><li class="step rv" style="--d:3"><span class="step-n">3</span><h3>Installation</h3><p>Best done before the finishing work; in an already renovated apartment we use wireless modules, with no cutting into walls.</p></li></ol>
+    <div class="rv"><h2 class="h2">How we work, step by step</h2></div>
+    <ol class="steps steps-3 rail"><li class="step rv" style="--d:1"><span class="step-n">1</span><h3>Calculator or a call</h3><p>Pick your apartment and package on the site or call us — we prepare a preliminary quote.</p></li><li class="step rv" style="--d:2"><span class="step-n">2</span><h3>Visit and design</h3><p>We come over, learn your habits and draw up the design: what works where and how.</p></li><li class="step rv" style="--d:3"><span class="step-n">3</span><h3>Installation</h3><p>Best done before the finishing work; in an already renovated apartment we use wireless modules, with no cutting into walls.</p></li></ol>
   </div>
 </section>
 <script id="contact-data" type="application/json">{"open_now":"Open now · until {t}","closed_now":"Closed now · opens {d} at {t}","today":"today","tomorrow":"tomorrow","days_full":["on Monday","on Tuesday","on Wednesday","on Thursday","on Friday","on Saturday","on Sunday"],"msg_hello":"Hello! I am writing from the SmartSpace · Lagmar Smart Home website.","msg_topic":"Topic","msg_stage":"Renovation stage","msg_name":"Name","mail_subject":"Request from the SmartSpace · Lagmar Smart Home website","m_live":"Interactive map","hours":[["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["9:00","18:00"],["10:00","14:00"],[null,null]],"topics":{"lagmar":"Apartment in Lagmar","flat":"Apartment or house","office":"Office or commercial","service":"Service"},"stages":{"rough":"bare shell, no renovation yet","works":"renovation underway","done":"renovation finished"},"wa":"37378202020","email":"office@smartspace.md","map_embed":"https://maps.google.com/maps?q=47.0324269,28.8657644&z=16&output=embed"}</script>
@@ -195,9 +196,9 @@
 </script>
 <section class="closing closing-photo">
   <div class="wrap closing-inner">
-    <h2>See what goes into your apartment</h2>
-    <p>Find your apartment in Lagmar — we'll show the packages right on your floor plan.</p>
-    <div class="cta-row cta-left"><a class="btn btn-light" href="lagmar.html#step1">Open the configurator <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a></div>
+    <h2>Get the price for your apartment in 2 minutes</h2>
+    <p>Lagmar has already installed the controller, so you pay only for what you add. 10% off equipment until 30 June 2027 and a 24-month warranty.</p>
+    <div class="cta-row cta-left"><a class="btn btn-light" href="lagmar.html#step1">Get a price <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a></div>
     <p class="closing-rep">SmartSpace — Lagmar's official smart-home partner: design, installation and service</p>
   </div>
 </section>

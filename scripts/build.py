@@ -185,7 +185,7 @@ LAGMAR_UI = {
         "edge_hint": "Для 1-комнатных квартир и квартир от 5 комнат готовим индивидуальный расчёт — пакеты ниже ориентировочные.",
         "step2_title": "2. Выберите пакет",
         "tariff_required": "Выберите пакет, чтобы продолжить.",
-        "step3_title": "3. Оставьте контакты — пришлём предложение",
+        "step3_title": "3. Получите предложение на свою квартиру",
         "name_label": "Имя", "phone_label": "Телефон", "phone_hint": "Например, +373 6x xxx xxx или 06x xxx xxx",
         "email_label": "Email (необязательно)",
         "consent_text": "Согласен(-на) на обработку персональных данных для подготовки предложения —",
@@ -193,7 +193,7 @@ LAGMAR_UI = {
         "disclaimer": "Предложение носит предварительный, информационный характер и не является публичной офертой; итоговая цена подтверждается менеджером SmartSpace после осмотра квартиры.",
         "submit_btn": "Получить предложение на мою квартиру", "sending": "Отправляем…",
         "submit_note": "Ссылка на предварительное предложение откроется сразу после отправки. Мы перезвоним в тот же рабочий день, чтобы уточнить детали и договориться об осмотре. Ни к чему не обязывает.",
-        "success_title": "Готово!", "success_text": "Ваше персональное предложение:",
+        "success_title": "Готово!", "success_text": "Ваше предварительное предложение:",
         "success_link": "Открыть предложение",
         "success_next": "Менеджер SmartSpace перезвонит в тот же рабочий день, чтобы уточнить детали.",
         "again": "Отправить для другой квартиры",
@@ -217,21 +217,21 @@ LAGMAR_UI = {
         "cx_label": "Complexul", "cx": {"1": ["Smart Home 1", "11 blocuri · 1 065 ap."], "2": ["Smart Home 2", "16 blocuri · 2 182 ap. · dare în exploatare în 2030"]},
         "find_btn": "Caută", "loading": "Se încarcă lista apartamentelor…",
         "choose_building": "Alege mai întâi blocul.",
-        "found_prefix": "Găsit:", "floor_word": "etaj", "floor_ground": "parter", "rooms_word": "camere", "rooms_one": "cameră", "area_word": "m²",
+        "found_prefix": "Găsit:", "floor_word": "etajul", "floor_ground": "parter", "rooms_word": "camere", "rooms_one": "cameră", "area_word": "m²",
         "not_found_text": "N-am găsit acest apartament. Nicio problemă, alege numărul de camere:",
         "manual_label": "Camere",
-        "edge_hint": "Pentru apartamentele cu o cameră sau cu 5 și mai multe camere pregătim un calcul individual. Pachetele de mai jos sunt orientative.",
+        "edge_hint": "Pentru apartamentele cu o cameră sau cu cel puțin 5 camere pregătim un calcul individual. Pachetele de mai jos sunt orientative.",
         "step2_title": "2. Alege pachetul",
         "tariff_required": "Alege un pachet pentru a continua.",
-        "step3_title": "3. Lasă-ne un număr de telefon și îți trimitem oferta",
+        "step3_title": "3. Primește oferta pentru apartamentul tău",
         "name_label": "Nume", "phone_label": "Telefon", "phone_hint": "De ex. +373 6x xxx xxx sau 07x xxx xxx",
         "email_label": "Email (opțional)",
-        "consent_text": "Sunt de acord cu prelucrarea datelor personale pentru pregătirea ofertei —",
-        "consent_link": "politica de confidențialitate",
-        "disclaimer": "Oferta generată este preliminară, are caracter informativ și nu constituie ofertă publică; prețul final îl confirmă managerul SmartSpace după vizita la apartament.",
+        "consent_text": "Sunt de acord cu prelucrarea datelor personale pentru pregătirea ofertei, conform",
+        "consent_link": "politicii de confidențialitate",
+        "disclaimer": "Oferta de pe site este preliminară și are caracter informativ; nu este ofertă publică. Prețul final ți-l confirmă consultantul SmartSpace după vizita în apartament.",
         "submit_btn": "Vreau oferta pentru apartamentul meu", "sending": "Se trimite…",
-        "submit_note": "Oferta preliminară se deschide imediat după ce trimiți cererea. Te sunăm în aceeași zi lucrătoare, ca să lămurim detaliile și să stabilim o vizită. Nu te obligă la nimic.",
-        "success_title": "Gata!", "success_text": "Oferta ta personalizată e gata:",
+        "submit_note": "Oferta preliminară se deschide imediat după ce trimiți cererea. Te sunăm în aceeași zi lucrătoare, ca să lămurim detaliile și să stabilim o vizită. Cererea nu te obligă la nimic.",
+        "success_title": "Gata!", "success_text": "Oferta ta preliminară e gata:",
         "success_link": "Deschide oferta",
         "success_next": "Te sună un consultant SmartSpace în aceeași zi lucrătoare, pentru detalii.",
         "again": "Trimite pentru alt apartament",
@@ -261,7 +261,7 @@ LAGMAR_UI = {
         "edge_hint": "For 1-room apartments and apartments with 5+ rooms we prepare an individual quote — the packages below are indicative.",
         "step2_title": "2. Choose a package",
         "tariff_required": "Choose a package to continue.",
-        "step3_title": "3. Leave your details — we'll send your quote",
+        "step3_title": "3. Get the quote for your apartment",
         "name_label": "Name", "phone_label": "Phone", "phone_hint": "e.g. +373 6x xxx xxx or 06x xxx xxx",
         "email_label": "Email (optional)",
         "consent_text": "I agree to the processing of my personal data to prepare the quote —",
@@ -269,7 +269,7 @@ LAGMAR_UI = {
         "disclaimer": "The quote is preliminary and for information only; it is not a binding offer. The final price is confirmed by a SmartSpace manager after a site visit.",
         "submit_btn": "Get the quote for my apartment", "sending": "Sending…",
         "submit_note": "A link to your preliminary quote opens right after you send this. We'll call the same working day to go over the details and arrange a visit. No obligation.",
-        "success_title": "Done!", "success_text": "Your personal quote is ready:",
+        "success_title": "Done!", "success_text": "Your preliminary quote is ready:",
         "success_link": "Open quote",
         "success_next": "A SmartSpace manager will call you the same working day to confirm the details.",
         "again": "Submit for another apartment",
@@ -297,16 +297,16 @@ FAQ = {
         ("Квартира будет готова только к 2030 году — зачем решать сейчас?", "Монтаж в Smart Home 2 — в 2030 году, после сдачи дома. Сейчас — расчёт и консультация: систему проще всего заложить до чистовой отделки, а скидка 10% на оборудование действует при заявке до 30.06.2027. Ни к чему не обязывает."),
     ],
     "ro": [
-        ("Se poate monta casa inteligentă după ce renovarea e gata?", "Da. Sistemul e pe cablu, dar acceptă și module wireless. Într-un apartament deja renovat le folosim pe acestea și nu spargem pereții. Ideal e totuși să prevezi sistemul înainte de finisaje."),
+        ("Se poate monta casa inteligentă după ce renovarea e gata?", "Da. Sistemul e pe cablu, dar acceptă și module wireless. Într-un apartament deja renovat le folosim pe acestea și nu spargem pereții. Ideal e totuși să planifici sistemul înainte de finisaje."),
         ("Casa inteligentă merge și fără internet?", "Da. Scenariile rulează în apartament, pe unitatea centrală CLU. Internetul îți trebuie doar ca să comanzi casa de la distanță, din aplicația myGrenton."),
         ("Cine montează și întreține sistemul?", "SmartSpace, partener oficial Lagmar pentru casa inteligentă și reprezentant oficial Grenton în Moldova. Ne ocupăm de proiectare, montaj, programare și service."),
         ("Cât durează montajul?", "Depinde de pachet și de stadiul finisajelor: de la câteva zile pentru pachetul de bază până la câteva săptămâni pentru o automatizare completă. Termenul exact ți-l confirmăm după ce vedem apartamentul."),
-        ("Pot începe cu Basic și să extind mai târziu?", "Da, sistemul e modular. Modulele, panourile și senzorii se adaugă pe parcurs, fără să schimbi ce e deja montat."),
+        ("Pot să încep cu Basic și să extind sistemul mai târziu?", "Da, sistemul e modular. Modulele, panourile și senzorii se adaugă pe parcurs, fără să schimbi ce e deja montat."),
         ("Ce garanție oferiți?", "24 de luni pentru toate echipamentele pe care le montăm, de la data montajului."),
-        ("Ce a montat deja Lagmar și trebuie să plătesc pentru asta?", "În tabloul electric al fiecărui apartament există deja unitatea centrală CLU, o sursă de alimentare de 24 V și un releu cu 2 canale. Pentru ele nu plătești nimic: noi le conectăm la sistem, iar în preț intră doar ce adăugăm."),
+        ("Ce a montat deja Lagmar? Trebuie să plătesc pentru asta?", "În tabloul electric al fiecărui apartament există deja unitatea centrală CLU, o sursă de alimentare de 24 V și un releu cu 2 canale. Pentru ele nu plătești nimic: noi le conectăm la sistem, iar în preț intră doar ce adăugăm."),
         ("Ce nu intră în prețul pachetului?", "Prețul include echipamentele și programarea. Senzorii, motoarele pentru jaluzele, sistemul audio și montajul le calculăm în oferta personalizată, după ce vedem apartamentul. O primești înainte să semnezi ceva și nu te obligă la nimic."),
         ("Nu-mi știu numărul apartamentului. Ce fac?", "Poți scrie numărul vechi din contract și îți spunem noi care e cel nou. Sau alegi etajul și apeși pe apartamentul tău din listă. Ori indici doar numărul de camere."),
-        ("Apartamentul va fi gata abia în 2030. De ce să mă hotărăsc acum?", "În Smart Home 2 montăm în 2030, după darea blocului în exploatare. Acum poți primi calculul și o consultație: sistemul se prevede cel mai ușor înainte de finisaje, iar reducerea de 10% la echipamente se aplică cererilor trimise până la 30.06.2027. Nu te obligă la nimic."),
+        ("Apartamentul va fi gata abia în 2030. De ce să mă hotărăsc acum?", "În Smart Home 2 montăm în 2030, după darea blocului în exploatare. Acum poți primi calculul și o consultație: sistemul se montează cel mai ușor înainte de finisaje, iar reducerea de 10% la echipamente se aplică cererilor trimise până la 30.06.2027. Cererea e gratuită și nu te obligă la nimic."),
     ],
     "en": [
         ("Can the smart home be set up after the renovation is finished?", "Yes. The system is wired but also supports wireless modules — in a finished apartment we use those, so there's no need to cut into walls. Ideally, though, it's planned before the finishing work."),
@@ -327,7 +327,7 @@ LAGMAR_VIS = {
     "ru": {
         "kicker": "Lagmar Smart Home × SmartSpace",
         "stats": [("2", "комплекса"), ("27", "блоков"), ("3 247", "квартир, готовых к умному дому")],
-        "hero_stats": [("от " + fmt_eur(PRICES["2"]["basic"], "ru"), "пакет Basic для 2 комнат"), ("≈2 мин", "на расчёт"), ("0 €", "за контроллер — уже стоит")],
+        "hero_stats": [("от " + fmt_eur(PRICES["2"]["basic"], "ru"), "Basic, 2 комнаты: оборудование и программирование"), ("0 €", "за контроллер — он уже стоит"), ("24 мес.", "гарантия на оборудование")],
         "cta_find": "Найти мою квартиру", "cta_examples": "Пакеты на планировке",
         "blocks_title": "Выберите свой блок", "blocks_sub": "Нажмите на блок — номер квартиры введёте ниже.",
         "block_word": "Блок",
@@ -348,7 +348,7 @@ LAGMAR_VIS = {
     "ro": {
         "kicker": "Lagmar Smart Home × SmartSpace",
         "stats": [("2", "complexe"), ("27", "blocuri"), ("3 247", "apartamente gata pentru smart home")],
-        "hero_stats": [("de la " + fmt_eur(PRICES["2"]["basic"], "ro"), "pachetul Basic pentru 2 camere"), ("≈2 min", "durează calculul"), ("0 €", "pentru unitatea centrală, deja montată")],
+        "hero_stats": [("de la " + fmt_eur(PRICES["2"]["basic"], "ro"), "Basic, 2 camere: echipamente și programare"), ("0 €", "pentru unitatea centrală, deja montată"), ("24 luni", "garanție pentru echipamente")],
         "cta_find": "Găsește apartamentul meu", "cta_examples": "Pachetele pe plan",
         "blocks_title": "Alege-ți blocul", "blocks_sub": "Apasă pe bloc, apoi scrie mai jos numărul apartamentului.",
         "block_word": "Blocul",
@@ -369,7 +369,7 @@ LAGMAR_VIS = {
     "en": {
         "kicker": "Lagmar Smart Home × SmartSpace",
         "stats": [("2", "complexes"), ("27", "blocks"), ("3,247", "smart-home-ready apartments")],
-        "hero_stats": [("from " + fmt_eur(PRICES["2"]["basic"], "en"), "Basic package, 2 rooms"), ("≈2 min", "to price it"), ("€0", "for the controller — already installed")],
+        "hero_stats": [("from " + fmt_eur(PRICES["2"]["basic"], "en"), "Basic, 2 rooms: equipment and programming"), ("€0", "for the controller, already installed"), ("24 months", "warranty on equipment")],
         "cta_find": "Find my apartment", "cta_examples": "Packages on a floor plan",
         "blocks_title": "Choose your block", "blocks_sub": "Tap your block, then enter your apartment number below.",
         "block_word": "Block",
@@ -589,14 +589,14 @@ def dealer_band_html(lang, key=""):
 
 
 HERO_CHIPS = {
-    "ro": ("Lagmar × SmartSpace", "Smart Home 1 · Smart Home 2", "sect. Râșcani, Chișinău"),
-    "ru": ("Lagmar × SmartSpace", "Smart Home 1 · Smart Home 2", "сект. Рышкань, Кишинёв"),
-    "en": ("Lagmar × SmartSpace", "Smart Home 1 · Smart Home 2", "Râșcani, Chișinău"),
+    "ro": ("SmartSpace · partener oficial Lagmar", "Smart Home 1 · Smart Home 2", "sect. Râșcani, Chișinău"),
+    "ru": ("SmartSpace · официальный партнёр Lagmar", "Smart Home 1 · Smart Home 2", "сект. Рышкань, Кишинёв"),
+    "en": ("SmartSpace · official Lagmar partner", "Smart Home 1 · Smart Home 2", "Râșcani, Chișinău"),
 }
 HOME_STATS = {
-    "ro": [("3 247", "apartamente în două complexe"), ("de la " + fmt_eur(PRICES["2"]["basic"], "ro"), "pachetul Basic pentru 2 camere"), ("0 €", "pentru unitatea centrală, deja montată"), ("−10%", "la echipamente până la 30.06.2027")],
-    "ru": [("3 247", "квартир в двух комплексах"), ("от " + fmt_eur(PRICES["2"]["basic"], "ru"), "пакет Basic для 2 комнат"), ("0 €", "за контроллер — уже стоит"), ("−10%", "на оборудование до 30.06.2027")],
-    "en": [("3,247", "apartments in two complexes"), ("from " + fmt_eur(PRICES["2"]["basic"], "en"), "Basic package, 2 rooms"), ("€0", "controller already installed"), ("−10%", "off equipment until 30 June 2027")],
+    "ro": [("0 €", "pentru unitatea centrală, deja montată"), ("de la " + fmt_eur(PRICES["2"]["basic"], "ro"), "Basic, 2 camere: echipamente și programare"), ("−10%", "la echipamente până la 30.06.2027"), ("≈2 min", "durează calculul")],
+    "ru": [("0 €", "за контроллер — он уже стоит"), ("от " + fmt_eur(PRICES["2"]["basic"], "ru"), "Basic, 2 комнаты: оборудование и программирование"), ("−10%", "на оборудование до 30.06.2027"), ("≈2 мин", "на расчёт")],
+    "en": [("€0", "for the controller, already installed"), ("from " + fmt_eur(PRICES["2"]["basic"], "en"), "Basic, 2 rooms: equipment and programming"), ("−10%", "off equipment until 30 June 2027"), ("≈2 min", "to get your price")],
 }
 
 
@@ -623,7 +623,7 @@ NUM_TXT = {
         "fp_link": "Nu-ți amintești numărul? Alege etajul și îți arătăm toate apartamentele",
         "fp_floor": "Etaj",
         "fp_title": "Apartamentele de pe etaj. Apasă pe al tău:",
-        "fp_msg": "Apartamentul {n} din blocul {b} nu apare în baza Lagmar. Alege etajul și îți arătăm toate apartamentele:",
+        "fp_msg": "Apartamentul {n} din blocul {b} nu apare în lista Lagmar. Alege etajul și îți arătăm toate apartamentele:",
         "fp_need_block": "Alege mai întâi blocul.",
         "old_q": "Se pare că {o} e un număr din vechea numerotare, cea de proiect. Conform legii, apartamentele se numerotează pe etaje, așa că acum apartamentul tău are numărul {n}: {fl}, {r} camere, {a} m². E al tău?",
         "old_yes": "Da, e apartamentul meu",
@@ -644,7 +644,7 @@ NUM_TXT = {
 
 
 CALL_LABEL = {"ro": "Sună acum", "ru": "Позвонить", "en": "Call us"}
-MBAR = {"ro": ("Vezi prețul", "Sună"), "ru": ("Рассчитать", "Позвонить"), "en": ("Get a price", "Call")}
+MBAR = {"ro": ("Calculează", "Sună"), "ru": ("Рассчитать", "Позвонить"), "en": ("Get a price", "Call")}
 
 
 def mbar_html(lang, key):
@@ -875,7 +875,7 @@ LAGMAR_JS = r"""
     var M = UI.mkt, opts = 0, keys = Object.keys(state.opts).filter(function (k) { return state.opts[k]; });
     keys.forEach(function (k) { opts += UI.opt_prices[k] || 0; });
     var pkg = state.tariff && state.rooms && UI.price_num[String(state.rooms)] ? UI.price_num[String(state.rooms)][state.tariff] : null;
-    show($("sum-empty"), !pkg); show($("sum-rows"), !!pkg);
+    show($("sum-empty"), !pkg); show($("sum-rows"), !!pkg); show($("sum-go"), !!pkg);
     if (!pkg) return null;
     var eq = UI.equip_num[String(state.rooms)][state.tariff] + opts / (1 + UI.prog_share);
     var total = pkg + opts, promo = Math.round((total - eq * UI.promo_pct / 100) / 10) * 10;
@@ -884,7 +884,7 @@ LAGMAR_JS = r"""
     $("sum-old").textContent = eur(total); $("sum-total").textContent = eur(promo);
     Array.prototype.forEach.call(document.querySelectorAll(".offer-inline .oc"), function (c) { c.hidden = c.dataset.oc !== String(state.rooms) + "-" + state.tariff; });
     pulse($("sum-total")); pulse($("rc-total"));
-    var apt = state.building ? UI.block_word + " " + state.building + (state.apt ? " · № " + state.apt : "") : "";
+    var apt = state.building ? UI.block_word + " " + state.building + (state.apt ? " · " + (LANG === "ru" ? "№ " : LANG === "ro" ? "ap. " : "apt ") + state.apt : "") : "";
     if (state.area) apt += (apt ? " · " : "") + fmtArea(state.area) + " " + UI.area_unit;
     $("rc-apt").textContent = apt || "—";
     $("rc-pkg").textContent = (PK.labels[state.tariff] || "") + " · " + eur(pkg);
@@ -1629,6 +1629,7 @@ def lagmar_page_html(lang, packages_all):
         <div class="sum-total"><dt>{m["sum_total"]}</dt><dd><s id="sum-old"></s> <b id="sum-total" aria-live="polite"></b></dd></div>
       </dl>
       <p class="sum-caption">{m["promo_caption"]}</p>
+      <p class="sum-go" id="sum-go" hidden><a class="btn btn-primary" href="#step3">{m["sum_go"]} {ico("arrow")}</a><small>{m["sum_go_note"]}</small></p>
       <p class="sum-note">{m["sum_note"]}</p>
     </div>
     <details class="fold price-why"><summary>{m["price_breakdown"]}</summary>{offer_html(lang, pk).replace('class="offer"', 'class="offer offer-inline"', 1)}</details>
@@ -1654,7 +1655,7 @@ def lagmar_page_html(lang, packages_all):
     </form>
     <div class="s3-next">
       <h3>{m["next_title"]}</h3>
-      <ul class="checks"><li>{ico("check")}<span>{m["next1"]}</span></li><li>{ico("check")}<span>{m["next2"]}</span></li><li>{ico("check")}<span>{m["next3"]}</span></li></ul>
+      <ul class="checks"><li>{ico("check")}<span>{m["trust"]}</span></li><li>{ico("check")}<span>{m["next1"]}</span></li><li>{ico("check")}<span>{m["next2"]}</span></li><li>{ico("check")}<span>{m["next3"]}</span></li></ul>
       <p class="s3-call">{m["call_instead"]} <a href="tel:{PHONE_TEL}">{ico("phone")}{PHONE_DISPLAY}</a> · <a href="https://wa.me/{WA_NUMBER}" target="_blank" rel="noopener">{ico("chat")}WhatsApp</a> · <a href="{VIBER_URL}">{ico("chat")}Viber</a></p>
     </div>
     <div id="cfg-result" class="cfg-note cfg-status" role="status" aria-live="polite" hidden></div>
@@ -2338,7 +2339,7 @@ def home_page_html(lang, packages_all):
     <p class="lead">{lg["lead"]}</p>
     <div class="cta-row cta-left">
       <a class="btn btn-light" href="lagmar.html#step1">{lg["cta"]}</a>
-      <a class="btn btn-outline-light" href="#film">{lg["film"]} {ico("play")}</a>
+      <a class="btn btn-outline-light" href="#day">{lg["film"]} {ico("play")}</a>
     </div>
     <ul class="lg-stats hero-stats">{hstats}</ul>
   </div>
@@ -2352,8 +2353,7 @@ def home_page_html(lang, packages_all):
       <h2 class="vhero-title">{h["h1"]}</h2>
       <p class="lead">{h["lead"]}</p>
       <div class="cta-row cta-left">
-        <a class="btn btn-light" href="features.html">{h["cta2"]}</a>
-        <a class="btn btn-outline-light" href="#day">{DAY[lang]["play"]} {ico("play")}</a>
+        <a class="btn btn-outline-light" href="features.html">{h["cta2"]} {ico("arrow")}</a>
       </div>
       <ul class="trust">{trust}</ul>
     </div>
@@ -2394,7 +2394,7 @@ def home_page_html(lang, packages_all):
       <h2>{h["sl_title"]}</h2>
       <p>{h["sl_text"]}</p>
       <ul class="sl-brands">{sl_brands}</ul>
-      <a class="btn sl-btn" href="{sl_href}" rel="noopener">{h["sl_cta"]} {ico("ext")}</a>
+      <a class="btn sl-btn" href="{sl_href}" target="_blank" rel="noopener">{h["sl_cta"]} {ico("ext")}</a>
     </div>
     <div class="sl-photo rv">
       <img src="../assets/smartlight/banner-960.jpg" srcset="../assets/smartlight/banner-960.jpg 960w, ../assets/smartlight/banner.jpg 1440w" sizes="(max-width: 860px) 100vw, 40vw" width="960" height="1200" alt="Vibia Array — SmartLight" loading="lazy">
@@ -2525,8 +2525,9 @@ def contact_page_html(lang):
         <h3>{c["q2"]}</h3>
         <div class="chips">{stages}</div>
         <p class="hint">{c["stage_hint"]}</p>
-        <h3>{c["q3"]}</h3>
+        <h3>{c["q_name"]}</h3>
         <input id="b-name" type="text" maxlength="80" autocomplete="name" placeholder="{esc(c["name_ph"])}" aria-label="{esc(c["name_ph"])}">
+        <h3 class="b-q b-q-text">{c["q3"]}</h3>
         <textarea id="b-text" rows="3" maxlength="600" placeholder="{esc(c["text_ph"])}" aria-label="{esc(c["q3"])}"></textarea>
       </div>
       <div class="bprev">
@@ -2790,7 +2791,7 @@ def main():
         for n, tiers in PACKAGE_SPEC.items():
             for t, spec in tiers.items():
                 packages_all[lang][n][t] = [f"{k}: {v}" for k, v in spec_lines(spec, lang)[:-1]]
-    vat = {"ru": "с НДС, ориентировочно", "ro": "cu TVA, orientativ", "en": "incl. VAT, indicative"}
+    vat = {"ru": "оборудование и программирование, с НДС · без монтажа", "ro": "echipamente și programare, cu TVA · fără montaj", "en": "equipment and programming, incl. VAT · installation extra"}
     for lang in LANGS:
         pk = packages_all[lang]
         pk["labels"]["price_vat"] = vat[lang]

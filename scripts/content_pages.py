@@ -12,23 +12,23 @@ TIER_CHIP = {
 }
 
 CTA_LAGMAR = {
-    "ru": {"title": "Посмотрите, что из этого войдёт в вашу квартиру",
-           "text": "Найдите свою квартиру в Lagmar — покажем пакеты прямо на вашей планировке.",
-           "btn": "Подобрать пакет", "alt": "Позвонить"},
-    "ro": {"title": "Vezi ce primește apartamentul tău",
-           "text": "Găsește-ți apartamentul din Lagmar și îți arătăm pachetele direct pe planul lui.",
-           "btn": "Deschide configuratorul", "alt": "Sună-ne"},
-    "en": {"title": "See what goes into your apartment",
-           "text": "Find your apartment in Lagmar — we'll show the packages right on your floor plan.",
-           "btn": "Open the configurator", "alt": "Call us"},
+    "ru": {"title": "Узнайте цену для своей квартиры за 2 минуты",
+           "text": "Контроллер уже установлен Lagmar, поэтому вы платите только за то, что добавляете. Скидка 10% на оборудование до 30.06.2027 и гарантия 24 месяца.",
+           "btn": "Рассчитать цену", "alt": "Позвонить"},
+    "ro": {"title": "Află prețul pentru apartamentul tău în 2 minute",
+           "text": "Unitatea centrală e deja montată de Lagmar, așa că plătești doar ce adaugi. Cu 10% reducere la echipamente până la 30.06.2027 și garanție de 24 de luni.",
+           "btn": "Calculează prețul", "alt": "Sună-ne"},
+    "en": {"title": "Get the price for your apartment in 2 minutes",
+           "text": "Lagmar has already installed the controller, so you pay only for what you add. 10% off equipment until 30 June 2027 and a 24-month warranty.",
+           "btn": "Get a price", "alt": "Call us"},
 }
 
 FEATURES = {
     "ru": {
         "title": "Что умеет умная квартира в Lagmar Smart Home | SmartSpace",
         "eyebrow": "Что умеет ваш дом",
-        "h1": "Не гаджеты, а готовый комфорт в каждой комнате",
-        "lead": "Мы не продаём «умные лампочки». Умный дом в вашей квартире связывает свет, тепло, шторы, датчики и домофон в одну систему — и вы управляете квартирой так, как удобно: со стены, с телефона или вообще без касаний.",
+        "h1": "Что умеет ваша квартира в Lagmar",
+        "lead": "Контроллер уже установлен. Посмотрите, что каждый пакет — Basic, Comfort или Premium — добавляет к свету, теплу, шторам и безопасности. Всё в одной системе, которой вы управляете со стены, с телефона или вообще без касаний.",
         "groups": [
             {"id": "light", "icon": "L", "title": "Свет, который подстраивается под вас",
              "benefit": "Нужный свет одним касанием — и ни одной забытой лампы.",
@@ -68,15 +68,15 @@ FEATURES = {
     "ro": {
         "title": "Ce știe să facă un apartament inteligent din Lagmar Smart Home | SmartSpace",
         "eyebrow": "Ce poate face casa ta",
-        "h1": "Nu gadgeturi, ci confort gândit pentru fiecare cameră",
-        "lead": "Nu vindem „becuri inteligente”. Legăm lumina, căldura, jaluzelele, senzorii și interfonul într-un singur sistem, pe care îl controlezi cum îți vine mai ușor: de pe perete, de pe telefon sau fără să atingi nimic.",
+        "h1": "Ce poate face apartamentul tău din Lagmar",
+        "lead": "Unitatea centrală e deja montată. Vezi ce adaugă fiecare pachet, Basic, Comfort sau Premium, la lumină, căldură, jaluzele și siguranță. Totul într-un singur sistem, pe care îl comanzi de pe perete, de pe telefon sau fără să atingi nimic.",
         "groups": [
             {"id": "light", "icon": "L", "title": "Lumină care ține pasul cu tine",
              "benefit": "Lumina potrivită dintr-o singură atingere. Și niciun bec uitat aprins.",
              "items": [("Lumină grupată pe camere și butonul „Stinge tot” lângă ușa de la intrare", "basic"),
                        ("Intensitate reglabilă în living și dormitor", "comfort"),
                        ("Lumină de veghe pe hol și în baie, care se aprinde când treci", "comfort"),
-                       ("Iluminat decorativ și scenariile „Cină”, „Musafiri”, „Lectură”", "premium")]},
+                       ("Iluminat decorativ și scenariile „Cină”, „Oaspeți”, „Lectură”", "premium")]},
             {"id": "climate", "icon": "T", "title": "Căldură când ai nevoie, nu toată ziua",
              "benefit": "Temperatura care îți place, acolo unde ești și atunci când ești acasă. Fără să încălzești degeaba.",
              "items": [("Termostat cu program: economic peste zi, cald când ajungi acasă", "basic"),
@@ -109,8 +109,8 @@ FEATURES = {
     "en": {
         "title": "What your smart Lagmar apartment can do | SmartSpace",
         "eyebrow": "What your home can do",
-        "h1": "Not gadgets — ready-made comfort in every room",
-        "lead": "We don't sell “smart bulbs”. The smart home in your apartment ties lighting, heating, blinds, sensors and the intercom into one system — and you run the apartment the way you like: from the wall, from your phone, or without touching anything at all.",
+        "h1": "What your Lagmar apartment can do",
+        "lead": "The controller is already installed. See what each package — Basic, Comfort or Premium — adds to lighting, heating, blinds and safety. It is all one system that you run from the wall, from your phone, or without touching anything at all.",
         "groups": [
             {"id": "light", "icon": "L", "title": "Light that adapts to you",
              "benefit": "The right light in one touch — and no lamp left on.",
@@ -153,8 +153,8 @@ SCENARIOS = {
     "ru": {
         "title": "Сценарии умного дома: один день в квартире Lagmar Smart Home | SmartSpace",
         "eyebrow": "Сценарии",
-        "h1": "Сценарии: квартира делает всё сама",
-        "lead": "Сценарий — это несколько действий одним касанием или автоматически: по времени, по датчику или когда вы приходите домой. Вот как это выглядит в обычный день.",
+        "h1": "Одно касание у двери — остальное квартира сделает сама",
+        "lead": "Уходите, возвращаетесь, ложитесь спать — свет, тепло и шторы подстраиваются сами: одним касанием или автоматически. Посмотрите, какие сценарии входят в Basic, Comfort и Premium.",
         "items": [
             ("07:00", "«Утро»", "Шторы в спальне открываются, свет мягко набирает яркость, в ванной уже тепло. Без будильника и без поиска выключателей.", "CLT", "comfort"),
             ("08:30", "«Ухожу»", "Одна кнопка у двери: гаснет весь свет, отопление переходит в эко-режим, датчики продолжают следить за квартирой.", "LTW", "basic"),
@@ -169,8 +169,8 @@ SCENARIOS = {
     "ro": {
         "title": "Scenarii smart home: o zi în Lagmar Smart Home | SmartSpace",
         "eyebrow": "Scenarii",
-        "h1": "Scenarii: apartamentul le face pe toate singur",
-        "lead": "Un scenariu pornește mai multe lucruri deodată: dintr-o singură atingere sau de la sine, la o anumită oră, la semnalul unui senzor ori când ajungi acasă. Iată cum arată o zi obișnuită.",
+        "h1": "O atingere lângă ușă și apartamentul face restul",
+        "lead": "Pleci, ajungi acasă, te culci: lumina, căldura și jaluzelele se potrivesc singure, dintr-o atingere sau de la sine. Vezi ce scenarii primești în Basic, Comfort și Premium.",
         "items": [
             ("07:00", "Dimineața", "Jaluzelele din dormitor se ridică, lumina crește treptat, iar în baie e deja cald. Fără deșteptător și fără să bâjbâi după întrerupător.", "CLT", "comfort"),
             ("08:30", "„Plec”", "Un singur buton lângă ușă: se stinge toată lumina, încălzirea trece pe economic, iar senzorii rămân de veghe.", "LTW", "basic"),
@@ -185,8 +185,8 @@ SCENARIOS = {
     "en": {
         "title": "Smart-home scenes: a day in a Lagmar Smart Home apartment | SmartSpace",
         "eyebrow": "Scenes",
-        "h1": "Scenes: your apartment takes care of itself",
-        "lead": "A scene runs several actions with one touch — or on its own: at a set time, when a sensor triggers, or when you get home. Here's what an ordinary day looks like.",
+        "h1": "One touch by the door and the apartment does the rest",
+        "lead": "Leaving, coming home, going to bed: lights, heating and blinds adjust themselves, with one touch or on their own. See which scenes come with Basic, Comfort and Premium.",
         "items": [
             ("07:00", "Morning", "Bedroom blinds open, the light slowly brightens, the bathroom is already warm. No alarm clock, no hunting for switches.", "CLT", "comfort"),
             ("08:30", "“Leaving”", "One button by the door: all lights go off, heating switches to eco mode, the sensors keep watching the apartment.", "LTW", "basic"),
@@ -215,25 +215,25 @@ HOW = {
         ],
         "process_title": "Как мы работаем",
         "steps": [
-            ("Конфигуратор или звонок", "Выберите квартиру и пакет на сайте или позвоните — подготовим предварительное предложение."),
+            ("Калькулятор или звонок", "Выберите квартиру и пакет на сайте или позвоните — подготовим предварительное предложение."),
             ("Осмотр и проект", "Приезжаем, узнаём ваши привычки и готовим проект: что, где и как будет работать."),
             ("Монтаж", "Лучше всего до чистовой отделки; для готового ремонта используем беспроводные модули без штробления."),
             ("Настройка сценариев", "Настраиваем свет, климат и сценарии под ваш распорядок и показываем, как всем пользоваться."),
             ("Сервис и расширение", "Остаёмся на связи: меняем сценарии, добавляем датчики и комнаты — без замены уже установленного."),
         ],
-        "why_title": "Почему проводная система",
+        "why_title": "Почему Grenton и SmartSpace",
         "why": [
             ("Работает без интернета", "Сценарии выполняются локально — интернет нужен только для удалённого доступа."),
-            ("Проводная надёжность", "Устройства связаны кабелем, а не десятком беспроводных гаджетов на батарейках."),
+            ("Проводная надёжность", "Модули стоят в щите и связаны кабелем — без батареек, которые надо менять. Если ремонт уже готов, дополняем беспроводными модулями, без штробления."),
             ("Растёт вместе с вами", "Начните с Basic — модули, панели и датчики добавляются позже."),
-            ("Официальный партнёр Lagmar", "SmartSpace проектирует, монтирует и обслуживает систему в квартирах Lagmar Smart Home."),
+            ("Официальный партнёр Lagmar", "SmartSpace проектирует, монтирует и обслуживает систему в Smart Home 1 и Smart Home 2. Гарантия 24 месяца на оборудование."),
         ],
     },
     "ro": {
         "title": "Cum funcționează casa inteligentă din Lagmar Smart Home | SmartSpace",
         "eyebrow": "Cum funcționează",
-        "h1": "Tehnică serioasă în tablou, control simplu pe perete",
-        "lead": "Grenton este un sistem profesional, pe cablu, fabricat în Polonia. Toată tehnica stă în tabloul electric al apartamentului. Tu vezi doar panourile elegante de pe perete și aplicația din telefon.",
+        "h1": "Tehnologie serioasă în tablou, control simplu pe perete",
+        "lead": "Grenton este un sistem profesional, pe cablu, fabricat în Polonia. Toată aparatura stă în tabloul electric al apartamentului. Tu vezi doar panourile elegante de pe perete și aplicația din telefon.",
         "layers_title": "Din ce e alcătuit sistemul",
         "layers": [
             ("clu.jpg", "", "Creierul: unitatea centrală CLU", "Ține minte și rulează toate scenariile chiar în apartament. Internetul îți trebuie doar ca să comanzi casa de la distanță. Fără el, totul merge la fel."),
@@ -243,18 +243,18 @@ HOW = {
         ],
         "process_title": "Cum lucrăm",
         "steps": [
-            ("Configurator sau telefon", "Alegi apartamentul și pachetul pe site sau ne suni, iar noi pregătim o ofertă preliminară."),
-            ("Vizită și proiect", "Venim la tine, aflăm cum îți trăiești zilele și pregătim proiectul: ce montăm, unde și cum va funcționa."),
+            ("Calculator sau telefon", "Alegi apartamentul și pachetul pe site sau ne suni, iar noi pregătim o ofertă preliminară."),
+            ("Vizită și proiect", "Venim la tine, aflăm cum arată o zi obișnuită la tine acasă și pregătim proiectul: ce montăm, unde și cum va funcționa."),
             ("Montaj", "Cel mai bine înainte de finisaje. Într-un apartament deja renovat folosim module wireless, fără să spargem pereții."),
             ("Programarea scenariilor", "Reglăm lumina, temperatura și scenariile după obiceiurile tale și îți arătăm cum se folosește totul."),
             ("Service și extindere", "Rămânem aproape: modificăm scenarii, adăugăm senzori și extindem sistemul în alte camere, fără să schimbăm ce e deja montat."),
         ],
-        "why_title": "De ce un sistem pe cablu",
+        "why_title": "De ce Grenton și SmartSpace",
         "why": [
             ("Merge și fără internet", "Scenariile rulează în apartament. Internetul îți trebuie doar pentru comanda de la distanță."),
-            ("Siguranța cablului", "Cabluri trase profesional, nu zeci de gadgeturi wireless cu baterii."),
+            ("Stabil, fiindcă e pe cablu", "Modulele stau pe cablu, în tablou, fără baterii de schimbat. Dacă renovarea e deja gata, completăm cu module wireless, fără să spargem pereții."),
             ("Crește odată cu tine", "Începi cu Basic, iar modulele, panourile și senzorii se adaugă pe parcurs."),
-            ("Partener oficial Lagmar", "SmartSpace proiectează, montează și întreține sistemul în apartamentele Lagmar Smart Home."),
+            ("Partener oficial Lagmar", "SmartSpace proiectează, montează și întreține sistemul în Smart Home 1 și Smart Home 2. Garanție de 24 de luni pentru echipamente."),
         ],
     },
     "en": {
@@ -271,18 +271,18 @@ HOW = {
         ],
         "process_title": "How we work",
         "steps": [
-            ("Configurator or a call", "Pick your apartment and package on the site or call us — we prepare a preliminary quote."),
+            ("Calculator or a call", "Pick your apartment and package on the site or call us — we prepare a preliminary quote."),
             ("Visit and design", "We come over, learn your habits and draw up the design: what works where and how."),
             ("Installation", "Best done before the finishing work; in an already renovated apartment we use wireless modules, with no cutting into walls."),
             ("Setting up scenes", "We set lighting, climate and scenes around your routine and show you how to use everything."),
             ("Service and expansion", "We stay in touch: change scenes, add sensors and rooms — without replacing what's installed."),
         ],
-        "why_title": "Why a wired system",
+        "why_title": "Why Grenton and SmartSpace",
         "why": [
             ("Works without internet", "Scenes run locally — internet is only needed for remote access."),
-            ("Wired reliability", "Professional cabling instead of a dozen battery-powered wireless gadgets."),
+            ("Wired reliability", "The modules sit in the switchboard on cable, with no batteries to change. If your renovation is already finished, we add wireless modules, with no cutting into walls."),
             ("Grows with you", "Start with Basic — modules, panels and sensors can be added later."),
-            ("Official Lagmar partner", "SmartSpace designs, installs and services the system in Lagmar Smart Home apartments."),
+            ("Official Lagmar partner", "SmartSpace designs, installs and services the system in Smart Home 1 and Smart Home 2. 24-month warranty on equipment."),
         ],
     },
 }

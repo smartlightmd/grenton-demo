@@ -119,7 +119,7 @@ CMP = {
            ],
            "price": "Preț orientativ", "price_from": "de la {p}",
            "price_note": "Echipamente și programare, cu TVA. Senzorii, motoarele pentru jaluzele, sistemul audio și montajul intră în oferta personalizată, după vizita în apartament.",
-           "cta": "Vreau calculul exact pentru apartamentul meu", "yes": "da", "no": "nu", "all": "În toate pachetele"},
+           "cta": "Calculează prețul pentru apartamentul tău", "yes": "da", "no": "nu", "all": "În toate pachetele"},
     "en": {"eyebrow": "Compare", "title": "Three packages — one system that grows with you",
            "sub": "Start with Basic and add modules later — nothing installed has to be replaced.",
            "size_label": "Apartment", "sizes": {"2": "2 rooms", "3": "3 rooms", "4": "4 rooms"},
@@ -186,7 +186,7 @@ APP = {
            "bullets": ["Свет, шторы и температура по комнатам", "Сценарии одной кнопкой: «Ухожу», «Ночь», «Кино»", "Уведомления о протечке и дыме", "Видеодомофон: ответить гостю из офиса"]},
     "ro": {"eyebrow": "Aplicația myGrenton", "title": "Tot apartamentul, în telefonul tău",
            "text": "Aceleași scenarii ca pe panouri, de oriunde te-ai afla. Aplicația îți arată ce a rămas aprins și te anunță dacă apare o inundație, fum sau sună cineva la interfon.",
-           "bullets": ["Lumină, jaluzele și temperatură, cameră cu cameră", "Scenarii dintr-o singură atingere: „Plec”, „Noaptea”, „Film”", "Alerte de inundație și fum", "Videointerfon: îi răspunzi musafirului chiar și de la birou"]},
+           "bullets": ["Lumină, jaluzele și temperatură, cameră cu cameră", "Scenarii dintr-o singură atingere: „Plec”, „Noaptea”, „Film”", "Alerte de inundație și fum", "Videointerfon: îi răspunzi oaspetelui chiar și de la birou"]},
     "en": {"eyebrow": "myGrenton app", "title": "The whole apartment in your pocket",
            "text": "The same scenes as on the panels — from anywhere in the world. The app shows what's on and sends notifications about leaks, smoke and intercom calls.",
            "bullets": ["Light, blinds and temperature per room", "One-tap scenes: “Leaving”, “Night”, “Movie”", "Leak and smoke notifications", "Video intercom: answer a visitor from the office"]},
@@ -194,8 +194,8 @@ APP = {
 
 # Photos for benefit groups / scenes (assets/grenton/*)
 FEATURE_PHOTO = {"light": "salon", "climate": "bedroom", "safety": "bath", "blinds": "office",
-                 "media": "touch-hero", "control": "touch-wall"}
-SCENE_PHOTO = ["bedroom", "hall", "security", "kitchen", "touch-hero", "kids", "app-saving"]
+                 "media": "touch-hero", "control": "hall"}
+SCENE_PHOTO = ["bedroom", "hall", "app-saving", "kitchen", "touch-hero", "kids", "security"]
 
 PHOTO_ALT = {
     "ru": {"salon": "Гостиная со сценой света", "bedroom": "Спальня с панелью управления", "bath": "Ванная с панелью управления климатом",
