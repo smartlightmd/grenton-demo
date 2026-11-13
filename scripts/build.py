@@ -544,9 +544,10 @@ def nav_html(lang, current):
         lang_links.append(f'<a{cls} href="../{l}/{PAGE_FILE[current]}" hreflang="{l}">{LANG_LABEL[l]}</a>')
     return f'''<header class="site">
   <div class="wrap bar">
-    <a class="brand" href="index.html">
+    <div class="brand-group"><a class="brand" href="index.html">
       <span class="brand-name">SmartSpace</span>
     </a>
+    <a class="brand-partner" href="https://lagmar.md/" target="_blank" rel="noopener" aria-label="{PARTNER_LABEL[lang]} Lagmar"><span>{PARTNER_LABEL[lang]}</span>{lagmar_logo()}</a></div>
     <nav class="main" aria-label="{NAV_ARIA[lang]}">
       {''.join(links)}
     </nav>
@@ -571,6 +572,7 @@ SL_STRIP = {
     "ru": "Выбираете и светильники? Наш салон SmartLight поможет подобрать их и подключит к умному дому.",
     "en": "Choosing light fittings too? Our SmartLight showroom helps you pick them and connects them to the smart home.",
 }
+PARTNER_LABEL = {"ro": "partener oficial", "ru": "официальный партнёр", "en": "official partner of"}
 CLOSING_Q = {"ru": "Удобнее обсудить по телефону?", "ro": "Preferi să vorbim la telefon?", "en": "Rather talk it through?"}
 
 
@@ -596,9 +598,9 @@ def dealer_band_html(lang, key=""):
 
 
 HERO_CHIPS = {
-    "ro": ("SmartSpace · partener oficial Lagmar", "Smart Home 1 · Smart Home 2", "sect. Râșcani, Chișinău"),
-    "ru": ("SmartSpace · официальный партнёр Lagmar", "Smart Home 1 · Smart Home 2", "сект. Рышкань, Кишинёв"),
-    "en": ("SmartSpace · official Lagmar partner", "Smart Home 1 · Smart Home 2", "Râșcani, Chișinău"),
+    "ro": ("SmartSpace · partener oficial", "Smart Home 1 · Smart Home 2", "sect. Râșcani, Chișinău"),
+    "ru": ("SmartSpace · официальный партнёр", "Smart Home 1 · Smart Home 2", "сект. Рышкань, Кишинёв"),
+    "en": ("SmartSpace · official partner of", "Smart Home 1 · Smart Home 2", "Râșcani, Chișinău"),
 }
 HOME_STATS = {
     "ro": [("0 €", "pentru unitatea centrală, deja montată"), ("de la " + fmt_eur(PRICES["2"]["basic"], "ro"), "Basic, 2 camere: echipamente și programare"), ("−10%", "la echipamente până la 30.06.2027"), ("≈2 min", "durează calculul")],
@@ -609,7 +611,7 @@ HOME_STATS = {
 
 def hero_chips_html(lang, second=None):
     a, b, loc = HERO_CHIPS[lang]
-    return (f'<div class="hero-chips"><span class="chip"><i class="dot"></i>{esc(a)}<span class="chip-2"><span class="sep">/</span>{esc(second or b)}</span></span>'
+    return (f'<div class="hero-chips"><span class="chip"><i class="dot"></i>{esc(a)}{lagmar_logo("lg-logo chip-logo")}<span class="chip-2"><span class="sep">/</span>{esc(second or b)}</span></span>'
             f'<span class="chip">{ico("pin")}{esc(loc)}</span></div>')
 
 
@@ -673,6 +675,7 @@ def footer_html(lang):
     pages = "".join(f'<li><a href="{PAGE_FILE[k]}">{NAV_LABELS[lang][k]}</a></li>' for k in PAGE_ORDER)
     return f'''<footer class="site">
   <div class="wrap">
+    <p class="ft-lockup"><b>SmartSpace</b><span>{PARTNER_LABEL[lang]}</span>{lagmar_logo()}</p>
     <div class="ft-grid">
       <div class="ft-col"><h2>{t["contact"]}</h2>
         <p><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a><br><a href="mailto:office@smartspace.md">office@smartspace.md</a></p>
@@ -730,7 +733,7 @@ def page_html(key, lang):
       <p class="sub">{hl["p"]}</p>
       <a class="btn btn-primary" href="lagmar.html">{hl["cta"]}</a>
     </div>
-    <a href="lagmar.html" class="lagmar-teaser"><img class="rounded" src="../assets/lagmar/hero-960.webp" alt="Lagmar Smart Home" width="960" height="540" loading="lazy"><img class="lagmar-teaser-logo" src="../assets/lagmar/logo-lagmar.webp" alt="" width="140" height="42"></a>
+    <a href="lagmar.html" class="lagmar-teaser"><img class="rounded" src="../assets/lagmar/hero-960.webp" alt="Lagmar Smart Home" width="960" height="540" loading="lazy"><span class="lagmar-teaser-logo">{lagmar_logo()}</span></a>
   </div>
 </section>'''
 
@@ -1760,10 +1763,18 @@ ICON_PATHS = {
 ICON_FOR_GROUP = {"light": "L", "climate": "T", "safety": "W", "blinds": "C", "media": "A", "control": "P"}
 
 
+LAGMAR_MARK = '''<path d="M99.0202 135.03V58.49L109.51 63.48L109.57 110.95C132.08 89.41 132.56 54.1 111.34 31.81C88.7002 8.02999 51.0302 8.55998 29.0202 32.59C9.13023 54.29 9.18023 87.83 29.9202 109.33L29.9402 63.45L40.4602 58.47L40.3602 134.24C9.98023 119.83 -5.86977 86.31 2.01023 53.81C9.69023 22.1 38.6202 -0.370014 71.3602 -1.39456e-05C104.02 0.379986 132.37 23.38 139.42 55.19C146.62 87.71 130.22 121.1 99.0202 135.03Z"/><path d="M75.9203 37.89L75.8403 67.44L75.7803 141.25L63.5503 141.23L63.6403 96.67L63.7103 37.82L70.0603 29.57L75.9203 37.89Z"/><path d="M58.5501 45V138.37L46.3501 142.87L46.4001 67.01L46.5201 37.9L58.5501 45Z"/><path d="M93.1301 37.89L93.0701 91.79L92.9901 142.91L80.8301 138.5L80.8801 124.45L80.9501 45.01L93.1301 37.89Z"/><path d="M393.53 69.54C393.68 85.09 385.94 99.24 370.74 103.31C363.97 105.12 357.07 104.99 350.4 102.85C331.86 96.88 324.59 76.43 330.81 59.06C336.72 42.56 354.14 35.26 370.65 39.56C380.05 42 387.41 48.58 390.9 57.87L379.55 62.63C376.95 54.67 370.33 49.89 362.04 49.6C353.15 49.28 345.29 54.04 342.31 62.54C338.55 73.23 341.37 87.15 352.66 91.93C358.74 94.5 365.7 94.65 371.73 91.97C377.15 89.55 380.53 84.66 381.89 78.51L360.97 78.43L361 69.45L393.52 69.55L393.53 69.54Z"/><path d="M218.11 93.44L214.24 103.68L172.44 103.71L172.61 39.27L184.64 39.23L184.51 93.4L218.11 93.44Z"/><path d="M277.8 39.47H265.76L236.82 103.64L249.28 103.68L255.65 88.84L287.72 88.9L294.09 103.81L306.71 103.69L277.79 39.48L277.8 39.47ZM259.73 79.39L271.68 51.64L283.66 79.34L259.73 79.39Z"/><path d="M493.09 103.82L481.72 103.91L481.54 61.87L460.65 96.45L455.14 96.53L434.35 62.39L434.02 103.87L422.63 103.94L422.66 39.55L432.67 39.58L458.06 81.98L483.13 39.53L493.08 39.54L493.09 103.82Z"/><path d="M560.54 39.56L548.65 39.61L519.7 103.76L532.15 103.83L538.51 89.06L570.49 89.12L576.95 104.08L589.52 103.91L560.53 39.56H560.54ZM542.58 79.64L554.54 51.92L566.49 79.62L542.58 79.64Z"/><path d="M656.36 82.89C665.41 79.65 670.05 71.67 670.05 62.53C670.05 53.68 665.62 45.96 657.29 42.5C652.4 40.2 647.09 39.7 641.6 39.68L616.02 39.57V104.04L628.09 104L628.11 85.43L645 85.32L658.06 104.02L671.1 104.06L656.38 82.88L656.36 82.89ZM644.42 75.28L628.1 75.34V49.88L644.5 49.99C648.54 50.02 652.29 51.57 655.07 54.33C658.84 59.14 658.89 65.89 655.05 70.93C652.11 73.75 648.4 75.25 644.42 75.27V75.28Z"/>'''  # current LAGMAR logo (lagmar.md header), drawn in currentColor
+
+
+def lagmar_logo(cls="lg-logo"):
+    return f'<svg class="{cls}" viewBox="0 0 672 143" role="img" aria-label="Lagmar"><use href="#lagmar-mark"/></svg>'
+
+
 def sprite_html():
     syms = "".join(
         f'<symbol id="i-{k}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" '
         f'stroke-linecap="round" stroke-linejoin="round">{v}</symbol>' for k, v in ICON_PATHS.items())
+    syms += f'<symbol id="lagmar-mark" viewBox="0 0 672 143" fill="currentColor" stroke="none">{LAGMAR_MARK}</symbol>'
     return f'<svg class="sprite" width="0" height="0" aria-hidden="true" style="position:absolute">{syms}</svg>'
 
 
@@ -2401,7 +2412,7 @@ def home_page_html(lang, packages_all):
       <p class="sub">{hl["p"]}</p>
       <div class="cx-cards">{cx_cards}</div>
     </div>
-    <a href="lagmar.html" class="lagmar-teaser rv"><img class="rounded" src="../assets/lagmar/aerial.webp" srcset="../assets/lagmar/aerial-800.webp 800w, ../assets/lagmar/aerial.webp 1600w" sizes="(max-width: 860px) 92vw, 45vw" alt="Lagmar Smart Home" width="1600" height="828" loading="lazy"><img class="lagmar-teaser-logo" src="../assets/lagmar/logo-lagmar.webp" alt="" width="140" height="42"></a>
+    <a href="lagmar.html" class="lagmar-teaser rv"><img class="rounded" src="../assets/lagmar/aerial.webp" srcset="../assets/lagmar/aerial-800.webp 800w, ../assets/lagmar/aerial.webp 1600w" sizes="(max-width: 860px) 92vw, 45vw" alt="Lagmar Smart Home" width="1600" height="828" loading="lazy"><span class="lagmar-teaser-logo">{lagmar_logo()}</span></a>
   </div>
 </section>
 

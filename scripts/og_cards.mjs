@@ -20,35 +20,38 @@ const FONT = {
   ext: b64("assets/fonts/inter-latin-ext.woff2"),
   cyr: b64("assets/fonts/inter-cyrillic.woff2"),
 };
-const AERIAL = "data:image/jpeg;base64," + b64("assets/lagmar/aerial.jpg");
-const LOGO = "data:image/png;base64," + b64("assets/lagmar/logo-lagmar.png");
-const NAVY = "#19355b", NAVY2 = "#22446f", RED = "#e32213";
+const AERIAL = "data:image/webp;base64," + b64("assets/lagmar/sh2/hero-poster.webp");
+const LOGO = "data:image/svg+xml;base64," + b64("assets/lagmar/logo-lagmar-white.svg");
+const NAVY = "#19355b", NAVY2 = "#22446f", RED = "#4e72a2";
 
 const NB = " ";
 const T = {
   ro: {
-    sub: `Casă inteligentă în fiecare apartament${NB}— unitatea e${NB}deja montată`,
-    cta: `Alege și calculează pentru apartamentul tău`,
-    loc: "SmartSpace · Chișinău",
-    calc: `Calculează casa inteligentă pentru apartamentul tău`,
-    zero: `0${NB}€ pentru unitate${NB}— e${NB}deja montată`,
+    h: `Casa inteligentă e${NB}deja începută în${NB}apartamentul tău`,
+    sub: `Plătești doar ce${NB}adaugi. Prețul îl${NB}afli în${NB}2${NB}minute`,
+    cta: `Calculează prețul pentru apartamentul tău`,
+    partner: "partener oficial", loc: "SmartSpace · Chișinău",
+    calc: `Află cât costă casa inteligentă în${NB}apartamentul tău`,
+    zero: `0${NB}€ pentru unitatea centrală, deja montată`,
     rooms: `Apartamente cu 2, 3${NB}și 4${NB}camere`,
     rec: "Recomandat",
   },
   ru: {
-    sub: `Умный дом в${NB}каждой квартире${NB}— контроллер уже установлен`,
-    cta: `Подберите и${NB}рассчитайте для своей квартиры`,
-    loc: "SmartSpace · Кишинёв",
+    h: `Умный дом в${NB}вашей квартире Lagmar уже начат`,
+    sub: `Вы платите только за${NB}то, что добавляете. Цена${NB}— за${NB}2${NB}минуты`,
+    cta: `Рассчитать цену для своей квартиры`,
+    partner: "официальный партнёр", loc: "SmartSpace · Кишинёв",
     calc: `Рассчитайте умный дом для своей квартиры`,
     zero: `0${NB}€ за${NB}контроллер${NB}— он${NB}уже стоит`,
     rooms: `Квартиры на${NB}2, 3 и${NB}4${NB}комнаты`,
     rec: "Рекомендуем",
   },
   en: {
-    sub: `A smart home in every apartment${NB}— the controller is already in`,
-    cta: `Choose and price it for your apartment`,
-    loc: "SmartSpace · Chișinău",
-    calc: `Price a smart home for your apartment`,
+    h: `Your smart home in Lagmar is already started`,
+    sub: `You pay only for what you add. Your price in 2${NB}minutes`,
+    cta: `Get the price for your apartment`,
+    partner: "official partner of", loc: "SmartSpace · Chișinău",
+    calc: `Get a smart-home price for your apartment`,
     zero: `0${NB}€ for the controller${NB}— already installed`,
     rooms: `2, 3 and 4-room apartments`,
     rec: "Recommended",
@@ -61,11 +64,11 @@ const base = `
 @font-face{font-family:M;font-weight:400 700;src:url(data:font/woff2;base64,${FONT.latin}) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212}
 *{margin:0;padding:0;box-sizing:border-box}
 .card{width:1200px;height:630px;position:relative;overflow:hidden;font-family:M,sans-serif;color:#fff;background:${NAVY}}
-.chip{position:absolute;top:56px;left:72px;display:flex;align-items:center;gap:14px;background:#fff;color:${NAVY2};
-  border-radius:16px;padding:12px 20px;box-shadow:0 10px 30px -12px rgba(0,0,0,.5)}
-.chip img{height:40px;width:auto;display:block}
-.chip .x{font-weight:700;color:#8a95a8;font-size:20px}
-.chip .gr{font-weight:700;font-size:24px;letter-spacing:-.02em}
+.chip{position:absolute;top:56px;left:72px;display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.1);color:#fff;
+  border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:12px 24px}
+.chip img{height:26px;width:auto;display:block}
+.chip .x{font-weight:500;color:rgba(255,255,255,.6);font-size:15px;letter-spacing:.1em;text-transform:uppercase}
+.chip .gr{font-weight:700;font-size:22px;letter-spacing:-.02em}
 .foot{position:absolute;left:72px;bottom:56px;display:flex;align-items:center;gap:16px}
 .foot b{width:4px;height:44px;background:${RED};border-radius:2px}
 .foot .cta{font-size:24px;font-weight:700;letter-spacing:-.01em}
@@ -73,22 +76,22 @@ const base = `
 h1,h2{text-wrap:balance}
 `;
 
-const chip = `<div class="chip"><img src="${LOGO}"><span class="x">×</span><span class="gr">SmartSpace</span></div>`;
+const chip = (t) => `<div class="chip"><span class="gr">SmartSpace</span><span class="x">${t.partner}</span><img src="${LOGO}"></div>`;
 
 const home = (t) => `<!doctype html><meta charset="utf-8"><style>${base}
 .ph{position:absolute;top:0;right:0;width:620px;height:630px;overflow:hidden}
-.photo{position:absolute;top:0;right:0;width:620px;height:630px;object-fit:cover;object-position:40% 50%;transform:scale(1.32);transform-origin:62% 8%}
+.photo{position:absolute;top:0;right:0;width:620px;height:630px;object-fit:cover;object-position:60% 50%}
 .fade{position:absolute;top:0;right:0;width:620px;height:630px;background:linear-gradient(90deg,${NAVY} 0%,rgba(20,42,75,.55) 30%,rgba(20,42,75,0) 62%)}
-h1{position:absolute;left:68px;top:170px;width:640px;font-size:88px;font-weight:700;letter-spacing:-.035em;line-height:1}
-h2{position:absolute;left:72px;top:368px;width:600px;font-size:31px;font-weight:700;line-height:1.25;color:rgba(255,255,255,.92)}
-</style><div class="card"><div class="ph"><img class="photo" src="${AERIAL}"><div class="fade"></div></div>${chip}
-<h1>Lagmar Smart${NB}Home</h1><h2>${t.sub}</h2>
+h1{position:absolute;left:70px;top:158px;width:700px;font-size:58px;font-weight:600;letter-spacing:-.025em;line-height:1.02;text-transform:uppercase}
+h2{position:absolute;left:72px;top:400px;width:620px;font-size:27px;font-weight:500;line-height:1.25;color:rgba(255,255,255,.92)}
+</style><div class="card"><div class="ph"><img class="photo" src="${AERIAL}"><div class="fade"></div></div>${chip(t)}
+<h1>${t.h}</h1><h2>${t.sub}</h2>
 <div class="foot"><b></b><div><div class="cta">${t.cta}</div><div class="loc">${t.loc}</div></div></div></div>`;
 
 const calc = (t) => `<!doctype html><meta charset="utf-8"><style>${base}
 .card{background:radial-gradient(760px 520px at 100% 0%, ${NAVY2} 0%, transparent 70%), ${NAVY}}
 .col{position:absolute;left:72px;top:160px;width:650px;display:flex;flex-direction:column;align-items:flex-start;gap:26px}
-.col h1{margin-left:-4px;font-size:60px;font-weight:700;letter-spacing:-.03em;line-height:1.06}
+.col h1{margin-left:-2px;font-size:50px;font-weight:600;letter-spacing:-.025em;line-height:1.04;text-transform:uppercase}
 .zero{display:inline-flex;align-items:center;gap:10px;font-size:22px;font-weight:700;
   background:rgba(139,224,173,.14);color:#a6ecc2;border:1px solid rgba(139,224,173,.35);border-radius:999px;padding:10px 18px}
 .zero i{width:10px;height:10px;border-radius:50%;background:#8be0ad}
@@ -96,14 +99,14 @@ const calc = (t) => `<!doctype html><meta charset="utf-8"><style>${base}
 .tiers{position:absolute;right:72px;top:150px;width:330px;display:flex;flex-direction:column;gap:16px}
 .tier{border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:22px 26px;font-size:28px;font-weight:700;
   display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.04)}
-.tier.rec{border-color:${RED};background:rgba(227,34,19,.16)}
+.tier.rec{border-color:${RED};background:rgba(78,114,162,.28)}
 .tier span{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:${RED};border-radius:999px;padding:6px 11px}
-</style><div class="card">${chip}
+</style><div class="card">${chip(t)}
 <div class="col"><h1>${t.calc}</h1><div class="zero"><i></i>${t.zero}</div><div class="rooms">${t.rooms}</div></div>
 <div class="tiers"><div class="tier">Basic</div><div class="tier rec">Comfort<span>${t.rec}</span></div><div class="tier">Premium</div></div>
 <div class="foot"><b></b><div><div class="cta">Lagmar Smart Home</div><div class="loc">${t.loc}</div></div></div></div>`;
 
-const browser = await chromium.launch();
+const browser = await chromium.launch({ channel: "chrome" });
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 2 });
 for (const lang of Object.keys(T)) {
   for (const [name, tpl] of [["home", home], ["calc", calc]]) {
