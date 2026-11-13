@@ -181,6 +181,7 @@ LAGMAR_UI = {
         "choose_building": "Сначала выберите блок.",
         "found_prefix": "Найдено:", "floor_word": "этаж", "floor_ground": "партер", "rooms_word": "комн.", "area_word": "м²",
         "not_found_text": "Такую квартиру мы не нашли — ничего страшного. Укажите число комнат вручную:",
+        "need_number": "Введите номер квартиры или укажите число комнат:",
         "manual_label": "Комнат",
         "edge_hint": "Для 1-комнатных квартир и квартир от 5 комнат готовим индивидуальный расчёт — пакеты ниже ориентировочные.",
         "step2_title": "2. Выберите пакет",
@@ -219,6 +220,7 @@ LAGMAR_UI = {
         "choose_building": "Alege mai întâi blocul.",
         "found_prefix": "Găsit:", "floor_word": "etajul", "floor_ground": "parter", "rooms_word": "camere", "rooms_one": "cameră", "area_word": "m²",
         "not_found_text": "N-am găsit acest apartament. Nicio problemă, alege numărul de camere:",
+        "need_number": "Scrie numărul apartamentului sau alege numărul de camere:",
         "manual_label": "Camere",
         "edge_hint": "Pentru apartamentele cu o cameră sau cu cel puțin 5 camere pregătim un calcul individual. Pachetele de mai jos sunt orientative.",
         "step2_title": "2. Alege pachetul",
@@ -257,6 +259,7 @@ LAGMAR_UI = {
         "choose_building": "Choose your block first.",
         "found_prefix": "Found:", "floor_word": "floor", "floor_ground": "ground floor", "rooms_word": "rooms", "rooms_one": "room", "area_word": "m²",
         "not_found_text": "We couldn't find that apartment. No problem — just choose the number of rooms:",
+        "need_number": "Enter your apartment number or choose the number of rooms:",
         "manual_label": "Rooms",
         "edge_hint": "For 1-room apartments and apartments with 5+ rooms we prepare an individual quote — the packages below are indicative.",
         "step2_title": "2. Choose a package",
@@ -339,7 +342,7 @@ LAGMAR_VIS = {
         "tabs": {"2": "2 комнаты · 46 м²", "3": "3 комнаты · 82 м²", "4": "4 комнаты · 99 м²"},
         "plan_alt": "Планировка типовой {n}-комнатной квартиры Lagmar",
         "example_note": "Иллюстрация: примерное размещение устройств на типовой планировке Lagmar. Точный проект — после осмотра вашей квартиры.",
-        "your_plan": "Планировка вашей квартиры", "your_block": "Ваш блок",
+        "your_plan": "Планировка вашей квартиры · нажмите, чтобы увеличить", "your_block": "Ваш блок",
         "s2_plan_title": "Как это выглядит на похожей планировке",
         "devices": {"L": "Группа света", "P": "Панель управления", "T": "Зона климата", "W": "Датчик протечки",
                     "S": "Датчик дыма", "M": "Датчик движения", "C": "Привод штор", "A": "Аудиозона",
@@ -360,7 +363,7 @@ LAGMAR_VIS = {
         "tabs": {"2": "2 camere · 46 m²", "3": "3 camere · 82 m²", "4": "4 camere · 99 m²"},
         "plan_alt": "Planul unui apartament tipic Lagmar cu {n} camere",
         "example_note": "Ilustrație: amplasare orientativă pe un plan tipic Lagmar. Proiectul exact îl facem după ce vedem apartamentul tău.",
-        "your_plan": "Planul apartamentului tău", "your_block": "Blocul tău",
+        "your_plan": "Planul apartamentului tău · apasă pentru a mări", "your_block": "Blocul tău",
         "s2_plan_title": "Cum arată pe un plan asemănător",
         "devices": {"L": "Grup de iluminat", "P": "Panou de comandă", "T": "Zonă de temperatură", "W": "Senzor de inundație",
                     "S": "Senzor de fum", "M": "Senzor de mișcare", "C": "Motor de jaluzea", "A": "Zonă audio",
@@ -381,7 +384,7 @@ LAGMAR_VIS = {
         "tabs": {"2": "2 rooms · 46 m²", "3": "3 rooms · 82 m²", "4": "4 rooms · 99 m²"},
         "plan_alt": "Floor plan of a typical {n}-room Lagmar apartment",
         "example_note": "Illustration: indicative layout on a typical Lagmar floor plan. The exact design follows a visit to your apartment.",
-        "your_plan": "Your apartment's floor plan", "your_block": "Your block",
+        "your_plan": "Your apartment's floor plan · tap to enlarge", "your_block": "Your block",
         "s2_plan_title": "How it looks on a similar floor plan",
         "devices": {"L": "Lighting group", "P": "Control panel", "T": "Climate zone", "W": "Leak sensor",
                     "S": "Smoke sensor", "M": "Motion sensor", "C": "Blind motor", "A": "Audio zone",
@@ -518,8 +521,8 @@ def head_html(lang, key, title, desc, extra_jsonld=None):
 <link rel="icon" href="../assets/img/favicon-16.png" sizes="16x16">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 <script>try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}}catch(e){{}}</script>
 {FONT_PRELOAD[lang]}<link rel="stylesheet" href="../assets/css/style.min.css?v={CSS_VER}">
 {jsonld_html}'''
@@ -543,7 +546,6 @@ def nav_html(lang, current):
   <div class="wrap bar">
     <a class="brand" href="index.html">
       <span class="brand-name">SmartSpace</span>
-      <span class="by">by <img src="../assets/img/favicon-32.png" alt="" width="14" height="14"> GRENTON</span>
     </a>
     <nav class="main" aria-label="{NAV_ARIA[lang]}">
       {''.join(links)}
@@ -558,7 +560,7 @@ def nav_html(lang, current):
     </div>
   </div>
 </header>
-<script>(function(){{var b=document.querySelector(".theme-toggle");if(!b)return;var m=window.matchMedia("(prefers-color-scheme: dark)");b.addEventListener("click",function(){{var r=document.documentElement,cur=r.dataset.theme||(m.matches?"dark":"light"),n=cur==="dark"?"light":"dark";r.dataset.theme=n;try{{localStorage.setItem("theme",n)}}catch(e){{}}}});}})();</script>'''
+<script>(function(){{var a=document.querySelector("nav.main a.active"),n=a&&a.closest("nav");if(n&&n.scrollWidth>n.clientWidth)n.scrollLeft=Math.max(0,a.offsetLeft-24);var b=document.querySelector(".theme-toggle");if(!b)return;var m=window.matchMedia("(prefers-color-scheme: dark)");b.addEventListener("click",function(){{var r=document.documentElement,cur=r.dataset.theme||(m.matches?"dark":"light"),n=cur==="dark"?"light":"dark";r.dataset.theme=n;try{{localStorage.setItem("theme",n)}}catch(e){{}}}});}})();</script>'''
 
 
 VIBER_URL = "viber://chat?number=%2B" + WA_NUMBER
@@ -652,12 +654,12 @@ def mbar_html(lang, key):
     href = "#step1" if key == "lagmar" else "lagmar.html#step1"
     return (f'<nav class="mbar" aria-label="{esc(calc)}"><a class="mbar-calc" href="{href}">{ico("arrow")}{esc(calc)}</a>'
             f'<a href="tel:{PHONE_TEL}">{ico("phone")}{esc(call)}</a>'
-            f'<a class="mbar-wa" href="https://wa.me/{WA_NUMBER}" target="_blank" rel="noopener" aria-label="WhatsApp">{ico("chat")}<span>WhatsApp</span></a>'
+            f'<a class="mbar-wa" href="https://wa.me/{WA_NUMBER}" target="_blank" rel="noopener" aria-label="WhatsApp">{ico("chat")}<span>WA</span></a>'
             f'<a class="mbar-vb" href="{VIBER_URL}" aria-label="Viber">{ico("chat")}<span>Viber</span></a></nav>')
 FT = {
-    "ro": {"contact": "Contact", "pages": "Pagini", "cx": "Complexe", "legal": "Documente", "hours": "Lu–Vi 9:00–18:00 · Sâ 10:00–14:00"},
-    "ru": {"contact": "Контакты", "pages": "Страницы", "cx": "Комплексы", "legal": "Документы", "hours": "Пн–Пт 9:00–18:00 · Сб 10:00–14:00"},
-    "en": {"contact": "Contact", "pages": "Pages", "cx": "Complexes", "legal": "Legal", "hours": "Mon–Fri 9:00–18:00 · Sat 10:00–14:00"},
+    "ro": {"contact": "Contact", "pages": "Pagini", "cx": "Complexe", "legal": "Documente", "hours": "Lu–Vi 9:00–18:00 · Sâ 10:00–14:00"},
+    "ru": {"contact": "Контакты", "pages": "Страницы", "cx": "Комплексы", "legal": "Документы", "hours": "Пн–Пт 9:00–18:00 · Сб 10:00–14:00"},
+    "en": {"contact": "Contact", "pages": "Pages", "cx": "Complexes", "legal": "Legal", "hours": "Mon–Fri 9:00–18:00 · Sat 10:00–14:00"},
 }
 
 
@@ -809,7 +811,15 @@ LAGMAR_JS = r"""
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   }
+  function syncBar(txt, href) {  // phone action bar follows the funnel: step 1 -> package -> request with the price
+    var a = document.querySelector(".mbar-calc"); if (!a) return;
+    if (!a.dataset.def) a.dataset.def = a.lastChild.textContent;
+    a.lastChild.textContent = txt || a.dataset.def; a.setAttribute("href", href || "#step1");
+  }
+  function near(el) { var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches; el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" }); }
+  if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { document.body.classList.toggle("form-in", es[0].isIntersecting); }, { rootMargin: "0px 0px -12% 0px" }).observe($("cfg-form"));
   function resetBelow() {
+    syncBar();
     state.tariff = null; state.rooms = null; state.roomsActual = null; state.area = null; state.floor = null;
     show($("step2"), false); show($("step3"), false); show($("cfg-result"), false); show($("cfg-form"), true);
     show($("cfg-aptcard"), false);
@@ -837,6 +847,7 @@ LAGMAR_JS = r"""
     d.blocks.forEach(function (b) { var o = document.createElement("option"); o.value = b; o.textContent = b + " · " + d.bstats[b][0] + " " + UI.mkt_apts; sel.appendChild(o); });
   }
   function setComplex(cx, keep) {
+    if (!keep) hideFallbacks();
     if (!UI.cxdata[cx]) return;
     CX = cx; state.cx = cx;
     Array.prototype.forEach.call(document.querySelectorAll(".cx-opt"), function (b) { b.setAttribute("aria-checked", b.dataset.cx === cx ? "true" : "false"); });
@@ -876,12 +887,13 @@ LAGMAR_JS = r"""
     keys.forEach(function (k) { opts += UI.opt_prices[k] || 0; });
     var pkg = state.tariff && state.rooms && UI.price_num[String(state.rooms)] ? UI.price_num[String(state.rooms)][state.tariff] : null;
     show($("sum-empty"), !pkg); show($("sum-rows"), !!pkg); show($("sum-go"), !!pkg);
-    if (!pkg) return null;
+    if (!pkg) { if (state.rooms) syncBar($("cfg-to-step2").textContent.trim(), "#step2"); return null; }
     var eq = UI.equip_num[String(state.rooms)][state.tariff] + opts / (1 + UI.prog_share);
     var total = pkg + opts, promo = Math.round((total - eq * UI.promo_pct / 100) / 10) * 10;
     $("sum-pkg-l").textContent = M.sum_pkg + " " + (PK.labels[state.tariff] || "");
     $("sum-pkg").textContent = eur(pkg); $("sum-opts").textContent = opts ? "+" + eur(opts) : "—";
     $("sum-old").textContent = eur(total); $("sum-total").textContent = eur(promo);
+    syncBar((PK.labels[state.tariff] || "") + " · " + eur(promo), "#step3");
     Array.prototype.forEach.call(document.querySelectorAll(".offer-inline .oc"), function (c) { c.hidden = c.dataset.oc !== String(state.rooms) + "-" + state.tariff; });
     pulse($("sum-total")); pulse($("rc-total"));
     var apt = state.building ? UI.block_word + " " + state.building + (state.apt ? " · " + (LANG === "ru" ? "№ " : LANG === "ro" ? "ap. " : "apt ") + state.apt : "") : "";
@@ -931,8 +943,9 @@ LAGMAR_JS = r"""
   })();
   $("cfg-to-step2").addEventListener("click", function () { scrollTo($("step2")); });
   $("cfg-no-number").addEventListener("click", function () {
-    hideFallbacks();
-    show($("cfg-notfound-text"), false); show($("cfg-manual"), true); scrollTo($("cfg-manual"));
+    hideFallbacks(); resetBelow();
+    show($("cfg-found"), false); state.apt = "";
+    show($("cfg-notfound-text"), false); show($("cfg-manual"), true); near($("cfg-manual"));
   });
   (function () {
     var qs = new URLSearchParams(location.search), pc = qs.get("c") === "2" ? "2" : "1";
@@ -971,6 +984,9 @@ LAGMAR_JS = r"""
   function showAptCard(found) {
     var plan = $("cfg-plan-img"), blk = $("cfg-block-img");
     var pfig = plan.closest("figure");
+    plan.tabIndex = 0; plan.setAttribute("role", "button");
+    plan.onclick = function () { if (plan.src) window.open(plan.src, "_blank", "noopener"); };
+    plan.onkeydown = function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); plan.onclick(); } };
     if (found.p) { plan.src = UI.plan_url + found.p + ".jpg"; plan.alt = UI.your_plan + " — " + found.b + "/" + found.n; show(pfig, true); }
     else { plan.removeAttribute("src"); show(pfig, false); }
     blk.src = (CX === "1" ? "../assets/lagmar/blocks/" : "../assets/lagmar/sh2/blocks/") + found.b + ".webp"; blk.alt = UI.block_word + " " + found.b;
@@ -1000,7 +1016,6 @@ LAGMAR_JS = r"""
         state.tariff = tier; recalc();
         setTier($("s2-" + state.rooms), tier);
         show($("step3"), true);
-        scrollTo($("cfg-opts-title"));
       });
       wrap.appendChild(card);
     });
@@ -1046,7 +1061,7 @@ LAGMAR_JS = r"""
       });
     }
     sel.onchange = draw; draw();
-    show($("cfg-floorpick"), true);
+    show($("cfg-floorpick"), true); near($("cfg-floorpick"));
   }
   $("cfg-by-floor").addEventListener("click", function () {
     var b = $("cfg-building").value; resetBelow(); hideFallbacks(); show($("cfg-manual"), false); show($("cfg-found"), false);
@@ -1061,7 +1076,8 @@ LAGMAR_JS = r"""
     show($("cfg-manual"), false); show($("cfg-found"), false); show($("cfg-notfound-text"), true);
     state.building = b; state.apt = n;
     if (!b) { $("cfg-found").textContent = UI.choose_building; show($("cfg-found"), true); $("cfg-building").focus(); return; }
-    if (!n) { show($("cfg-manual"), true); return; }
+    if (!n) { $("cfg-notfound-text").textContent = UI.need_number; show($("cfg-manual"), true); $("cfg-apt").focus(); return; }
+    $("cfg-notfound-text").textContent = UI.not_found_text;
     var cx = CX;
     loadApts(cx, function (apts) {
       if (cx !== CX) return;
@@ -1069,7 +1085,7 @@ LAGMAR_JS = r"""
       for (var i = 0; apts && i < apts.length; i++) { if (apts[i].b === b && apts[i].n === n) { found = apts[i]; break; } }
       if (found) {
         var fl = String(found.f) === "0" ? UI.floor_ground : (UI.floor_word + "\u00a0" + found.f);
-        $("cfg-found").textContent = UI.found_prefix + " " + UI.cx[cx][0] + "\u00a0· " + UI.building_label + "\u00a0" + b + "\u00a0· " + fl + "\u00a0· " + roomsTxt(found.r) + "\u00a0· " + fmtArea(found.a) + "\u00a0" + UI.area_word;
+        $("cfg-found").textContent = UI.found_prefix + " " + (LANG === "ru" ? "кв." : LANG === "ro" ? "ap." : "apt") + "\u00a0" + found.n + "\u00a0· " + UI.cx[cx][0] + "\u00a0· " + UI.building_label + "\u00a0" + b + "\u00a0· " + fl + "\u00a0· " + roomsTxt(found.r) + "\u00a0· " + fmtArea(found.a) + "\u00a0" + UI.area_word;
         show($("cfg-found"), true);
         markBlock(b);
         showAptCard(found);
@@ -1084,7 +1100,7 @@ LAGMAR_JS = r"""
             $("cfg-old-q").textContent = UI.num.old_q.replace("{o}", n).replace("{n}", hit.n).replace("{fl}", floorName(hit.f)).replace("{r}", hit.r).replace("{a}", fmtArea(hit.a));
             $("cfg-old-yes").onclick = function () { pickApt(hit.n); };
             $("cfg-old-no").onclick = function () { show($("cfg-oldnum"), false); openFloorPick(b, n, apts); };
-            show($("cfg-oldnum"), true);
+            show($("cfg-oldnum"), true); near($("cfg-oldnum")); $("cfg-old-yes").focus({ preventScroll: true });
           } else { openFloorPick(b, n, apts); }
         });
       } else {
@@ -1094,13 +1110,13 @@ LAGMAR_JS = r"""
   }
 
   $("cfg-search").addEventListener("submit", function (ev) { ev.preventDefault(); doFind(); });
-  $("cfg-building").addEventListener("change", function () { markBlock($("cfg-building").value); show($("cfg-found"), false); show($("cfg-manual"), false); resetBelow(); });
-  $("cfg-apt").addEventListener("input", function () { show($("cfg-found"), false); show($("cfg-manual"), false); resetBelow(); });
+  $("cfg-building").addEventListener("change", function () { hideFallbacks(); markBlock($("cfg-building").value); show($("cfg-found"), false); show($("cfg-manual"), false); resetBelow(); });
+  $("cfg-apt").addEventListener("input", function () { hideFallbacks(); show($("cfg-found"), false); show($("cfg-manual"), false); resetBelow(); });
   Array.prototype.forEach.call(document.querySelectorAll(".cfg-room-btn"), function (btn) {
     btn.addEventListener("click", function () {
       Array.prototype.forEach.call(document.querySelectorAll(".cfg-room-btn"), function (x) { x.setAttribute("aria-pressed", "false"); });
       btn.setAttribute("aria-pressed", "true");
-      state.found = false;
+      state.found = false; state.apt = ""; show($("cfg-found"), false); show($("cfg-aptcard"), false);
       showStep2(parseInt(btn.dataset.rooms, 10), null, null);
     });
   });
@@ -1320,8 +1336,10 @@ def lagmar_blocks_html(lang, stats, cx="1", blocks=None):
         + (f'<small class="blk-meta"><b>{stats[b][0]}</b> {m["apts"]}<br><span class="nowrap">{floor_w} {stats[b][1]}–{stats[b][2]}</span></small>' if b in stats else "")
         + '</button>'
         for b in blocks)
+    off = [o["b"] for o in _load_json(SITEPLANS[cx])["blocks"] if o["b"] not in stats]
+    off_note = "".join(f'<p class="cfg-hint blk-off">{SP_SIDE[lang]["off"].replace("{b}", b)}</p>' for b in off)
     return (f'<p class="cfg-note"><b>{v["blocks_title"]}.</b> {v["blocks_sub"]}</p>'
-            f'<div class="blk-row" style="--n:{len(blocks)}">{tiles}</div>' + siteplan_html(lang, stats, cx))
+            f'<div class="blk-row" style="--n:{len(blocks)}">{tiles}</div>' + off_note + siteplan_html(lang, stats, cx))
 
 
 SP_SIDE = {
@@ -1824,7 +1842,7 @@ SITE_JS = r"""
       requestAnimationFrame(function () {
         var y = window.scrollY, dy = y - lastY;
         if (y < hdr.offsetHeight * 2 || dy < -2 || hdr.contains(d.activeElement)) root.classList.remove("hdr-hidden");
-        else if (dy > 6) root.classList.add("hdr-hidden");
+        else if (dy > 6 && window.innerWidth <= 1260) root.classList.add("hdr-hidden");
         lastY = y; ticking = false;
       });
     }, { passive: true });
@@ -2594,6 +2612,7 @@ def legacy_redirect_html(target):
 <meta charset="utf-8">
 <meta name="robots" content="noindex">
 <meta http-equiv="refresh" content="0; url={target}">
+<link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32">
 <link rel="canonical" href="{target}">
 <title>→ {target}</title>
 </head>

@@ -23,10 +23,10 @@
 <link rel="icon" href="../assets/img/favicon-16.png" sizes="16x16">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
-<link rel="preload" href="../assets/fonts/dmsans-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=fdb8ee8e">
+<link rel="preload" href="../assets/fonts/dmsans-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=e6acd868">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://smartspace.md/#org", "name": "SmartSpace", "url": "https://smartspace.md/", "telephone": "+37378202020", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "sameAs": ["https://smartspace.md/", "https://smartlight.md/"]}</script>
 </head>
 <body class="theme-lagmar">
@@ -36,7 +36,6 @@
   <div class="wrap bar">
     <a class="brand" href="index.html">
       <span class="brand-name">SmartSpace</span>
-      <span class="by">by <img src="../assets/img/favicon-32.png" alt="" width="14" height="14"> GRENTON</span>
     </a>
     <nav class="main" aria-label="Main menu">
       <a href="index.html">Home</a><a href="lagmar.html">Get a quote</a><a href="features.html">Features</a><a href="scenarios.html">Scenes</a><a class="active" href="how.html">How it works</a><a href="contact.html">Contact</a>
@@ -51,7 +50,7 @@
     </div>
   </div>
 </header>
-<script>(function(){var b=document.querySelector(".theme-toggle");if(!b)return;var m=window.matchMedia("(prefers-color-scheme: dark)");b.addEventListener("click",function(){var r=document.documentElement,cur=r.dataset.theme||(m.matches?"dark":"light"),n=cur==="dark"?"light":"dark";r.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}});})();</script>
+<script>(function(){var a=document.querySelector("nav.main a.active"),n=a&&a.closest("nav");if(n&&n.scrollWidth>n.clientWidth)n.scrollLeft=Math.max(0,a.offsetLeft-24);var b=document.querySelector(".theme-toggle");if(!b)return;var m=window.matchMedia("(prefers-color-scheme: dark)");b.addEventListener("click",function(){var r=document.documentElement,cur=r.dataset.theme||(m.matches?"dark":"light"),n=cur==="dark"?"light":"dark";r.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}});})();</script>
 <main id="main" tabindex="-1">
 <section class="hero hero-media">
   <div class="wrap hero-media-grid">
@@ -113,7 +112,7 @@
     <div class="ft-grid">
       <div class="ft-col"><h2>Contact</h2>
         <p><a href="tel:+37378202020">+373 78 202 020</a><br><a href="mailto:office@smartspace.md">office@smartspace.md</a></p>
-        <p>SmartSpace · Strada Pajurii 11<br>MD-2059 Chișinău</p><p>Mon–Fri 9:00–18:00 · Sat 10:00–14:00</p></div>
+        <p>SmartSpace · Strada Pajurii 11<br>MD-2059 Chișinău</p><p>Mon–Fri 9:00–18:00 · Sat 10:00–14:00</p></div>
       <div class="ft-col"><h2>Pages</h2><ul><li><a href="index.html">Home</a></li><li><a href="lagmar.html">Get a quote</a></li><li><a href="features.html">Features</a></li><li><a href="scenarios.html">Scenes</a></li><li><a href="how.html">How it works</a></li><li><a href="contact.html">Contact</a></li></ul></div>
       <div class="ft-col"><h2>Complexes</h2><ul><li><a href="lagmar.html?c=1#step1">Smart Home 1</a></li><li><a href="lagmar.html?c=2#step1">Smart Home 2</a></li></ul></div>
       <div class="ft-col"><h2>Legal</h2><ul><li><a href="https://smartspace.md/privacy" rel="noopener">Privacy policy</a></li></ul></div>
@@ -122,7 +121,7 @@
   </div>
   <div class="ft-word" aria-hidden="true">Smart Home</div>
 </footer>
-<nav class="mbar" aria-label="Get a price"><a class="mbar-calc" href="lagmar.html#step1"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>Get a price</a><a href="tel:+37378202020"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>Call</a><a class="mbar-wa" href="https://wa.me/37378202020" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chat"/></svg><span>WhatsApp</span></a><a class="mbar-vb" href="viber://chat?number=%2B37378202020" aria-label="Viber"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chat"/></svg><span>Viber</span></a></nav>
+<nav class="mbar" aria-label="Get a price"><a class="mbar-calc" href="lagmar.html#step1"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>Get a price</a><a href="tel:+37378202020"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>Call</a><a class="mbar-wa" href="https://wa.me/37378202020" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chat"/></svg><span>WA</span></a><a class="mbar-vb" href="viber://chat?number=%2B37378202020" aria-label="Viber"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chat"/></svg><span>Viber</span></a></nav>
 <script>
 (function () {
   var d = document, each = function (l, f) { Array.prototype.forEach.call(l, f); };
@@ -142,7 +141,7 @@
       requestAnimationFrame(function () {
         var y = window.scrollY, dy = y - lastY;
         if (y < hdr.offsetHeight * 2 || dy < -2 || hdr.contains(d.activeElement)) root.classList.remove("hdr-hidden");
-        else if (dy > 6) root.classList.add("hdr-hidden");
+        else if (dy > 6 && window.innerWidth <= 1260) root.classList.add("hdr-hidden");
         lastY = y; ticking = false;
       });
     }, { passive: true });
