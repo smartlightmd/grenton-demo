@@ -536,8 +536,8 @@ def nav_html(lang, current):
     labels = NAV_LABELS[lang]
     links = []
     for key in PAGE_ORDER:
-        cls = ' class="active"' if key == current else ""
-        links.append(f'<a{cls} href="{PAGE_FILE[key]}">{labels[key]}</a>')
+        cls = " ".join(c for c in ("active" if key == current else "", "nav-cta" if key == "lagmar" else "") if c)
+        links.append(f'<a{(' class="' + cls + '"') if cls else ""} href="{PAGE_FILE[key]}">{labels[key]}</a>')
     lang_links = []
     for l in LANGS:
         cls = ' class="active"' if l == lang else ""
@@ -566,6 +566,11 @@ def nav_html(lang, current):
 VIBER_URL = "viber://chat?number=%2B" + WA_NUMBER
 
 
+SL_STRIP = {
+    "ro": "Alegi și corpurile de iluminat? Salonul nostru SmartLight te ajută să le alegi și le leagă la casa inteligentă.",
+    "ru": "Выбираете и светильники? Наш салон SmartLight поможет подобрать их и подключит к умному дому.",
+    "en": "Choosing light fittings too? Our SmartLight showroom helps you pick them and connects them to the smart home.",
+}
 CLOSING_Q = {"ru": "Удобнее обсудить по телефону?", "ro": "Preferi să vorbim la telefon?", "en": "Rather talk it through?"}
 
 
@@ -1006,7 +1011,10 @@ LAGMAR_JS = r"""
       var body = document.createElement("div"); body.className = "body";
       var h3 = document.createElement("h3"); h3.textContent = PK.labels[tier] || tier;
       if (tier === "comfort") { var b = document.createElement("span"); b.className = "badge-rec"; b.textContent = PK.labels.recommended || ""; h3.appendChild(b); }
-      var pr = document.createElement("p"); pr.className = "tariff-price"; var px = PK.price_txt && PK.price_txt[String(cls)]; if (px) { var pb = document.createElement("b"); pb.textContent = px[tier]; var ps = document.createElement("small"); ps.textContent = PK.labels.price_vat; pr.appendChild(pb); pr.appendChild(ps); } else { pr.textContent = PK.labels.price_note || ""; }
+      var pr = document.createElement("p"); pr.className = "tariff-price"; var px = PK.price_txt && PK.price_txt[String(cls)]; if (px) { var pb = document.createElement("b"), ps = document.createElement("small"), full = UI.price_num[String(cls)] && UI.price_num[String(cls)][tier], eqp = UI.equip_num[String(cls)] && UI.equip_num[String(cls)][tier];
+        if (full && eqp && UI.promo_pct) { var old = document.createElement("s"); old.textContent = eur(full); pb.textContent = eur(Math.round((full - eqp * UI.promo_pct / 100) / 10) * 10); pr.appendChild(pb); pr.appendChild(document.createTextNode(" ")); pr.appendChild(old); ps.textContent = UI.mkt.promo_caption + " · " + PK.labels.price_vat; }
+        else { pb.textContent = px[tier]; pr.appendChild(pb); ps.textContent = PK.labels.price_vat; }
+        pr.appendChild(ps); } else { pr.textContent = PK.labels.price_note || ""; }
       var ul = document.createElement("ul"); ul.className = "tariff-list";
       (cat[tier] || []).forEach(function (t) { var li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
       body.appendChild(h3); body.appendChild(pr); body.appendChild(ul); card.appendChild(body);
@@ -1554,7 +1562,7 @@ def lagmar_page_html(lang, packages_all):
                               "url": "../" + APTS_FILES[cx] + "?v=" + d["ver"]} for cx, d in cxd.items()},
                  plan_url=PLAN_URL, mkt_apts=LAGMAR_MKT[lang]["apts"], range_hint=LAGMAR_MKT[lang]["range_hint"], num=NUM_TXT[lang],
                  oldnum_url="../assets/data/sh1-oldnum.json",
-                 mkt={k: LAGMAR_MKT[lang][k] for k in ("sum_pkg", "sum_opts", "sum_total", "sum_promo", "pick_pkg_first", "opt_add", "opt_added", "recap_none")},
+                 mkt={k: LAGMAR_MKT[lang][k] for k in ("sum_pkg", "sum_opts", "sum_total", "sum_promo", "promo_caption", "pick_pkg_first", "opt_add", "opt_added", "recap_none")},
                  opt_names={k: t for k, (t, _d) in LAGMAR_MKT[lang]["options"].items()}, area_unit={"ru": "м²"}.get(lang, "m²"),
                  opt_prices=OPTION_PRICES, promo_pct=PROMO_PCT, prog_share=PROGRAMMING_SHARE, price_num=PRICES, equip_num=EQUIPMENT)
     bst = cxd["1"]["stats"]
@@ -1920,7 +1928,7 @@ SITE_JS = r"""
   var VT = { ru: ["Пауза", "Воспроизвести"], ro: ["Pauză", "Redă"], en: ["Pause", "Play"] }[d.documentElement.lang] || ["Pause", "Play"];
   // the Lagmar hero loop shows only once it really plays; the photo underneath stays the fallback
   each(d.querySelectorAll("video.lg-hero-vid"), function (v) { v.addEventListener("playing", function () { v.classList.add("is-on"); }); });
-  each(d.querySelectorAll("video.vhero-video, video.hero-media-vid, video.lg-hero-vid"), function (v) {
+  each(d.querySelectorAll("video.film-video, video.hero-media-vid, video.lg-hero-vid"), function (v) {
     var b = d.createElement("button"); b.type = "button"; b.className = "vid-toggle";
     function sync() { var playing = !v.paused; b.setAttribute("aria-label", playing ? VT[0] : VT[1]); b.setAttribute("aria-pressed", playing ? "false" : "true");
       b.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#i-' + (playing ? "pause" : "play") + '"/></svg>'; }
@@ -2363,18 +2371,15 @@ def home_page_html(lang, packages_all):
   </div>
 </section>
 
-<section class="vhero" id="film">
-  {gvideo("hero", "hero-poster", h3["video_label"], "vhero-video")}
-  <div class="wrap vhero-inner">
-    <div class="vhero-copy">
-      <span class="eyebrow">{h["eyebrow"]}</span>
-      <h2 class="vhero-title">{h["h1"]}</h2>
-      <p class="lead">{h["lead"]}</p>
-      <div class="cta-row cta-left">
-        <a class="btn btn-outline-light" href="features.html">{h["cta2"]} {ico("arrow")}</a>
-      </div>
-      <ul class="trust">{trust}</ul>
+<section class="block film" id="film">
+  <div class="wrap split film-split">
+    <div class="rv">
+      <h2 class="h2">{h["h1"]}</h2>
+      <p class="sub">{h["lead"]}</p>
+      <ul class="trust film-trust">{trust}</ul>
+      <a class="btn btn-ghost" href="features.html">{h["cta2"]} {ico("arrow")}</a>
     </div>
+    <div class="hero-media-visual film-media rv">{gvideo("hero", "hero-poster", h3["video_label"], "film-video")}</div>
   </div>
 </section>
 
@@ -2404,21 +2409,9 @@ def home_page_html(lang, packages_all):
 
 {app_html(lang, cls="app-home")}
 
-<section class="sl-banner" aria-label="SmartLight">
-  <div class="wrap sl-inner">
-    <div class="sl-copy rv">
-      <span class="sl-wordmark">SMART<b>LIGHT</b></span>
-      <span class="sl-eyebrow">{h["sl_eyebrow"]}</span>
-      <h2>{h["sl_title"]}</h2>
-      <p>{h["sl_text"]}</p>
-      <ul class="sl-brands">{sl_brands}</ul>
-      <a class="btn sl-btn" href="{sl_href}" target="_blank" rel="noopener">{h["sl_cta"]} {ico("ext")}</a>
-    </div>
-    <div class="sl-photo rv">
-      <img src="../assets/smartlight/banner-960.jpg" srcset="../assets/smartlight/banner-960.jpg 960w, ../assets/smartlight/banner.jpg 1440w" sizes="(max-width: 860px) 100vw, 40vw" width="960" height="1200" alt="Vibia Array — SmartLight" loading="lazy">
-      <img class="sl-product" src="../assets/smartlight/taccia.jpg" width="600" height="840" alt="Flos Taccia — SmartLight" loading="lazy">
-    </div>
-  </div>
+<section class="sl-strip" aria-label="SmartLight">
+  <div class="wrap sl-strip-in"><span class="sl-wordmark">SMART<b>LIGHT</b></span><p>{SL_STRIP[lang]}</p>
+    <a class="link-arrow" href="{sl_href}" target="_blank" rel="noopener">{h["sl_cta"]} {ico("ext")}</a></div>
 </section>'''
     return shell(lang, "home", h["title"], body)
 

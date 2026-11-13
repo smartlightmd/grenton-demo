@@ -26,7 +26,7 @@
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
-<link rel="preload" href="../assets/fonts/inter-cyrillic.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=e6acd868">
+<link rel="preload" href="../assets/fonts/inter-cyrillic.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=e2bbda07">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://smartspace.md/#org", "name": "SmartSpace", "url": "https://smartspace.md/", "telephone": "+37378202020", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "sameAs": ["https://smartspace.md/", "https://smartlight.md/"]}</script>
 </head>
 <body class="theme-lagmar">
@@ -38,7 +38,7 @@
       <span class="brand-name">SmartSpace</span>
     </a>
     <nav class="main" aria-label="Основное меню">
-      <a class="active" href="index.html">Главная</a><a href="lagmar.html">Подобрать и рассчитать</a><a href="features.html">Возможности</a><a href="scenarios.html">Сценарии</a><a href="how.html">Как это работает</a><a href="contact.html">Контакты</a>
+      <a class="active" href="index.html">Главная</a><a class="nav-cta" href="lagmar.html">Подобрать и рассчитать</a><a href="features.html">Возможности</a><a href="scenarios.html">Сценарии</a><a href="how.html">Как это работает</a><a href="contact.html">Контакты</a>
     </nav>
     <div class="controls">
       <div class="langs"><a href="../ro/index.html" hreflang="ro">RO</a><a class="active" href="../ru/index.html" hreflang="ru">RU</a><a href="../en/index.html" hreflang="en">EN</a></div>
@@ -67,17 +67,15 @@
   </div>
 </section>
 
-<section class="vhero" id="film">
-  <video class="vid vhero-video" muted loop playsinline preload="none" data-auto poster="../assets/grenton/hero-poster.webp" width="1280" height="720" aria-label="Интерьеры с панелями управления" data-src-mobile="../assets/grenton/hero-mobile.mp4"><source src="../assets/grenton/hero.mp4" type="video/mp4"></video>
-  <div class="wrap vhero-inner">
-    <div class="vhero-copy">
-      <h2 class="vhero-title">Квартира, которая сама включает свет, тепло и шторы</h2>
-      <p class="lead">Квартира в Lagmar Smart Home становится умной: свет по сценариям, тепло по расписанию, защита от протечки и управление с телефона. SmartSpace проектирует, монтирует и обслуживает систему под ключ.</p>
-      <div class="cta-row cta-left">
-        <a class="btn btn-outline-light" href="features.html">Что умеет система <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
-      </div>
-      <ul class="trust"><li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-shield"/></svg>Контроллер уже в каждой квартире</li><li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-wifi"/></svg>Работает без интернета</li><li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tools"/></svg>Проект, монтаж и сервис</li></ul>
+<section class="block film" id="film">
+  <div class="wrap split film-split">
+    <div class="rv">
+      <h2 class="h2">Квартира, которая сама включает свет, тепло и шторы</h2>
+      <p class="sub">Квартира в Lagmar Smart Home становится умной: свет по сценариям, тепло по расписанию, защита от протечки и управление с телефона. SmartSpace проектирует, монтирует и обслуживает систему под ключ.</p>
+      <ul class="trust film-trust"><li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-shield"/></svg>Контроллер уже в каждой квартире</li><li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-wifi"/></svg>Работает без интернета</li><li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tools"/></svg>Проект, монтаж и сервис</li></ul>
+      <a class="btn btn-ghost" href="features.html">Что умеет система <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
     </div>
+    <div class="hero-media-visual film-media rv"><video class="vid film-video" muted loop playsinline preload="none" data-auto poster="../assets/grenton/hero-poster.webp" width="1280" height="720" aria-label="Интерьеры с панелями управления" data-src-mobile="../assets/grenton/hero-mobile.mp4"><source src="../assets/grenton/hero.mp4" type="video/mp4"></video></div>
   </div>
 </section>
 
@@ -164,21 +162,9 @@
   </div>
 </section>
 
-<section class="sl-banner" aria-label="SmartLight">
-  <div class="wrap sl-inner">
-    <div class="sl-copy rv">
-      <span class="sl-wordmark">SMART<b>LIGHT</b></span>
-      <span class="sl-eyebrow">Наш салон света</span>
-      <h2>Свет, который хочется включать</h2>
-      <p>SmartLight — официальный дилер Flos, Vibia, Artemide, Davide Groppi и других европейских световых брендов. Подберём светильники к вашей квартире в Lagmar и подключим их к умному дому: свет будет управляться с панели и телефона.</p>
-      <ul class="sl-brands"><li>Flos</li><li>Vibia</li><li>Artemide</li><li>Davide Groppi</li><li>Axolight</li></ul>
-      <a class="btn sl-btn" href="https://smartlight.md/ru/?utm_source=grenton-demo&utm_medium=banner&utm_campaign=lagmar-home" target="_blank" rel="noopener">Смотреть коллекции на smartlight.md <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-ext"/></svg></a>
-    </div>
-    <div class="sl-photo rv">
-      <img src="../assets/smartlight/banner-960.jpg" srcset="../assets/smartlight/banner-960.jpg 960w, ../assets/smartlight/banner.jpg 1440w" sizes="(max-width: 860px) 100vw, 40vw" width="960" height="1200" alt="Vibia Array — SmartLight" loading="lazy">
-      <img class="sl-product" src="../assets/smartlight/taccia.jpg" width="600" height="840" alt="Flos Taccia — SmartLight" loading="lazy">
-    </div>
-  </div>
+<section class="sl-strip" aria-label="SmartLight">
+  <div class="wrap sl-strip-in"><span class="sl-wordmark">SMART<b>LIGHT</b></span><p>Выбираете и светильники? Наш салон SmartLight поможет подобрать их и подключит к умному дому.</p>
+    <a class="link-arrow" href="https://smartlight.md/ru/?utm_source=grenton-demo&utm_medium=banner&utm_campaign=lagmar-home" target="_blank" rel="noopener">Смотреть коллекции на smartlight.md <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-ext"/></svg></a></div>
 </section>
 <section class="closing closing-photo">
   <div class="wrap closing-inner">
@@ -301,7 +287,7 @@
   var VT = { ru: ["Пауза", "Воспроизвести"], ro: ["Pauză", "Redă"], en: ["Pause", "Play"] }[d.documentElement.lang] || ["Pause", "Play"];
   // the Lagmar hero loop shows only once it really plays; the photo underneath stays the fallback
   each(d.querySelectorAll("video.lg-hero-vid"), function (v) { v.addEventListener("playing", function () { v.classList.add("is-on"); }); });
-  each(d.querySelectorAll("video.vhero-video, video.hero-media-vid, video.lg-hero-vid"), function (v) {
+  each(d.querySelectorAll("video.film-video, video.hero-media-vid, video.lg-hero-vid"), function (v) {
     var b = d.createElement("button"); b.type = "button"; b.className = "vid-toggle";
     function sync() { var playing = !v.paused; b.setAttribute("aria-label", playing ? VT[0] : VT[1]); b.setAttribute("aria-pressed", playing ? "false" : "true");
       b.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#i-' + (playing ? "pause" : "play") + '"/></svg>'; }

@@ -26,7 +26,7 @@
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
-<link rel="preload" href="../assets/fonts/dmsans-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=e6acd868">
+<link rel="preload" href="../assets/fonts/dmsans-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=e2bbda07">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://smartspace.md/#org", "name": "SmartSpace", "url": "https://smartspace.md/", "telephone": "+37378202020", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "sameAs": ["https://smartspace.md/", "https://smartlight.md/"]}</script>
 </head>
 <body class="theme-lagmar">
@@ -38,7 +38,7 @@
       <span class="brand-name">SmartSpace</span>
     </a>
     <nav class="main" aria-label="Main menu">
-      <a href="index.html">Home</a><a href="lagmar.html">Get a quote</a><a href="features.html">Features</a><a class="active" href="scenarios.html">Scenes</a><a href="how.html">How it works</a><a href="contact.html">Contact</a>
+      <a href="index.html">Home</a><a class="nav-cta" href="lagmar.html">Get a quote</a><a href="features.html">Features</a><a class="active" href="scenarios.html">Scenes</a><a href="how.html">How it works</a><a href="contact.html">Contact</a>
     </nav>
     <div class="controls">
       <div class="langs"><a href="../ro/scenarios.html" hreflang="ro">RO</a><a href="../ru/scenarios.html" hreflang="ru">RU</a><a class="active" href="../en/scenarios.html" hreflang="en">EN</a></div>
@@ -294,7 +294,7 @@
   var VT = { ru: ["Пауза", "Воспроизвести"], ro: ["Pauză", "Redă"], en: ["Pause", "Play"] }[d.documentElement.lang] || ["Pause", "Play"];
   // the Lagmar hero loop shows only once it really plays; the photo underneath stays the fallback
   each(d.querySelectorAll("video.lg-hero-vid"), function (v) { v.addEventListener("playing", function () { v.classList.add("is-on"); }); });
-  each(d.querySelectorAll("video.vhero-video, video.hero-media-vid, video.lg-hero-vid"), function (v) {
+  each(d.querySelectorAll("video.film-video, video.hero-media-vid, video.lg-hero-vid"), function (v) {
     var b = d.createElement("button"); b.type = "button"; b.className = "vid-toggle";
     function sync() { var playing = !v.paused; b.setAttribute("aria-label", playing ? VT[0] : VT[1]); b.setAttribute("aria-pressed", playing ? "false" : "true");
       b.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#i-' + (playing ? "pause" : "play") + '"/></svg>'; }
