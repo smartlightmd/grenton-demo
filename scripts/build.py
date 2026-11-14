@@ -573,6 +573,10 @@ SL_STRIP = {
     "en": "Choosing light fittings too? Our SmartLight showroom helps you pick them and connects them to the smart home.",
 }
 PARTNER_LABEL = {"ro": "partener oficial", "ru": "официальный партнёр", "en": "official partner of"}
+SHOWROOM_CAP = {"ro": ("Apartament-showroom Grenton", "exemplu de interior · foto: Grenton"), "ru": ("Шоурум-квартира Grenton", "пример интерьера · фото: Grenton"),
+                "en": ("Grenton show apartment", "example interior · photo: Grenton")}
+SHOWROOM_ALT = {"ro": "Apartament-showroom cu sistem Grenton (foto: Grenton)", "ru": "Шоурум-квартира с системой Grenton (фото: Grenton)",
+                "en": "Show apartment with the Grenton system (photo: Grenton)"}
 CLOSING_Q = {"ru": "Удобнее обсудить по телефону?", "ro": "Preferi să vorbim la telefon?", "en": "Rather talk it through?"}
 
 
@@ -828,6 +832,7 @@ LAGMAR_JS = r"""
   if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { document.body.classList.toggle("form-in", es[0].isIntersecting); }, { rootMargin: "0px 0px -12% 0px" }).observe($("cfg-form"));
   function resetBelow() {
     syncBar();
+    state.opts = {}; Array.prototype.forEach.call(document.querySelectorAll('.opts-pick .opt[aria-pressed="true"]'), function (o) { o.setAttribute("aria-pressed", "false"); });
     state.tariff = null; state.rooms = null; state.roomsActual = null; state.area = null; state.floor = null;
     show($("step2"), false); show($("step3"), false); show($("cfg-result"), false); show($("cfg-form"), true);
     show($("cfg-aptcard"), false);
@@ -1183,10 +1188,11 @@ LAGMAR_JS = r"""
     if (!state.tariff || !state.rooms) { showResult(errorNode(UI.tariff_required, false)); scrollTo($("step2")); return; }
     clearFieldErrors();
     var name = $("cfg-name").value.trim();
-    if (name.length < 2) { fieldError("cfg-name", UI.error_name); return; }
-    var phone = normPhone($("cfg-phone").value);
-    if (!phone) { fieldError("cfg-phone", UI.error_phone); return; }
-    if (!$("cfg-consent").checked) { fieldError("cfg-consent", UI.error_consent); return; }
+    var phone = normPhone($("cfg-phone").value), badForm = false;
+    if (!$("cfg-consent").checked) { fieldError("cfg-consent", UI.error_consent); badForm = true; }
+    if (!phone) { fieldError("cfg-phone", UI.error_phone); badForm = true; }
+    if (name.length < 2) { fieldError("cfg-name", UI.error_name); badForm = true; }
+    if (badForm) return;
     show($("cfg-result"), false);
     btn.disabled = true; btn.textContent = UI.sending;
     var payload = {
@@ -1797,7 +1803,7 @@ G_SIZE = {"app-bedroom": (480, 709), "app-saving": (1000, 666), "bath": (1600, 8
           "kids": (1000, 1000), "kitchen": (1600, 880), "monolith-hero": (1600, 942), "monolith-wall": (800, 933),
           "multi-wall": (800, 933), "multisensor-poster": (720, 720), "multisensor": (800, 800), "office": (1600, 880),
           "oled": (800, 800), "panel-poster": (960, 540), "salon": (1600, 880), "security": (768, 512),
-          "smartpanel": (800, 800), "touch-hero": (1600, 941), "touch-wall": (772, 933)}
+          "smartpanel": (800, 800), "touch-hero": (1600, 941), "touch-wall": (772, 933), "showroom": (1080, 712)}
 G_HAS_800 = {"bath", "bedroom", "hall", "kitchen", "office", "salon", "touch-hero", "monolith-hero"}
 
 
@@ -1823,6 +1829,13 @@ def palt(lang, name):
 
 def cta_lagmar_html(lang):
     return ""  # merged into the site-wide closing (dealer_band_html)
+
+
+def hero_cta_html(lang):
+    """Primary action + the price argument for the inner pages' first screen."""
+    price = HOME_STATS[lang][1]
+    return (f'<div class="cta-row cta-left hero-cta"><a class="btn btn-primary" href="lagmar.html#step1">{HOME_LG[lang]["cta"]} {ico("arrow")}</a></div>'
+            f'<p class="hero-price"><b>{esc(price[0])}</b> · {esc(price[1])}</p>')
 
 
 def simple_hero(eyebrow, h1, lead, media="", extra=""):
@@ -2238,7 +2251,7 @@ def features_page_html(lang, packages_all):
       </div>
     </article>''')
     hero_media = gvideo("hero", "hero-poster", HOME_V3[lang]["video_label"], "hero-media-vid")
-    body = simple_hero(f["eyebrow"], f["h1"], f["lead"], hero_media) + f'''
+    body = simple_hero(f["eyebrow"], f["h1"], f["lead"], hero_media, extra=hero_cta_html(lang)) + f'''
 <section class="block alt">
   <div class="wrap frows">
     {"".join(rows)}
@@ -2266,7 +2279,7 @@ def scenarios_page_html(lang):
       </div>
     </li>''')
     hm = PAGE_HERO_MEDIA["scenarios"]
-    body = simple_hero(sc["eyebrow"], sc["h1"], sc["lead"], gimg(hm, palt(lang, hm), sizes="(max-width: 860px) 92vw, 45vw", eager=True)) + f'''
+    body = simple_hero(sc["eyebrow"], sc["h1"], sc["lead"], gimg(hm, palt(lang, hm), sizes="(max-width: 860px) 92vw, 45vw", eager=True), extra=hero_cta_html(lang)) + f'''
 {day_section_html(lang, alt=True, more=False)}
 <section class="block">
   <div class="wrap">
@@ -2295,7 +2308,7 @@ def how_page_html(lang):
     g = GAL[lang]
     t_mono, d_mono = g["items"]["monolith"]
     hm = PAGE_HERO_MEDIA["how"]
-    body = simple_hero(h["eyebrow"], h["h1"], h["lead"], gimg(hm, palt(lang, hm), sizes="(max-width: 860px) 92vw, 45vw", eager=True)) + f'''
+    body = simple_hero(h["eyebrow"], h["h1"], h["lead"], gimg(hm, palt(lang, hm), sizes="(max-width: 860px) 92vw, 45vw", eager=True), extra=hero_cta_html(lang)) + f'''
 <section class="block alt" id="interfaces">
   <div class="wrap">
     <h2 class="h2 rv">{h["layers_title"]}</h2>
@@ -2513,8 +2526,8 @@ def contact_page_html(lang):
                f'<a class="btn btn-wa" href="{wa}" target="_blank" rel="noopener">{ico("chat")}{c["wa"]}</a>'
                f'<a class="btn btn-viber" href="{VIBER_URL}">{ico("chat")}Viber</a>'
                f'</div><p class="quick-mail"><a href="mailto:{EMAIL}">{ico("mail")}{EMAIL}</a></p>')
-    media = (gimg(PAGE_HERO_MEDIA["contact"], c["showroom"], sizes="(max-width: 860px) 92vw, 40vw", eager=True)
-             + f'<div class="float-card hero-fc"><span class="mk mk-I">{ico("pin")}</span><div><b>{c["showroom"]}</b><span>Strada Pajurii 11</span></div></div>')
+    media = (gimg(PAGE_HERO_MEDIA["contact"], SHOWROOM_ALT[lang], sizes="(max-width: 860px) 92vw, 40vw", eager=True)
+             + f'<div class="float-card hero-fc"><span class="mk mk-I">{ico("pin")}</span><div><b>{SHOWROOM_CAP[lang][0]}</b><span>{SHOWROOM_CAP[lang][1]}</span></div></div>')
     topics = "".join(
         f'<button type="button" class="topic" data-topic="{k}" aria-pressed="false"><span class="mk mk-{icon}">{ico(icon)}</span>'
         f'<span><b>{t}</b><small>{s}</small></span></button>' for k, icon, t, s in c["topics"])

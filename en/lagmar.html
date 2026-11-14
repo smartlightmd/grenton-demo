@@ -26,7 +26,7 @@
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
-<link rel="preload" href="../assets/fonts/dmsans-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=784c0304">
+<link rel="preload" href="../assets/fonts/dmsans-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=cd275c3e">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://smartspace.md/#org", "name": "SmartSpace", "url": "https://smartspace.md/", "telephone": "+37378202020", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "sameAs": ["https://smartspace.md/", "https://smartlight.md/"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can the smart home be set up after the renovation is finished?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The system is wired but also supports wireless modules — in a finished apartment we use those, so there's no need to cut into walls. Ideally, though, it's planned before the finishing work."}}, {"@type": "Question", "name": "Does the smart home work without internet?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Scenes run locally on the CLU controller; internet is only needed for remote access from the myGrenton app."}}, {"@type": "Question", "name": "Who installs and services the system?", "acceptedAnswer": {"@type": "Answer", "text": "SmartSpace — Lagmar's official smart-home partner and the official Grenton representative in Moldova: design, installation, configuration and service."}}, {"@type": "Question", "name": "How long does installation take?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on the package and the finishing stage — from a few days for the basic package to a couple of weeks for full automation. Timing is confirmed after a site visit."}}, {"@type": "Question", "name": "Can I start with Basic and expand later?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, the system is modular: modules, panels and sensors are added as needed without replacing what is already installed."}}, {"@type": "Question", "name": "What is the warranty?", "acceptedAnswer": {"@type": "Answer", "text": "24 months on all the equipment we install, starting from installation."}}, {"@type": "Question", "name": "What has Lagmar already installed — and do I pay for it?", "acceptedAnswer": {"@type": "Answer", "text": "Every apartment's electrical panel already has the CLU controller, a 24 V power supply and a 2-channel relay. You don't pay for them: we connect them to the system, and the price covers only what we add."}}, {"@type": "Question", "name": "What is not included in the package price?", "acceptedAnswer": {"@type": "Answer", "text": "The price covers equipment and programming. Sensors, blind motors, audio and installation are priced in your personal quote after a visit to the apartment — before you sign anything, with no obligation."}}, {"@type": "Question", "name": "I don't know my apartment number — what now?", "acceptedAnswer": {"@type": "Answer", "text": "An old number from your contract works too — we'll tell you the new one. You can also pick your floor and tap your apartment in the list, or just enter the number of rooms."}}, {"@type": "Question", "name": "My apartment will only be ready in 2030 — why decide now?", "acceptedAnswer": {"@type": "Answer", "text": "Installation in Smart Home 2 takes place in 2030, after the building is handed over. Right now you can get the estimate and a consultation: the system is easiest to plan before the finishing work, and 10% off equipment applies to requests sent by 30 June 2027. No obligation."}}]}</script>
 </head>
 <body class="theme-lagmar">
@@ -494,6 +494,7 @@
   if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { document.body.classList.toggle("form-in", es[0].isIntersecting); }, { rootMargin: "0px 0px -12% 0px" }).observe($("cfg-form"));
   function resetBelow() {
     syncBar();
+    state.opts = {}; Array.prototype.forEach.call(document.querySelectorAll('.opts-pick .opt[aria-pressed="true"]'), function (o) { o.setAttribute("aria-pressed", "false"); });
     state.tariff = null; state.rooms = null; state.roomsActual = null; state.area = null; state.floor = null;
     show($("step2"), false); show($("step3"), false); show($("cfg-result"), false); show($("cfg-form"), true);
     show($("cfg-aptcard"), false);
@@ -849,10 +850,11 @@
     if (!state.tariff || !state.rooms) { showResult(errorNode(UI.tariff_required, false)); scrollTo($("step2")); return; }
     clearFieldErrors();
     var name = $("cfg-name").value.trim();
-    if (name.length < 2) { fieldError("cfg-name", UI.error_name); return; }
-    var phone = normPhone($("cfg-phone").value);
-    if (!phone) { fieldError("cfg-phone", UI.error_phone); return; }
-    if (!$("cfg-consent").checked) { fieldError("cfg-consent", UI.error_consent); return; }
+    var phone = normPhone($("cfg-phone").value), badForm = false;
+    if (!$("cfg-consent").checked) { fieldError("cfg-consent", UI.error_consent); badForm = true; }
+    if (!phone) { fieldError("cfg-phone", UI.error_phone); badForm = true; }
+    if (name.length < 2) { fieldError("cfg-name", UI.error_name); badForm = true; }
+    if (badForm) return;
     show($("cfg-result"), false);
     btn.disabled = true; btn.textContent = UI.sending;
     var payload = {

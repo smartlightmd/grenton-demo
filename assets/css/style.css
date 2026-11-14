@@ -2085,3 +2085,8 @@ header.site .brand-partner .lg-logo { height: 1.05rem; }
 .ft-lockup span { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255, 255, 255, .55); }
 .ft-lockup .lg-logo { height: 1.25rem; }
 header.site .brand-group { display: flex; align-items: center; gap: .65rem; min-width: 0; }
+
+/* inner pages: primary action and the price in the first screen */
+.hero-cta { margin-top: var(--sp-m); }
+.hero-price { margin: .7rem 0 0; font-size: var(--fs-sm); color: var(--ink-soft); }
+.hero-price b { color: var(--heading); font-weight: 600; }

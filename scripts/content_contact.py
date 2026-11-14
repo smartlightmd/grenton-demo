@@ -95,4 +95,4 @@ CONTACT_V3 = {
 }
 
 # unified inner-page heroes: media on the right
-PAGE_HERO_MEDIA = {"scenarios": "salon", "how": "touch-hero", "contact": "kitchen"}
+PAGE_HERO_MEDIA = {"scenarios": "salon", "how": "touch-hero", "contact": "showroom"}

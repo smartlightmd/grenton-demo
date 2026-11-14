@@ -26,7 +26,7 @@
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
-<link rel="preload" href="../assets/fonts/inter-cyrillic.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=784c0304">
+<link rel="preload" href="../assets/fonts/inter-cyrillic.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=cd275c3e">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://smartspace.md/#org", "name": "SmartSpace", "url": "https://smartspace.md/", "telephone": "+37378202020", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "sameAs": ["https://smartspace.md/", "https://smartlight.md/"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Можно ли подключить умный дом после ремонта?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Система проводная, но есть и беспроводные модули — для готового ремонта подберём их, и штробить стены не придётся. Лучше всего закладывать систему до чистовой отделки."}}, {"@type": "Question", "name": "Работает ли умный дом без интернета?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Сценарии выполняются прямо в квартире, на контроллере CLU; интернет нужен только для удалённого доступа из приложения myGrenton."}}, {"@type": "Question", "name": "Кто устанавливает и обслуживает систему?", "acceptedAnswer": {"@type": "Answer", "text": "SmartSpace — официальный партнёр Lagmar по умному дому и официальный представитель Grenton в Молдове: проектирование, монтаж, настройка и сервис."}}, {"@type": "Question", "name": "Сколько занимает монтаж?", "acceptedAnswer": {"@type": "Answer", "text": "Зависит от пакета и стадии отделки — от нескольких дней для базового пакета до пары недель для полной автоматизации. Сроки подтверждаем после осмотра квартиры."}}, {"@type": "Question", "name": "Можно начать с Basic и расширить позже?", "acceptedAnswer": {"@type": "Answer", "text": "Да, система модульная: модули, панели и датчики добавляются по мере необходимости без замены уже установленного."}}, {"@type": "Question", "name": "Какая гарантия?", "acceptedAnswer": {"@type": "Answer", "text": "24 месяца на всё оборудование, которое мы устанавливаем, — с момента установки."}}, {"@type": "Question", "name": "Что уже установил Lagmar — и платить ли за это?", "acceptedAnswer": {"@type": "Answer", "text": "В электрощите каждой квартиры уже стоят контроллер CLU, блок питания 24 В и реле на 2 канала. За них вы не платите: мы подключаем их к системе, а в цену входит только то, что добавляем мы."}}, {"@type": "Question", "name": "Что не входит в цену пакета?", "acceptedAnswer": {"@type": "Answer", "text": "В цене — оборудование и программирование. Датчики, приводы штор, аудио и монтаж считаем в персональном предложении после осмотра квартиры — до подписания и без обязательств."}}, {"@type": "Question", "name": "Не знаю номер квартиры — что делать?", "acceptedAnswer": {"@type": "Answer", "text": "Подойдёт и старый номер из договора — подскажем новый. Можно выбрать этаж и нажать на свою квартиру в списке или просто указать число комнат."}}, {"@type": "Question", "name": "Квартира будет готова только к 2030 году — зачем решать сейчас?", "acceptedAnswer": {"@type": "Answer", "text": "Монтаж в Smart Home 2 — в 2030 году, после сдачи дома. Сейчас — расчёт и консультация: систему проще всего заложить до чистовой отделки, а скидка 10% на оборудование действует при заявке до 30.06.2027. Ни к чему не обязывает."}}]}</script>
 </head>
 <body class="theme-lagmar">
@@ -494,6 +494,7 @@
   if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { document.body.classList.toggle("form-in", es[0].isIntersecting); }, { rootMargin: "0px 0px -12% 0px" }).observe($("cfg-form"));
   function resetBelow() {
     syncBar();
+    state.opts = {}; Array.prototype.forEach.call(document.querySelectorAll('.opts-pick .opt[aria-pressed="true"]'), function (o) { o.setAttribute("aria-pressed", "false"); });
     state.tariff = null; state.rooms = null; state.roomsActual = null; state.area = null; state.floor = null;
     show($("step2"), false); show($("step3"), false); show($("cfg-result"), false); show($("cfg-form"), true);
     show($("cfg-aptcard"), false);
@@ -849,10 +850,11 @@
     if (!state.tariff || !state.rooms) { showResult(errorNode(UI.tariff_required, false)); scrollTo($("step2")); return; }
     clearFieldErrors();
     var name = $("cfg-name").value.trim();
-    if (name.length < 2) { fieldError("cfg-name", UI.error_name); return; }
-    var phone = normPhone($("cfg-phone").value);
-    if (!phone) { fieldError("cfg-phone", UI.error_phone); return; }
-    if (!$("cfg-consent").checked) { fieldError("cfg-consent", UI.error_consent); return; }
+    var phone = normPhone($("cfg-phone").value), badForm = false;
+    if (!$("cfg-consent").checked) { fieldError("cfg-consent", UI.error_consent); badForm = true; }
+    if (!phone) { fieldError("cfg-phone", UI.error_phone); badForm = true; }
+    if (name.length < 2) { fieldError("cfg-name", UI.error_name); badForm = true; }
+    if (badForm) return;
     show($("cfg-result"), false);
     btn.disabled = true; btn.textContent = UI.sending;
     var payload = {

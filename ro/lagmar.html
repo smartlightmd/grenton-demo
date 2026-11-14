@@ -26,7 +26,7 @@
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
-<link rel="preload" href="../assets/fonts/dmsans-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=784c0304">
+<link rel="preload" href="../assets/fonts/dmsans-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../assets/css/style.min.css?v=cd275c3e">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://smartspace.md/#org", "name": "SmartSpace", "url": "https://smartspace.md/", "telephone": "+37378202020", "address": {"@type": "PostalAddress", "streetAddress": "Strada Pajurii 11", "postalCode": "MD-2059", "addressLocality": "Chișinău", "addressCountry": "MD"}, "sameAs": ["https://smartspace.md/", "https://smartlight.md/"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Se poate monta casa inteligentă după ce renovarea e gata?", "acceptedAnswer": {"@type": "Answer", "text": "Da. Sistemul e pe cablu, dar acceptă și module wireless. Într-un apartament deja renovat le folosim pe acestea și nu spargem pereții. Ideal e totuși să planifici sistemul înainte de finisaje."}}, {"@type": "Question", "name": "Casa inteligentă merge și fără internet?", "acceptedAnswer": {"@type": "Answer", "text": "Da. Scenariile rulează în apartament, pe unitatea centrală CLU. Internetul îți trebuie doar ca să comanzi casa de la distanță, din aplicația myGrenton."}}, {"@type": "Question", "name": "Cine montează și întreține sistemul?", "acceptedAnswer": {"@type": "Answer", "text": "SmartSpace, partener oficial Lagmar pentru casa inteligentă și reprezentant oficial Grenton în Moldova. Ne ocupăm de proiectare, montaj, programare și service."}}, {"@type": "Question", "name": "Cât durează montajul?", "acceptedAnswer": {"@type": "Answer", "text": "Depinde de pachet și de stadiul finisajelor: de la câteva zile pentru pachetul de bază până la câteva săptămâni pentru o automatizare completă. Termenul exact ți-l confirmăm după ce vedem apartamentul."}}, {"@type": "Question", "name": "Pot să încep cu Basic și să extind sistemul mai târziu?", "acceptedAnswer": {"@type": "Answer", "text": "Da, sistemul e modular. Modulele, panourile și senzorii se adaugă pe parcurs, fără să schimbi ce e deja montat."}}, {"@type": "Question", "name": "Ce garanție oferiți?", "acceptedAnswer": {"@type": "Answer", "text": "24 de luni pentru toate echipamentele pe care le montăm, de la data montajului."}}, {"@type": "Question", "name": "Ce a montat deja Lagmar? Trebuie să plătesc pentru asta?", "acceptedAnswer": {"@type": "Answer", "text": "În tabloul electric al fiecărui apartament există deja unitatea centrală CLU, o sursă de alimentare de 24 V și un releu cu 2 canale. Pentru ele nu plătești nimic: noi le conectăm la sistem, iar în preț intră doar ce adăugăm."}}, {"@type": "Question", "name": "Ce nu intră în prețul pachetului?", "acceptedAnswer": {"@type": "Answer", "text": "Prețul include echipamentele și programarea. Senzorii, motoarele pentru jaluzele, sistemul audio și montajul le calculăm în oferta personalizată, după ce vedem apartamentul. O primești înainte să semnezi ceva și nu te obligă la nimic."}}, {"@type": "Question", "name": "Nu-mi știu numărul apartamentului. Ce fac?", "acceptedAnswer": {"@type": "Answer", "text": "Poți scrie numărul vechi din contract și îți spunem noi care e cel nou. Sau alegi etajul și apeși pe apartamentul tău din listă. Ori indici doar numărul de camere."}}, {"@type": "Question", "name": "Apartamentul va fi gata abia în 2030. De ce să mă hotărăsc acum?", "acceptedAnswer": {"@type": "Answer", "text": "În Smart Home 2 montăm în 2030, după darea blocului în exploatare. Acum poți primi calculul și o consultație: sistemul se montează cel mai ușor înainte de finisaje, iar reducerea de 10% la echipamente se aplică cererilor trimise până la 30.06.2027. Cererea e gratuită și nu te obligă la nimic."}}]}</script>
 </head>
 <body class="theme-lagmar">
@@ -494,6 +494,7 @@
   if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { document.body.classList.toggle("form-in", es[0].isIntersecting); }, { rootMargin: "0px 0px -12% 0px" }).observe($("cfg-form"));
   function resetBelow() {
     syncBar();
+    state.opts = {}; Array.prototype.forEach.call(document.querySelectorAll('.opts-pick .opt[aria-pressed="true"]'), function (o) { o.setAttribute("aria-pressed", "false"); });
     state.tariff = null; state.rooms = null; state.roomsActual = null; state.area = null; state.floor = null;
     show($("step2"), false); show($("step3"), false); show($("cfg-result"), false); show($("cfg-form"), true);
     show($("cfg-aptcard"), false);
@@ -849,10 +850,11 @@
     if (!state.tariff || !state.rooms) { showResult(errorNode(UI.tariff_required, false)); scrollTo($("step2")); return; }
     clearFieldErrors();
     var name = $("cfg-name").value.trim();
-    if (name.length < 2) { fieldError("cfg-name", UI.error_name); return; }
-    var phone = normPhone($("cfg-phone").value);
-    if (!phone) { fieldError("cfg-phone", UI.error_phone); return; }
-    if (!$("cfg-consent").checked) { fieldError("cfg-consent", UI.error_consent); return; }
+    var phone = normPhone($("cfg-phone").value), badForm = false;
+    if (!$("cfg-consent").checked) { fieldError("cfg-consent", UI.error_consent); badForm = true; }
+    if (!phone) { fieldError("cfg-phone", UI.error_phone); badForm = true; }
+    if (name.length < 2) { fieldError("cfg-name", UI.error_name); badForm = true; }
+    if (badForm) return;
     show($("cfg-result"), false);
     btn.disabled = true; btn.textContent = UI.sending;
     var payload = {
